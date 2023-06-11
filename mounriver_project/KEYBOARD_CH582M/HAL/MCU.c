@@ -805,12 +805,6 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
 #if (defined HAL_MPR121_TOUCHBAR) && (HAL_MPR121_TOUCHBAR == TRUE)
     HW_TouchBar_Process();
 #endif
-    // CP通信处理
-#if (defined MSG_CP) && (MSG_CP == TRUE)
-    if (g_Ready_Status.cp == TRUE) {
-      HW_MSG_CP_Process();
-    }
-#endif
     // OLED信息更新处理
 #if (defined HAL_OLED) && (HAL_OLED == TRUE)
     SW_OLED_UBStatus_Process();
@@ -1009,9 +1003,6 @@ void HAL_Init()
 #endif
 #if (defined HAL_MOTOR) && (HAL_MOTOR == TRUE)
   MOTOR_Init( );
-#endif
-#if (defined MSG_CP) && (MSG_CP == TRUE)
-  MSG_CP_Init(debug_info);
 #endif
 #if (defined HAL_RF) && (HAL_RF == TRUE) && !(defined TEST)
   DATAFLASH_Read_RForBLE( );
