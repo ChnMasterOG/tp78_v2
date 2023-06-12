@@ -2,7 +2,7 @@
 
 <h1 align="center">TrackPoint78 </h1>
 
-TrackPoint78是基于CH582M的小红点三模机械键盘方案。
+<h5 align="center">TP78是基于CH582M的小红点三模机械键盘方案</h5>
 
 **V2.0版本特性：**
 
@@ -22,7 +22,11 @@ TrackPoint78是基于CH582M的小红点三模机械键盘方案。
 
 8. 支持待机进入低功耗模式
 
-**V1.0仓库地址(以供参考)：**[ChnMasterOG/tp78: 本项目是基于CH582M的RF/蓝牙/USB三模+小红点键盘 (github.com)](https://github.com/ChnMasterOG/tp78)
+**V1.0仓库地址(以供参考)：** https://github.com/ChnMasterOG/tp78
+
+**TP78键盘视频介绍：** https://www.bilibili.com/video/BV1Ho4y1b78t
+
+**硬件资料开源地址：** https://oshwhub.com/bibilala/tp78_2022-08-31
 
 ### 仓库目录
 
@@ -54,6 +58,10 @@ A(BLE_582M) --> I(RVMSIS - RISC V相关指令)
 A(BLE_582M) --> J(Startup - CH582M启动文件)
 A(BLE_582M) --> K(StdPeriphDriver - CH582M库函数)
 ```
+
+### 视频教程
+
+**VIA改键篇(上)：** https://www.bilibili.com/video/BV1rL41167qy
 
 ### 关于固件升级Q&A
 
