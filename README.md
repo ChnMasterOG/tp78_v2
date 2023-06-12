@@ -2,31 +2,27 @@
 
 <h1 align="center">TrackPoint78 </h1>
 
-TrackPoint78是基于CH582M的三模机械键盘方案。
+TrackPoint78是基于CH582M的小红点三模机械键盘方案。
 
-V2.0新特性：
+**V2.0版本特性：**
 
-1. 支持USB U盘改键和配置
+1. 支持三模态连接切换
 
-2. 支持触摸板触摸条操作
+2. 支持USB U盘改键和配置、支持QMK VIA改键
 
-3. 集成USB hub接口
+3. 支持带震动反馈的触摸条操作、支持小红点替换触摸板操作
 
-4. 增加I2C磁吸扩展口
+4. 硬件集成USB hub接口、集成磁吸扩展口
 
-5. 集成RF模式和接收器方案
+5. 支持I2C协议小红点模块和PS/2协议小红点模块方案
 
-6. 增加I2C小红点方案
+6. 专属OLED UI库，深度优化OELD UI
 
-7. 增加触摸条震动反馈
+7. 支持Fn多种模式设置
 
-8. 优化OELD UI
+8. 支持待机进入低功耗模式
 
-9. 增加Fn+B进BootLoader功能
-
-10. 增加待机自动进lowpower模式
-
-11. ...
+**V1.0仓库地址(以供参考)：**[ChnMasterOG/tp78: 本项目是基于CH582M的RF/蓝牙/USB三模+小红点键盘 (github.com)](https://github.com/ChnMasterOG/tp78)
 
 ### 仓库目录
 
