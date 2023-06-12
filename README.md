@@ -35,8 +35,7 @@ flowchart LR
 
 A(repository) --> B(documents - 手册和文档)
 A(repository) --> C(mounriver_project - wch软件工程)
-A(repository) --> D(pcb_project - PCB工程)
-A(repository) --> E(solidworks_project - 模型相关文件)
+A(repository) --> D(firmware - 相关固件)
 A(repository) --> F(tools - 相关辅助工具)
 C(mounriver_project - wch软件工程) --> G(KEYBOARD_CH582M - 三模无线键盘工程)
 C(mounriver_project - wch软件工程) --> H(RF_CH582M - 配套接收器工程)
