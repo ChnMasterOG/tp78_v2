@@ -533,12 +533,32 @@ const unsigned char usbd_raw_hid_report_descriptor[RAW_HID_REPORT_DESC_SIZE] = {
 #define HID_STATE_BUSY 1
 
 /*!< hid state ! Data can be sent only when state is idle  */
-static volatile uint8_t hid_state = HID_STATE_IDLE;
+typedef struct _hid_state {
+    uint8_t keyboard_hid_state : 1;
+    uint8_t mouse_hid_state : 1;
+    uint8_t vol_hid_state : 1;
+    uint8_t reserved : 5;
+}hid_state_t;
+static volatile hid_state_t hid_state = {
+                                         .keyboard_hid_state = HID_STATE_IDLE,
+                                         .mouse_hid_state = HID_STATE_IDLE,
+                                         .vol_hid_state = HID_STATE_IDLE,
+};
 
 /* function ------------------------------------------------------------------*/
-static void usbd_hid_int_callback(uint8_t ep, uint32_t nbytes)
+static void usbd_hid_keyboard_int_callback(uint8_t ep, uint32_t nbytes)
 {
-    hid_state = HID_STATE_IDLE;
+    hid_state.keyboard_hid_state = HID_STATE_IDLE;
+}
+
+static void usbd_hid_mouse_int_callback(uint8_t ep, uint32_t nbytes)
+{
+    hid_state.mouse_hid_state = HID_STATE_IDLE;
+}
+
+static void usbd_hid_vol_int_callback(uint8_t ep, uint32_t nbytes)
+{
+    hid_state.vol_hid_state = HID_STATE_IDLE;
 }
 
 USB_NOCACHE_RAM_SECTION USB_MEM_ALIGNX uint8_t raw_buffer[32] = { 0 };
@@ -558,17 +578,17 @@ static void usbd_hid_raw_out_callback(uint8_t ep, uint32_t nbytes)
 
 /*!< endpoint call back */
 static struct usbd_endpoint hid_keyboard_in_ep = {
-    .ep_cb = usbd_hid_int_callback,
+    .ep_cb = usbd_hid_keyboard_int_callback,
     .ep_addr = USBD_IF0_AL0_EP0_ADDR
 };
 
 static struct usbd_endpoint hid_mouse_in_ep = {
-    .ep_cb = usbd_hid_int_callback,
+    .ep_cb = usbd_hid_mouse_int_callback,
     .ep_addr = USBD_IF1_AL0_EP0_ADDR
 };
 
 static struct usbd_endpoint hid_vol_in_ep = {
-    .ep_cb = usbd_hid_int_callback,
+    .ep_cb = usbd_hid_vol_int_callback,
     .ep_addr = USBD_IF2_AL0_EP0_ADDR
 };
 
@@ -682,10 +702,10 @@ void hid_mouse_test(void)
 {
     HIDMouse[1] = HIDMouse[2] = 5;
 
-    while (hid_state == HID_STATE_BUSY) {}
+    while (hid_state.mouse_hid_state == HID_STATE_BUSY) {}
     int ret = usbd_ep_start_write(USBD_IF1_AL0_EP0_ADDR, HIDMouse, HID_MOUSE_DATA_LENGTH);
     if (ret >= 0) {
-        hid_state = HID_STATE_BUSY;
+        hid_state.mouse_hid_state = HID_STATE_BUSY;
     }
 }
 
@@ -693,18 +713,18 @@ void hid_keyboard_test(void)
 {
     HIDKeyboard[2] = HID_KBD_USAGE_A;
 
-    while (hid_state == HID_STATE_BUSY) {}
+    while (hid_state.keyboard_hid_state == HID_STATE_BUSY) {}
     int ret = usbd_ep_start_write(USBD_IF0_AL0_EP0_ADDR, HIDKeyboard, HID_KEYBOARD_DATA_LENGTH);
     if (ret >= 0) {
-        hid_state = HID_STATE_BUSY;
+        hid_state.keyboard_hid_state = HID_STATE_BUSY;
     }
 
-    while (hid_state == HID_STATE_BUSY) {}
+    while (hid_state.keyboard_hid_state == HID_STATE_BUSY) {}
     DelayMs(30);
     HIDKeyboard[2] = 0;
     ret = usbd_ep_start_write(USBD_IF0_AL0_EP0_ADDR, HIDKeyboard, HID_KEYBOARD_DATA_LENGTH);
     if (ret >= 0) {
-        hid_state = HID_STATE_BUSY;
+        hid_state.keyboard_hid_state = HID_STATE_BUSY;
     }
 }
 #endif
@@ -727,10 +747,10 @@ tmosEvents USB_ProcessEvent( tmosTaskID task_id, tmosEvents events )
 
   if ( events & USB_KEYBOARD_EVENT )
   {
-    if (hid_state != HID_STATE_BUSY) {
+    if (hid_state.keyboard_hid_state != HID_STATE_BUSY) {
       ret = usbd_ep_start_write(USBD_IF0_AL0_EP0_ADDR, HIDKeyboard, HID_KEYBOARD_DATA_LENGTH);
       if (ret >= 0) {
-          hid_state = HID_STATE_BUSY;
+          hid_state.keyboard_hid_state = HID_STATE_BUSY;
       }
     }
     return events ^ USB_KEYBOARD_EVENT;
@@ -738,10 +758,10 @@ tmosEvents USB_ProcessEvent( tmosTaskID task_id, tmosEvents events )
 
   if ( events & USB_MOUSE_EVENT )
   {
-    if (hid_state != HID_STATE_BUSY) {
+    if (hid_state.mouse_hid_state != HID_STATE_BUSY) {
       ret = usbd_ep_start_write(USBD_IF1_AL0_EP0_ADDR, HIDMouse, HID_MOUSE_DATA_LENGTH);
       if (ret >= 0) {
-          hid_state = HID_STATE_BUSY;
+          hid_state.mouse_hid_state = HID_STATE_BUSY;
       }
     }
     return events ^ USB_MOUSE_EVENT;
@@ -749,10 +769,10 @@ tmosEvents USB_ProcessEvent( tmosTaskID task_id, tmosEvents events )
 
   if ( events & USB_VOL_EVENT )
   {
-    if (hid_state != HID_STATE_BUSY) {
+    if (hid_state.vol_hid_state != HID_STATE_BUSY) {
       ret = usbd_ep_start_write(USBD_IF2_AL0_EP0_ADDR, HIDVolume, HID_VOLUME_DATA_LENGTH);
       if (ret >= 0) {
-          hid_state = HID_STATE_BUSY;
+          hid_state.vol_hid_state = HID_STATE_BUSY;
       }
     }
     return events ^ USB_VOL_EVENT;
