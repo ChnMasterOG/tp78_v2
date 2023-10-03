@@ -76,7 +76,7 @@ typedef enum {
   VIA_ID_RGB_MATRIX_COLOR = 0x04,
 }via_rgb_matrix_value;
 
-enum {
+typedef enum {
   VIA_ID_AUDIO_ENABLE = 0x01,
   VIA_ID_AUDIO_CLICKY_ENABLE = 0x02,
 }via_audio_value;
