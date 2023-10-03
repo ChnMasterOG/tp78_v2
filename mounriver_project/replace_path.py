@@ -19,5 +19,6 @@ for i in range(len(fp_list)):
                         c_pos = data.rfind('"', 0, p)
                         s_pos = data.find(' ', start_pos)
                         data = data[:c_pos] + "\".." + data[start_pos:s_pos].replace('\\', '/') + data[s_pos:]
+                        start_pos = c_pos
                     with open(fname, 'w') as f:
                         f.write(data)
