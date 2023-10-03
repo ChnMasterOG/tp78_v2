@@ -18,9 +18,9 @@
 #define CHIP_ID								ID_CH582M
 
 #ifdef CH57xBLE_ROM
-#include "CH58xBLE_ROM.H"
+#include "CH58xBLE_ROM.h"
 #else
-#include "CH58xBLE_LIB.H"
+#include "CH58xBLE_LIB.h"
 #endif
 /*********************************************************************
  【MAC】

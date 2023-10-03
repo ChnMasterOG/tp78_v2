@@ -19,9 +19,9 @@
 #define CHIP_ID								ID_CH583
 
 #ifdef CH58xBLE_ROM
-#include "CH58xBLE_ROM.H"
+#include "CH58xBLE_ROM.h"
 #else
-#include "CH58xBLE_LIB.H"
+#include "CH58xBLE_LIB.h"
 #endif
 
 #include "CH58x_common.h"
