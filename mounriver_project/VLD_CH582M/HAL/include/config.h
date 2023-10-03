@@ -1,5 +1,5 @@
 /********************************** (C) COPYRIGHT *******************************
- * File Name          : CONFIG.h
+ * File Name          : config.h
  * Author             : WCH
  * Version            : V1.2
  * Date               : 2022/01/18

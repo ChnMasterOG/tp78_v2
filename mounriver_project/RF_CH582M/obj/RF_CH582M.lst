@@ -1007,7 +1007,7 @@ E:\tp78_v2\mounriver_project\RF_CH582M\obj/../StdPeriphDriver/CH58x_sys.c:380 (d
 APPJumpBoot():
 E:\tp78_v2\mounriver_project\RF_CH582M\obj/../HAL/ISP.c:16
 #include "HAL.h"
-#include "CONFIG.h"
+#include "config.h"
 
 __HIGH_CODE
 void APPJumpBoot(void)   //此段代码必须运行在RAM中

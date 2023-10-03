@@ -13,7 +13,7 @@
  * INCLUDES
  */
 #include "hidkbmservice.h"
-#include "CONFIG.h"
+#include "config.h"
 #include "hiddev.h"
 #include "battservice.h"
 #include "CH58x_common.h"

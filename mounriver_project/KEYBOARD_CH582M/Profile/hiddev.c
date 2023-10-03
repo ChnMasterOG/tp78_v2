@@ -14,7 +14,7 @@
  */
 
 #include "OLED.h"
-#include "CONFIG.h"
+#include "config.h"
 #include "CH58x_common.h"
 #include "battservice.h"
 #include "scanparamservice.h"

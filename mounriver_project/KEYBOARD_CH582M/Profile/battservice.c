@@ -12,7 +12,7 @@
  * INCLUDES
  */
 #include "CH58x_common.h"
-#include "CONFIG.h"
+#include "config.h"
 #include "hiddev.h"
 #include "BATTERY.h"
 #include "battservice.h"
