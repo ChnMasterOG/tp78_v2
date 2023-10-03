@@ -86,7 +86,6 @@ typedef union {
 #include "BATTERY.h"
 #include "WS2812.h"
 #include "CORE.h"
-#include "TPM.h"
 
 /* hal task Event */
 #define MAIN_CIRCULATION_EVENT              0x0001

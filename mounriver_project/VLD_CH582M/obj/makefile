@@ -53,7 +53,7 @@ all: VLD_CH582M.elf secondary-outputs
 
 # Tool invocations
 VLD_CH582M.elf: $(OBJS) $(USER_OBJS)
-	@	@	riscv-none-embed-gcc -march=rv32imac -mabi=ilp32 -mcmodel=medany -msmall-data-limit=8 -mno-save-restore -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common  -g -T "../Ld/Link.ld" -nostartfiles -Xlinker --gc-sections -L"E:\Project\tp78_v2\mounriver_project\VLD_CH582M\StdPeriphDriver" -L"E:\Project\tp78_v2\mounriver_project\VLD_CH582M\LIB" -Xlinker --print-memory-usage -Wl,-Map,"VLD_CH582M.map" --specs=nano.specs --specs=nosys.specs -o "VLD_CH582M.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	@	@	riscv-none-embed-gcc -march=rv32imac -mabi=ilp32 -mcmodel=medany -msmall-data-limit=8 -mno-save-restore -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common  -g -T "../Ld/Link.ld" -nostartfiles -Xlinker --gc-sections -L"E:\tp78_v2\mounriver_project\VLD_CH582M\StdPeriphDriver" -L"E:\tp78_v2\mounriver_project\VLD_CH582M\LIB" -Xlinker --print-memory-usage -Wl,-Map,"VLD_CH582M.map" --specs=nano.specs --specs=nosys.specs -o "VLD_CH582M.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@	@
 VLD_CH582M.hex: VLD_CH582M.elf
 	@	riscv-none-embed-objcopy -O ihex "VLD_CH582M.elf"  "VLD_CH582M.hex"
