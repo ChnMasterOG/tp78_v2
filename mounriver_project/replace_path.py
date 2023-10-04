@@ -14,7 +14,6 @@ for i in range(len(fp_list)):
                     start_pos = 0
                     while True:
                         p = data.find(folder_name[i] + '\\', start_pos)
-                        print(p, folder_name[i] + '\\')
                         if p == -1:
                             break
                         start_pos = p + len(folder_name[i])
