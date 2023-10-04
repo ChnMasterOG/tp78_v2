@@ -8,11 +8,13 @@ for i in range(len(fp_list)):
         for filepath in filenames:
             fname = os.path.join(dirpath, filepath).replace('\\', '/')
             if fname[-9:] == "subdir.mk" or fname[-8:] == "makefile":
-                with open(fname, "r") as f:
-                    data = f.read()
+                print("file name: ", fname)
+                with open(fname, "r") as fi:
+                    data = fi.read()
                     start_pos = 0
                     while True:
-                        p = data.find(folder_name[i], start_pos)
+                        p = data.find(folder_name[i] + '\\', start_pos)
+                        print(p, folder_name[i] + '\\')
                         if p == -1:
                             break
                         start_pos = p + len(folder_name[i])
@@ -20,5 +22,5 @@ for i in range(len(fp_list)):
                         s_pos = data.find(' ', start_pos)
                         data = data[:c_pos] + "\".." + data[start_pos:s_pos].replace('\\', '/') + data[s_pos:]
                         start_pos = c_pos
-                    with open(fname, 'w') as f:
-                        f.write(data)
+                    with open(fname, 'w') as fo:
+                        fo.write(data)
