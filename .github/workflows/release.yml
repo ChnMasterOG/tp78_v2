@@ -17,7 +17,7 @@ jobs:
     - name: Setup riscv gnu/gcc toolchain
       uses: ChnMasterOG/setup-riscv-gnu-toolchain@v3.0
     - run: riscv-none-embed-gcc --version
-    - name: Build
+    - name: Build and Packaging
       run: |
             cd ./mounriver_project
             python replace_path.py
@@ -29,8 +29,6 @@ jobs:
             cd ./RF_CH582M/obj
             make
             cd ../../
-    - name: Packaging ZIP
-      run: |
             mkdir TP78_v2_release
             cp ./KEYBOARD_CH582M/obj/*.hex TP78_v2_release
             cp ./KEYBOARD_CH582M/obj/*.bin TP78_v2_release
