@@ -17,7 +17,7 @@ jobs:
     - name: Setup riscv gnu/gcc toolchain
       uses: ChnMasterOG/setup-riscv-gnu-toolchain@v3.0
     - run: riscv-none-embed-gcc --version
-    - name: build
+    - name: Build
       run: |
             cd ./mounriver_project
             python replace_path.py
@@ -29,14 +29,33 @@ jobs:
             cd ./RF_CH582M/obj
             make
             cd ../../
-    - uses: "marvinpinto/action-automatic-releases@latest"
+    - name: Packaging ZIP
+      run: |
+            mkdir TP78_v2_release
+            cp ./KEYBOARD_CH582M/obj/*.hex TP78_v2_release
+            cp ./KEYBOARD_CH582M/obj/*.bin TP78_v2_release
+            cp ./KEYBOARD_CH582M/obj/*.elf TP78_v2_release
+            cp ./RF_CH582M/obj/*.hex TP78_v2_release
+            cp ./RF_CH582M/obj/*.bin TP78_v2_release
+            cp ./RF_CH582M/obj/*.elf TP78_v2_release
+            Compress-Archive -Path TP78_v2_release TP78_v2_release.zip
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
         prerelease: false
-        files: |
-          KEYBOARD_CH582M/obj/*.elf
-          KEYBOARD_CH582M/obj/*.hex
-          KEYBOARD_CH582M/obj/*.bin
-          RF_CH582M/obj/*.elf
-          RF_CH582M/obj/*.hex
-          RF_CH582M/obj/*.bin
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./TP78_v2_release.zip
+        asset_name: TP78_v2_release.zip
+        asset_content_type: application/zip
