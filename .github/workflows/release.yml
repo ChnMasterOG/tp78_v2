@@ -1,0 +1,42 @@
+name: Tagged Release Flow
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup Python
+      uses: actions/setup-python@v4.7.1
+    - uses: actions/checkout@v3
+    - name: Setup riscv gnu/gcc toolchain
+      uses: ChnMasterOG/setup-riscv-gnu-toolchain@v3.0
+    - run: riscv-none-embed-gcc --version
+    - name: build
+      run: |
+            cd ./mounriver_project
+            python replace_path.py
+            echo "build KEYBOARD_CH582M..."
+            cd ./KEYBOARD_CH582M/obj
+            make
+            echo "build RF_CH582M..."
+            cd ../../
+            cd ./RF_CH582M/obj
+            make
+            cd ../../
+    - uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        prerelease: false
+        files: |
+          KEYBOARD_CH582M/obj/*.elf
+          KEYBOARD_CH582M/obj/*.hex
+          KEYBOARD_CH582M/obj/*.bin
+          RF_CH582M/obj/*.elf
+          RF_CH582M/obj/*.hex
+          RF_CH582M/obj/*.bin
