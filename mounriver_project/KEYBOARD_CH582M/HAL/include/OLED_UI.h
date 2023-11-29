@@ -13,7 +13,7 @@
 
   #include "CH58x_common.h"
 
-  #define OLED_UI_TASK_MAX          5     // UI最大普通任务数
+  #define OLED_UI_TASK_MAX          3     // UI最大普通任务数
   #define OLED_UI_DELAY_TASK_MAX    3     // UI最大延迟任务数
   #define OLED_UI_STR_LEN_MAX       17    // UI打印字符串最长字符数
   #define OLED_UI_MAX_SLOT          4     // UI槽的最多显示个数
@@ -55,17 +55,24 @@
   }oled_ui_data_flag;
 
   typedef enum {
-    OLED_UI_ICON_USB_IDX = 0,
+    OLED_UI_ICON_USB_UNCONNECT_IDX = 0,
+    OLED_UI_ICON_USB_IDX,
+    OLED_UI_ICON_RF_UNCONNECT_IDX,
     OLED_UI_ICON_RF_IDX,
-    OLED_UI_ICON_CP_IDX,
+    OLED_UI_ICON_MODULE_IDX,
+    OLED_UI_ICON_NUMLOCK_IDX,
     OLED_UI_ICON_CAPSLOCK_IDX,
-    OLED_UI_ICON_BLE_UNCONNECT_IDX,
+    OLED_UI_ICON_BLE_UNCONNECT1_IDX,
+    OLED_UI_ICON_BLE_UNCONNECT2_IDX,
+    OLED_UI_ICON_BLE_UNCONNECT3_IDX,
+    OLED_UI_ICON_BLE_UNCONNECT4_IDX,
     OLED_UI_ICON_BLE1_IDX,
     OLED_UI_ICON_BLE2_IDX,
     OLED_UI_ICON_BLE3_IDX,
     OLED_UI_ICON_BLE4_IDX,
     OLED_UI_ICON_TP_IDX,
     OLED_UI_ICON_LED_STYLE_IDX,
+    OLED_UI_ICON_MINIFOC_IDX,
   }oled_ui_icon_index;
 
   typedef enum {
@@ -81,6 +88,7 @@
     OLED_UI_TYPE_ENTER_NUM,
     OLED_UI_TYPE_MPR121_STATUS,
     OLED_UI_TYPE_VAL_STATUS,
+    OLED_UI_TYPE_EXECUTE,
   }oled_ui_menu_type;
 
   typedef struct {
@@ -136,6 +144,13 @@
     uint8_t limit_len;
   }oled_ui_enter_num_structure;
 
+  typedef struct _oled_ui_execute_structure{
+    oled_ui_menu_type type; // 菜单指针类型
+    uint8_t* p;  // 返回的菜单指向
+    const uint8_t* preStr;
+    uint8_t (*func)(void); // 执行的函数
+  }oled_ui_execute_structure;
+
   typedef struct _oled_ui_mpr121_status_structure{
     oled_ui_menu_type type; // 菜单指针类型
     uint8_t* p;  // 返回的菜单指向
@@ -151,6 +166,7 @@
 
   #define P_MENU_T(x)         ((const oled_ui_menu_structure*)x)
   #define P_EN_T(x)           ((const oled_ui_enter_num_structure*)x)
+  #define P_EXE_T(x)          ((const oled_ui_execute_structure*)x)
   #define P_MPR_STS_T(x)      ((const oled_ui_mpr121_status_structure*)x)
   #define P_VAL_STS_T(x)      ((const oled_ui_val_status_structure*)x)
 
@@ -181,7 +197,7 @@
   extern const oled_ui_mpr121_status_structure key_status_touchbar_7;
   extern const oled_ui_enter_num_structure bledevice_en;
   extern const oled_ui_enter_num_structure ledstyle_en;
-  extern const oled_ui_enter_num_structure rfenable_en;
+  extern const oled_ui_enter_num_structure workmode_en;
   extern const oled_ui_enter_num_structure udiskmode_en;
   extern const oled_ui_enter_num_structure mprparam3_en;
   extern const oled_ui_enter_num_structure mprparam6_en;
@@ -189,6 +205,7 @@
   extern const oled_ui_enter_num_structure tp_speed_div_en;
   extern const oled_ui_enter_num_structure led_brightness_en;
   extern const oled_ui_enter_num_structure rf_freq_level_en;
+  extern const oled_ui_execute_structure scan_tpm;
 
   void OLED_UI_ShowOK(uint8_t x, uint8_t y, uint8_t s);
   void OLED_UI_ShowCapslock(uint8_t x, uint8_t y, uint8_t s);

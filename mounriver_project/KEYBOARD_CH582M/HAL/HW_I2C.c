@@ -8,7 +8,7 @@
  * SPDX-License-Identifier: GPL-3.0
  *******************************************************************************/
 
-#include "HAL.h"
+#include "HW_I2C.h"
 
 /*******************************************************************************
  * Function Name  : HW_I2C_WaitUntilTimeout
@@ -47,6 +47,32 @@ void HW_I2C_Init(void)
     GPIOB_ModeCfg(HW_I2C_SCL_PIN | HW_I2C_SDA_PIN, GPIO_ModeIN_PU);
     I2C_Init(I2C_Mode_I2C, 400000, I2C_DutyCycle_2, I2C_Ack_Enable, I2C_AckAddr_7bit, HW_I2C_MASTER_ADDR);
     I2C_Cmd(ENABLE);
+}
+
+/*******************************************************************************
+ * Function Name  : HW_I2C_Reset
+ * Description    : 硬件I2C 复位总线
+ * Input          : None
+ * Return         : None
+ *******************************************************************************/
+void HW_I2C_Reset(void)
+{
+    uint16_t i2c_ctrl1, i2c_ctrl2, i2c_rtr, i2c_ckcfgr, i2c_addr;
+
+    i2c_ctrl1 = (uint16_t)R16_I2C_CTRL1;
+    i2c_ctrl2 = (uint16_t)R16_I2C_CTRL2;
+    i2c_rtr = (uint16_t)R16_I2C_RTR;
+    i2c_ckcfgr = (uint16_t)R16_I2C_CKCFGR;
+    i2c_addr = (uint16_t)R16_I2C_OADDR1;
+    R16_I2C_CTRL1 |= RB_I2C_SWRST;
+    R16_I2C_CTRL1 &= ~RB_I2C_SWRST;
+    R16_I2C_CTRL1 &= ~RB_I2C_PE;
+    R16_I2C_RTR = i2c_rtr;
+    R16_I2C_CKCFGR = i2c_ckcfgr;
+    R16_I2C_OADDR1 = i2c_addr;
+    R16_I2C_CTRL2 = i2c_ctrl2;
+    R16_I2C_CTRL1 = i2c_ctrl1;
+    R16_I2C_CTRL1 |= RB_I2C_PE;
 }
 
 /*******************************************************************************
@@ -139,6 +165,7 @@ uint8_t HW_I2C_Muti_RD_Reg(uint8_t reg, uint8_t *dat, uint8_t addr, uint8_t len)
     err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_RXNE, RESET);
     *dat++ = I2C_ReceiveData( );
   }
+
   I2C_GenerateSTOP( ENABLE );
   I2C_AcknowledgeConfig( ENABLE );
 

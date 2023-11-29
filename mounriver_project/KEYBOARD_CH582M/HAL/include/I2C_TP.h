@@ -23,6 +23,8 @@
   uint8_t I2C_TP_SendCommand_Reset(void);
   uint8_t I2C_TP_SendCommand_EnterExitIdleMode(uint8_t flag);
   uint8_t I2C_TP_ReadPacket(void);
+#if 0
   void I2C_TP_IT_handler(void);
+#endif
 
 #endif

@@ -35,13 +35,14 @@ static void via_custom_value_command(uint8_t *data, uint8_t len) {
           }
           break;
         }
-        case 2: { // id_RF_mode
-          uint16_t rf_ready;
+        case 2: { // id_Work_mode
+          uint16_t workmode;
           if (*command_id == VIA_ID_CUSTOM_SET_VALUE) {
-            DATAFLASH_Write_RForBLE(data[3]);
+            workmode = data[3];
+            HAL_Fs_Write_keyboard_cfg(FS_LINE_WORK_MODE, 1, &workmode); // 模式写入
           } else {
-            HAL_Fs_Read_keyboard_cfg(FS_LINE_RF_READY, 1, &rf_ready);
-            data[3] = (uint8_t)rf_ready;
+            HAL_Fs_Read_keyboard_cfg(FS_LINE_WORK_MODE, 1, &workmode); // 模式读取
+            data[3] = (uint8_t)workmode;
           }
           break;
         }

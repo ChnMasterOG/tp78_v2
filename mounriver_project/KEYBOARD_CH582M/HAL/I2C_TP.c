@@ -23,8 +23,10 @@ void I2C_TP_Init(char* debug_info)
   /* config PB15 as TP_INT */
   TPINT_GPIO_(SetBits)( TPINT_Pin );
   TPINT_GPIO_(ModeCfg)( TPINT_Pin, GPIO_ModeIN_PU );
+#if 0
   TPINT_GPIO_(ITModeCfg)( TPINT_Pin, GPIO_ITMode_FallEdge );
   PFIC_EnableIRQ( GPIO_B_IRQn );  //TPINT_GPIO
+#endif
   err = I2C_TP_SendCommand_Reset();
   if (err != 0) {
     strcpy(debug_info, "I2C_TP-ERR");
@@ -205,7 +207,7 @@ uint8_t I2C_TP_ReadPacket(void)
 
   return err;
 }
-
+#if 0
 /*******************************************************************************
  * Function Name  : I2C_TP_IT_handler
  * Description    : I2C小红点中断处理函数
@@ -219,3 +221,4 @@ void I2C_TP_IT_handler(void)
     g_Ready_Status.i2ctp_data = TRUE;
   }
 }
+#endif

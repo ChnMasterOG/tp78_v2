@@ -12,7 +12,7 @@
 /******************************************************************************/
 /* 头文件包含 */
 #include "HAL.h"
-#include "config.h"
+#include "CONFIG.h"
 
 /*********************************************************************
  * GLOBAL TYPEDEFS
@@ -53,31 +53,6 @@ void DATAFLASH_Write_RFfreqlevel(uint8_t rf_freq_level)
   HAL_Fs_Write_keyboard_cfg(FS_LINE_RF_FREQ_LEVEL, 1, &freq_level);
 }
 
-/*******************************************************************************
- * Function Name  : DATAFLASH_Read_DeviceID
- * Description    : 从DataFlash读取RF或BLE选择(1-RF, 0-BLE)
- * Input          : None
- * Return         : None
- *******************************************************************************/
-void DATAFLASH_Read_RForBLE(void)
-{
-  uint16_t rf_ready;
-  HAL_Fs_Read_keyboard_cfg(FS_LINE_RF_READY, 1, &rf_ready);
-  g_Ready_Status.rf = rf_ready ? TRUE : FALSE;
-}
-
-/*******************************************************************************
- * Function Name  : DATAFLASH_Write_RForBLE
- * Description    : 将RF或BLE选择写入DataFlash
- * Input          : rf_ready: 是否选择RF
- * Return         : None
- *******************************************************************************/
-void DATAFLASH_Write_RForBLE(uint8_t rf_ready)
-{
-  uint16_t w_rf_ready = rf_ready;
-  HAL_Fs_Write_keyboard_cfg(FS_LINE_RF_READY, 1, &w_rf_ready);
-}
-
 /*********************************************************************
  * @fn      RF_2G4StatusCallBack
  *
@@ -115,8 +90,17 @@ void RF_2G4StatusCallBack(uint8_t sta, uint8_t crc, uint8_t *rxBuf)
             else
             {
                 PRINT("tx recv,rssi:%d\n", (int8_t)rxBuf[0]);
-                if (rxBuf[1] == 2 && rxBuf[2] == 0x3) {
-                  g_CapsLock_LEDOn_Status.rf = rxBuf[3] ? TRUE : FALSE;
+                if (rxBuf[1] == 2) {
+                  switch (rxBuf[2]) {
+                    case 0x3:
+                      g_CapsLock_LEDOn_Status.rf = rxBuf[3] ? TRUE : FALSE;
+                      break;
+                    case 0x4:
+                      g_NumLock_LEDOn_Status.rf = rxBuf[3] ? TRUE : FALSE;
+                      break;
+                    default:
+                      break;
+                  }
                 }
             }
             break;
@@ -138,8 +122,17 @@ void RF_2G4StatusCallBack(uint8_t sta, uint8_t crc, uint8_t *rxBuf)
             else
             {
                 PRINT("rx recv, rssi: %d\n", (int8_t)rxBuf[0]);
-                if (rxBuf[1] == 2 && rxBuf[2] == 0x3) {
-                  g_CapsLock_LEDOn_Status.rf = rxBuf[3] ? TRUE : FALSE;
+                if (rxBuf[1] == 2) {
+                  switch (rxBuf[2]) {
+                    case 0x3:
+                      g_CapsLock_LEDOn_Status.rf = rxBuf[3] ? TRUE : FALSE;
+                      break;
+                    case 0x4:
+                      g_NumLock_LEDOn_Status.rf = rxBuf[3] ? TRUE : FALSE;
+                      break;
+                    default:
+                      break;
+                  }
                 }
             }
             tmos_set_event(RFTaskId, SBP_RF_RF_RX_EVT);
@@ -156,6 +149,41 @@ void RF_2G4StatusCallBack(uint8_t sta, uint8_t crc, uint8_t *rxBuf)
         }
     }
     PRINT("STA: %x\n", sta);
+}
+
+/*******************************************************************************
+ * Function Name  : RF_ProcessTMOSMsg
+ * Description    : Process an incoming task message.
+ * Input          : pMsg - message to process
+ * Return         : tmosEvents
+ *******************************************************************************/
+static void RF_ProcessTMOSMsg( tmos_event_hdr_t *pMsg )
+{
+  switch ( pMsg->event )
+  {
+    case KEY_MESSAGE: {
+        SendMSG_t *msg = (SendMSG_t *) pMsg;
+        msg->hdr.status ? tmos_set_event( RFTaskId, SBP_RF_KEYBOARD_REPORT_EVT ) : 0;
+        break;
+    }
+    case MOUSE_MESSAGE: {
+        SendMSG_t *msg = (SendMSG_t *) pMsg;
+        msg->hdr.status ? tmos_set_event( RFTaskId, SBP_RF_MOUSE_REPORT_EVT ) : 0;
+        break;
+    }
+    case VOL_MESSAGE: {
+        SendMSG_t *msg = (SendMSG_t *) pMsg;
+        msg->hdr.status ? tmos_set_event( RFTaskId, SBP_RF_VOL_REPORT_EVT ) : 0;
+        break;
+    }
+    case HEARTBEAT_MESSAGE: {
+        SendMSG_t *msg = (SendMSG_t *) pMsg;
+        msg->hdr.status ? tmos_set_event( RFTaskId, SBP_RF_HEARTBEAT_REPORT_EVT ) : 0;
+        break;
+    }
+    default:
+      break;
+  }
 }
 
 /*********************************************************************
@@ -176,6 +204,8 @@ uint16_t RF_ProcessEvent(uint8_t task_id, uint16_t events)
 
         if((pMsg = tmos_msg_receive(task_id)) != NULL)
         {
+            RF_ProcessTMOSMsg( (tmos_event_hdr_t *)pMsg );
+
             // Release the TMOS message
             tmos_msg_deallocate(pMsg);
         }

@@ -13,7 +13,7 @@
  * INCLUDES
  */
 #include "hidkbmservice.h"
-#include "config.h"
+#include "CONFIG.h"
 #include "hiddev.h"
 #include "battservice.h"
 #include "CH58x_common.h"
@@ -714,10 +714,10 @@ bStatus_t Hid_AddService( void )
   idx++;
 
   // Battery level input report
-  Batt_GetParameter( BATT_PARAM_BATT_LEVEL_IN_REPORT, &(hidRptMap[idx]) );
+  Batt_GetParameter( BATT_PARAM_BATT_LEVEL_IN_REPORT, &(hidRptMap[idx++]) );
 
   // Setup report ID map
-  HidDev_RegisterReports( HID_NUM_REPORTS, hidRptMap );
+  HidDev_RegisterReports( idx, hidRptMap );
 
   return ( status );
 }

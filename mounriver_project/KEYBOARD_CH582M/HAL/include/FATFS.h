@@ -16,7 +16,7 @@
   #define FS_LINE_START                 0
   #define FS_LINE_BLE_DEVICE            0
   #define FS_LINE_LED_STYLE             1
-  #define FS_LINE_RF_READY              2
+  #define FS_LINE_WORK_MODE             2
   #define FS_LINE_UDISK_MODE            3
   #define FS_LINE_MPR_ALG_MAGIC         4
   #define FS_LINE_MPR_CAPMOUSE_TOU_THR  5
@@ -34,7 +34,7 @@
   uint8_t string_dec_to_u16(char *buff, uint16_t *num);
   uint8_t string_dec_to_u8(char *buff, uint8_t *num);
 
-  void HAL_Fs_Init(char* debug_info);
+  void HAL_Fs_Init(void);
   void HAL_Fs_Create_readme(void);
   void HAL_Fs_Create_keyboard_cfg(uint8_t len, uint16_t* p_cfg);
   void HAL_Fs_Write_keyboard_cfg(uint8_t fs_line, uint8_t len, uint16_t* p_cfg);

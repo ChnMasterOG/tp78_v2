@@ -21,7 +21,7 @@
  * INCLUDES
  */
 #include "HAL.h"
-#include "config.h"
+#include "CONFIG.h"
 #include "CH58x_common.h"
 #include "hiddev.h"
 
@@ -75,31 +75,25 @@ int main( void )
   UART3_DefInit();
 #endif
   PRINT("%s\n",VER_LIB);
-  R8_XT32M_TUNE = 0;  // HSE晶振电容
+  FLASH_Init( );
   CH58X_BLEInit( ); //蓝牙初始化
   HAL_Init( ); //硬件初始化
-#if (defined (HAL_RF)) && (HAL_RF == TRUE)
-  if (g_Ready_Status.rf == FALSE) {
+#if (defined HAL_USB) && (HAL_USB == TRUE)
+  if (g_Enable_Status.usb == TRUE) {
+    HAL_USBInit( );
+  }
 #endif
-    GAPRole_PeripheralInit( );//蓝牙层级决策功能初始化，闭源
+  if (g_Enable_Status.ble == TRUE) {
+    GAPRole_PeripheralInit( );  // 蓝牙层级决策功能初始化，闭源
     HidDev_Init( ); // 蓝牙广播服务初始化（注册和启动），闭源
     HidEmu_Init( ); // 蓝牙广播服务初始化（参数设置），闭源
+  }
 #if (defined (HAL_RF)) && (HAL_RF == TRUE)
-  } else {
+  if (g_Enable_Status.rf == TRUE) {
     RF_RoleInit();
     RF_Init();
   }
 #endif
-  tmos_start_task( halTaskID, MAIN_CIRCULATION_EVENT, 10 ); // 主循环
-  tmos_start_task( halTaskID, HAL_KEYBOARD_EVENT, 10 ); // 键盘事件
-  tmos_start_task( halTaskID, HAL_MOUSE_EVENT, 10 ); // 鼠标事件
-  tmos_start_task( halTaskID, WS2812_EVENT, 10 );  // 背光控制
-  tmos_start_task( halTaskID, OLED_UI_EVENT, 10 );  // OLED UI
-#if ((defined HAL_MPR121_CAPMOUSE) && (HAL_MPR121_CAPMOUSE == TRUE)) || ((defined HAL_MPR121_TOUCHBAR) && (HAL_MPR121_TOUCHBAR == TRUE))
-  tmos_start_task( halTaskID, MPR121_EVENT, 10 );  // MPR121
-#endif
-  tmos_start_task( halTaskID, FEEDDOG_EVENT, 10 );  // 喂狗线程
-//  tmos_start_task( halTaskID, HAL_TEST_EVENT, 10 );
   Main_Circulation();
 }
 
@@ -113,10 +107,6 @@ __INTERRUPT
 __HIGH_CODE
 void GPIOA_IRQHandler(void)
 {
-#if (defined HAL_MODULE) && (HAL_MODULE == TRUE)
-  MODULE_WAKEUP_GPIO(SetBits)( MODULE_WAKEUP_PIN );   // 唤醒扩展(高电平)
-  tmos_start_task( halTaskID, MODULE_INITIAL_EVENT, MS1_TO_SYSTEM_TIME(300) );  // 扩展重新上电
-#endif
 #if (ROW_SCAN_MODE)
   GPIOA_ClearITFlagBit(Colum_Pin_ALL);  // 用于唤醒
   TP78Reinit(1, g_lp_type);
@@ -137,8 +127,10 @@ void GPIOB_IRQHandler( void )
 #if (defined HAL_PS2) && (HAL_PS2 == TRUE)
   PS2_IT_handler();
 #endif
+#if 0
 #if (defined HAL_I2C_TP) && (HAL_I2C_TP == TRUE)
   I2C_TP_IT_handler();
+#endif
 #endif
 #if (!ROW_SCAN_MODE)
   if (Row_GPIO_(ReadITFlagBit)(Row_Pin_ALL) != 0) {

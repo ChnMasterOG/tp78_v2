@@ -33,8 +33,6 @@
 
   void DATAFLASH_Read_RFfreqlevel(void);
   void DATAFLASH_Write_RFfreqlevel(uint8_t rf_freq_level);
-  void DATAFLASH_Read_RForBLE(void);
-  void DATAFLASH_Write_RForBLE(uint8_t rf_ready);
 
   extern tmosTaskID RFTaskId;
 

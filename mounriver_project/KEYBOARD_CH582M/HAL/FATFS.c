@@ -45,10 +45,10 @@ const BYTE WriteBuffer[] = {
 /*******************************************************************************
  * Function Name  : HAL_Fs_Init
  * Description    : 初始化文件系统
- * Input          : debug_info - 错误信息
+ * Input          : None
  * Return         : None
  *******************************************************************************/
-void HAL_Fs_Init(char* debug_info)
+void HAL_Fs_Init(void)
 {
   FATFS fs;                                                   // FatFs文件系统对象
   FIL fnew;                                                   // 文件对象
@@ -80,7 +80,6 @@ void HAL_Fs_Init(char* debug_info)
       g_Ready_Status.fatfs = TRUE;
 #endif
   } else {
-      strcpy(debug_info, "FATFS-FAIL");
       g_Ready_Status.fatfs = FALSE;
   }
   f_mount( NULL, "0:", 1 );                                    // 卸载文件系统

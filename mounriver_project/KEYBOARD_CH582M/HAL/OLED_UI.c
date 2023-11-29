@@ -18,9 +18,6 @@ static oled_ui_slot_structure oled_ui_slot = { 0 };
 uint8_t g_oled_fresh_rate = OLED_FRESH_RATE;  // OLED刷新率控制
 BOOL g_oled_smooth_end_flag = TRUE;
 
-static uint8_t oled_printf_history[OLED_UI_HIS_LEN][OLED_UI_HIS_DLEN+1] = {};  // 存放OLED_printf的历史记录
-static uint8_t oled_printf_history_idx = 0;  // 存放OLED打印历史的下标
-
 static uint8_t oled_ui_entry_idle_frame = 0;
 static uint8_t *cur_menu_p = (uint8_t*)&main_menu; // 当前菜单指向的位置
 static uint8_t menu_cur_idx = 0;
@@ -106,12 +103,6 @@ int OLED_UI_printf(char *pFormat, ...)
   /* 记录至历史 */
   if (strlen(pStr) > OLED_UI_HIS_DLEN) { // 截取长度
     pStr[OLED_UI_HIS_DLEN-1] = '\0';
-  }
-  if (oled_printf_history_idx >= OLED_UI_HIS_LEN) {  // 缓存满 - 队列结构
-    memcpy((uint8_t*)oled_printf_history[0], (uint8_t*)oled_printf_history[1], (OLED_UI_HIS_LEN-1)*(OLED_UI_HIS_DLEN));
-    strcpy(oled_printf_history[OLED_UI_HIS_LEN-1], pStr);
-  } else {
-    oled_printf_history_idx++;
   }
 
   return res;
@@ -483,7 +474,7 @@ void OLED_UI_draw_menu(oled_ui_swipe fresh_type)
 #ifdef OLED_0_66
   static uint8_t preStr[10];
   uint32_t val;
-  uint8_t i;
+  uint8_t i = 0;
 
   menu_fresh_start:
   switch (fresh_type)
@@ -519,6 +510,12 @@ void OLED_UI_draw_menu(oled_ui_swipe fresh_type)
         else MPR121_ReadReg(P_MPR_STS_T(cur_menu_p)->reg, (uint8_t*)&val);
         OLED_PRINT("%d", val);
         OLED_UI_add_default_delay_task(OELD_UI_FLAG_REFRESH_MENU, 20);
+      } else if (*(oled_ui_menu_type*)cur_menu_p == OLED_UI_TYPE_EXECUTE) {  // 执行函数项目
+        if (i == 0xFF) {
+          OLED_PRINT("%s", P_EXE_T(cur_menu_p)->preStr);
+        } else {
+          OLED_PRINT("ret:%d", i);
+        }
       }
       break;
     case OLED_UI_SWIPE_UP:  // 上滑
@@ -576,6 +573,12 @@ void OLED_UI_draw_menu(oled_ui_swipe fresh_type)
         menu_cur_idx = 0;
         fresh_type = OLED_UI_MENU_REFRESH;
         goto menu_fresh_start;
+      } else if (*(oled_ui_menu_type*)cur_menu_p == OLED_UI_TYPE_EXECUTE) { // 执行函数项目
+        if (P_EXE_T(cur_menu_p)->p == NULL) break; // 错误的配置
+        cur_menu_p = P_EXE_T(cur_menu_p)->p;
+        menu_cur_idx = 0;
+        fresh_type = OLED_UI_MENU_REFRESH;
+        goto menu_fresh_start;
       }
       break;
     case OLED_UI_SWIPE_RIGHT:  // 右滑
@@ -593,7 +596,15 @@ void OLED_UI_draw_menu(oled_ui_swipe fresh_type)
           OLED_Clr(0, 2, OLED_WIDTH, 5);
         } else if (*(oled_ui_menu_type*)cur_menu_p == OLED_UI_TYPE_MPR121_STATUS) {  // 右滑后为MPR121状态项目
           OLED_Clr(0, 2, OLED_WIDTH, 5);
+        } else if (*(oled_ui_menu_type*)cur_menu_p == OLED_UI_TYPE_EXECUTE) {  // 右滑后为执行函数项目
+          OLED_Clr(0, 2, OLED_WIDTH, 5);
+          i = 0xFF;
         }
+        fresh_type = OLED_UI_MENU_REFRESH;
+        goto menu_fresh_start;
+      } else if (*(oled_ui_menu_type*)cur_menu_p == OLED_UI_TYPE_EXECUTE) { // 执行项目类
+        i = P_EXE_T(cur_menu_p)->func();
+        OLED_Clr(0, 2, OLED_WIDTH, 5);
         fresh_type = OLED_UI_MENU_REFRESH;
         goto menu_fresh_start;
       }

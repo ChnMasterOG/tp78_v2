@@ -58,9 +58,9 @@ uint8_t Extra_KeyMatrix[ROW_SIZE][COL_SIZE] = { 0 };  //额外层按键矩阵-�
 uint8_t SP_Key_Map[SP_KEY_NUMBER][8] = { 0 }; //复合按键
 uint8_t KEYBOARD_data_index = 2;
 Keyboard_Status_t g_keyboard_status;
+Capslock_Status_t g_capslock_status;
 
 static uint8_t (*KeyArr_Ptr)[COL_SIZE] = CustomKey;
-static uint16_t KeyArr_ChangeTimes = 0;
 
 /*******************************************************************************
  * Function Name  : DATAFLASH_Read_KeyArray
@@ -143,7 +143,6 @@ UINT8 KEYBOARD_Custom_Function( void )
   static uint8_t Fn_Mode = 0;
   static uint8_t Fn_cnt = 0;  // 4/2/1/1 bit for Reset/ChangeKey/SaveDevices/Reserved
   static uint8_t src_key = 0, dst_key = 0;
-  uint16_t Udisk_mode = 1;
 
   if ( g_keyboard_status.Fn == TRUE && KeyboardDat->Key2 == KEY_None ) { // 按下Fn+1个键或者只有Fn键
     last_state = 1;
@@ -162,9 +161,6 @@ UINT8 KEYBOARD_Custom_Function( void )
       Fn_cnt = 0;
     } else if ( KeyboardDat->Key1 == KEY_R && Fn_Mode != Fn_Mode_SoftReset ) { // 软件复位模式
       Fn_Mode = Fn_Mode_SoftReset;
-      Fn_cnt = 0;
-    } else if ( KeyboardDat->Key1 == KEY_N && Fn_Mode != Fn_Mode_RForBLE ) { // 切换RF模式或BLE模式
-      Fn_Mode = Fn_Mode_RForBLE;
       Fn_cnt = 0;
     } else if ( KeyboardDat->Key1 == KEY_M && Fn_Mode != Fn_Mode_RFJumptoBoot ) { // RF发送0x7A让接收器进BOOT
       Fn_Mode = Fn_Mode_RFJumptoBoot;
@@ -185,19 +181,22 @@ UINT8 KEYBOARD_Custom_Function( void )
     } else if ( KeyboardDat->Key1 == KEY_Delete && Fn_Mode != Fn_Mode_PaintedEgg ) { // 彩蛋模式
       Fn_Mode = Fn_Mode_PaintedEgg;
       Fn_cnt = 0;
-    } else if ( KeyboardDat->Key1 == KEY_GraveAccent && Fn_Mode != Fn_Mode_DisEnableBLE ) { // 使能/失能蓝牙
-      Fn_Mode = Fn_Mode_DisEnableBLE;
-      Fn_cnt = 0;
     } else if ( KeyboardDat->Key1 == KEY_T && Fn_Mode != Fn_Mode_DisEnableTP ) { // 使能/失能小红点
       Fn_Mode = Fn_Mode_DisEnableTP;
+      Fn_cnt = 0;
+    } else if ( KeyboardDat->Key1 == KEY_F10 && Fn_Mode != Fn_Mode_USBMode ) { // 切换USB模式
+      Fn_Mode = Fn_Mode_USBMode;
+      Fn_cnt = 0;
+    } else if ( KeyboardDat->Key1 == KEY_F11 && Fn_Mode != Fn_Mode_BLEMode ) { // 切换蓝牙模式
+      Fn_Mode = Fn_Mode_BLEMode;
+      Fn_cnt = 0;
+    } else if ( KeyboardDat->Key1 == KEY_F12 && Fn_Mode != Fn_Mode_RFMode ) { // 切换RF模式
+      Fn_Mode = Fn_Mode_RFMode;
       Fn_cnt = 0;
     } else if ( KeyboardDat->Key1 == KEY_U && Fn_Mode != Fn_Mode_UDiskMode ) { // 开启U盘模式
       Fn_Mode = Fn_Mode_UDiskMode;
       Fn_cnt = 0;
-    } else if ( KeyboardDat->Key1 == KEY_0 && Fn_Mode != Fn_Mode_PriorityUSBorBLE ) { // 设置优先无线或USB
-      Fn_Mode = Fn_Mode_PriorityUSBorBLE;
-      Fn_cnt = 0;
-    } else if ( KeyboardDat->Key1 == KEY_9 && Fn_Mode != Fn_Mode_BLE_ClearSNV ) { // 清除蓝牙SNV信息
+    } else if ( KeyboardDat->Key1 == KEY_0 && Fn_Mode != Fn_Mode_BLE_ClearSNV ) { // 清除蓝牙SNV信息
       Fn_Mode = Fn_Mode_BLE_ClearSNV;
       Fn_cnt = 0;
     } else if ( KeyboardDat->Key1 == KEY_1 && Fn_Mode != Fn_Mode_SelectDevice1 ) { // 切换至设备1
@@ -242,7 +241,7 @@ UINT8 KEYBOARD_Custom_Function( void )
   } else if ( last_state > 0 && g_keyboard_status.Fn == FALSE ) {  // 松开Fn执行指令
     fn_do_operations:
     switch ( Fn_Mode ) {
-      case Fn_Mode_Reset: // 按下5次Fn重置按键
+      case Fn_Mode_Reset: { // 按下5次Fn重置按键
         Fn_cnt += 0x10;
         if ( Fn_cnt == 0x50 ) {
           Fn_cnt = 0;
@@ -259,11 +258,12 @@ UINT8 KEYBOARD_Custom_Function( void )
         } else if ( Fn_cnt >= 0x30 ) {
           OLED_UI_add_SHOWINFO_task("%d/5 Reset", Fn_cnt >> 4);
           OLED_UI_add_CANCELINFO_delay_task(1500);
-        } else if ( Fn_cnt == 0x20 && sys_time - press_time >= 3 * (1000 / FEEDDOG_PERIOD) ) {  // 第二下Fn长按进BOOT
-          goto enter_boot_mode;
+        } else if ( Fn_cnt == 0x20 && sys_time - press_time >= 3 * (1000 / SYS_PERIOD) ) {  // 第二下Fn长按进board boot
+          APPJumpBoot();
         }
         break;
-      case Fn_Mode_ChangeKey:
+      }
+      case Fn_Mode_ChangeKey: { // Fn+C交换按键
         Fn_cnt += 0x04;
         if ( Fn_cnt == 0x0C ) {
           Fn_cnt = 0;
@@ -273,7 +273,8 @@ UINT8 KEYBOARD_Custom_Function( void )
           KEYBOARD_ChangeKey( dst_key, src_key );
         }
         break;
-      case Fn_Mode_Enter_Cfg:  // Fn+O参数配置
+      }
+      case Fn_Mode_Enter_Cfg: { // Fn+O参数配置
         Fn_Mode = Fn_Mode_None;
         if (g_keyboard_status.enter_cfg) {  // 退出界面配置
 #ifdef HAL_OLED
@@ -292,38 +293,38 @@ UINT8 KEYBOARD_Custom_Function( void )
           g_keyboard_status.enter_cfg = 1;
         }
         break;
-      case Fn_Mode_SoftReset:  // Fn+R软件复位
+      }
+      case Fn_Mode_SoftReset: { // Fn+R软件复位
         Fn_Mode = Fn_Mode_None;
         SoftReset();
         break;
-      case Fn_Mode_RForBLE:  // Fn+N切换RF或BLE模式后软件复位
+      }
+      case Fn_Mode_RFJumptoBoot: {  // Fn+M发送0x7A让接收器进BOOT
         Fn_Mode = Fn_Mode_None;
-        if (g_Ready_Status.rf == TRUE) DATAFLASH_Write_RForBLE(0);
-        else DATAFLASH_Write_RForBLE(1);
-        SoftReset();
-        break;
-      case Fn_Mode_RFJumptoBoot:  // Fn+M发送0x7A让接收器进BOOT
-        Fn_Mode = Fn_Mode_None;
-        if (g_Ready_Status.rf == TRUE) {
+        if (g_Enable_Status.rf == TRUE) {
           tmos_set_event( RFTaskId, SBP_RF_JUMPBOOT_REPORT_EVT );  // RF JUMPBOOT事件
         }
         break;
-      case Fn_Mode_JumpBoot:  // Fn+B跳转BOOT
+      }
+      case Fn_Mode_JumpBoot: {  // Fn+B跳转kboot
         enter_boot_mode:
         Fn_Mode = Fn_Mode_None;
-        APPJumpBoot();
+        APPJumpKBoot();
         break;
-      case Fn_Mode_VolumeDown:  // Fn+减号减小音量 - 松开停止
+      }
+      case Fn_Mode_VolumeDown: {  // Fn+减号减小音量 - 松开停止
         Fn_Mode = Fn_Mode_None;
         HIDVolume[0] &= ~Volume_Decr;
         HID_VOL_Process();
         break;
-      case Fn_Mode_VolumeUp:  // Fn+加号增加音量 - 松开停止
+      }
+      case Fn_Mode_VolumeUp: {  // Fn+加号增加音量 - 松开停止
         Fn_Mode = Fn_Mode_None;
         HIDVolume[0] &= ~Volume_Incr;
         HID_VOL_Process();
         break;
-      case Fn_Mode_PaintedEgg:  // Fn+Delete彩蛋
+      }
+      case Fn_Mode_PaintedEgg: {  // Fn+Delete彩蛋
         Fn_Mode = Fn_Mode_None;
         if (g_Enable_Status.paintedegg == FALSE) {
           g_keyboard_status.changeBL = TRUE;
@@ -338,59 +339,61 @@ UINT8 KEYBOARD_Custom_Function( void )
           tmos_start_task( halTaskID, HAL_KEYBOARD_EVENT, MS1_TO_SYSTEM_TIME(5) ); // 重新开启键盘线程
         }
         break;
-      case Fn_Mode_DisEnableBLE:
-        Fn_Mode = Fn_Mode_None; // Fn+波浪号关闭/开启蓝牙
-        if ( g_Ready_Status.ble == FALSE && g_Ready_Status.rf == FALSE ) {
-          g_Enable_Status.ble = !g_Enable_Status.ble;
-          uint8_t ena_ble = g_Enable_Status.ble;
-          bStatus_t status = GAPRole_SetParameter( GAPROLE_ADVERT_ENABLED, sizeof( uint8 ), &ena_ble );
-          if ( status != SUCCESS ) OLED_UI_add_SHOWINFO_task("ERR %d", status);
-          else if ( g_Enable_Status.ble == TRUE ) OLED_UI_add_SHOW_ICONINFO_task(OLED_UI_ICON_BLE_UNCONNECT_IDX, " ON");
-          else OLED_UI_add_SHOW_ICONINFO_task(OLED_UI_ICON_BLE_UNCONNECT_IDX, " OFF");
-          OLED_UI_add_CANCELINFO_delay_task(2000);
-        }
-        break;
-      case Fn_Mode_DisEnableTP:
-        Fn_Mode = Fn_Mode_None; // Fn+T关闭/开启小红点
+      }
+      case Fn_Mode_DisEnableTP: { // Fn+T关闭/开启小红点
+        Fn_Mode = Fn_Mode_None;
         g_Enable_Status.tp = !g_Enable_Status.tp;
         if ( g_Enable_Status.tp == TRUE ) OLED_UI_add_SHOW_ICONINFO_task(OLED_UI_ICON_TP_IDX, " ON");
         else OLED_UI_add_SHOW_ICONINFO_task(OLED_UI_ICON_TP_IDX, " OFF");
         OLED_UI_add_CANCELINFO_delay_task(2000);
         break;
-      case Fn_Mode_UDiskMode:
-        Fn_Mode = Fn_Mode_None; // Fn+U开启U盘模式
+      }
+      case Fn_Mode_USBMode: { // Fn+F10切换USB模式
+        Fn_Mode = Fn_Mode_None;
+        if (g_Enable_Status.usb == TRUE) {
+          OLED_UI_add_SHOWINFO_task("USB Mode");
+          OLED_UI_add_CANCELINFO_delay_task(2000);
+          break;
+        }
+        uint16_t Usb_mode = 0;
+        HAL_Fs_Write_keyboard_cfg(FS_LINE_WORK_MODE, 1, &Usb_mode);
+        SoftReset();
+        break;
+      }
+      case Fn_Mode_BLEMode: { // Fn+F11切换蓝牙模式
+        Fn_Mode = Fn_Mode_None;
+        if (g_Enable_Status.ble == TRUE) {
+          OLED_UI_add_SHOWINFO_task("BLE Mode");
+          OLED_UI_add_CANCELINFO_delay_task(2000);
+          break;
+        }
+        uint16_t Ble_mode = 1;
+        HAL_Fs_Write_keyboard_cfg(FS_LINE_WORK_MODE, 1, &Ble_mode);
+        SoftReset();
+        break;
+      }
+      case Fn_Mode_RFMode: { // Fn+F12切换RF模式
+        Fn_Mode = Fn_Mode_None;
+        if (g_Enable_Status.rf == TRUE) {
+          OLED_UI_add_SHOWINFO_task("RF Mode");
+          OLED_UI_add_CANCELINFO_delay_task(2000);
+          break;
+        }
+        uint16_t Rf_mode = 2;
+        HAL_Fs_Write_keyboard_cfg(FS_LINE_WORK_MODE, 1, &Rf_mode);
+        SoftReset();
+        break;
+      }
+      case Fn_Mode_UDiskMode: { // Fn+U开启U盘模式
+        Fn_Mode = Fn_Mode_None;
+        uint16_t Usb_mode = 0;
+        uint16_t Udisk_mode = 1;
+        HAL_Fs_Write_keyboard_cfg(FS_LINE_WORK_MODE, 1, &Usb_mode);
         HAL_Fs_Write_keyboard_cfg(FS_LINE_UDISK_MODE, 1, &Udisk_mode);
         SoftReset();
         break;
-      case Fn_Mode_PriorityUSBorBLE:  // Fn+0优先蓝牙/RF或USB切换
-        Fn_Mode = Fn_Mode_None;
-        extern BOOL priority_USB;
-        if ( g_Ready_Status.usb == TRUE && (g_Ready_Status.ble == TRUE || g_Ready_Status.rf == TRUE) ) {  // 仅有多个连接才切换
-          priority_USB = !priority_USB;
-#ifdef OLED_0_91
-          OLED_UI_ShowOK(26 + priority_USB * 30, 0, FALSE);
-          OLED_UI_ShowOK(26 + !priority_USB * 30, 0, TRUE);
-#endif
-#ifdef OLED_0_66
-          if ( priority_USB ) {
-            OLED_UI_slot_active((uint8_t*)UI_Slot_Icon[OLED_UI_ICON_USB_IDX],
-                                (uint8_t*)UI_Slot_Icon[OLED_UI_ICON_USB_IDX]);
-          } else if ( g_Ready_Status.ble == TRUE ) {
-            OLED_UI_slot_active((uint8_t*)UI_Slot_Icon[OLED_UI_ICON_BLE_UNCONNECT_IDX + DeviceAddress[5]],
-                                (uint8_t*)UI_Slot_Icon[OLED_UI_ICON_BLE_UNCONNECT_IDX + DeviceAddress[5]]);
-          } else {  // RF_Ready
-            OLED_UI_slot_active((uint8_t*)UI_Slot_Icon[OLED_UI_ICON_RF_IDX],
-                                (uint8_t*)UI_Slot_Icon[OLED_UI_ICON_RF_IDX]);
-          }
-          OLED_UI_add_default_task(OLED_UI_FLAG_DRAW_SLOT);
-#endif
-          if ( priority_USB ) OLED_UI_add_SHOW_ICONINFO_task(OLED_UI_ICON_USB_IDX, "Priority");
-          else if ( g_Ready_Status.rf == FALSE ) OLED_UI_add_SHOW_ICONINFO_task(OLED_UI_ICON_BLE_UNCONNECT_IDX, "Priority");
-          else OLED_UI_add_SHOW_ICONINFO_task(OLED_UI_ICON_RF_IDX, "Priority");
-          OLED_UI_add_CANCELINFO_delay_task(2000);
-        }
-        break;
-      case Fn_Mode_BLE_ClearSNV:  // Fn+9清除蓝牙SNV信息
+      }
+      case Fn_Mode_BLE_ClearSNV: {  // Fn+0清除蓝牙SNV信息
         Fn_Mode = Fn_Mode_None;
         uint32_t SNV_size, p_addr = BLE_SNV_ADDR;
         uint16_t i;
@@ -398,30 +401,34 @@ UINT8 KEYBOARD_Custom_Function( void )
 #if (defined HAL_WDG) && (HAL_WDG == TRUE)
         WWDG_ResetCfg(DISABLE); // 关看门狗
 #endif
-//        SNV_size = 0x8000 - BLE_SNV_ADDR;
-//        EEPROM_ERASE(BLE_SNV_ADDR, SNV_size);
-        SNV_size = 0x70000 - BLE_SNV_ADDR;
-        FLASH_ROM_ERASE( BLE_SNV_ADDR, SNV_size );
+        SNV_size = 0x8000 - BLE_SNV_ADDR;
+        EEPROM_ERASE(BLE_SNV_ADDR, SNV_size);
         SNV_size >>= 2;
         for (i = 0; i < SNV_size; i++) {
-//          EEPROM_WRITE(p_addr, e_buf, 4); // 填充0xFF
-          FLASH_ROM_WRITE(p_addr, e_buf, 4); // 填充0xFF
+          EEPROM_WRITE(p_addr, e_buf, 4); // 填充0xFF
           p_addr += 4;
         }
 #if (defined HAL_WDG) && (HAL_WDG == TRUE)
         WWDG_ResetCfg(ENABLE);  // 开看门狗
 #endif
-        OLED_UI_add_SHOWINFO_task("Erase OK");
-        OLED_UI_add_CANCELINFO_delay_task(2000);
+        if (g_Enable_Status.ble == TRUE) {
+          OLED_PRINT("Erase OK");
+          DelayMs(50);
+          SoftReset();
+        } else {
+          OLED_UI_add_SHOWINFO_task("Erase OK");
+          OLED_UI_add_CANCELINFO_delay_task(2000);
+        }
         break;
-      case Fn_Mode_SelectDevice1 ... Fn_Mode_SelectDevice4: // 按Fn+1~4切换设备
-        DeviceAddress[5] = Fn_Mode - Fn_Mode_SelectDevice1 + 1;
+      }
+      case Fn_Mode_SelectDevice1 ... Fn_Mode_SelectDevice4: { // 按Fn+1~4切换设备
+        uint8_t new_device = Fn_Mode - Fn_Mode_SelectDevice1;
         Fn_Mode = Fn_Mode_None;
-        OLED_UI_add_SHOW_ICONINFO_task(OLED_UI_ICON_BLE_UNCONNECT_IDX, "Device%d", DeviceAddress[5]);
-        OLED_UI_add_CANCELINFO_delay_task(2000);
-        tmos_start_task( hidEmuTaskId, CHANGE_ADDR_EVT, 500 );
+        DATAFLASH_Write_DeviceID(new_device);
+        SoftReset();
         break;
-      case Fn_Mode_LED_Style1:
+      }
+      case Fn_Mode_LED_Style1: {
         Fn_Mode = Fn_Mode_None;
         g_keyboard_status.changeBL = TRUE;
 #ifdef OLED_0_91
@@ -433,7 +440,8 @@ UINT8 KEYBOARD_Custom_Function( void )
 #endif
         led_style_func = WS2812_Style_Custom;  // Fn+F1 - 关闭背光(背光保持不变)
         break;
-      case Fn_Mode_LED_Style2:
+      }
+      case Fn_Mode_LED_Style2: {
         Fn_Mode = Fn_Mode_None;
         g_keyboard_status.changeBL = TRUE;
 #ifdef OLED_0_91
@@ -445,7 +453,8 @@ UINT8 KEYBOARD_Custom_Function( void )
 #endif
         led_style_func = WS2812_Style_Breath;  // Fn+F2 - 背光使用呼吸灯模式
         break;
-      case Fn_Mode_LED_Style3:
+      }
+      case Fn_Mode_LED_Style3: {
         Fn_Mode = Fn_Mode_None;
         g_keyboard_status.changeBL = TRUE;
 #ifdef OLED_0_91
@@ -457,7 +466,8 @@ UINT8 KEYBOARD_Custom_Function( void )
 #endif
         led_style_func = WS2812_Style_Waterful;  // Fn+F3 - 背光使用流水灯模式
         break;
-      case Fn_Mode_LED_Style4:
+      }
+      case Fn_Mode_LED_Style4: {
         Fn_Mode = Fn_Mode_None;
         g_keyboard_status.changeBL = TRUE;
 #ifdef OLED_0_91
@@ -469,7 +479,8 @@ UINT8 KEYBOARD_Custom_Function( void )
 #endif
         led_style_func = WS2812_Style_Touch;  // Fn+F4 - 背光使用触控呼吸灯模式
         break;
-      case Fn_Mode_LED_Style5:
+      }
+      case Fn_Mode_LED_Style5: {
         Fn_Mode = Fn_Mode_None;
         g_keyboard_status.changeBL = TRUE;
 #ifdef OLED_0_91
@@ -481,7 +492,8 @@ UINT8 KEYBOARD_Custom_Function( void )
 #endif
         led_style_func = WS2812_Style_Rainbow;  // Fn+F5 - 背光使用彩虹灯模式
         break;
-      case Fn_Mode_LED_Style6:
+      }
+      case Fn_Mode_LED_Style6: {
         Fn_Mode = Fn_Mode_None;
         g_keyboard_status.changeBL = TRUE;
 #ifdef OLED_0_91
@@ -493,10 +505,12 @@ UINT8 KEYBOARD_Custom_Function( void )
 #endif
         led_style_func = WS2812_Style_Normal;  // Fn+F6 - 背光使用固定亮度
         break;
-      case Fn_Mode_GiveUp:
+      }
+      case Fn_Mode_GiveUp: {
         Fn_cnt = 0;
         Fn_Mode = Fn_Mode_None;
         break;
+      }
       default:  // 未识别的指令
         ;
     }
@@ -542,6 +556,10 @@ void KEYBOARD_Init( void )
     Colum_GPIO_(ModeCfg)( Colum_Pin_ALL, GPIO_ModeOut_PP_20mA );
     Colum_GPIO_(ResetBits)( Colum_Pin[0] );
 #endif
+    //初始化
+    g_capslock_status.press_Capslock_NormalKey = FALSE; //是否单纯按下capslock,未使用其他快捷键
+    g_capslock_status.press_Capslock = FALSE; //物理上 是否按下capslock
+    g_capslock_status.press_Capslock_with_other = FALSE; //按下capslock时,是否按下其他键
 }
 
 /*******************************************************************************
@@ -559,12 +577,10 @@ void KEYBOARD_Detection( void )
     static uint8_t current_colum = 0;
     uint8_t current_row;
 #endif
-    static uint8_t press_Capslock = 0;  // 大于0表示CapsLock按下
     static uint8_t Touchbar_SP_Key = 0;  // 大于0表示触摸条被按下
-    static BOOL press_NormalKey = FALSE;
+    static BOOL press_Normal_Key = FALSE;
     uint8_t key_idx, i, j;
     mpr121_operation_data_t oper_dat;
-
     MPR121_get_result(&oper_dat);
     /* 触摸条触发键盘按键相关 */
     if (oper_dat.slide_left == TRUE) {
@@ -590,26 +606,17 @@ void KEYBOARD_Detection( void )
         return;
     }
     /* CapsLock功能相关 */
-    if (KeyArr_ChangeTimes > 0 && KeyArr_ChangeTimes <= MAX_CHANGETIMES) {  // 进入CapsLock键盘布局改变计数等待
-        if (KeyArr_ChangeTimes == MAX_CHANGETIMES) { // 计数值到达MAX_CHANGETIMES改变键盘布局
-            KeyArr_Ptr = Extra_CustomKey;
-#ifdef OLED_0_91
-            OLED_UI_add_SHOWSTRING_task(2, 1, "L2");
-#endif
+    if(g_capslock_status.press_Capslock_NormalKey){ // 短按CapsLock后，弹起CapsLock
+      g_capslock_status.press_Capslock_NormalKey = FALSE;
+        for (key_idx = 2; key_idx < 8; key_idx++) {
+            if (KeyboardDat->data[key_idx] == KEY_CapsLock) {
+                 memcpy(&KeyboardDat->data[key_idx], &KeyboardDat->data[key_idx] + 1, 7 - key_idx);
+                 KeyboardDat->Key6 = 0;
+            }
         }
-        ++KeyArr_ChangeTimes; // 键盘计数值递增
-    } else if (press_Capslock) {  // CapsLock被按下
-        if (--press_Capslock == 0) {  // CapsLock按下持续时间到达
-          for (key_idx = 2; key_idx < 8; key_idx++) {
-              if (KeyboardDat->data[key_idx] == KEY_CapsLock) {
-                  memcpy(&KeyboardDat->data[key_idx], &KeyboardDat->data[key_idx] + 1, 7 - key_idx);
-                  KeyboardDat->Key6 = 0;
-              }
-          }
-          KEYBOARD_data_index--;
-          g_Ready_Status.keyboard_key_data = TRUE;  // 产生事件
-          return;
-        }
+        KEYBOARD_data_index--;
+        g_Ready_Status.keyboard_key_data = TRUE;  // 产生事件
+        return;
     }
     /* 基础功能 */
 #if (ROW_SCAN_MODE)
@@ -620,7 +627,7 @@ void KEYBOARD_Detection( void )
         if (KeyMatrix[current_row][current_colum] == 0 && Row_GPIO_(ReadPortPin)( Row_Pin[current_row] ) == 0) {  // 按下
 #endif
             if (g_keyboard_status.SP_Key != 0) continue;  // SP键生效后不接受其余按键
-            else if (KEYBOARD_data_index >= 8 && KeyArr_Ptr[current_row][current_colum] < KEY_LeftCTRL) continue;    // 超过6个普通按键上限
+            else if (KEYBOARD_data_index >= HID_KEYBOARD_DATA_LENGTH && KeyArr_Ptr[current_row][current_colum] < KEY_LeftCTRL && KeyArr_Ptr[current_row][current_colum] > KEY_None) continue;    // 超过6个普通按键上限
             KeyMatrix[current_row][current_colum] = 1;  // 矩阵状态变成按下
             if (led_style_func == WS2812_Style_Touch && Key_To_LEDNumber[current_row][current_colum] != 0xFF) { // 触控呼吸灯模式
                 LED_BYTE_Buffer[Key_To_LEDNumber[current_row][current_colum]][0] =
@@ -628,22 +635,38 @@ void KEYBOARD_Detection( void )
                 LED_BYTE_Buffer[Key_To_LEDNumber[current_row][current_colum]][2] = g_LED_brightness;
             }
             g_Ready_Status.keyboard_key_data = TRUE; // 产生事件
+
+            if(g_capslock_status.press_Capslock && CustomKey[current_row][current_colum] != KEY_CapsLock){
+                g_capslock_status.press_Capslock_NormalKey = FALSE;
+                g_capslock_status.press_Capslock_with_other = TRUE;
+            }//按下capslock的同时 是否按下其他键
+
             if (KeyArr_Ptr[current_row][current_colum] == KEY_Fn) {  // 功能键
                 g_keyboard_status.Fn = TRUE;
             } else if (KeyArr_Ptr[current_row][current_colum] >= KEY_SP_1) {  // SP键(单键复合)
                 g_keyboard_status.SP_Key = KeyArr_Ptr[current_row][current_colum] - KEY_SP_1;
+                press_Normal_Key = TRUE;
                 memcpy(KeyboardDat->data, SP_Key_Map[g_keyboard_status.SP_Key], 8);
             } else if (KeyArr_Ptr[current_row][current_colum] >= KEY_MouseL) {    // 鼠标操作
                 MouseDat->data[0] |= 1 << KeyArr_Ptr[current_row][current_colum] - KEY_MouseL;
+                press_Normal_Key = TRUE;
                 g_Ready_Status.keyboard_mouse_data = TRUE;  // 产生鼠标事件
             } else if (KeyArr_Ptr[current_row][current_colum] >= KEY_LeftCTRL) {    // Ctrl等特殊键
+                press_Normal_Key = TRUE;
                 KeyboardDat->data[0] |= 1 << (KeyArr_Ptr[current_row][current_colum] - KEY_LeftCTRL);
             } else {
-                if (CustomKey[current_row][current_colum] == KEY_CapsLock) {  // 长按大小写键进入Extra_CustomKey层
-                    KeyArr_ChangeTimes = 1; // 键盘布局转换-开始计数
+                press_Normal_Key = TRUE;
+                if (CustomKey[current_row][current_colum] == KEY_CapsLock ) {  // CapsLock处理
+                    KeyArr_Ptr = Extra_CustomKey;
+                    g_capslock_status.press_Capslock = TRUE;
                 } else {
-                    KeyboardDat->data[KEYBOARD_data_index++] = KeyArr_Ptr[current_row][current_colum];
-                    press_NormalKey = KeyArr_ChangeTimes > MAX_CHANGETIMES;
+                    for (key_idx = 2; key_idx < KEYBOARD_data_index; key_idx++) {
+                        if (KeyboardDat->data[key_idx] == KeyArr_Ptr[current_row][current_colum])
+                            break;
+                    }
+                    if (key_idx == KEYBOARD_data_index) {
+                        KeyboardDat->data[KEYBOARD_data_index++] = KeyArr_Ptr[current_row][current_colum];
+                    }
                 }
             }
 #if (ROW_SCAN_MODE)
@@ -657,7 +680,7 @@ void KEYBOARD_Detection( void )
                 g_keyboard_status.Fn = FALSE;
             } else if (KeyArr_Ptr[current_row][current_colum] >= KEY_SP_1) {  // SP键(单键复合)
                 g_keyboard_status.SP_Key = 0;
-                memset(KeyboardDat->data, 8, 0);
+                memset(KeyboardDat->data, HID_KEYBOARD_DATA_LENGTH, 0);
             }  else if (KeyArr_Ptr[current_row][current_colum] >= KEY_MouseL) {    // 鼠标操作
                 MouseDat->data[0] &= ~(1 << KeyArr_Ptr[current_row][current_colum] - KEY_MouseL);
                 g_Ready_Status.keyboard_mouse_data = TRUE;  // 产生鼠标事件
@@ -665,20 +688,15 @@ void KEYBOARD_Detection( void )
                 KeyboardDat->data[0] &= ~(1 << (KeyArr_Ptr[current_row][current_colum] - KEY_LeftCTRL));
             } else {
                 if (CustomKey[current_row][current_colum] == KEY_CapsLock) {  // 弹起大小写键离开Extra_CustomKey层
-                    if (KeyArr_ChangeTimes > MAX_CHANGETIMES) {
-                        KeyArr_Ptr = CustomKey;
-#ifdef OLED_0_91
-                        OLED_UI_add_SHOWSTRING_task(2, 1, "L1");
-#endif
-                    }
-                    if (press_NormalKey == FALSE || KeyArr_ChangeTimes <= MAX_CHANGETIMES) {
-                        if (KEYBOARD_data_index < 8) {
-                            press_Capslock = PRESS_HOLDING_TIMES;
-                            KeyboardDat->data[KEYBOARD_data_index++] = KEY_CapsLock;
-                        }
-                    }
-                    KeyArr_ChangeTimes = 0;
-                    press_NormalKey = FALSE;
+                  KeyArr_Ptr = CustomKey;
+                  g_capslock_status.press_Capslock = FALSE;
+                  if (g_capslock_status.press_Capslock_with_other) { // 有使用其他层
+                    g_capslock_status.press_Capslock_NormalKey = FALSE;
+                  } else { // 单纯按下capslock键
+                      KeyboardDat->data[KEYBOARD_data_index++] = KEY_CapsLock;
+                      g_capslock_status.press_Capslock_NormalKey = TRUE;
+                  }
+                  g_capslock_status.press_Capslock_with_other = FALSE;
                 } else {
                     for (key_idx = 2; key_idx < 8; key_idx++) {
                         if (KeyboardDat->data[key_idx] == CustomKey[current_row][current_colum] ||

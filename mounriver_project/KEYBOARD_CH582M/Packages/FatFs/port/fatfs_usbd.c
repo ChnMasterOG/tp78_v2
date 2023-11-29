@@ -3,7 +3,7 @@
 #include "CH58x_common.h"
 
 #define BLOCK_SIZE  512
-#define BLOCK_COUNT 64
+#define BLOCK_COUNT 60  // reserved 2k
 
 int USB_disk_status(void)
 {
@@ -23,8 +23,10 @@ int USB_disk_read(BYTE *buff, LBA_t sector, UINT count)
 
 int USB_disk_write(const BYTE *buff, LBA_t sector, UINT count)
 {
-    EEPROM_ERASE(sector * BLOCK_SIZE, count);
-    EEPROM_WRITE(sector * BLOCK_SIZE, (BYTE*)buff, count);
+    if (sector < BLOCK_COUNT) {
+      EEPROM_ERASE(sector * BLOCK_SIZE, count);
+      EEPROM_WRITE(sector * BLOCK_SIZE, (BYTE*)buff, count);
+    }
     return 0;
 }
 

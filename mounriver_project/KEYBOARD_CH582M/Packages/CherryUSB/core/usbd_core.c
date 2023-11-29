@@ -23,8 +23,8 @@
 #define INTF_DESC_bInterfaceNumber  2 /** Interface number offset */
 #define INTF_DESC_bAlternateSetting 3 /** Alternate setting offset */
 
-#define USB_EP_OUT_NUM 8
-#define USB_EP_IN_NUM  8
+#define USB_EP_OUT_NUM 5    // modify for CH582M(orign 8)
+#define USB_EP_IN_NUM  5    // modify for CH582M(orign 8)
 
 struct usbd_tx_rx_msg {
     uint8_t ep;

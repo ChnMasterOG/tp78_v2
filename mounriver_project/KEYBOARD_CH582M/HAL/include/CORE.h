@@ -13,6 +13,10 @@
 
   #include "CH58x_common.h"
 
+  #define BOOT_FLAG_SDRAM_ADDRESS     (0x20008000-4)
+  #define FLAG_APP_TO_BOOT            0x5555AAAA
+  #define SDRAM32(x)                  (*((volatile uint32_t *)(x)))
+
   enum LP_Type {
     lp_mode_none = 0,
     lp_idle_mode,
@@ -23,6 +27,7 @@
     lp_max_mode,
   };
 
+  void APPJumpKBoot(void);
   void APPJumpBoot(void);
   void SoftReset(void);
   void TP78Reinit(uint8_t type, enum LP_Type lp_type);

@@ -49,7 +49,7 @@
   void DATAFLASH_Write_LEDStyle( uint16_t LED_Style_Number );
   void WS2812_PWM_Init( void );
   void WS2812_Style_Off( void );
-  void WS2812_Style_Normal( void );
+  void WS2812_Style_Normal( void);
   void WS2812_Style_Breath( void );
   void WS2812_Style_Waterful( void );
   void WS2812_Style_Touch( void );

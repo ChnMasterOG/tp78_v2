@@ -20,7 +20,7 @@ extern "C"
 /*********************************************************************
  * INCLUDES
  */
-#include "config.h"
+#include "CONFIG.h"
 
 /*********************************************************************
  * CONSTANTS
@@ -34,15 +34,12 @@ extern "C"
 #define BLE_TEST_REPORT_EVT                           0x0002
 #define START_PARAM_UPDATE_EVT                        0x0004
 #define START_PHY_UPDATE_EVT                          0x0008
-#define CHANGE_ADDR_EVT                               0x0010
-#define START_ENTER_PASSKEY_EVT                       0x0020
-#define START_SEND_PASSKEY_EVT                        0x0040
-#define BLE_DISCONNECT_EVT                            0x0080
-#define BLE_EN_ADVERT_EVT                             0x0100
-#define BLE_DIS_ADVERT_EVT                            0x0200
-#define START_MOUSE_REPORT_EVT                        0x1000
-#define START_KEYBOARD_REPORT_EVT                     0x2000
-#define START_VOL_REPORT_EVT                          0x4000
+#define START_ENTER_PASSKEY_EVT                       0x0010
+//#define CHANGE_ADDR_EVT                               0x0020
+#define BLE_MOUSE_REPORT_EVT                          0x0040
+#define BLE_KEYBOARD_REPORT_EVT                       0x0080
+#define BLE_VOL_REPORT_EVT                            0x0100
+#define BLE_RELEASE_CONNECT_LOCK_EVT                  0x0200
 
 typedef struct _BLE_Device_Info_t{
     uint8_t magic;

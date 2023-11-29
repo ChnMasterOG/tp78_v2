@@ -539,6 +539,10 @@ typedef struct _hid_state {
     uint8_t vol_hid_state : 1;
     uint8_t reserved : 5;
 }hid_state_t;
+
+// Task id
+tmosTaskID usbTaskID = INVALID_TASK_ID;
+
 static volatile hid_state_t hid_state = {
                                          .keyboard_hid_state = HID_STATE_IDLE,
                                          .mouse_hid_state = HID_STATE_IDLE,
@@ -629,17 +633,23 @@ void usb_device_init()
     usbd_initialize();
 }
 
-// Task id
-tmosTaskID usbTaskID = INVALID_TASK_ID;
-
 /*--------------------------- define for hid ---------------------------*/
+
+void usb_suspend_wake_up_cb(uint8_t type)
+{
+  if (type) { // wake up
+    g_Ready_Status.usb = TRUE;
+  } else {
+    g_Ready_Status.usb = FALSE;
+  }
+}
 
 void usbd_configure_done_callback(void)
 {
   if (u_disk_mode == FALSE) {
     usbd_ep_start_read(USBD_RAW_IF3_AL0_EP1_ADDR, raw_buffer, sizeof(raw_buffer));
   }
-  tmos_start_task( halTaskID, USB_READY_EVENT, 30 );
+  usb_suspend_wake_up_cb(1);
 }
 
 void usbh_hid_set_idle(uint8_t intf, uint8_t report_id, uint8_t duration)
@@ -654,16 +664,10 @@ void usbh_hid_set_protocol(uint8_t intf, uint8_t protocol)
 
 void usbh_hid_set_report(uint8_t intf, uint8_t report_id, uint8_t report_type, uint8_t *report, uint8_t report_len)
 {
-    if (intf == 0) g_CapsLock_LEDOn_Status.usb = (report[0] & 0x2) ? TRUE : FALSE;
-}
-
-void usb_suspend_wake_up_cb(uint8_t type)
-{
-    if (type) { // wake up
-        tmos_start_task( halTaskID, USB_READY_EVENT, 30 );
-    } else {
-        g_Ready_Status.usb = FALSE;
-        tmos_clear_event( halTaskID, USB_READY_EVENT );
+    if (intf == 0) {
+      g_NumLock_LEDOn_Status.usb = (report[0] & 0x1) ? TRUE : FALSE;
+      g_CapsLock_LEDOn_Status.usb = (report[0] & 0x2) ? TRUE : FALSE;
+      TPM_notify_led_data(report[0]);
     }
 }
 
@@ -672,7 +676,7 @@ void usb_suspend_wake_up_cb(uint8_t type)
 #include "fatfs_usbd.h"
 
 #define BLOCK_SIZE    512
-#define BLOCK_COUNT   64
+#define BLOCK_COUNT   60  // reserved 2k
 
 void usbd_msc_get_cap(uint8_t lun, uint32_t *block_num, uint16_t *block_size)
 {
@@ -730,6 +734,36 @@ void hid_keyboard_test(void)
 #endif
 
 /*******************************************************************************
+ * Function Name  : USB_ProcessTMOSMsg
+ * Description    : Process an incoming task message.
+ * Input          : pMsg - message to process
+ * Return         : tmosEvents
+ *******************************************************************************/
+static void USB_ProcessTMOSMsg( tmos_event_hdr_t *pMsg )
+{
+  switch ( pMsg->event )
+  {
+    case KEY_MESSAGE: {
+        SendMSG_t *msg = (SendMSG_t *) pMsg;
+        msg->hdr.status ? tmos_set_event( usbTaskID, USB_KEYBOARD_EVENT ) : 0;
+        break;
+    }
+    case MOUSE_MESSAGE: {
+        SendMSG_t *msg = (SendMSG_t *) pMsg;
+        msg->hdr.status ? tmos_set_event( usbTaskID, USB_MOUSE_EVENT ) : 0;
+        break;
+    }
+    case VOL_MESSAGE: {
+        SendMSG_t *msg = (SendMSG_t *) pMsg;
+        msg->hdr.status ? tmos_set_event( usbTaskID, USB_VOL_EVENT ) : 0;
+        break;
+    }
+    default:
+      break;
+  }
+}
+
+/*******************************************************************************
  * Function Name  : USB_ProcessEvent
  * Description    : USB处理事件
  * Input          : task_id： 任务id, events: USB事件
@@ -739,10 +773,19 @@ tmosEvents USB_ProcessEvent( tmosTaskID task_id, tmosEvents events )
 {
   int ret;
 
-  if ( events & START_USB_EVENT )
+  if ( events & SYS_EVENT_MSG )
   {
-    PFIC_EnableIRQ( USB_IRQn );
-    return events ^ START_USB_EVENT;
+    uint8 *pMsg;
+
+    if ( (pMsg = tmos_msg_receive( usbTaskID )) != NULL )
+    {
+      USB_ProcessTMOSMsg( (tmos_event_hdr_t *)pMsg );
+
+      // Release the TMOS message
+      tmos_msg_deallocate( pMsg );
+    }
+
+    return events ^ SYS_EVENT_MSG;
   }
 
   if ( events & USB_KEYBOARD_EVENT )
@@ -778,6 +821,7 @@ tmosEvents USB_ProcessEvent( tmosTaskID task_id, tmosEvents events )
     return events ^ USB_VOL_EVENT;
   }
 
+#if DEBUG
   if ( events & USB_TEST_EVENT )
   {
 #if 0
@@ -787,6 +831,7 @@ tmosEvents USB_ProcessEvent( tmosTaskID task_id, tmosEvents events )
     tmos_start_task(usbTaskID, USB_TEST_EVENT, MS1_TO_SYSTEM_TIME(500));
     return events ^ USB_TEST_EVENT;
   }
+#endif
 
   return 0;
 }
@@ -802,11 +847,7 @@ void HAL_USBInit( void )
   uint16_t Udisk_mode = 0;
 
   usbTaskID = TMOS_ProcessEventRegister( USB_ProcessEvent );
-  /* support to cherry usb */
-  TMR0_TimerInit(FREQ_SYS / 1000);
-  TMR0_ITCfg(ENABLE, TMR0_3_IT_CYC_END);
-  PFIC_EnableIRQ(TMR0_IRQn);
-  PFIC_SetPriority(TMR0_IRQn, 20);
+
   /* usb device init */
 #ifdef FIRST_USED
   u_disk_mode = TRUE;
@@ -837,30 +878,7 @@ void usb_hc_low_level_init(void)
 //  PFIC_EnableIRQ(USB2_IRQn);
 }
 
-volatile uint32_t timer_count_user = 0;
-
-__INTERRUPT
-__HIGH_CODE
-void TMR0_IRQHandler(void)
+int usb_dc_deinit(void)
 {
-  /*!< Timer 0 IRQ */
-  if (TMR0_GetITFlag(TMR0_3_IT_CYC_END)) {
-    /*!< Clear Pending flag */
-    TMR0_ClearITFlag(TMR0_3_IT_CYC_END);
-
-    /*!< Updata the ms count */
-    timer_count_user++;
-    /*!< Set timing time 1ms */
-    R32_TMR0_CNT_END = GetSysClock() / 1000;
-    R8_TMR0_CTRL_MOD = RB_TMR_ALL_CLEAR;
-    R8_TMR0_CTRL_MOD = RB_TMR_COUNT_EN;
-
-    /*!< Enable interrupt */
-    TMR0_ITCfg(ENABLE, TMR0_3_IT_CYC_END);
-  }
-}
-
-uint32_t chey_board_millis(void)
-{
-  return timer_count_user;
+    return 0;
 }

@@ -21,6 +21,7 @@
 
     #define MAX_PRESS_COUNT       15    // 8个特殊键+6个一般键+1个Fn键
     #define MAX_CHANGETIMES       24    // 按下Capslock改变键盘布局检测次数
+    #define MAX_CAPSLOCKTIMES     100   // 按下Capslock超过该值视为放弃
     #define PRESS_HOLDING_TIMES   4     // 按键按下持续时间(太短HOST可能检测不到)
     #define ROW_SCAN_MODE         TRUE  // TRUE - 行扫描模式; FALSE - 列扫描模式
 
@@ -149,16 +150,17 @@
     #define Fn_Mode_None                  0x00
     #define Fn_Mode_Reset                 0x01
     #define Fn_Mode_ChangeKey             0x02
+    #define Fn_Mode_USBMode               0x80
+    #define Fn_Mode_BLEMode               0x81
+    #define Fn_Mode_RFMode                0x82
+    #define Fn_Mode_UDiskMode             0x84
     #define Fn_Mode_Enter_Cfg             0xA0
     #define Fn_Mode_JumpBoot              0xB0
     #define Fn_Mode_SoftReset             0xB1
-    #define Fn_Mode_RForBLE               0xB2
-    #define Fn_Mode_RFJumptoBoot          0xB3
+    #define Fn_Mode_RFJumptoBoot          0xB2
     #define Fn_Mode_VolumeUp              0xC0
     #define Fn_Mode_VolumeDown            0xC1
-    #define Fn_Mode_DisEnableBLE          0xD0
-    #define Fn_Mode_DisEnableTP           0xD1
-    #define Fn_Mode_UDiskMode             0xDF
+    #define Fn_Mode_DisEnableTP           0xD0
     #define Fn_Mode_PriorityUSBorBLE      0xE0
     #define Fn_Mode_SelectDevice1         0xE1
     #define Fn_Mode_SelectDevice2         0xE2
@@ -182,12 +184,19 @@
         uint8_t reserved : 2;
     }Keyboard_Status_t;
 
+    typedef struct _Capslock_Status_t {
+        uint8_t press_Capslock_NormalKey : 1;//是否单纯按下capslock,未使用其他快捷键
+        uint8_t press_Capslock : 1;//物理上 是否按下capslock
+        uint8_t press_Capslock_with_other : 1;//按下capslock时,是否按下其他键
+    }Capslock_Status_t;
+
     extern const uint8_t KeyArrary[ROW_SIZE][COL_SIZE];
     extern const uint8_t Extra_KeyArrary[ROW_SIZE][COL_SIZE];
     extern uint32_t Row_Pin_ALL, Colum_Pin_ALL;
     extern uint8_t CustomKey[ROW_SIZE][COL_SIZE];
     extern uint8_t Extra_CustomKey[ROW_SIZE][COL_SIZE];
     extern uint8_t KeyMatrix[ROW_SIZE][COL_SIZE];
+    extern uint8_t KEYBOARD_data_index;
     extern Keyboard_Status_t g_keyboard_status;
 
     void DATAFLASH_Read_KeyArray( void );

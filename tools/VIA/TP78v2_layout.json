@@ -20,9 +20,14 @@
                 ],
                 "content": ["id_BLE_device", 0, 1]
               }, {
-                "label": "RF Mode",
-                "type": "toggle",
-                "content": ["id_RF_mode", 0, 2]
+                "label": "Work Mode",
+                "type": "dropdown",
+                "options": [
+                  ["USB", 0],
+                  ["BlueTooth", 1],
+                  ["RF 2.4G", 2]
+                ],
+                "content": ["id_Work_mode", 0, 2]
               }, {
                 "label": "RF Freq Level",
                 "type": "dropdown",

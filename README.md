@@ -28,7 +28,7 @@
 
 **硬件资料开源地址：** https://oshwhub.com/bibilala/tp78_2022-08-31
 
-### 仓库目录
+#### 仓库目录
 
 ```mermaid
 flowchart LR
@@ -42,37 +42,27 @@ C(mounriver_project - wch软件工程) --> H(RF_CH582M - 配套接收器工程)
 C(mounriver_project - wch软件工程) --> J(VLD_CH582M - 主控板测试工程)
 ```
 
-### 软件工程目录
+#### 视频教程
 
-```mermaid
-flowchart LR
+**改键篇(上)-VIA：** https://www.bilibili.com/video/BV1rL41167qy
 
-A(BLE_582M) --> B(APP - 应用层)
-A(BLE_582M) --> C(HAL - HAL层, 包含各种驱动接口)
-A(BLE_582M) --> D(Ld - 链接文件)
-A(BLE_582M) --> E(LIB - 存放工程闭源库)
-A(BLE_582M) --> F(Packages - 第三方开源包)
-A(BLE_582M) --> H(Profile - 蓝牙服务相关)
-A(BLE_582M) --> I(RVMSIS - RISC V相关指令)
-A(BLE_582M) --> J(Startup - CH582M启动文件)
-A(BLE_582M) --> K(StdPeriphDriver - CH582M库函数)
-```
+**改键篇(下)-按键宏：** https://www.bilibili.com/video/BV1Yu4y1S73Q
 
-### 视频教程
+#### 关于固件升级Q&A
 
-**VIA改键篇(上)：** https://www.bilibili.com/video/BV1rL41167qy
+- **Q**: 如何进入主键盘WCH的ROM bootloader（非开发者不建议操作）？
 
-### 关于固件升级Q&A
+- **A:** 按住底板中BOOT键通电，或按下Fn+Fn（第二次长按超过5s松开）进入BOOTLOADER。注意：Fn+Fn操作后会擦除部分CodeFlash首4K地址，上电后必须先下载程序。
 
-- **Q**: 如何进入主键盘的BOOTLOADER？
+- **Q**: 如何进入主键盘kBoot？
 
-- **A:** 按住底板中BOOT键通电，或按下Fn+B进入BOOTLOADER。注意：Fn+B后会擦除部分CodeFlash部分片段，上电后必须先下载程序。
+- **A:** kBoot是TP78_v2固件配套bootloader，按下Fn+B可实现由主固件跳转至kBoot，或通过按ESC上电跳转kBoot。kBoot下格式化U盘操作相当于擦除主固件，擦除后将主固件复制到U盘选择Reboot进行固件升级。
 
-- **Q**: 如何进入接收器的BOOTLOADER？
+- **Q**: 如何进入接收器的bootloader？
 
-- **A:** 进入RF模式后连上接收器，此时按下Fn+M使接收器进入BOOTLOADER。注意：接收器进入bootloader后CodeFlash同样被擦除，上电后必须先下载程序。若同时需要升级接收器固件和键盘主体固件，优先升级接收器固件后再升级键盘主体固件。千万注意接收器固件不要刷错，否则导致无法连接从而无法再次进入bootloader。
+- **A:** 进入RF模式后连上接收器，此时按下Fn+M使接收器进入ROM bootloader。注意：接收器进入bootloader后CodeFlash首4K被擦除，上电后必须先下载程序。若同时需要升级接收器固件和键盘主体固件，优先升级接收器固件后再升级键盘主体固件。千万注意接收器固件不要刷错，否则导致无法连接从而无法再次进入bootloader。
 
-- **Q:** 如何升级固件？
+- **Q:** 如何通过WCH工具升级固件？
 
 - **A:** 使用WCH官方ISP工具进行固件升级(仅支持windows)，工具目录：tools/WCHISPTool/WCHISPTool_Setup.exe。
   
@@ -87,10 +77,6 @@ A(BLE_582M) --> K(StdPeriphDriver - CH582M库函数)
   > - 选择目标程序文件1，并勾选右侧选项框；
   > 
   > - 最后点击下载。
-
-- **Q:** 多次点击下载后，进度条跑完显示失败。
-
-- **A:** 建议更换核心板。
 
 - **Q**: 首次刷入固件提示FATFS-FAIL（解决方式1）。
 

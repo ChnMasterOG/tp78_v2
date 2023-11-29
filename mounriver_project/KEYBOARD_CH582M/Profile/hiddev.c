@@ -13,9 +13,7 @@
  * INCLUDES
  */
 
-#include "OLED.h"
-#include "config.h"
-#include "CH58x_common.h"
+#include "CONFIG.h"
 #include "battservice.h"
 #include "scanparamservice.h"
 #include "devinfoservice.h"
@@ -295,14 +293,14 @@ uint8 HidDev_Report( uint8 id, uint8 type, uint8 len, uint8*pData )
   // if connected
   if ( hidDevGapState == GAPROLE_CONNECTED )
   {
-#if 0 // 解决第一次配对上无法发送report的BUG
+#if 1 // 解决第一次配对上无法发送report的BUG
     // if connection is secure
     if ( hidDevConnSecure )
     {
 #endif
       // send report
       return hidDevSendReport( id, type, len, pData );
-#if 0
+#if 1
     }
 #endif
   }
@@ -823,9 +821,6 @@ static void hidDevGapStateCB( gapRole_States_t newState, gapRoleEvent_t * pEvent
   }
 
   hidDevGapState = newState;
-
-  // ble connect or disconnect
-  g_Ready_Status.ble = (hidDevGapState == GAPROLE_CONNECTED ? TRUE : FALSE);
 }
 
 /*********************************************************************
@@ -865,6 +860,7 @@ static void hidDevPairStateCB( uint16 connHandle, uint8 state, uint8 status )
     if ( status == SUCCESS )
     {
       hidDevConnSecure = TRUE;
+      g_Ready_Status.ble = TRUE;
     }
 
     pairingStatus = status;
@@ -874,6 +870,7 @@ static void hidDevPairStateCB( uint16 connHandle, uint8 state, uint8 status )
     if ( status == SUCCESS )
     {
       hidDevConnSecure = TRUE;
+      g_Ready_Status.ble = TRUE;
 
 #if DEFAULT_SCAN_PARAM_NOTIFY_TEST == TRUE
       ScanParam_RefreshNotify( gapConnHandle );
@@ -882,14 +879,8 @@ static void hidDevPairStateCB( uint16 connHandle, uint8 state, uint8 status )
   }
 	else if( state == GAPBOND_PAIRING_STATE_BOND_SAVED )
   {
-/*
-	  Bond_DeviceInfo[BLE_SelectHostIndex].magic = 0x1;
-	  tmos_memcpy(Bond_DeviceInfo[BLE_SelectHostIndex].mac_addr, Cur_DeviceInfo.mac_addr, 6);
-	  Bond_DeviceInfo[BLE_SelectHostIndex].addr_type = Cur_DeviceInfo.addr_type;
-	  HAL_Fs_Write_ble_device_info(Bond_DeviceInfo);
-    OLED_UI_add_SHOWINFO_task("Bond Save");
-    OLED_UI_add_CANCELINFO_delay_task(3000);
-*/
+	  OLED_UI_add_SHOWINFO_task("Bond OK");
+    OLED_UI_add_CANCELINFO_delay_task(2000);
   }
 }
 

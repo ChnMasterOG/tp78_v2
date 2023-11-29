@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : CORE.c
  * Author             : ChnMasterOG
- * Version            : V1.1
- * Date               : 2022/12/24
+ * Version            : V1.2
+ * Date               : 2023/6/22
  * Description        : 上下电、MCU Sleep相关控制
  * Copyright (c) 2023 ChnMasterOG
  * SPDX-License-Identifier: GPL-3.0
@@ -11,19 +11,32 @@
 #include "HAL.h"
 
 /*******************************************************************************
+ * Function Name  : APPJumpKBoot
+ * Description    : 跳转到kboot
+ * Input          : 无
+ * Return         : 无
+ *******************************************************************************/
+void APPJumpKBoot(void)
+{
+#if (defined HAL_WDG) && (HAL_WDG == TRUE)
+  WWDG_ResetCfg(DISABLE); // 关看门狗
+#endif
+  SDRAM32(BOOT_FLAG_SDRAM_ADDRESS) = FLAG_APP_TO_BOOT;
+  SYS_ResetExecute();
+}
+
+/*******************************************************************************
  * Function Name  : APPJumpBoot
- * Description    : 跳转到bootloader
+ * Description    : 跳转到芯片bootloader
  * Input          : 无
  * Return         : 无
  *******************************************************************************/
 __HIGH_CODE
 void APPJumpBoot(void)   //此段代码必须运行在RAM中
 {
-  PFIC_DisableIRQ(USB_IRQn);
-  PFIC_DisableIRQ(GPIO_A_IRQn);
-  PFIC_DisableIRQ(GPIO_B_IRQn);
-  PFIC_DisableIRQ(TMR0_IRQn);
-  PFIC_DisableIRQ(RTC_IRQn);
+  uint32_t irq_status;
+
+  SYS_DisableAllIrq( &irq_status );
 #if (defined HAL_WDG) && (HAL_WDG == TRUE)
   WWDG_ResetCfg(DISABLE); // 关看门狗
 #endif
@@ -47,25 +60,12 @@ void APPJumpBoot(void)   //此段代码必须运行在RAM中
  * Input          : 无
  * Return         : 无
  *******************************************************************************/
-__HIGH_CODE
 void SoftReset(void)   //软件复位
 {
-  PFIC_DisableIRQ(USB_IRQn);
-  PFIC_DisableIRQ(GPIO_A_IRQn);
-  PFIC_DisableIRQ(GPIO_B_IRQn);
-  PFIC_DisableIRQ(TMR0_IRQn);
-  PFIC_DisableIRQ(RTC_IRQn);
 #if (defined HAL_WDG) && (HAL_WDG == TRUE)
   WWDG_ResetCfg(DISABLE); // 关看门狗
 #endif
-  FLASH_ROM_SW_RESET();
-  R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;
-  R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;  //安全访问模式
-  SAFEOPERATE;
-  R16_INT32K_TUNE = 0xFFFF;
-  R8_RST_WDOG_CTRL |= RB_SOFTWARE_RESET;
-  R8_SAFE_ACCESS_SIG = 0;
-  while(1);
+  SYS_ResetExecute();
 }
 
 /*******************************************************************************
@@ -75,7 +75,6 @@ void SoftReset(void)   //软件复位
  *                  lp_type - 低功耗模式
  * Return         : 无
  *******************************************************************************/
-__HIGH_CODE
 void TP78Reinit(uint8_t mode, enum LP_Type lp_type)
 {
   if (mode == 0) {  // 进入睡眠
@@ -150,7 +149,6 @@ void TP78Reinit(uint8_t mode, enum LP_Type lp_type)
  * Input          : type: 低功耗模式类型
  * Return         : 无
  *******************************************************************************/
-__HIGH_CODE
 void GotoLowpower(enum LP_Type type)
 {
 #if (defined HAL_KEYBOARD) && (HAL_KEYBOARD == TRUE)
@@ -164,6 +162,7 @@ void GotoLowpower(enum LP_Type type)
       TP78Reinit(0, type);
       LowPower_Idle();
       break;
+#ifndef LOW_MEM
     case lp_sw_mode: // 软件低功耗处理
       TP78Reinit(0, type);
       break;
@@ -175,6 +174,7 @@ void GotoLowpower(enum LP_Type type)
       TP78Reinit(0, type);
       LowPower_Sleep(RB_PWR_RAM30K | RB_PWR_RAM2K | RB_PWR_EXTEND | RB_PWR_XROM);
       break;
+#endif
     case lp_shutdown_mode: // 下电模式 - 0.2uA~2.3uA
       TP78Reinit(0, type);
       LowPower_Shutdown(0);

@@ -79,9 +79,8 @@ void WS2812_PWM_Init( void )
 {
 #ifdef USE_PWM1
   // 初始化 TMR1 PA10 用于输出PWM
-  WS2812_GPIO_(SetBits)( WS2812_Pin );
-  WS2812_GPIO_(ModeCfg)( WS2812_Pin, GPIO_ModeOut_PP_5mA );
   WS2812_GPIO_(ResetBits)( WS2812_Pin );
+  WS2812_GPIO_(ModeCfg)( WS2812_Pin, GPIO_ModeOut_PP_5mA );
 
 #if 0 // DMA搬运前重新初始化
   TMR1_PWMInit( High_Level, PWM_Times_1 );
@@ -108,6 +107,7 @@ void WS2812_PWM_Init( void )
 void WS2812_Style_Off( void )
 {
   uint16_t i;
+
   for (i = 0; i < LED_NUMBER*24; i++) LED_DMA_Buffer[i] = TIMING_ZERO;
 }
 
@@ -120,6 +120,7 @@ void WS2812_Style_Off( void )
 void WS2812_Style_Normal( void )
 {
   uint16_t i, j, memaddr = 0;
+
   for (i = 0; i < LED_NUMBER; i++)
   {
     LED_BYTE_Buffer[i][GREEN_INDEX] = LED_BYTE_Buffer[i][RED_INDEX] = LED_BYTE_Buffer[i][BLUE_INDEX] = g_LED_brightness;
@@ -151,6 +152,7 @@ void WS2812_Style_Normal( void )
 void WS2812_Style_Breath( void )
 {
   uint16_t i, j, memaddr = 0;
+
   for (i = 0; i < LED_NUMBER; i++)
   {
     /* transfer data */
@@ -196,6 +198,7 @@ void WS2812_Style_Waterful( void )
 {
   uint16_t j;
   uint32_t slow_cnt;
+
   if (style_cnt % Waterful_Repeat_Times != 0) {  // 控制周期*Waterful_Repeat_Times = 流水灯周期
     ++style_cnt;
     if (style_cnt >= LED_NUMBER * 3 * Waterful_Repeat_Times ) { // GRB轮流切换 + 120ms移动一个灯
@@ -234,6 +237,7 @@ void WS2812_Style_Waterful( void )
 void WS2812_Style_Touch( void )
 {
   uint16_t i, j, memaddr = 0;
+
   for (i = 0; i < LED_NUMBER; i++)
   {
     /* transfer data */
@@ -269,6 +273,7 @@ void WS2812_Style_Rainbow( void )
 {
   signed int i;
   uint16_t j, memaddr = 0;
+
   for (i = 0; i < LED_NUMBER; i++)
   {
     /* transfer data */
@@ -331,24 +336,25 @@ void WS2812_Style_Rainbow( void )
 void WS2812_Style_Custom( void )
 {
   uint16_t i, j, memaddr = 0;
+
   /* transfer data */
   for (i = 0; i < LED_NUMBER; i++)
   {
     for (j = 0; j < 8; j++) // GREEN data
-    {
-      LED_DMA_Buffer[memaddr] = ((LED_BYTE_Buffer[i][GREEN_INDEX]<<j) & 0x0080) ? TIMING_ONE:TIMING_ZERO;
-      memaddr++;
-    }
-    for (j = 0; j < 8; j++) // RED data
-    {
-      LED_DMA_Buffer[memaddr] = ((LED_BYTE_Buffer[i][RED_INDEX]<<j) & 0x0080) ? TIMING_ONE:TIMING_ZERO;
-      memaddr++;
-    }
-    for (j = 0; j < 8; j++) // BLUE data
-    {
-      LED_DMA_Buffer[memaddr] = ((LED_BYTE_Buffer[i][BLUE_INDEX]<<j) & 0x0080) ? TIMING_ONE:TIMING_ZERO;
-      memaddr++;
-    }
+     {
+       LED_DMA_Buffer[memaddr] = ((LED_BYTE_Buffer[i][GREEN_INDEX]<<j) & 0x0080) ? TIMING_ONE:TIMING_ZERO;
+       memaddr++;
+     }
+     for (j = 0; j < 8; j++) // RED data
+     {
+       LED_DMA_Buffer[memaddr] = ((LED_BYTE_Buffer[i][RED_INDEX]<<j) & 0x0080) ? TIMING_ONE:TIMING_ZERO;
+       memaddr++;
+     }
+     for (j = 0; j < 8; j++) // BLUE data
+     {
+       LED_DMA_Buffer[memaddr] = ((LED_BYTE_Buffer[i][BLUE_INDEX]<<j) & 0x0080) ? TIMING_ONE:TIMING_ZERO;
+       memaddr++;
+     }
   }
 }
 
@@ -370,7 +376,7 @@ void WS2812_Send( void )
     style_dir = style_cnt = 0;
     WS2812_Style_Off( );
   } else {
-    led_style_func( ); // 调用变化函数
+    led_style_func();  // 调用变化函数
   }
 
   { // WCH CH582M bug: 不重新初始化TMR_PWM则发送PWM+DMA偶现第一个非空Byte丢失

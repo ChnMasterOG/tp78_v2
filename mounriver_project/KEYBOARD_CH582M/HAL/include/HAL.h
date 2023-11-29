@@ -68,6 +68,7 @@ typedef union {
 
 #include "config.h"
 #include "TP78_MPR121_LIB.h"
+#include "TP78_TPM_LIB.h"
 #include "RTC.h"
 #include "SLEEP.h"	
 #include "LED.h"
@@ -95,15 +96,13 @@ typedef union {
 #define BATTERY_EVENT                       0x0010
 #define WS2812_EVENT                        0x0020
 #define OLED_UI_EVENT                       0x0040
-#define USB_READY_EVENT                     0x0080
-#define MPR121_EVENT                        0x0100
-#define FEEDDOG_EVENT                       0x0200
-#define MOTOR_STOP_EVENT                    0x0400
-#define MODULE_INITIAL_EVENT                0x0800
-#define LED_BLINK_EVENT                     0x1000
-#define KEY_EVENT                           0x2000
-#define HAL_REG_INIT_EVENT                  0x4000
-#define HAL_TEST_EVENT                      0x8000
+#define MPR121_EVENT                        0x0080
+#define MOTOR_STOP_EVENT                    0x0200
+#define TPM_EVENT                           0x0400
+//#define LED_BLINK_EVENT                     0x1000
+//#define KEY_EVENT                           0x2000
+#define HAL_REG_INIT_EVENT                  0x1000
+#define HAL_TEST_EVENT                      0x2000
 
 /* hal sys_message */
 #define MESSAGE_UART                        0xA0    // UART message
@@ -112,6 +111,19 @@ typedef union {
 
 #define USB_MESSAGE              		        0xB0    // USB message
 
+#define KEY_MESSAGE                         0xA0    // KEY message
+#define MOUSE_MESSAGE                       0xA1    // MOUSE message
+#define VOL_MESSAGE                         0xA2    // VOL message
+#define HEARTBEAT_MESSAGE                   0xAA    // HEARTBEAT message
+
+#define PASSKEY_MESSAGE                     0xC0    // passkey message
+
+/* Mode */
+#define USB_WORK_MODE                       0
+#define BLE_WORK_MODE                       1
+#define RF_WORK_MODE                        2
+
+/* HID data length */
 #define HID_MOUSE_DATA_LENGTH               4
 #define HID_KEYBOARD_DATA_LENGTH            8
 #define HID_VOLUME_DATA_LENGTH              1
@@ -132,9 +144,9 @@ typedef union {
 #define DATAFLASH_ADDR_MPR121_ALG_Param     (10*1024+12)  // MPR121算法参数存储
 #endif
 
-#define FEEDDOG_PERIOD                      25            // 单位1ms
-#define IDLE_MAX_PERIOD                     (180 * (1000 / FEEDDOG_PERIOD)) // idle_cnt大于该值则进入屏保
-#define LP_MAX_PERIOD                       (240 * (1000 / FEEDDOG_PERIOD)) // idle_cnt大于该值则进入低功耗模式
+#define SYS_PERIOD                          50            // 单位1ms
+#define IDLE_MAX_PERIOD                     (180 * (1000 / SYS_PERIOD)) // idle_cnt大于该值则进入屏保
+#define LP_MAX_PERIOD                       (240 * (1000 / SYS_PERIOD)) // idle_cnt大于该值则进入低功耗模式
 
 #define MOTOR_PIN                           GPIO_Pin_19
 #define MOTOR_RUN()                         { GPIOB_SetBits( MOTOR_PIN ); }
@@ -154,6 +166,12 @@ typedef struct tag_uart_package
   uint8            *pData;
 } uartPacket_t;
 
+typedef struct  SendMSG
+{
+  tmos_event_hdr_t hdr;
+  void            *pData;
+} SendMSG_t;
+
 typedef struct _CapsLock_LEDOn_Status_t
 {
     uint8_t usb : 1;
@@ -162,6 +180,15 @@ typedef struct _CapsLock_LEDOn_Status_t
     uint8_t reserved : 4;
     uint8_t ui : 1;
 }CapsLock_LEDOn_Status_t;
+
+typedef struct _NumLock_LEDOn_Status_t
+{
+    uint8_t usb : 1;
+    uint8_t ble : 1;
+    uint8_t rf : 1;
+    uint8_t reserved : 4;
+    uint8_t ui : 1;
+}NumLock_LEDOn_Status_t;
 
 typedef struct _Ready_Status_t
 {
@@ -180,11 +207,13 @@ typedef struct _Ready_Status_t
 
 typedef struct _Enable_Status_t
 {
+    uint8_t usb : 1;
     uint8_t ble : 1;
+    uint8_t rf : 1;
     uint8_t motor : 1;
     uint8_t tp : 1;
     uint8_t paintedegg : 1;
-    uint8_t reserved : 4;
+    uint8_t reserved : 2;
 }Enable_Status_t;
 
 /*********************************************************************
@@ -195,10 +224,10 @@ extern UINT8* HIDMouse;
 extern UINT8* HIDKeyboard;
 extern UINT8* HIDVolume;
 
-extern BOOL priority_USB;
 extern tmosTaskID halTaskID;
 
 extern CapsLock_LEDOn_Status_t g_CapsLock_LEDOn_Status;
+extern NumLock_LEDOn_Status_t g_NumLock_LEDOn_Status;
 extern Ready_Status_t g_Ready_Status;
 extern Enable_Status_t g_Enable_Status;
 extern uint8_t g_TP_speed_div;
@@ -209,20 +238,23 @@ extern uint32_t sys_time;
  * GLOBAL FUNCTIONS
  */
 
+uint8_t OnBoard_SendMsg(uint8_t registeredTaskID, uint8 event, uint8 state, void *data);
+
 void HID_KEYBOARD_Process( void );
 void HID_PS2TP_Process( void );
 void HID_I2CTP_Process( void );
 void HID_CapMouse_Process( void );
 void HID_VOL_Process( void );
 void SW_PaintedEgg_Process( void );
-void SW_OLED_Capslock_Process( void );
+void SW_OLED_LEDStatus_Process( void );
 void SW_OLED_UBStatus_Process( void );
 void HW_Battery_Process( void );
 void HW_WS2812_Process( void );
 void HW_MODULE_DEMO_Process( void );
 void HW_TouchBar_Process( void );
 
-extern void HAL_Init( );
+extern void FLASH_Init( void );
+extern void HAL_Init( void );
 extern tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events );
 extern void CH58X_BLEInit( void );
 extern uint16 HAL_GetInterTempValue( void );

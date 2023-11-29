@@ -15,10 +15,10 @@ const oled_ui_menu_structure cfg_menu_1 = {
   .type = OLED_UI_TYPE_MENU,
   .text[0] = "BLEdevice",
   .text[1] = "LEDstyle",
-  .text[2] = "RFenable",
+  .text[2] = "3-Mode",
   .p[0] = (uint8_t*)&bledevice_en,
   .p[1] = (uint8_t*)&ledstyle_en,
-  .p[2] = (uint8_t*)&rfenable_en,
+  .p[2] = (uint8_t*)&workmode_en,
   .p[3] = (uint8_t*)&main_menu,
   .p[4] = (uint8_t*)&cfg_menu_4,
   .p[5] = (uint8_t*)&cfg_menu_2,
@@ -111,13 +111,24 @@ const oled_ui_menu_structure key_status_menu_4 = {
   .p[5] = (uint8_t*)&key_status_menu_1,
   .menu_size = 3,
 };
+const oled_ui_menu_structure debug_menu_1 = {
+  .type = OLED_UI_TYPE_MENU,
+  .text[0] = "scanTPM",
+  .p[0] = (uint8_t*)&scan_tpm,
+  .p[3] = (uint8_t*)&main_menu,
+  .p[4] = (uint8_t*)&debug_menu_1,
+  .p[5] = (uint8_t*)&debug_menu_1,
+  .menu_size = 1,
+};
 const oled_ui_menu_structure main_menu = {
   .type = OLED_UI_TYPE_MENU,
   .text[0] = "KeyStatus",
   .text[1] = "KeyCfg",
+  .text[2] = "Debug",
   .p[0] = (uint8_t*)&key_status_menu_1,
   .p[1] = (uint8_t*)&cfg_menu_1,
-  .menu_size = 2,
+  .p[2] = (uint8_t*)&debug_menu_1,
+  .menu_size = 3,
 };
 
 /* ADC状态项 */
@@ -214,13 +225,13 @@ const oled_ui_enter_num_structure ledstyle_en = {
   .line = FS_LINE_LED_STYLE,
   .limit_len = 1,
 };
-const oled_ui_enter_num_structure rfenable_en = {
+const oled_ui_enter_num_structure workmode_en = {
   .type = OLED_UI_TYPE_ENTER_NUM,
   .p = (uint8_t*)&cfg_menu_1,
   .preStr = "val:",
   .postStr = "OK",
   .pStr_len = 4,
-  .line = FS_LINE_RF_READY,
+  .line = FS_LINE_WORK_MODE,
   .limit_len = 1,
 };
 const oled_ui_enter_num_structure udiskmode_en = {
@@ -285,4 +296,12 @@ const oled_ui_enter_num_structure rf_freq_level_en = {
   .pStr_len = 4,
   .line = FS_LINE_RF_FREQ_LEVEL,
   .limit_len = 1,
+};
+
+/* 执行项 */
+const oled_ui_execute_structure scan_tpm = {
+  .type = OLED_UI_TYPE_EXECUTE,
+  .p = (uint8_t*)&cfg_menu_1,
+  .preStr = "StartScan",
+  .func = TPM_scan,
 };

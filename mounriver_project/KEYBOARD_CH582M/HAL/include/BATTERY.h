@@ -11,7 +11,7 @@
 #ifndef BATTERY_H
 #define BATTERY_H
 
-  #define ADC_MAXBUFLEN       20
+  #define ADC_MAXBUFLEN       5
 
   #define BAT_MINADCVAL       3706  // 3.8V/2
   #define BAT_MAXADCVAL       3998  // 4.1V/2

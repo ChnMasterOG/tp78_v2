@@ -1,3 +1,13 @@
 eclipse.preferences.version=1
-encoding//StdPeriphDriver/inc/CH58x_gpio.h=GBK
+encoding//HAL/OLEDFONT.c=GBK
+encoding//HAL/include/HW_I2C.h=GBK
+encoding//LIB/CH58xBLE_ROM.h=GBK
+encoding//Packages/CherryUSB/class/hid/usbd_hid.h=GBK
+encoding//Private/TP78_MPR121_LIB/MPR121_old.c=GBK
+encoding//Private/TP78_MPR121_LIB/MPR121_old.h=GBK
+encoding//RVMSIS/core_riscv.h=GBK
+encoding//StdPeriphDriver/CH58x_gpio.c=GBK
+encoding//StdPeriphDriver/CH58x_i2c.c=GBK
+encoding//StdPeriphDriver/inc/CH583SFR.h=GBK
+encoding//StdPeriphDriver/inc/ISP583.h=GBK
 encoding/<project>=UTF-8

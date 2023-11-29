@@ -22,6 +22,7 @@
   typedef uint8_t (*expression_func)( uint32_t );
 
   void HW_I2C_Init( void );
+  void HW_I2C_Reset( void );
   uint8_t HW_I2C_WaitUntilTimeout( expression_func exp_func, uint32_t event_flag, uint8_t flip );
   uint8_t HW_I2C_WR_Reg( uint8_t reg, uint8_t dat, uint8_t addr );
   uint8_t HW_I2C_RD_Reg( uint8_t reg, uint8_t *dat, uint8_t addr );

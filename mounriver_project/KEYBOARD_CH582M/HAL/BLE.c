@@ -15,7 +15,7 @@
  * INCLUDES
  */
 #include "HAL.h"
-#include "config.h"
+#include "CONFIG.h"
 #include "CH58x_common.h"
 #include "devinfoservice.h"
 #include "battservice.h"
@@ -60,7 +60,7 @@
 #define DEFAULT_DESIRED_MIN_CONN_INTERVAL     8
 
 // Maximum connection interval (units of 1.25ms)
-#define DEFAULT_DESIRED_MAX_CONN_INTERVAL     8
+#define DEFAULT_DESIRED_MAX_CONN_INTERVAL     15
 
 // Slave latency to use if parameter update request
 #define DEFAULT_DESIRED_SLAVE_LATENCY         0
@@ -118,7 +118,7 @@ const uint8_t Volume_to_Code[8] = {
 tmosTaskID hidEmuTaskId = INVALID_TASK_ID;
 
 // BLE device address
-uint8_t DeviceAddress[6] = {0x84, 0xC2, 0xE5, 0x78, 0x73, 0x01};  // DeviceAddress[5] = 1 ~ 4
+uint8_t DeviceAddress[6] = {0x01, 0x73, 0x78, 0xE5, 0xC2, 0x01};  // DeviceAddress[5] = 1 ~ 4
 
 // Enter Passkey flag
 BOOL EnterPasskey_flag = FALSE;
@@ -205,8 +205,10 @@ static uint16 hidEmuConnHandle = GAP_CONNHANDLE_INIT;
  */
 
 static void hidEmu_ProcessTMOSMsg( tmos_event_hdr_t *pMsg );
+#ifdef DEBUG
 static void hidEmuSendMouseReport( uint8 buttons ,uint8 X_data ,uint8 Y_data );
 static void hidEmuSendKbdReport( uint8 keycode );
+#endif
 static uint8 hidEmuRcvReport( uint8 len, uint8 *pData );
 static uint8 hidEmuRptCB( uint8 id, uint8 type, uint16 uuid,
                              uint8 oper, uint16 *pLen, uint8 *pData );
@@ -350,48 +352,6 @@ uint16 HidEmu_ProcessEvent( uint8 task_id, uint16 events )
     return (events ^ SYS_EVENT_MSG);
   }
 
-  if ( events & START_MOUSE_REPORT_EVT )
-  {
-    HidDev_Report( HID_RPT_ID_MOUSE_IN, HID_REPORT_TYPE_INPUT,
-                   HID_MOUSE_IN_RPT_LEN, HIDMouse );    // HID鼠标report
-    return ( events ^ START_MOUSE_REPORT_EVT );
-  }
-
-  if ( events & START_KEYBOARD_REPORT_EVT )
-  {
-    HidDev_Report( HID_RPT_ID_KEY_IN, HID_REPORT_TYPE_INPUT,
-                   HID_KEYBOARD_IN_RPT_LEN, HIDKeyboard );   // HID键盘report
-    return ( events ^ START_KEYBOARD_REPORT_EVT );
-  }
-
-  if ( events & START_VOL_REPORT_EVT )
-  {
-#if (defined (BLE_VOL)) && (BLE_VOL == TRUE)
-    UINT8 _hidvol[HID_VOL_IN_RPT_LEN] = { 0 }, i, j = 0;
-    for (i = 0; i < 8 && j < 2; i++) {
-      if (((UINT8)*HIDVolume & (1 << i))) _hidvol[j++] = Volume_to_Code[i];
-    }
-    HidDev_Report( HID_RPT_ID_VOL_IN, HID_REPORT_TYPE_INPUT,
-                   HID_VOL_IN_RPT_LEN, _hidvol );     // HID音量report
-#endif
-    return ( events ^ START_VOL_REPORT_EVT );
-  }
-
-  if ( events & START_ENTER_PASSKEY_EVT )
-  {
-//    OLED_Set_Scroll_ENA(0);
-    OLED_UI_add_SHOWINFO_task("Passkey=?");
-    EnterPasskey_flag = TRUE;
-    return ( events ^ START_ENTER_PASSKEY_EVT );
-  }
-
-  if ( events & START_SEND_PASSKEY_EVT )
-  {
-    GAPBondMgr_PasscodeRsp( hidEmuConnHandle, SUCCESS, BLE_Passkey ); // 发送密码
-
-    return ( events ^ START_SEND_PASSKEY_EVT );
-  }
-
   if ( events & START_DEVICE_EVT )
   {
     return ( events ^ START_DEVICE_EVT );
@@ -417,11 +377,46 @@ uint16 HidEmu_ProcessEvent( uint8 task_id, uint16 events )
     return ( events ^ START_PHY_UPDATE_EVT );
   }
 
+  if ( events & BLE_MOUSE_REPORT_EVT )
+  {
+    HidDev_Report( HID_RPT_ID_MOUSE_IN, HID_REPORT_TYPE_INPUT,
+                   HID_MOUSE_IN_RPT_LEN, HIDMouse );    // HID鼠标report
+    return ( events ^ BLE_MOUSE_REPORT_EVT );
+  }
+
+  if ( events & BLE_KEYBOARD_REPORT_EVT )
+  {
+    HidDev_Report( HID_RPT_ID_KEY_IN, HID_REPORT_TYPE_INPUT,
+                   HID_KEYBOARD_IN_RPT_LEN, HIDKeyboard );   // HID键盘report
+    return ( events ^ BLE_KEYBOARD_REPORT_EVT );
+  }
+
+  if ( events & BLE_VOL_REPORT_EVT )
+  {
+#if (defined (BLE_VOL)) && (BLE_VOL == TRUE)
+    UINT8 _hidvol[HID_VOL_IN_RPT_LEN] = { 0 }, i, j = 0;
+    for (i = 0; i < 8 && j < 2; i++) {
+      if (((UINT8)*HIDVolume & (1 << i))) _hidvol[j++] = Volume_to_Code[i];
+    }
+    HidDev_Report( HID_RPT_ID_VOL_IN, HID_REPORT_TYPE_INPUT,
+                   HID_VOL_IN_RPT_LEN, _hidvol );     // HID音量report
+#endif
+    return ( events ^ BLE_VOL_REPORT_EVT );
+  }
+
+  if ( events & START_ENTER_PASSKEY_EVT )
+  {
+    OLED_UI_add_SHOWINFO_task("Passkey=?");
+    EnterPasskey_flag = TRUE;
+    return ( events ^ START_ENTER_PASSKEY_EVT );
+  }
+
+#if 0
   if ( events & CHANGE_ADDR_EVT )  // 切换蓝牙设备地址
   {
     /* disable advertising */
     uint8 param = FALSE, is_adv;
-    bStatus_t status;
+    bStatus_t status = !SUCCESS;
     GAPRole_GetParameter( GAPROLE_ADVERT_ENABLED, &is_adv );
     if ( is_adv == TRUE ) {
       GAPRole_SetParameter( GAPROLE_ADVERT_ENABLED, sizeof( uint8 ), &param );
@@ -450,27 +445,9 @@ uint16 HidEmu_ProcessEvent( uint8 task_id, uint16 events )
     }
     return ( events ^ CHANGE_ADDR_EVT );
   }
+#endif
 
-  if ( events & BLE_DISCONNECT_EVT )  // 断开连接事件
-  {
-    GAPRole_TerminateLink( hidEmuConnHandle );  // disconnect
-    return ( events ^ BLE_DISCONNECT_EVT );
-  }
-
-  if ( events & BLE_EN_ADVERT_EVT )  // 使能广播事件
-  {
-    uint8 param = TRUE;
-    GAPRole_SetParameter( GAPROLE_ADVERT_ENABLED, sizeof( uint8 ), &param );
-    return ( events ^ BLE_EN_ADVERT_EVT );
-  }
-
-  if ( events & BLE_DIS_ADVERT_EVT )  // 关闭广播事件
-  {
-    uint8 param = FALSE;
-    GAPRole_SetParameter( GAPROLE_ADVERT_ENABLED, sizeof( uint8 ), &param );
-    return ( events ^ BLE_DIS_ADVERT_EVT );
-  }
-
+#ifdef DEBUG
   if ( events & BLE_TEST_REPORT_EVT ) // 测试事件
   {
     hidEmuSendKbdReport( send_char );
@@ -481,7 +458,7 @@ uint16 HidEmu_ProcessEvent( uint8 task_id, uint16 events )
     tmos_start_task( hidEmuTaskId, BLE_TEST_REPORT_EVT, 2000 );
     return ( events ^ BLE_TEST_REPORT_EVT );
   }
-
+#endif
   return 0;
 }
 
@@ -498,11 +475,37 @@ static void hidEmu_ProcessTMOSMsg( tmos_event_hdr_t *pMsg )
 {
   switch ( pMsg->event )
   {
+    case KEY_MESSAGE: {
+        if (hidEmuConnHandle == GAP_CONNHANDLE_INIT)
+            break;
+        SendMSG_t *msg = (SendMSG_t *) pMsg;
+        msg->hdr.status ? tmos_set_event( hidEmuTaskId, BLE_KEYBOARD_REPORT_EVT ) : 0;
+        break;
+    }
+    case MOUSE_MESSAGE: {
+        if (hidEmuConnHandle == GAP_CONNHANDLE_INIT)
+            break;
+        SendMSG_t *msg = (SendMSG_t *) pMsg;
+        msg->hdr.status ? tmos_set_event( hidEmuTaskId, BLE_MOUSE_REPORT_EVT ) : 0;
+        break;
+    }
+    case VOL_MESSAGE: {
+        if (hidEmuConnHandle == GAP_CONNHANDLE_INIT)
+            break;
+        SendMSG_t *msg = (SendMSG_t *) pMsg;
+        msg->hdr.status ? tmos_set_event( hidEmuTaskId, BLE_VOL_REPORT_EVT ) : 0;
+        break;
+    }
+    case PASSKEY_MESSAGE: {
+        SendMSG_t *msg = (SendMSG_t *) pMsg;
+        msg->hdr.status = GAPBondMgr_PasscodeRsp( hidEmuConnHandle, SUCCESS, BLE_Passkey ); // 发送密码
+        break;
+    }
     default:
       break;
   }
 }
-
+#ifdef DEBUG
 /*********************************************************************
  * @fn      hidEmuSendMouseReport
  *
@@ -552,7 +555,7 @@ static void hidEmuSendKbdReport( uint8 keycode )
   HidDev_Report( HID_RPT_ID_KEY_IN, HID_REPORT_TYPE_INPUT,
                 HID_KEYBOARD_IN_RPT_LEN, buf );
 }
-
+#endif
 /*********************************************************************
  * @fn      hidEmuStateCB
  *
@@ -566,9 +569,10 @@ static void hidEmuStateCB( gapRole_States_t newState , gapRoleEvent_t * pEvent )
 {
   switch ( newState&GAPROLE_STATE_ADV_MASK )
   {
+#ifdef DEBUG
     case GAPROLE_STARTED:
       {
-        GAP_ConfigDeviceAddr( ADDRTYPE_STATIC, DeviceAddress );
+//        GAP_ConfigDeviceAddr( ADDRTYPE_STATIC, DeviceAddress );
         PRINT( "Initialized..\n" );
       }
       break;
@@ -579,7 +583,7 @@ static void hidEmuStateCB( gapRole_States_t newState , gapRoleEvent_t * pEvent )
         PRINT( "Advertising..\n" );
       }
       break;
-
+#endif
     case GAPROLE_CONNECTED:
       if( pEvent->gap.opcode == GAP_LINK_ESTABLISHED_EVENT )
       {
@@ -595,32 +599,32 @@ static void hidEmuStateCB( gapRole_States_t newState , gapRoleEvent_t * pEvent )
         tmos_start_task( hidEmuTaskId, START_PARAM_UPDATE_EVT, START_PARAM_UPDATE_EVT_DELAY );
 //        tmos_start_task( hidEmuTaskId, START_PHY_UPDATE_EVT, START_PHY_UPDATE_DELAY);
 
-//        g_Ready_Status.ble = TRUE;
         PRINT( "Connected..\n" );
       }
       break;
-
+#ifdef DEBUG
     case GAPROLE_CONNECTED_ADV:
       if( pEvent->gap.opcode == GAP_MAKE_DISCOVERABLE_DONE_EVENT )
       {
         PRINT( "Connected Advertising..\n" );
       }
       break;
-
+#endif
     case GAPROLE_WAITING:
-      if( pEvent->gap.opcode == GAP_END_DISCOVERABLE_DONE_EVENT )
+      if( pEvent->gap.opcode == GAP_LINK_TERMINATED_EVENT )
       {
-        PRINT( "Waiting for advertising..\n" );
-      }
-      else if( pEvent->gap.opcode == GAP_LINK_TERMINATED_EVENT )
-      {
-//        g_Ready_Status.ble = FALSE;
+        g_Ready_Status.ble = FALSE;
         PRINT( "Disconnected.. Reason:%x\n",pEvent->linkTerminate.reason );
+      }
+#ifdef DEBUG
+      else if( pEvent->gap.opcode == GAP_END_DISCOVERABLE_DONE_EVENT ) {
+        PRINT( "Waiting for advertising..\n" );
       }
       else if( pEvent->gap.opcode == GAP_LINK_ESTABLISHED_EVENT )
       {
         PRINT( "Advertising timeout..\n" );
       }
+#endif
       // Enable advertising
       {
         uint8 initial_advertising_enable = TRUE;
@@ -628,11 +632,11 @@ static void hidEmuStateCB( gapRole_States_t newState , gapRoleEvent_t * pEvent )
         GAPRole_SetParameter( GAPROLE_ADVERT_ENABLED, sizeof( uint8 ), &initial_advertising_enable );
       }
       break;
-
+#ifdef DEBUG
     case GAPROLE_ERROR:
       PRINT( "Error %x ..\n",pEvent->gap.opcode );
       break;
-
+#endif
     default:
       break;
   }
@@ -659,6 +663,10 @@ static uint8 hidEmuRcvReport( uint8 len, uint8 *pData )
         (pData[0] & 0x02) ? set_led_cap(1) : set_led_cap(0);
         (pData[0] & 0x04) ? set_led_scr(1) : set_led_scr(0);
      */
+    if ((pData[0] & 0x01) != 0)
+      g_NumLock_LEDOn_Status.ble = TRUE;     // Light on Num Lock LED
+    else
+      g_NumLock_LEDOn_Status.ble = FALSE;    // Light off Num Lock LED
     if ((pData[0] & 0x02) != 0)
       g_CapsLock_LEDOn_Status.ble = TRUE;     // Light on Caps Lock LED
     else
