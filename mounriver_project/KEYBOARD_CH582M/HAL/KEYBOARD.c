@@ -699,13 +699,14 @@ void KEYBOARD_Detection( void )
                   g_capslock_status.press_Capslock_with_other = FALSE;
                 } else {
                     for (key_idx = 2; key_idx < 8; key_idx++) {
-                        if (KeyboardDat->data[key_idx] == CustomKey[current_row][current_colum] ||
-                            KeyboardDat->data[key_idx] == Extra_CustomKey[current_row][current_colum]) {  // 弹起按键2层都清除
+                        if (KeyboardDat->data[key_idx] != KEY_None &&
+                            (KeyboardDat->data[key_idx] == CustomKey[current_row][current_colum] ||
+                            KeyboardDat->data[key_idx] == Extra_CustomKey[current_row][current_colum])) {  // 弹起按键2层都清除
                             memcpy(&KeyboardDat->data[key_idx], &KeyboardDat->data[key_idx] + 1, 7 - key_idx);
                             KeyboardDat->Key6 = 0;
+                            KEYBOARD_data_index--;
                         }
                     }
-                    KEYBOARD_data_index--;
                 }
             }
         }
