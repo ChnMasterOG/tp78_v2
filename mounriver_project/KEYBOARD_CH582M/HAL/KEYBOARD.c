@@ -612,9 +612,9 @@ void KEYBOARD_Detection( void )
             if (KeyboardDat->data[key_idx] == KEY_CapsLock) {
                  memcpy(&KeyboardDat->data[key_idx], &KeyboardDat->data[key_idx] + 1, 7 - key_idx);
                  KeyboardDat->Key6 = 0;
+                 KEYBOARD_data_index--;
             }
         }
-        KEYBOARD_data_index--;
         g_Ready_Status.keyboard_key_data = TRUE;  // 产生事件
         return;
     }
