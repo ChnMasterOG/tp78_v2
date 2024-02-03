@@ -52,7 +52,7 @@ C(mounriver_project - wch软件工程) --> J(VLD_CH582M - 主控板测试工程)
 
 - **Q**: 如何进入主键盘WCH的ROM bootloader（非开发者不建议操作）？
 
-- **A:** 按住底板中BOOT键通电~~，或按下Fn+Fn（第二次长按超过5s松开）进入BOOTLOADER。注意：Fn+Fn操作后会擦除部分CodeFlash首4K地址，上电后必须先下载程序（删除该功能）~~。
+- **A:** 按住底板中BOOT键通电。
 
 - **Q**: 如何进入主键盘kBoot？
 
