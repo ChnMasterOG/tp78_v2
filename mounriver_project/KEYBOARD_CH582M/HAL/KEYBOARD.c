@@ -31,7 +31,7 @@ const uint8_t Extra_KeyArrary[ROW_SIZE][COL_SIZE] = {
 /* ROW2 */{ KEY_None,   KEY_BACKSPACE,KEY_UpArrow,  KEY_ENTER,      KEY_PageUp,   KEY_None,     KEY_None, KEY_None, KEY_None, KEY_None, KEY_PrintScreen,KEY_None, KEY_None, KEY_None  },
 /* ROW3 */{ KEY_None,   KEY_LeftArrow,KEY_DownArrow,KEY_RightArrow, KEY_PageDown, KEY_None,     KEY_None, KEY_None, KEY_None, KEY_None, KEY_None,       KEY_None, KEY_None, KEY_None  },
 /* ROW4 */{ KEY_None,   KEY_None,     KEY_None,     KEY_None,       KEY_Home,     KEY_End,      KEY_None, KEY_None, KEY_None, KEY_None, KEY_None,       KEY_None, KEY_None, KEY_None  },
-/* ROW5 */{ KEY_None,   KEY_None,     KEY_None,     KEY_None,       KEY_None,     KEY_None,     KEY_None, KEY_None, KEY_None, KEY_None, KEY_None,       KEY_None, KEY_None, KEY_None  },
+/* ROW5 */{ KEY_None,   KEY_None,     KEY_None,     KEY_MouseL,     KEY_MouseR,   KEY_None,     KEY_None, KEY_None, KEY_None, KEY_None, KEY_None,       KEY_None, KEY_None, KEY_None  },
 };  // 额外默认键盘布局 - 其它键盘布局需修改此处
 const uint8_t SP_KeyArrary[][8] = {
         { 0x5,      0x0,      KEY_Delete,       0x0,      0x0,      0x0,      0x0,      0x0 }, //1 - Ctrl+Alt+Del
@@ -258,8 +258,8 @@ UINT8 KEYBOARD_Custom_Function( void )
         } else if ( Fn_cnt >= 0x30 ) {
           OLED_UI_add_SHOWINFO_task("%d/5 Reset", Fn_cnt >> 4);
           OLED_UI_add_CANCELINFO_delay_task(1500);
-        } else if ( Fn_cnt == 0x20 && sys_time - press_time >= 3 * (1000 / SYS_PERIOD) ) {  // 第二下Fn长按进board boot
-          APPJumpBoot();
+        } else if ( Fn_cnt == 0x20 && sys_time - press_time >= 3 * (1000 / SYS_PERIOD) ) {  // 第二下Fn长按进board boot --- 防止误擦除固件，该功能暂时屏蔽
+          //-APPJumpBoot();
         }
         break;
       }
@@ -641,7 +641,9 @@ void KEYBOARD_Detection( void )
                 g_capslock_status.press_Capslock_with_other = TRUE;
             }//按下capslock的同时 是否按下其他键
 
-            if (KeyArr_Ptr[current_row][current_colum] == KEY_Fn) {  // 功能键
+            if (KeyArr_Ptr[current_row][current_colum] == KEY_None) {  // 不做处理
+                continue;
+            } else if (KeyArr_Ptr[current_row][current_colum] == KEY_Fn) {  // 功能键
                 g_keyboard_status.Fn = TRUE;
             } else if (KeyArr_Ptr[current_row][current_colum] >= KEY_SP_1) {  // SP键(单键复合)
                 g_keyboard_status.SP_Key = KeyArr_Ptr[current_row][current_colum] - KEY_SP_1;
@@ -698,15 +700,18 @@ void KEYBOARD_Detection( void )
                   }
                   g_capslock_status.press_Capslock_with_other = FALSE;
                 } else {
+                    uint8_t p = 2;  // 双指针实现删除按键
                     for (key_idx = 2; key_idx < 8; key_idx++) {
-                        if (KeyboardDat->data[key_idx] != KEY_None &&
-                            (KeyboardDat->data[key_idx] == CustomKey[current_row][current_colum] ||
-                            KeyboardDat->data[key_idx] == Extra_CustomKey[current_row][current_colum])) {  // 弹起按键2层都清除
-                            memcpy(&KeyboardDat->data[key_idx], &KeyboardDat->data[key_idx] + 1, 7 - key_idx);
-                            KeyboardDat->Key6 = 0;
-                            KEYBOARD_data_index--;
+                        if (KeyboardDat->data[key_idx] != KEY_None) {
+                          if ((KeyboardDat->data[key_idx] != CustomKey[current_row][current_colum] &&
+                              KeyboardDat->data[key_idx] != Extra_CustomKey[current_row][current_colum])) {  // 弹起按键2层都清除
+                              KeyboardDat->data[p] = KeyboardDat->data[key_idx];
+                              p++;
+                          }
+                          KeyboardDat->data[key_idx] = KEY_None;
                         }
                     }
+                    KEYBOARD_data_index = p;
                 }
             }
         }

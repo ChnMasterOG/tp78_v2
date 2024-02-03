@@ -101,10 +101,12 @@ void MPR121_Post_Operation(void)
     oper_dat.slide_left_l = TRUE;
     MPR121_set_result(&oper_dat);
     OLED_UI_add_SHOWINFO_task("<<<<<<");
+    MOTOR_GO();
   } else if (oper_dat.slide_right && oper_dat.slide_right_l == FALSE) {
     oper_dat.slide_right_l = TRUE;
     MPR121_set_result(&oper_dat);
     OLED_UI_add_SHOWINFO_task(">>>>>>");
+    MOTOR_GO();
   } else if (oper_dat.l_btn && oper_dat.l_btn_l == FALSE) {
     oper_dat.l_btn_l = TRUE;
     MPR121_set_result(&oper_dat);

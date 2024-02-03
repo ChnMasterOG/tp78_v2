@@ -16,7 +16,7 @@
 
   //#define CAP_MOUSE_ENABLE                      1
   #define TOUCHBAR_ENABLE                       1
-  //#define TOUCHBAR_Reverse                      1
+  #define TOUCHBAR_Reverse                      0
 
   /* type definitions */
   #ifndef _UINT8_T_DECLARED
@@ -43,21 +43,21 @@
 
   /* Touchbar Pinmux */
   #if (defined TOUCHBAR_ENABLE) && (TOUCHBAR_Reverse == TRUE)
-    #define MPR121_PINMUX_L1                    4
-    #define MPR121_PINMUX_L2                    5
-    #define MPR121_PINMUX_L3                    6
-    #define MPR121_PINMUX_M                     7
-    #define MPR121_PINMUX_R1                    8
-    #define MPR121_PINMUX_R2                    9
-    #define MPR121_PINMUX_R3                    10
-  #elif (defined TOUCHBAR_ENABLE)
     #define MPR121_PINMUX_L1                    10
     #define MPR121_PINMUX_L2                    9
     #define MPR121_PINMUX_L3                    8
     #define MPR121_PINMUX_M                     7
-    #define MPR121_PINMUX_R1                    6
+    #define MPR121_PINMUX_R1                    4
     #define MPR121_PINMUX_R2                    5
-    #define MPR121_PINMUX_R3                    4
+    #define MPR121_PINMUX_R3                    6
+  #elif (defined TOUCHBAR_ENABLE)
+    #define MPR121_PINMUX_L1                    4
+    #define MPR121_PINMUX_L2                    5
+    #define MPR121_PINMUX_L3                    6
+    #define MPR121_PINMUX_M                     9
+    #define MPR121_PINMUX_R1                    10
+    #define MPR121_PINMUX_R2                    7
+    #define MPR121_PINMUX_R3                    8
   #else
     #define MPR121_PINMUX_L1                    0
     #define MPR121_PINMUX_L2                    0
@@ -235,10 +235,8 @@
     DIRECT_RIGHT,
     DIRECT_LEFT2,
     DIRECT_RIGHT2,
-#if 0
     DIRECT_LEFT3,
     DIRECT_RIGHT3,
-#endif
     DIRECT_JUDGE_LEFT,
     DIRECT_JUDGE_RIGHT,
   }mpr121_alg_touchbar_direction_t;
@@ -331,5 +329,4 @@
      *******************************************************************************/
     void MPR121_alg_judge_touchbar(uint8_t mode);
   #endif
-
 #endif

@@ -859,7 +859,7 @@ void OLED_UI_draw_thread_callback(void)
 #ifdef OLED_0_66
         if (oled_ui_entry_idle_frame) {
           OLED_DrawBMP(0, 2, 64, 5, oled_ui_delay_task.oled_ui_draw[i].addr);
-          OLED_UI_add_delay_task(OLED_UI_FLAG_IDLE_DRAW, oled_ui_delay_task.oled_ui_draw[i].pos_len, (uint8_t*)UI_Oled_Idle[oled_ui_entry_idle_frame], NULL, 200);
+          OLED_UI_add_delay_task(OLED_UI_FLAG_IDLE_DRAW, oled_ui_delay_task.oled_ui_draw[i].pos_len, (uint8_t*)UI_Oled_Idle[oled_ui_entry_idle_frame], NULL, 40);
           oled_ui_entry_idle_frame++;
           if (oled_ui_entry_idle_frame == 8) {
             oled_ui_entry_idle_frame = 1;
