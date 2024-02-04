@@ -1,4 +1,5 @@
 ################################################################################
+# MRS Version: 1.9.0
 # Automatically-generated file. Do not edit!
 ################################################################################
 
@@ -53,16 +54,16 @@ all: VLD_CH582M.elf secondary-outputs
 
 # Tool invocations
 VLD_CH582M.elf: $(OBJS) $(USER_OBJS)
-	@	@	riscv-none-embed-gcc -march=rv32imac -mabi=ilp32 -mcmodel=medany -msmall-data-limit=8 -mno-save-restore -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common  -g -T "../Ld/Link.ld" -nostartfiles -Xlinker --gc-sections -L"E:\tp78_v2\mounriver_project\VLD_CH582M\StdPeriphDriver" -L"E:\tp78_v2\mounriver_project\VLD_CH582M\LIB" -Xlinker --print-memory-usage -Wl,-Map,"VLD_CH582M.map" --specs=nano.specs --specs=nosys.specs -o "VLD_CH582M.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	@	@	riscv-none-elf-gcc -mabi=ilp32 -mcmodel=medany -msmall-data-limit=8 -mno-save-restore -march=rv32imac_zicsr -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common  -g -T "../Ld/Link.ld" -nostartfiles -Xlinker --gc-sections -L"E:\Project\tp78_v2\mounriver_project\VLD_CH582M\StdPeriphDriver" -L"E:\Project\tp78_v2\mounriver_project\VLD_CH582M\LIB" -Xlinker --print-memory-usage -Wl,-Map,"VLD_CH582M.map" --specs=nano.specs --specs=nosys.specs -o "VLD_CH582M.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@	@
 VLD_CH582M.hex: VLD_CH582M.elf
-	@	riscv-none-embed-objcopy -O ihex "VLD_CH582M.elf"  "VLD_CH582M.hex"
+	@	riscv-none-elf-objcopy -O ihex "VLD_CH582M.elf"  "VLD_CH582M.hex"
 	@	@
 VLD_CH582M.lst: VLD_CH582M.elf
-	@	riscv-none-embed-objdump --source --all-headers --demangle --line-numbers --wide "VLD_CH582M.elf" > "VLD_CH582M.lst"
+	@	riscv-none-elf-objdump --source --all-headers --demangle --line-numbers --wide "VLD_CH582M.elf" > "VLD_CH582M.lst"
 	@	@
 VLD_CH582M.siz: VLD_CH582M.elf
-	@	riscv-none-embed-size --format=berkeley "VLD_CH582M.elf"
+	@	riscv-none-elf-size --format=berkeley "VLD_CH582M.elf"
 	@	@
 # Other Targets
 clean:
