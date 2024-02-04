@@ -17,7 +17,7 @@ jobs:
     - name: Setup riscv gnu/gcc toolchain
       uses: ChnMasterOG/setup-riscv-gnu-toolchain@v4.0
       with:
-        verion: v12.2.0
+        version: v12.2.0
     - run: riscv-none-elf-gcc --version
     - name: Build and Packaging
       run: |
