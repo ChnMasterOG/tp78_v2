@@ -60,16 +60,16 @@ all: BLE_CH582M.elf secondary-outputs
 
 # Tool invocations
 BLE_CH582M.elf: $(OBJS) $(USER_OBJS)
-	@	@	riscv-none-embed-gcc -march=rv32imac -mabi=ilp32 -mcmodel=medany -msmall-data-limit=8 -mno-save-restore -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g -T "E:\Project\tp78_v2\mounriver_project\KEYBOARD_CH582M\Ld\Link.ld" -nostartfiles -Xlinker --gc-sections -L"../" -L"E:\Project\tp78_v2\mounriver_project\KEYBOARD_CH582M\LIB" -L"E:\Project\tp78_v2\mounriver_project\KEYBOARD_CH582M\StdPeriphDriver" -Xlinker --print-memory-usage -Wl,-Map,"BLE_CH582M.map" --specs=nano.specs --specs=nosys.specs -o "BLE_CH582M.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	@	@	riscv-none-elf-gcc -march=rv32imac -mabi=ilp32 -mcmodel=medany -msmall-data-limit=8 -mno-save-restore -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g -T "E:\Project\tp78_v2\mounriver_project\KEYBOARD_CH582M\Ld\Link.ld" -nostartfiles -Xlinker --gc-sections -L"../" -L"E:\Project\tp78_v2\mounriver_project\KEYBOARD_CH582M\LIB" -L"E:\Project\tp78_v2\mounriver_project\KEYBOARD_CH582M\StdPeriphDriver" -Xlinker --print-memory-usage -Wl,-Map,"BLE_CH582M.map" --specs=nano.specs --specs=nosys.specs -o "BLE_CH582M.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@	@
 BLE_CH582M.hex: BLE_CH582M.elf
-	@	riscv-none-embed-objcopy -O ihex "BLE_CH582M.elf"  "BLE_CH582M.hex"
+	@	riscv-none-elf-objcopy -O ihex "BLE_CH582M.elf"  "BLE_CH582M.hex"
 	@	@
 BLE_CH582M.lst: BLE_CH582M.elf
-	@	riscv-none-embed-objdump --demangle --debugging --line-numbers -D "BLE_CH582M.elf" > "BLE_CH582M.lst"
+	@	riscv-none-elf-objdump --demangle --debugging --line-numbers -D "BLE_CH582M.elf" > "BLE_CH582M.lst"
 	@	@
 BLE_CH582M.siz: BLE_CH582M.elf
-	@	riscv-none-embed-size --format=berkeley "BLE_CH582M.elf"
+	@	riscv-none-elf-size --format=berkeley "BLE_CH582M.elf"
 	@	@
 	$(MAKE) --no-print-directory post-build
 
@@ -78,7 +78,7 @@ clean:
 	-$(RM) $(ASM_UPPER_DEPS)$(OBJS)$(SECONDARY_FLASH)$(SECONDARY_LIST)$(SECONDARY_SIZE)$(ASM_DEPS)$(S_DEPS)$(S_UPPER_DEPS)$(C_DEPS) BLE_CH582M.elf
 	-@
 post-build:
-	-riscv-none-embed-objcopy -O binary "BLE_CH582M.elf" "BLE_CH582M.bin"
+	-riscv-none-elf-objcopy -O binary "BLE_CH582M.elf" "BLE_CH582M.bin"
 	-@
 secondary-outputs: $(SECONDARY_FLASH) $(SECONDARY_LIST) $(SECONDARY_SIZE)
 

@@ -17,7 +17,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: Setup riscv gnu/gcc toolchain
       uses: ChnMasterOG/setup-riscv-gnu-toolchain@v3.0
-    - run: riscv-none-embed-gcc --version
+    - run: riscv-none-elf-gcc --version
     - name: make
       run: |
             cd ./mounriver_project
