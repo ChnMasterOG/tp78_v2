@@ -15,7 +15,7 @@ jobs:
       uses: actions/setup-python@v4.7.1
     - uses: actions/checkout@v3
     - name: Setup riscv gnu/gcc toolchain
-      uses: ChnMasterOG/setup-riscv-gnu-toolchain@v3.0
+      uses: ChnMasterOG/setup-riscv-gnu-toolchain@v4.0
     - run: riscv-none-elf-gcc --version
     - name: Build and Packaging
       run: |
