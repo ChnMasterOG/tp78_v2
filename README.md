@@ -7,6 +7,7 @@
 # TP78
 
 TP78是基于CH582M的三模机械键盘方案。以满足带有小红点 便携 无线 自定义快捷键四大根本需求为出发点设计的退烧键盘。基于CH582M三模75%配列，带有小红点(指点杆)，并使用TouchBar实现鼠标左中右键。OLED、Hub和磁吸接口。外壳可使用拓竹A1mini打印拼装。
+![TP78](documents\TP78V2.jpg)
 
 **（注意开源协议，GPL3.0，请尊重开源，欢迎交流，交流群：678606780）**
 
@@ -14,7 +15,7 @@ V2.1: 视频展示：[ TP78指点杆三模键盘-Gasket版出炉啦 (速来拼�
 1. 更新BootLoader，支持拖拽式更新固件
 1. 新版Gasket结构，小尺寸3D打印/CNC优化（已使用拓竹A1mini打印验证）
 1. 优化触摸条滑动功能
-
+![TP78 3D print By A1mini](documents\TP78V2.13D_By_A1mini.jpg)
 V2.0 ：视频展示：[【软软核】为自己做一把小红点三模键盘\_哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV1Ho4y1b78t/)
 1. 支持VIA网页改键、修改配置
 2. 支持USB U盘改键和配置
@@ -69,7 +70,6 @@ https://github.com/ChnMasterOG/tp78_v2/blob/main/documents/TP78v2指导文档.pd
 | 定位板右 Right Plate.step | 定位板右侧 |
 | 上盖左 Left Top Case.step | 上盖左侧 |
 | 上盖右 Right Top Case.step | 上盖右侧 |
-![外壳 3D打印拼装效果图](//image.lceda.cn/pullimage/gglXzYDoB3VxYr1nMT4yANth5hueSbnQ5oSEFqij.jpeg)
 ### 补充五金及结构件
 
 | 元件名称  | 规格 | 数量 |备注 |
