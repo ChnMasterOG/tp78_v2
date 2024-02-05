@@ -111,11 +111,9 @@ https://github.com/ChnMasterOG/tp78_v2/blob/main/documents/TP78v2指导文档.pd
 
 ### 组装步骤
 
-参考视频后
-[【软软核】为自己做一把小红点三模键盘\_哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV1Ho4y1b78t/)
-[ TP78指点杆三模键盘-Gasket版出炉啦 (速来拼车)\_哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV1fA4m1V7DX/)
+可参考V2.0视频展示后半部分
 
-### 参考文档
+### 指导文档
 
 https://github.com/ChnMasterOG/tp78_v2/blob/main/documents/TP78v2指导文档.pdf
 
