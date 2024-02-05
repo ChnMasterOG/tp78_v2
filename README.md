@@ -4,31 +4,115 @@
 
 <h5 align="center">TP78是基于CH582M的小红点三模机械键盘方案</h5>
 
-**V2.0版本特性：**
+# TP78
 
-1. 支持三模态连接切换
+TP78是基于CH582M的三模机械键盘方案。以满足带有小红点 便携 无线 自定义快捷键四大根本需求为出发点设计的退烧键盘。基于CH582M三模75%配列，带有小红点(指点杆)，并使用TouchBar实现鼠标左中右键。OLED、Hub和磁吸接口。外壳可使用拓竹A1mini打印拼装。
 
-2. 支持USB U盘改键和配置、支持QMK VIA改键
+**（注意开源协议，GPL3.0，请尊重开源，欢迎交流，交流群：678606780）**
 
-3. 支持带震动反馈的触摸条操作、支持小红点替换触摸板操作
+V2.1: 视频展示：[ TP78指点杆三模键盘-Gasket版出炉啦 (速来拼车)\_哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV1fA4m1V7DX/)
+1. 更新BootLoader，支持拖拽式更新固件
+1. 新版Gasket结构，小尺寸3D打印/CNC优化（已使用拓竹A1mini打印验证）
+1. 优化触摸条滑动功能
 
-4. 硬件集成USB hub接口、集成磁吸扩展口
+V2.0 ：视频展示：[【软软核】为自己做一把小红点三模键盘\_哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV1Ho4y1b78t/)
+1. 支持VIA网页改键、修改配置
+2. 支持USB U盘改键和配置
+3. 支持触摸板触摸条操作
+4. 集成USB hub接口
+5. 增加USB磁吸扩展口
+6. 集成RF模式和接收器方案
+7. 增加I2C小红点方案
+8. 增加触摸条震动反馈
+9. 优化OELD UI
+10. 增加Fn+B进BootLoader功能
+11. 增加待机自动进lowpower模式
 
-5. 支持I2C协议小红点模块和PS/2协议小红点模块方案
+### 模型开源地址
+https://makerworld.com/zh/models/172159#profileId-189031
 
-6. 专属OLED UI库，深度优化OELD UI
+### 硬件开源地址
+https://oshwhub.com/bibilala/tp78_2022-08-31（立创审核放假了，年后才能审核通过）
 
-7. 支持Fn多种模式设置
+### 源码开源地址
+https://github.com/ChnMasterOG/tp78_v2
 
-8. 支持待机进入低功耗模式
+### 固件下载地址
+https://github.com/ChnMasterOG/tp78_v2/releases/
 
-**V1.0仓库地址(以供参考)：** https://github.com/ChnMasterOG/tp78
+### 升级固件、使用教程
+https://github.com/ChnMasterOG/tp78_v2/blob/main/documents/TP78v2指导文档.pdf
 
-**TP78键盘视频介绍：** https://www.bilibili.com/video/BV1Ho4y1b78t
 
-**硬件资料开源地址：** https://oshwhub.com/bibilala/tp78_2022-08-31
 
-#### 仓库目录
+
+### 材料清单
+
+### PCB
+
+| PCB名称 | 功能说明 | 板子厚度 |
+| ----- | ---- | ---- |
+| 0.键盘主板| 键盘主板 | 1.6mm（其他厚度也可以） |
+| 1.Hub供电板 | USBhub、电池充放电、电量检测 | 1.0mm  |
+| 2.Minimal_2 | M2接口的CH582M最小系统板(外置天线) | 0.8mm 最好选择沉金 |
+| 3.触摸条 | 触摸条 | 1.2mm （这个是裸露在外的，注意颜色哈） |
+| 4\.磁吸转接小板 |磁吸扩展模块 | 1.0mm（其他厚度也可以） |
+| 5\.接收器 | 2.4GHz接收器 | 0.8mm |
+
+### 外壳
+#### [模型下载地址](https://makerworld.com/zh/models/172159#profileId-189031)
+| 文件名 | 说明 |
+| ------ | --- |
+| 底座左 Left Bottom Case.step | 键盘底座左侧 |
+| 底座右 Right Bottom Case.step | 键盘底座右侧 |
+| 定位板左 Left Plate.step | 定位板左侧 |
+| 定位板右 Right Plate.step | 定位板右侧 |
+| 上盖左 Left Top Case.step | 上盖左侧 |
+| 上盖右 Right Top Case.step | 上盖右侧 |
+![外壳 3D打印拼装效果图](//image.lceda.cn/pullimage/gglXzYDoB3VxYr1nMT4yANth5hueSbnQ5oSEFqij.jpeg)
+### 补充五金及结构件
+
+| 元件名称  | 规格 | 数量 |备注 |
+| ---- | --- | --- | --- |
+| M2×3 螺丝  | M2×3 | 4 |
+| M2×5 螺丝  | M2×5 | 4 |
+| M2×11 螺丝  | M2×11 | 8 |
+| M2×2×3 滚花螺母 | M2×2×3 | 14 |
+| M2×18 销柱  | M2×18 | 3 |
+|键盘定位板硅胶| 5×8，2.8×12|12|https://item.taobao.com/item.htm?_u=q2jjkhi69cd7&id=744647593898&spm=a1z09.2.0.0.af932e8d0BlsxD&sku_properties=1627207:107121 |
+|NGFF M.2 铜柱-1.5H M3|1.5H M3|1|https://item.taobao.com/item.htm?app=chrome&bxsign=scdEkAVMVexd7f8Q7UzuApXa4j1r_JD9G4td5HaaWVChIkPjmiw1mdLib_8g4SRe2vWDNuoFUCKcu-ejr9A1uJwoDsc538qN83wsPZPpYKL7QjkTn9bV8RsvlvkjlMOVoLH&cpp=1&id=618677416528&price=0.26-0.8&shareUniqueId=25308625613&share_crt_v=1&shareurl=true&short_name=h.5rLwYPpOifZrW9B&skuId=4836714229115&sourceType=item,item&sp_abtk=gray_1_code_simpleAndroid2&sp_tk=VG1oMFdSQ2NvUkM=&spm=a2159r.13376460.0.0&suid=95bb0d99-7ae4-428d-8994-c13b7072fe1e&tbSocialPopKey=shareItem&tk=Tmh0WRCcoRC&un=a40571f7eec624d4b0ea5e6b515c0e5c&un_site=0&ut_sk=1.YDpH0Uzm8dUDAG5lU8oOTXSt_21646297_1706280814125.Copy.1|
+|M3*4 螺丝（M.2固定用）|M3×4|1|
+| 接收器外壳	||1| https://item.taobao.com/item.htm?_u=q1p8ioog4b10&id=534100629624&spm=a1z09.2.0.0.ffb12e8doHDWhm|
+
+### 补充连接线等电子元件
+| 元件名称以及规格   | 数量 |备注| 
+| ----      |---|---| 
+| YDX-C09指点杆| 1	|  | 
+| 指点杆帽(大方口)| 1| https://item.taobao.com/item.htm?_u=q2jjkhi630e3&id=598814658945&spm=a1z09.2.0.0.af932e8dbSeo4W|
+| 0.66寸OLED显示屏6448(ssd1306)|1| https://item.taobao.com/item.htm?abbucket=14&id=532909628316&ns=1&spm=a21n57.1.0.0.4d20523cgGuatR|
+| 磁吸公+母	|1| https://item.taobao.com/item.htm?_u=q1p8ioog0426&id=567899628697&spm=a1z09.2.0.0.ffb12e8doHDWhm&skuId=4855618049480|
+| MX1.25MM双头反向10p 150mm	|1| https://item.taobao.com/item.htm?_u=q1p8ioog7751&id=17860990732&spm=a1z09.2.0.0.ffb12e8doHDWhm|
+| MX1.25MM双头同向6p 150mm	|2| https://item.taobao.com/item.htm?_u=q1p8ioog7751&id=17860990732&spm=a1z09.2.0.0.ffb12e8doHDWhm|
+| MX1.25MM单头6p 100mm	|1| https://item.taobao.com/item.htm?_u=q1p8ioog9ebc&id=21014043282&spm=a1z09.2.0.0.ffb12e8doHDWhm|
+| 2pin 震动马达电源线	|1| https://item.taobao.com/item.htm?_u=q1p8ioog9e2a&id=650661513310&spm=a1z09.2.0.0.ffb12e8doHDWhm|
+| 震动马达	|1| https://item.taobao.com/item.htm?_u=q1p8ioog403c&id=695661440091&spm=a1z09.2.0.0.ffb12e8doHDWhm|
+| FPC 8p反向30cm	|1| 	https://item.taobao.com/item.htm?_u=q1p8ioog75f1&id=549590794021&spm=a1z09.2.0.0.ffb12e8doHDWhm&sku_properties=-1:-1|
+| IPEX天线 2.4G	|1| https://item.taobao.com/item.htm?id=590679216827&skuId=4637409672288&spm=a1z0d.6639537/tb.1997196601.52.33917484vHyEWs|
+
+
+
+### 组装步骤
+
+参考视频后
+[【软软核】为自己做一把小红点三模键盘\_哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV1Ho4y1b78t/)
+[ TP78指点杆三模键盘-Gasket版出炉啦 (速来拼车)\_哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV1fA4m1V7DX/)
+
+
+### Q&A
+先参考 https://github.com/ChnMasterOG/tp78_v2/blob/main/documents/TP78v2指导文档.pdf
+有问题可以进群678606780交流或GitHub提问
+
+### 仓库目录
 
 ```mermaid
 flowchart LR
