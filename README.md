@@ -39,7 +39,7 @@ https://makerworld.com/zh/models/172159#profileId-189031
 
 ### 硬件开源地址
 
-https://oshwhub.com/bibilala/tp78_2022-08-31（立创审核放假了，年后才能审核通过）
+https://oshwhub.com/bibilala/tp78_2022-08-31
 
 ### 源码开源地址
 
