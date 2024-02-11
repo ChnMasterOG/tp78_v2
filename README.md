@@ -8,7 +8,7 @@ TP78是基于CH582M的三模机械键盘方案。以满足带有小红点 便携
 
 ![TP78](resources/TP78V2.jpg)V2.0 ：视频展示：[【软软核】为自己做一把小红点三模键盘\_哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV1Ho4y1b78t/)
 
-![TP78 3D print By A1mini](resource/TP78V2.13D_By_A1mini.jpg)
+![TP78 3D print By A1mini](resources/TP78V2.13D_By_A1mini.jpg)
 
 V2.1：视频展示： [TP78指点杆三模键盘-Gasket版出炉啦 (速来拼车)_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1fA4m1V7DX/)
 
