@@ -811,8 +811,11 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
 #if (defined HAL_MPR121_TOUCHBAR) && (HAL_MPR121_TOUCHBAR == TRUE)
     if (collect_cnt == 0) {
       if (g_keyboard_status.enter_cfg == FALSE) {  // 配置参数模式不进行touchbar判断
-        if (g_Enable_Status.tp) MPR121_alg_judge_touchbar(ALG_ENABLE_TOUCHBAR_SLIDE | ALG_ENABLE_TOUCHBAR_TOUCH);
-        else MPR121_alg_judge_touchbar(ALG_ENABLE_TOUCHBAR_SLIDE);  // 小红点失能时同时失能触摸条触摸判断
+        if (g_Enable_Status.tp && g_Enable_Status.touchbar_button) {  // 通过小红点使能和触摸条配置联合控制
+          MPR121_alg_judge_touchbar(ALG_ENABLE_TOUCHBAR_SLIDE | ALG_ENABLE_TOUCHBAR_TOUCH);
+        } else {
+          MPR121_alg_judge_touchbar(ALG_ENABLE_TOUCHBAR_SLIDE);
+        }
         MPR121_Post_Operation();
       }
     } else {

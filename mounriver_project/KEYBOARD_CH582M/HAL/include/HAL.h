@@ -213,7 +213,8 @@ typedef struct _Enable_Status_t
     uint8_t motor : 1;
     uint8_t tp : 1;
     uint8_t paintedegg : 1;
-    uint8_t reserved : 2;
+    uint8_t touchbar_button : 1;
+    uint8_t reserved : 1;
 }Enable_Status_t;
 
 /*********************************************************************

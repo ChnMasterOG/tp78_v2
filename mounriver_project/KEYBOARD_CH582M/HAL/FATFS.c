@@ -32,6 +32,7 @@ const BYTE WriteBuffer[] = {
     "LINE13:小红点减速系数(1~9)\n"
     "LINE14:亮度(1~255)\n"
     "LINE15:RF频段挡位(0~9)\n" // 每挡位+0.0025G频段(0~9 - 2.4G~2.4225G)
+    "LINE16:是否使能触摸条触发鼠标按键(0~1)\n"
     "keyboard_spkey.txt---存放sp按键映射键位(每行8byte)\n"
     "LINE1:spKEY1的HID报表数据\n"
     "LINE2:spKEY2的HID报表数据\n"

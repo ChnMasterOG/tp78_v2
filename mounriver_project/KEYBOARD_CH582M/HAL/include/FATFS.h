@@ -13,22 +13,23 @@
 
   #include "CH58x_common.h"
 
-  #define FS_LINE_START                 0
-  #define FS_LINE_BLE_DEVICE            0
-  #define FS_LINE_LED_STYLE             1
-  #define FS_LINE_WORK_MODE             2
-  #define FS_LINE_UDISK_MODE            3
-  #define FS_LINE_MPR_ALG_MAGIC         4
-  #define FS_LINE_MPR_CAPMOUSE_TOU_THR  5
-  #define FS_LINE_MPR_CAPMOUSE_REL_THR  6
-  #define FS_LINE_MPR_CAPMOUSE_MOV_SPD  7
-  #define FS_LINE_MPR_TOUCHBAR_TOU_THR  8
-  #define FS_LINE_MPR_TOUCHBAR_REL_THR  9
-  #define FS_LINE_MPR_DOUBLE_TOUCH_CNT  10
-  #define FS_LINE_MPR_LONG_TOUCH_CNT    11
-  #define FS_LINE_TP_SPEED_DIV          12
-  #define FS_LINE_LED_BRIGHTNESS        13
-  #define FS_LINE_RF_FREQ_LEVEL         14
+  #define FS_LINE_START                   0
+  #define FS_LINE_BLE_DEVICE              0
+  #define FS_LINE_LED_STYLE               1
+  #define FS_LINE_WORK_MODE               2
+  #define FS_LINE_UDISK_MODE              3
+  #define FS_LINE_MPR_ALG_MAGIC           4
+  #define FS_LINE_MPR_CAPMOUSE_TOU_THR    5
+  #define FS_LINE_MPR_CAPMOUSE_REL_THR    6
+  #define FS_LINE_MPR_CAPMOUSE_MOV_SPD    7
+  #define FS_LINE_MPR_TOUCHBAR_TOU_THR    8
+  #define FS_LINE_MPR_TOUCHBAR_REL_THR    9
+  #define FS_LINE_MPR_DOUBLE_TOUCH_CNT    10
+  #define FS_LINE_MPR_LONG_TOUCH_CNT      11
+  #define FS_LINE_TP_SPEED_DIV            12
+  #define FS_LINE_LED_BRIGHTNESS          13
+  #define FS_LINE_RF_FREQ_LEVEL           14
+  #define FS_LINE_TOUCHBAR_BUTTON_CTL_ENA 15
 
   uint8_t unsigned_dec_to_string(uint16_t num, char *buff, uint8_t type);
   uint8_t string_dec_to_u16(char *buff, uint16_t *num);

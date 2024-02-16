@@ -205,6 +205,7 @@
   extern const oled_ui_enter_num_structure tp_speed_div_en;
   extern const oled_ui_enter_num_structure led_brightness_en;
   extern const oled_ui_enter_num_structure rf_freq_level_en;
+  extern const oled_ui_enter_num_structure touchbar_button_ctl_ena_en;
   extern const oled_ui_execute_structure scan_tpm;
 
   void OLED_UI_ShowOK(uint8_t x, uint8_t y, uint8_t s);

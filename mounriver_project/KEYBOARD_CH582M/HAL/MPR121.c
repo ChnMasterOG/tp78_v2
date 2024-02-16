@@ -44,6 +44,34 @@ void DATAFLASH_Write_MPR121_ALG_Parameter(mpr121_alg_param_t* p)
 }
 
 /*******************************************************************************
+ * Function Name  : DATAFLASH_Read_MPR121_FUN_Parameter
+ * Description    : 从DataFlash读取MPR121功能配置参数
+ * Input          : None
+ * Return         : None
+ *******************************************************************************/
+void DATAFLASH_Read_MPR121_FUN_Parameter(void)
+{
+  uint16_t val;
+
+  HAL_Fs_Read_keyboard_cfg(FS_LINE_TOUCHBAR_BUTTON_CTL_ENA, 1, &val);
+  g_Enable_Status.touchbar_button = val;
+}
+
+/*******************************************************************************
+  * Function Name  : DATAFLASH_Write_MPR121_FUN_Parameter
+  * Description    : 将MPR121功能配置参数写入DataFlash
+  * Input          : None
+  * Return         : None
+  *******************************************************************************/
+void DATAFLASH_Write_MPR121_FUN_Parameter(void)
+{
+  uint16_t val;
+
+  val = g_Enable_Status.touchbar_button;
+  HAL_Fs_Write_keyboard_cfg(FS_LINE_TOUCHBAR_BUTTON_CTL_ENA, 1, &val);
+}
+
+/*******************************************************************************
  * Function Name  : MPR121_GPIO_Init
  * Description    : MPR121初始化GPIO
  * Input          : None
@@ -73,8 +101,9 @@ void MPR121_Init(char* buf)
   mpr121_interface_t mpr_interface;
   mpr121_alg_param_t mpr_alg_parameter;
 
-  // 1. read mpr_alg_parameter from flash
+  // 1. read mpr_alg_parameter & function configurations from flash
   DATAFLASH_Read_MPR121_ALG_Parameter(&mpr_alg_parameter);
+  DATAFLASH_Read_MPR121_FUN_Parameter();
   // 2. config GPIO for MPR121
   MPR121_GPIO_Init();
   // 3. config mpr121_interface

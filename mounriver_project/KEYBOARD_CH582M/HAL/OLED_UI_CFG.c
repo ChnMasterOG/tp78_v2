@@ -53,11 +53,13 @@ const oled_ui_menu_structure cfg_menu_3 = {
 const oled_ui_menu_structure cfg_menu_4 = {
   .type = OLED_UI_TYPE_MENU,
   .text[0] = "RF_freq",
+  .text[1] = "Tbtn_en",
   .p[0] = (uint8_t*)&rf_freq_level_en,
+  .p[1] = (uint8_t*)&touchbar_button_ctl_ena_en,
   .p[3] = (uint8_t*)&main_menu,
   .p[4] = (uint8_t*)&cfg_menu_3,
   .p[5] = (uint8_t*)&cfg_menu_1,
-  .menu_size = 1,
+  .menu_size = 2,
 };
 const oled_ui_menu_structure key_status_menu_1 = {
   .type = OLED_UI_TYPE_MENU,
@@ -295,6 +297,15 @@ const oled_ui_enter_num_structure rf_freq_level_en = {
   .postStr = "OK",
   .pStr_len = 4,
   .line = FS_LINE_RF_FREQ_LEVEL,
+  .limit_len = 1,
+};
+const oled_ui_enter_num_structure touchbar_button_ctl_ena_en = {
+  .type = OLED_UI_TYPE_ENTER_NUM,
+  .p = (uint8_t*)&cfg_menu_4,
+  .preStr = "val:",
+  .postStr = "OK",
+  .pStr_len = 4,
+  .line = FS_LINE_TOUCHBAR_BUTTON_CTL_ENA,
   .limit_len = 1,
 };
 

@@ -165,6 +165,9 @@
   #define MPR121_REG_SRST       0x80  // write 0x63 to reset
 
   #define FILTER_CNT            2     // filter cnt which is less than this value
+  #define LEFT_BTN_DATA_BIT     0x1   // left btn index of btn_dat/dbtn_dat
+  #define MIDDLE_BTN_DATA_BIT   0x2   // middle btn index of btn_dat/dbtn_dat
+  #define RIGHT_BTN_DATA_BIT    0x4   // right btn index of btn_dat/dbtn_dat
 
   /* Global Definitions */
   #define __LIMIT__(data, limit_val)          ((data) >= (limit_val) ? (limit_val) : (data))

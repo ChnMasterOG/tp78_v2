@@ -100,6 +100,7 @@ void KEYBOARD_Reset( void )
                        TOUCHBAR_TOU_THRESH, TOUCHBAR_REL_THRESH,
                        DOUBLE_TOUCH_CNT, LONG_TOUCH_CNT,
                        1, LED_DEFAULT_BRIGHTNESS, 2,  // RF频率默认2.405G
+                       0,
   };
 
   memcpy(CustomKey, KeyArrary, COL_SIZE*ROW_SIZE);
