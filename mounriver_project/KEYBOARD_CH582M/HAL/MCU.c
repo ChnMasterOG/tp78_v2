@@ -1036,7 +1036,7 @@ void HAL_Init(void)
   uint16_t tmp;
   char debug_info[128] = "OK";
 
-  DelayMs(5);
+  DelayMs(20);
   halTaskID = TMOS_ProcessEventRegister( HAL_ProcessEvent );
   HAL_TimeInit();
 #ifdef FIRST_USED
