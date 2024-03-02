@@ -182,3 +182,11 @@ C(mounriver_project) --> J(VLD_CH582M - test project)
 ### Submit Your Codes
 
 You can submit you code [here](https://github.com/ChnMasterOG/tp78_v2/issues). Thanks for your support of TP78.
+
+### Relase Note
+
+- V2.0.11
+
+        1. Fixed the problem that some hardware OLEDs do not works when powered on.
+
+        2. Add release firmwares with start address 0x0.

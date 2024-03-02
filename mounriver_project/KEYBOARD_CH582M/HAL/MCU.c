@@ -1036,6 +1036,7 @@ void HAL_Init(void)
   uint16_t tmp;
   char debug_info[128] = "OK";
 
+  DelayMs(5);
   halTaskID = TMOS_ProcessEventRegister( HAL_ProcessEvent );
   HAL_TimeInit();
 #ifdef FIRST_USED
@@ -1055,9 +1056,6 @@ void HAL_Init(void)
 #if (defined HAL_HW_I2C) && (HAL_HW_I2C == TRUE)
   HW_I2C_Init( );
 #endif
-#if (defined HAL_OLED) && (HAL_OLED == TRUE)
-  HAL_OLED_Init( );
-#endif
 #if (defined HAL_BATTADC) && (HAL_BATTADC == TRUE)
   BATTERY_Init( );
 #endif
@@ -1069,6 +1067,9 @@ void HAL_Init(void)
 #endif
 #if (defined HAL_MOTOR) && (HAL_MOTOR == TRUE)
   MOTOR_Init( );
+#endif
+#if (defined HAL_OLED) && (HAL_OLED == TRUE)
+  HAL_OLED_Init( );
 #endif
 #if (defined HAL_HW_I2C) && (HAL_HW_I2C == TRUE)  // 最后初始化保证上电延迟
 #if (defined HAL_TPM) && (HAL_TPM == TRUE)

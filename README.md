@@ -184,3 +184,11 @@ C(mounriver_project - wch软件工程) --> J(VLD_CH582M - 主控板测试工程)
 当你在使用中遇到问题，可以在[这里](https://github.com/ChnMasterOG/tp78_v2/issues)提交你的反馈。
 
 若你是开发者，欢迎提交代码对tp78固件进行升级。本项目会对合入代码进行自动云测，并定期自动发布release版本。
+
+### 固件更新记录
+
+- V2.0.11
+
+        1. 修复部分硬件OLED上电不亮的问题
+
+        2. Relase版本增加起始0x0地址的固件版本

@@ -36,6 +36,16 @@ jobs:
             cp ./mounriver_project/RF_CH582M/obj/*.hex TP78_v2_release
             cp ./mounriver_project/RF_CH582M/obj/*.bin TP78_v2_release
             cp ./mounriver_project/RF_CH582M/obj/*.elf TP78_v2_release
+            cd ./mounriver_project
+            python replace_ld.py
+            echo "build KEYBOARD_CH582M(No Kboot)..."
+            cd ./KEYBOARD_CH582M/obj
+            make
+            cd ../../../
+            mkdir TP78_v2_release/No_Kboot_firmware
+            cp ./mounriver_project/KEYBOARD_CH582M/obj/*.hex TP78_v2_release/No_Kboot_firmware
+            cp ./mounriver_project/KEYBOARD_CH582M/obj/*.bin TP78_v2_release/No_Kboot_firmware
+            cp ./mounriver_project/KEYBOARD_CH582M/obj/*.elf TP78_v2_release/No_Kboot_firmware
             Compress-Archive -Path TP78_v2_release TP78_v2_release.zip
     - name: Create Release
       id: create_release
