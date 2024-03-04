@@ -623,6 +623,7 @@ void HAL_OLED_Init(void)
   //display ON
   OLED_WR_Byte(0xAF, OLED_CMD);
 	OLED_Clear();
-	OLED_Set_Pos(0,0); 	
+	OLED_Set_Pos(0,0);
+	DelayMs(20);  // 等待稳定
 }
 /*********************************************END OF FILE**********************/
