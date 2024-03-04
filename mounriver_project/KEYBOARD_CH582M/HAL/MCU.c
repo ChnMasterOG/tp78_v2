@@ -1036,6 +1036,7 @@ void HAL_Init(void)
   uint16_t tmp;
   char debug_info[128] = "OK";
 
+  DelayMs(20);  //上电延迟
   halTaskID = TMOS_ProcessEventRegister( HAL_ProcessEvent );
   HAL_TimeInit();
 #ifdef FIRST_USED
@@ -1054,9 +1055,6 @@ void HAL_Init(void)
 #endif
 #if (defined HAL_HW_I2C) && (HAL_HW_I2C == TRUE)
   HW_I2C_Init( );
-#endif
-#if (defined HAL_OLED) && (HAL_OLED == TRUE)
-  HAL_OLED_Init( );
 #endif
 #if (defined HAL_BATTADC) && (HAL_BATTADC == TRUE)
   BATTERY_Init( );
@@ -1080,6 +1078,9 @@ void HAL_Init(void)
 #if ((defined HAL_MPR121_CAPMOUSE) && (HAL_MPR121_CAPMOUSE == TRUE)) || ((defined HAL_MPR121_TOUCHBAR) && (HAL_MPR121_TOUCHBAR == TRUE))  // MPR121需要上电延迟
   MPR121_Init(debug_info);
 #endif
+#endif
+#if (defined HAL_OLED) && (HAL_OLED == TRUE)  // 最后初始化保证上电延迟
+  HAL_OLED_Init( );
 #endif
 #if (defined HAL_LED) && (HAL_LED == TRUE)
   debug_info[7] = '\0';

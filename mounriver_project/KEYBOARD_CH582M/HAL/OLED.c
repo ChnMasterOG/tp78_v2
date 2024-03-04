@@ -492,7 +492,6 @@ void HAL_OLED_Init(void)
   OLED_CLK_GPIO_(ModeCfg)( OLED_CLK_Pin, GPIO_ModeOut_PP_5mA );
   OLED_SDA_GPIO_(ModeCfg)( OLED_SDA_Pin, GPIO_ModeOut_PP_5mA );
 #endif
-  DelayMs(20);  //上电延迟
 
 #ifdef OLED_0_42
   //display off
