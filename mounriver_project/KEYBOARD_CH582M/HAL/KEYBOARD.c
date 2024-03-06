@@ -708,8 +708,9 @@ void KEYBOARD_Detection( void )
                               KeyboardDat->data[key_idx] != Extra_CustomKey[current_row][current_colum])) {  // 弹起按键2层都清除
                               KeyboardDat->data[p] = KeyboardDat->data[key_idx];
                               p++;
+                          } else {
+                              KeyboardDat->data[key_idx] = KEY_None;
                           }
-                          KeyboardDat->data[key_idx] = KEY_None;
                         }
                     }
                     KEYBOARD_data_index = p;

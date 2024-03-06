@@ -190,3 +190,5 @@ You can submit you code [here](https://github.com/ChnMasterOG/tp78_v2/issues). T
         1. Fixed the problem that some hardware OLEDs do not works when powered on.
 
         2. Add release firmwares with start address 0x0.
+
+        3. Fixed BUG: Any button that pops up will cause all buttons to pop up.
