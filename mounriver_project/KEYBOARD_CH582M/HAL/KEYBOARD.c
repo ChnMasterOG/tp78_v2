@@ -401,7 +401,7 @@ UINT8 KEYBOARD_Custom_Function( void )
         Fn_Mode = Fn_Mode_None;
         g_Game_Mode = !g_Game_Mode;
         if (g_Game_Mode == FALSE) {
-          OLED_UI_add_SHOWINFO_task("G Mode ON");
+          OLED_UI_add_SHOWINFO_task("G Mode OFF");
           OLED_UI_add_CANCELINFO_delay_task(2000);
           tmos_start_task( halTaskID, MAIN_CIRCULATION_EVENT, 10 ); // 主循环
 #if ((defined HAL_MPR121_CAPMOUSE) && (HAL_MPR121_CAPMOUSE == TRUE)) || ((defined HAL_MPR121_TOUCHBAR) && (HAL_MPR121_TOUCHBAR == TRUE))
@@ -417,8 +417,7 @@ UINT8 KEYBOARD_Custom_Function( void )
           tmos_start_task( halTaskID, TPM_EVENT, MS1_TO_SYSTEM_TIME(30) );  // 扩展模块
 #endif
         } else {
-          OLED_UI_add_SHOWINFO_task("G Mode OFF");
-          OLED_UI_add_CANCELINFO_delay_task(2000);
+          OLED_PRINT("G Mode ON");
         }
         break;
       }

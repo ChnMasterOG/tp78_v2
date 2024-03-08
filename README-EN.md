@@ -153,7 +153,7 @@ C(mounriver_project) --> J(VLD_CH582M - test project)
 
 - **Q**: How to enter the RF receiver bootloader？
 
-- **A:** After entering RF mode, connect the receiver and press Fn+M to enter the ROM bootloader. Note: The first 4K of CodeFlash will be erased after the receiver enters the bootloader, and the program must be downloaded first after powering on. If you need to upgrade the receiver firmware and keyboard main firmware at the same time, upgrade the receiver firmware first and then upgrade the keyboard main firmware. Be careful not to flash the wrong receiver firmware, otherwise you will be unable to connect and enter the bootloader again.
+- **A:** After entering RF mode, connect the receiver and press Fn+**ESC** to enter the ROM bootloader. Note: The first 4K of CodeFlash will be erased after the receiver enters the bootloader, and the program must be downloaded first after powering on. If you need to upgrade the receiver firmware and keyboard main firmware at the same time, upgrade the receiver firmware first and then upgrade the keyboard main firmware. Be careful not to flash the wrong receiver firmware, otherwise you will be unable to connect and enter the bootloader again.
 
 - **Q:** How to use WCH ISPTools?
 
@@ -192,3 +192,9 @@ You can submit you code [here](https://github.com/ChnMasterOG/tp78_v2/issues). T
         2. Add release firmwares with start address 0x0.
 
         3. Fixed BUG: Any button that pops up will cause all buttons to pop up.
+
+- V2.0.12
+
+        1. Add Game Mode(Improving keyboard performance at the cost of sacrificing some features).
+
+        2. Change function(RF bootloader jumping) Fn+M to Fn+ESC.

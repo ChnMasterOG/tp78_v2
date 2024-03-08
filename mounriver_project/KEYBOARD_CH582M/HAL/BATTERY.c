@@ -126,7 +126,10 @@ void BATTERY_DrawBMP( void )
   const UINT8 BMP_StartX = 91;
   UINT8 i, j;
   UINT8 BAT_level = BATTERY_ADC_GetLevel(BAT_adcVal);
+#ifdef OLED_0_91
   BOOL isFloating = ABS((long)BAT_adcHistory - (long)BAT_adcVal) >= BAT_FLOATING_VAL;
+#endif
+
   if (!BAT_IS_CHARGING) { // 当前处于不充电状态
     if (BAT_LAST_CHARGING) {  // 退出充电
       BAT_LAST_CHARGING = FALSE;
