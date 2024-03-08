@@ -232,6 +232,7 @@ extern NumLock_LEDOn_Status_t g_NumLock_LEDOn_Status;
 extern Ready_Status_t g_Ready_Status;
 extern Enable_Status_t g_Enable_Status;
 extern uint8_t g_TP_speed_div;
+extern uint8_t g_Game_Mode;
 extern enum LP_Type g_lp_type;
 extern uint32_t sys_time;
 

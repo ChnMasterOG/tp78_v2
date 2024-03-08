@@ -163,7 +163,7 @@ UINT8 KEYBOARD_Custom_Function( void )
     } else if ( KeyboardDat->Key1 == KEY_R && Fn_Mode != Fn_Mode_SoftReset ) { // 软件复位模式
       Fn_Mode = Fn_Mode_SoftReset;
       Fn_cnt = 0;
-    } else if ( KeyboardDat->Key1 == KEY_M && Fn_Mode != Fn_Mode_RFJumptoBoot ) { // RF发送0x7A让接收器进BOOT
+    } else if ( KeyboardDat->Key1 == KEY_ESCAPE && Fn_Mode != Fn_Mode_RFJumptoBoot ) { // RF发送0x7A让接收器进BOOT
       Fn_Mode = Fn_Mode_RFJumptoBoot;
       Fn_cnt = 0;
     } else if ( KeyboardDat->Key1 == KEY_B && Fn_Mode != Fn_Mode_JumpBoot ) { // 跳转BOOT模式
@@ -196,6 +196,9 @@ UINT8 KEYBOARD_Custom_Function( void )
       Fn_cnt = 0;
     } else if ( KeyboardDat->Key1 == KEY_U && Fn_Mode != Fn_Mode_UDiskMode ) { // 开启U盘模式
       Fn_Mode = Fn_Mode_UDiskMode;
+      Fn_cnt = 0;
+    } else if ( KeyboardDat->Key1 == KEY_G && Fn_Mode != Fn_Mode_GameMode ) { // 开启性能模式
+      Fn_Mode = Fn_Mode_GameMode;
       Fn_cnt = 0;
     } else if ( KeyboardDat->Key1 == KEY_0 && Fn_Mode != Fn_Mode_BLE_ClearSNV ) { // 清除蓝牙SNV信息
       Fn_Mode = Fn_Mode_BLE_ClearSNV;
@@ -300,7 +303,7 @@ UINT8 KEYBOARD_Custom_Function( void )
         SoftReset();
         break;
       }
-      case Fn_Mode_RFJumptoBoot: {  // Fn+M发送0x7A让接收器进BOOT
+      case Fn_Mode_RFJumptoBoot: {  // Fn+ESC发送0x7A让接收器进BOOT
         Fn_Mode = Fn_Mode_None;
         if (g_Enable_Status.rf == TRUE) {
           tmos_set_event( RFTaskId, SBP_RF_JUMPBOOT_REPORT_EVT );  // RF JUMPBOOT事件
@@ -392,6 +395,31 @@ UINT8 KEYBOARD_Custom_Function( void )
         HAL_Fs_Write_keyboard_cfg(FS_LINE_WORK_MODE, 1, &Usb_mode);
         HAL_Fs_Write_keyboard_cfg(FS_LINE_UDISK_MODE, 1, &Udisk_mode);
         SoftReset();
+        break;
+      }
+      case Fn_Mode_GameMode: { // Fn+G开关性能模式
+        Fn_Mode = Fn_Mode_None;
+        g_Game_Mode = !g_Game_Mode;
+        if (g_Game_Mode == FALSE) {
+          OLED_UI_add_SHOWINFO_task("G Mode ON");
+          OLED_UI_add_CANCELINFO_delay_task(2000);
+          tmos_start_task( halTaskID, MAIN_CIRCULATION_EVENT, 10 ); // 主循环
+#if ((defined HAL_MPR121_CAPMOUSE) && (HAL_MPR121_CAPMOUSE == TRUE)) || ((defined HAL_MPR121_TOUCHBAR) && (HAL_MPR121_TOUCHBAR == TRUE))
+          tmos_start_task( halTaskID, MPR121_EVENT, MS1_TO_SYSTEM_TIME(30) );  // MPR121
+#endif
+#if ((defined HAL_PS2) && (HAL_PS2 == TRUE)) || ((defined HAL_I2C_TP) && (HAL_I2C_TP == TRUE)) || ((defined HAL_MPR121_CAPMOUSE) && (HAL_MPR121_CAPMOUSE == TRUE))
+          tmos_start_task( halTaskID, HAL_MOUSE_EVENT, MS1_TO_SYSTEM_TIME(40) ); // 鼠标事件
+#endif
+#if (defined HAL_OLED) && (HAL_OLED == TRUE)
+          tmos_start_task( halTaskID, OLED_UI_EVENT, MS1_TO_SYSTEM_TIME(60) );  // OLED UI
+#endif
+#if ((defined HAL_HW_I2C) && (HAL_HW_I2C == TRUE)) && ((defined HAL_TPM) && (HAL_TPM == TRUE))
+          tmos_start_task( halTaskID, TPM_EVENT, MS1_TO_SYSTEM_TIME(30) );  // 扩展模块
+#endif
+        } else {
+          OLED_UI_add_SHOWINFO_task("G Mode OFF");
+          OLED_UI_add_CANCELINFO_delay_task(2000);
+        }
         break;
       }
       case Fn_Mode_BLE_ClearSNV: {  // Fn+0清除蓝牙SNV信息
@@ -582,29 +610,32 @@ void KEYBOARD_Detection( void )
     static BOOL press_Normal_Key = FALSE;
     uint8_t key_idx, i, j;
     mpr121_operation_data_t oper_dat;
-    MPR121_get_result(&oper_dat);
-    /* 触摸条触发键盘按键相关 */
-    if (oper_dat.slide_left == TRUE) {
-        oper_dat.slide_left = FALSE;
-        MPR121_set_result(&oper_dat);
-        Touchbar_SP_Key = PRESS_HOLDING_TIMES;
-        memcpy(KeyboardDat->data, SP_Key_Map[5], 8);  // KEY_SP_6
-        g_Ready_Status.keyboard_key_data = TRUE;  // 产生事件
-        return;
-    } else if (oper_dat.slide_right == TRUE) {
-        oper_dat.slide_right = FALSE;
-        MPR121_set_result(&oper_dat);
-        Touchbar_SP_Key = PRESS_HOLDING_TIMES;
-        memcpy(KeyboardDat->data, SP_Key_Map[6], 8);  // KEY_SP_7
-        g_Ready_Status.keyboard_key_data = TRUE;  // 产生事件
-        return;
-    } else if (Touchbar_SP_Key) {
-        if (--Touchbar_SP_Key == 0) {  // 触摸条SP键的持续时间到达
-            memset(KeyboardDat->data, 0, 8);
-            KEYBOARD_data_index = 2;
-            g_Ready_Status.keyboard_key_data = TRUE;  // 产生事件
-        }
-        return;
+
+    if (g_Game_Mode == FALSE) {
+      MPR121_get_result(&oper_dat);
+      /* 触摸条触发键盘按键相关 */
+      if (oper_dat.slide_left == TRUE) {
+          oper_dat.slide_left = FALSE;
+          MPR121_set_result(&oper_dat);
+          Touchbar_SP_Key = PRESS_HOLDING_TIMES;
+          memcpy(KeyboardDat->data, SP_Key_Map[5], 8);  // KEY_SP_6
+          g_Ready_Status.keyboard_key_data = TRUE;  // 产生事件
+          return;
+      } else if (oper_dat.slide_right == TRUE) {
+          oper_dat.slide_right = FALSE;
+          MPR121_set_result(&oper_dat);
+          Touchbar_SP_Key = PRESS_HOLDING_TIMES;
+          memcpy(KeyboardDat->data, SP_Key_Map[6], 8);  // KEY_SP_7
+          g_Ready_Status.keyboard_key_data = TRUE;  // 产生事件
+          return;
+      } else if (Touchbar_SP_Key) {
+          if (--Touchbar_SP_Key == 0) {  // 触摸条SP键的持续时间到达
+              memset(KeyboardDat->data, 0, 8);
+              KEYBOARD_data_index = 2;
+              g_Ready_Status.keyboard_key_data = TRUE;  // 产生事件
+          }
+          return;
+      }
     }
     /* CapsLock功能相关 */
     if(g_capslock_status.press_Capslock_NormalKey){ // 短按CapsLock后，弹起CapsLock

@@ -32,6 +32,7 @@ Enable_Status_t g_Enable_Status = { // 使能信号
    .tp = TRUE,
 };
 uint8_t g_TP_speed_div = 1;
+uint8_t g_Game_Mode = FALSE;  // 性能模式
 enum LP_Type g_lp_type;   // 记录下电前的低功耗模式
 
 static uint32_t EP_counter = 0;   // 彩蛋计数器
@@ -785,11 +786,11 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
       SW_PaintedEgg_Process();
 #endif
     }
-#if (ROW_SCAN_MODE)
-    tmos_start_task( halTaskID, HAL_KEYBOARD_EVENT, MS1_TO_SYSTEM_TIME(5) ); // 处理键盘
-#else
-    tmos_start_task( halTaskID, HAL_KEYBOARD_EVENT, MS1_TO_SYSTEM_TIME(5) ); // 处理键盘
-#endif
+    if (g_Game_Mode == TRUE) {
+      tmos_start_task( halTaskID, HAL_KEYBOARD_EVENT, 2 ); // 处理键盘加速 - 1.25ms
+    } else {
+      tmos_start_task( halTaskID, HAL_KEYBOARD_EVENT, MS1_TO_SYSTEM_TIME(5) ); // 处理键盘
+    }
     return events ^ HAL_KEYBOARD_EVENT;
   }
 
@@ -827,7 +828,9 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
 #if ((defined HAL_MPR121_CAPMOUSE) && (HAL_MPR121_CAPMOUSE == TRUE)) || ((defined HAL_MPR121_TOUCHBAR) && (HAL_MPR121_TOUCHBAR == TRUE))
     HW_TouchBar_Process();
 #endif
-    tmos_start_task( halTaskID, MPR121_EVENT, MS1_TO_SYSTEM_TIME(MPR121_TASK_PERIOD) ); // (MPR121_TASK_PERIOD)ms控制周期
+    if (g_Game_Mode == FALSE) {
+      tmos_start_task( halTaskID, MPR121_EVENT, MS1_TO_SYSTEM_TIME(MPR121_TASK_PERIOD) ); // (MPR121_TASK_PERIOD)ms控制周期
+    }
     return events ^ MPR121_EVENT;
   }
 
@@ -843,7 +846,9 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
     HID_CapMouse_Process();
 #endif
 #endif
-    tmos_start_task( halTaskID, HAL_MOUSE_EVENT, MS1_TO_SYSTEM_TIME(25) ); // 处理鼠标(至少20ms保证蓝牙线程)
+    if (g_Game_Mode == FALSE) {
+      tmos_start_task( halTaskID, HAL_MOUSE_EVENT, MS1_TO_SYSTEM_TIME(25) ); // 处理鼠标(至少20ms保证蓝牙线程)
+    }
     return events ^ HAL_MOUSE_EVENT;
   }
 
@@ -853,7 +858,9 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
 #if (defined HAL_OLED) && (HAL_OLED == TRUE)
     OLED_UI_draw_thread_callback();
 #endif
-    tmos_start_task( halTaskID, OLED_UI_EVENT, MS1_TO_SYSTEM_TIME(1000/g_oled_fresh_rate) ); // 根据OLED刷新率控制
+    if (g_Game_Mode == FALSE) {
+      tmos_start_task( halTaskID, OLED_UI_EVENT, MS1_TO_SYSTEM_TIME(1000/g_oled_fresh_rate) ); // 根据OLED刷新率控制
+    }
     return events ^ OLED_UI_EVENT;
   }
 
@@ -863,8 +870,8 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
 #if (defined HAL_WDG) && (HAL_WDG == TRUE)
     WWDG_SetCounter(0); // 喂狗
 #endif
-    ++idle_cnt;
     ++sys_time;
+    ++idle_cnt;
     if (idle_cnt == IDLE_MAX_PERIOD) {  // 进入idle
 #if (defined HAL_OLED) && (HAL_OLED == TRUE)
       OLED_UI_idle(1);
@@ -884,7 +891,9 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
     SW_OLED_ConnectionStatus_Process();
     SW_OLED_LEDStatus_Process();
 #endif
-    tmos_start_task( halTaskID, MAIN_CIRCULATION_EVENT, MS1_TO_SYSTEM_TIME(SYS_PERIOD) ); // SYS_PERIOD周期
+    if (g_Game_Mode == FALSE) {
+      tmos_start_task( halTaskID, MAIN_CIRCULATION_EVENT, MS1_TO_SYSTEM_TIME(SYS_PERIOD) ); // SYS_PERIOD周期
+    }
     return events ^ MAIN_CIRCULATION_EVENT;
   }
 
@@ -940,8 +949,10 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
       TPM_process_data();
       tpm_cnt++;
     }
+    if (g_Game_Mode == FALSE) {
+      tmos_start_task(halTaskID, TPM_EVENT, MS1_TO_SYSTEM_TIME(10));  // 10ms
+    }
 #endif
-    tmos_start_task(halTaskID, TPM_EVENT, MS1_TO_SYSTEM_TIME(10));  // 10ms
     return events ^ TPM_EVENT;
   }
 
