@@ -33,6 +33,8 @@ const BYTE WriteBuffer[] = {
     "LINE14:亮度(1~255)\n"
     "LINE15:RF频段挡位(0~9)\n" // 每挡位+0.0025G频段(0~9 - 2.4G~2.4225G)
     "LINE16:是否使能触摸条触发鼠标按键(0~1)\n"
+    "LINE17:进入屏保时间/s(1~65536)\n"
+    "LINE18:进入休眠时间/s(1~65536)\n"
     "keyboard_spkey.txt---存放sp按键映射键位(每行8byte)\n"
     "LINE1:spKEY1的HID报表数据\n"
     "LINE2:spKEY2的HID报表数据\n"
@@ -180,6 +182,7 @@ void HAL_Fs_Create_readme(void)
   FRESULT res_flash;
   FILINFO fnow;
   UINT fnum;
+  uint32_t wirte_num = 0;
 
   if (g_Ready_Status.fatfs == FALSE) return;
 
@@ -188,10 +191,14 @@ void HAL_Fs_Create_readme(void)
 
   res_flash = f_open( &fnew, "0:readme.txt", FA_CREATE_ALWAYS | FA_WRITE );               // 以写入方式打开文件，若未发现文件则新建文件
   if( res_flash == FR_OK ) {
-    /* 文件较大，分两部分写 */
-    res_flash = f_write( &fnew, WriteBuffer, sizeof(WriteBuffer)/2, &fnum );              // part1
-    res_flash = f_write( &fnew, &WriteBuffer[sizeof(WriteBuffer)/2],
-                         sizeof(WriteBuffer) - sizeof(WriteBuffer)/2 - 1, &fnum );        // part2
+    /* 文件较大，分三部分写 */
+    res_flash = f_write( &fnew, WriteBuffer, sizeof(WriteBuffer)/3, &fnum );              // part1
+    wirte_num += sizeof(WriteBuffer)/3;
+    res_flash = f_write( &fnew, &WriteBuffer[wirte_num],
+                         sizeof(WriteBuffer)/3, &fnum );                                  // part2
+    wirte_num += sizeof(WriteBuffer)/3;
+    res_flash = f_write( &fnew, &WriteBuffer[wirte_num],
+                         sizeof(WriteBuffer) - wirte_num - 1, &fnum );                    // part3
     f_close(&fnew);                                                                       // 关闭文件
     g_Ready_Status.fatfs = TRUE;
   }

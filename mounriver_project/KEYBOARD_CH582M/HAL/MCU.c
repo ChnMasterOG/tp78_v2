@@ -33,10 +33,11 @@ Enable_Status_t g_Enable_Status = { // 使能信号
 };
 uint8_t g_TP_speed_div = 1;
 uint8_t g_Game_Mode = FALSE;  // 性能模式
-enum LP_Type g_lp_type;   // 记录下电前的低功耗模式
+enum LP_Type g_lp_type = lp_sw_mode;   // 记录下电前的低功耗模式
 
 static uint32_t EP_counter = 0;   // 彩蛋计数器
 static uint32_t idle_cnt = 0;     // 无有效操作计数值，idle_cnt大于阈值则进入休眠
+static uint32_t idle_max_period, lp_max_period;
 uint32_t sys_time = 0;            // 系统计时
 
 /*******************************************************************************
@@ -47,7 +48,7 @@ uint32_t sys_time = 0;            // 系统计时
  *******************************************************************************/
 static inline void TP78_Idle_Clr(void)
 {
-  if (idle_cnt >= IDLE_MAX_PERIOD) {  // 退出idle
+  if (idle_cnt >= idle_max_period) {  // 退出idle
 #if (defined HAL_OLED) && (HAL_OLED == TRUE)
     OLED_UI_idle(0);
 #endif
@@ -683,8 +684,10 @@ void CH58X_BLEInit(void)
   #endif
 #endif
 #if(defined(HAL_SLEEP)) && (HAL_SLEEP == TRUE)
-    cfg.WakeUpTime = WAKE_UP_RTC_MAX_TIME;
-    cfg.sleepCB = CH58X_LowPower; // 启用睡眠
+    if (g_lp_type == lp_sw_mode) {
+      cfg.WakeUpTime = WAKE_UP_RTC_MAX_TIME;
+      cfg.sleepCB = CH58X_LowPower; // 启用睡眠
+    }
 #endif
 #if(defined(BLE_MAC)) && (BLE_MAC == TRUE)
     for(i = 0; i < 6; i++)
@@ -872,18 +875,16 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
 #endif
     ++sys_time;
     ++idle_cnt;
-    if (idle_cnt == IDLE_MAX_PERIOD) {  // 进入idle
+    if (idle_cnt == idle_max_period) {  // 进入idle
 #if (defined HAL_OLED) && (HAL_OLED == TRUE)
       OLED_UI_idle(1);
 #endif
-    } else if (idle_cnt >= LP_MAX_PERIOD) {  // 进入低功耗模式
+    } else if (idle_cnt >= lp_max_period) {  // 进入低功耗模式
 #if (defined HAL_OLED) && (HAL_OLED == TRUE)
       OLED_UI_idle(0);
       OLED_Clr(0, 2, 64, 5);  // 立即执行 - 后续进入低功耗
 #endif
       idle_cnt = 0;
-      if (g_Ready_Status.usb == TRUE) g_lp_type = lp_idle_mode;
-      else g_lp_type = lp_shutdown_mode;
       GotoLowpower(g_lp_type);
     }
     // OLED信息更新处理
@@ -990,27 +991,43 @@ void FLASH_Init(void)
 
   HAL_Fs_Read_keyboard_cfg(FS_LINE_WORK_MODE, 1, &tmp); // 模式读取
   DATAFLASH_Read_DeviceID();
-#if 1
   switch (tmp) {
     case BLE_WORK_MODE:
       g_Enable_Status.ble = TRUE;
       g_Ready_Status.ble_l = TRUE;  // 初始化显示更新
+      g_lp_type = lp_sw_mode; // RTC+GPIO唤醒
       OLED_UI_add_SHOWINFO_task("BLE Mode");
       OLED_UI_add_CANCELINFO_delay_task(2000);
       break;
     case RF_WORK_MODE:
       g_Enable_Status.rf = TRUE;
       g_Ready_Status.rf_l = TRUE; // 初始化显示更新
+      g_lp_type = lp_sw_mode; // RTC+GPIO唤醒
       OLED_UI_add_SHOWINFO_task("RF Mode");
       OLED_UI_add_CANCELINFO_delay_task(2000);
       break;
     default:
       g_Enable_Status.usb = TRUE;
       g_Ready_Status.usb_l = TRUE;  // 初始化显示更新
+      g_lp_type = lp_idle_mode;
       OLED_UI_add_SHOWINFO_task("USB Mode");
       OLED_UI_add_CANCELINFO_delay_task(2000);
   }
-#endif
+
+  /* 低功耗相关配置初始化 */
+  HAL_Fs_Read_keyboard_cfg(FS_LINE_IDLE_MAX_CNT, 1, &tmp);
+  if (tmp == 0) {
+    idle_max_period = DEFAULT_IDLE_MAX_PERIOD * (1000 / SYS_PERIOD);
+  } else {
+    idle_max_period = tmp * (1000 / SYS_PERIOD);
+  }
+  HAL_Fs_Read_keyboard_cfg(FS_LINE_LP_MAX_CNT, 1, &tmp);
+  if (tmp == 0) {
+    lp_max_period = DEFAULT_LP_MAX_PERIOD * (1000 / SYS_PERIOD);
+  } else {
+    lp_max_period = tmp * (1000 / SYS_PERIOD);
+  }
+
 #if (defined HAL_WS2812_PWM) && (HAL_WS2812_PWM == TRUE)
   DATAFLASH_Read_LEDStyle( );
 #endif
@@ -1133,28 +1150,7 @@ void HAL_Init(void)
 #endif
 
   /* start task */
-  tmos_start_task( halTaskID, MAIN_CIRCULATION_EVENT, 10 ); // 主循环
-#if (defined HAL_KEYBOARD) && (HAL_KEYBOARD == TRUE)
-  tmos_start_task( halTaskID, HAL_KEYBOARD_EVENT, MS1_TO_SYSTEM_TIME(20) ); // 键盘事件
-#endif
-#if ((defined HAL_MPR121_CAPMOUSE) && (HAL_MPR121_CAPMOUSE == TRUE)) || ((defined HAL_MPR121_TOUCHBAR) && (HAL_MPR121_TOUCHBAR == TRUE))
-  tmos_start_task( halTaskID, MPR121_EVENT, MS1_TO_SYSTEM_TIME(30) );  // MPR121
-#endif
-#if ((defined HAL_PS2) && (HAL_PS2 == TRUE)) || ((defined HAL_I2C_TP) && (HAL_I2C_TP == TRUE)) || ((defined HAL_MPR121_CAPMOUSE) && (HAL_MPR121_CAPMOUSE == TRUE))
-  tmos_start_task( halTaskID, HAL_MOUSE_EVENT, MS1_TO_SYSTEM_TIME(40) ); // 鼠标事件
-#endif
-#if (defined HAL_WS2812_PWM) && (HAL_WS2812_PWM == TRUE)
-  tmos_start_task( halTaskID, WS2812_EVENT, MS1_TO_SYSTEM_TIME(50) );  // 背光控制
-#endif
-#if (defined HAL_OLED) && (HAL_OLED == TRUE)
-  tmos_start_task( halTaskID, OLED_UI_EVENT, MS1_TO_SYSTEM_TIME(60) );  // OLED UI
-#endif
-#if ((defined HAL_HW_I2C) && (HAL_HW_I2C == TRUE)) && ((defined HAL_TPM) && (HAL_TPM == TRUE))
-  tmos_start_task( halTaskID, TPM_EVENT, MS1_TO_SYSTEM_TIME(30) );  // 扩展模块
-#endif
-#if 0
-  tmos_start_task( halTaskID, HAL_TEST_EVENT, 10 );
-#endif
+  TP78_TMOS_Start();
 }
 
 /*******************************************************************************

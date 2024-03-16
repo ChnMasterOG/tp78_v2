@@ -228,7 +228,6 @@ void LowPower_Idle(void)
     __nop();
 }
 
-#ifndef LOW_MEM
 /*********************************************************************
  * @fn      LowPower_Halt
  *
@@ -238,6 +237,7 @@ void LowPower_Idle(void)
  *
  * @return  none
  */
+//#ifndef LOW_MEM
 __HIGH_CODE
 void LowPower_Halt(void)
 {
@@ -270,8 +270,8 @@ void LowPower_Halt(void)
     R8_PLL_CONFIG &= ~(1 << 5);
     sys_safe_access_disable();
 }
-#endif
-#ifndef LOW_MEM
+//#endif
+
 /*******************************************************************************
 * Function Name  : LowPower_Sleep
 * Description    : 低功耗-Sleep模式。
@@ -284,6 +284,7 @@ void LowPower_Halt(void)
                    NULL	-	以上单元都断电
 * Return         : None
 *******************************************************************************/
+#ifndef LOW_MEM
 __HIGH_CODE
 void LowPower_Sleep(uint8_t rm)
 {
@@ -353,6 +354,7 @@ void LowPower_Sleep(uint8_t rm)
  *
  * @return  none
  */
+#ifndef LOW_MEM
 __HIGH_CODE
 void LowPower_Shutdown(uint8_t rm)
 {
@@ -389,3 +391,4 @@ void LowPower_Shutdown(uint8_t rm)
     R8_RST_WDOG_CTRL |= RB_SOFTWARE_RESET;
     sys_safe_access_disable();
 }
+#endif

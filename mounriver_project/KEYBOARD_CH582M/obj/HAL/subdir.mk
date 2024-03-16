@@ -20,6 +20,7 @@ C_SRCS += \
 ../HAL/OLED_UI_CFG.c \
 ../HAL/RF_PHY.c \
 ../HAL/RTC.c \
+../HAL/SLEEP.c \
 ../HAL/USB.c \
 ../HAL/WS2812.c 
 
@@ -39,6 +40,7 @@ OBJS += \
 ./HAL/OLED_UI_CFG.o \
 ./HAL/RF_PHY.o \
 ./HAL/RTC.o \
+./HAL/SLEEP.o \
 ./HAL/USB.o \
 ./HAL/WS2812.o 
 
@@ -58,6 +60,7 @@ C_DEPS += \
 ./HAL/OLED_UI_CFG.d \
 ./HAL/RF_PHY.d \
 ./HAL/RTC.d \
+./HAL/SLEEP.d \
 ./HAL/USB.d \
 ./HAL/WS2812.d 
 

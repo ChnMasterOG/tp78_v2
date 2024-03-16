@@ -20,7 +20,7 @@ const oled_ui_menu_structure cfg_menu_1 = {
   .p[1] = (uint8_t*)&ledstyle_en,
   .p[2] = (uint8_t*)&workmode_en,
   .p[3] = (uint8_t*)&main_menu,
-  .p[4] = (uint8_t*)&cfg_menu_4,
+  .p[4] = (uint8_t*)&cfg_menu_5,
   .p[5] = (uint8_t*)&cfg_menu_2,
   .menu_size = 3,
 };
@@ -54,12 +54,23 @@ const oled_ui_menu_structure cfg_menu_4 = {
   .type = OLED_UI_TYPE_MENU,
   .text[0] = "RF_freq",
   .text[1] = "Tbtn_en",
+  .text[2] = "idle_cnt",
   .p[0] = (uint8_t*)&rf_freq_level_en,
   .p[1] = (uint8_t*)&touchbar_button_ctl_ena_en,
+  .p[2] = (uint8_t*)&idle_max_cnt_en,
   .p[3] = (uint8_t*)&main_menu,
   .p[4] = (uint8_t*)&cfg_menu_3,
+  .p[5] = (uint8_t*)&cfg_menu_5,
+  .menu_size = 3,
+};
+const oled_ui_menu_structure cfg_menu_5 = {
+  .type = OLED_UI_TYPE_MENU,
+  .text[0] = "lp_cnt",
+  .p[0] = (uint8_t*)&lp_max_cnt_en,
+  .p[3] = (uint8_t*)&main_menu,
+  .p[4] = (uint8_t*)&cfg_menu_4,
   .p[5] = (uint8_t*)&cfg_menu_1,
-  .menu_size = 2,
+  .menu_size = 1,
 };
 const oled_ui_menu_structure key_status_menu_1 = {
   .type = OLED_UI_TYPE_MENU,
@@ -307,6 +318,24 @@ const oled_ui_enter_num_structure touchbar_button_ctl_ena_en = {
   .pStr_len = 4,
   .line = FS_LINE_TOUCHBAR_BUTTON_CTL_ENA,
   .limit_len = 1,
+};
+const oled_ui_enter_num_structure idle_max_cnt_en = {
+  .type = OLED_UI_TYPE_ENTER_NUM,
+  .p = (uint8_t*)&cfg_menu_4,
+  .preStr = "val:",
+  .postStr = "OK",
+  .pStr_len = 4,
+  .line = FS_LINE_IDLE_MAX_CNT,
+  .limit_len = 0,
+};
+const oled_ui_enter_num_structure lp_max_cnt_en = {
+  .type = OLED_UI_TYPE_ENTER_NUM,
+  .p = (uint8_t*)&cfg_menu_5,
+  .preStr = "val:",
+  .postStr = "OK",
+  .pStr_len = 4,
+  .line = FS_LINE_LP_MAX_CNT,
+  .limit_len = 0,
 };
 
 /* 执行项 */

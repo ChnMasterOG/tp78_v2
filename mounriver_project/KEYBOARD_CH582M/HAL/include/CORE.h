@@ -30,6 +30,8 @@
   void APPJumpKBoot(void);
   void APPJumpBoot(void);
   void SoftReset(void);
+  void TP78_TMOS_Start(void);
+  void TP78_TMOS_Stop(void);
   void TP78Reinit(uint8_t type, enum LP_Type lp_type);
   void GotoLowpower(enum LP_Type type);
 #endif

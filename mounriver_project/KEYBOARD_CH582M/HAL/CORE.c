@@ -69,6 +69,70 @@ void SoftReset(void)   //软件复位
 }
 
 /*******************************************************************************
+ * Function Name  : TP78_TMOS_Start
+ * Description    : 开启所有线程
+ * Input          : 无
+ * Return         : 无
+ *******************************************************************************/
+void TP78_TMOS_Start(void)   //软件复位
+{
+  tmos_start_task( halTaskID, MAIN_CIRCULATION_EVENT, 10 ); // 主循环
+  #if (defined HAL_KEYBOARD) && (HAL_KEYBOARD == TRUE)
+    tmos_start_task( halTaskID, HAL_KEYBOARD_EVENT, MS1_TO_SYSTEM_TIME(20) ); // 键盘事件
+  #endif
+  #if ((defined HAL_MPR121_CAPMOUSE) && (HAL_MPR121_CAPMOUSE == TRUE)) || ((defined HAL_MPR121_TOUCHBAR) && (HAL_MPR121_TOUCHBAR == TRUE))
+    tmos_start_task( halTaskID, MPR121_EVENT, MS1_TO_SYSTEM_TIME(30) );  // MPR121
+  #endif
+  #if ((defined HAL_PS2) && (HAL_PS2 == TRUE)) || ((defined HAL_I2C_TP) && (HAL_I2C_TP == TRUE)) || ((defined HAL_MPR121_CAPMOUSE) && (HAL_MPR121_CAPMOUSE == TRUE))
+    tmos_start_task( halTaskID, HAL_MOUSE_EVENT, MS1_TO_SYSTEM_TIME(40) ); // 鼠标事件
+  #endif
+  #if (defined HAL_WS2812_PWM) && (HAL_WS2812_PWM == TRUE)
+    tmos_start_task( halTaskID, WS2812_EVENT, MS1_TO_SYSTEM_TIME(50) );  // 背光控制
+  #endif
+  #if (defined HAL_OLED) && (HAL_OLED == TRUE)
+    tmos_start_task( halTaskID, OLED_UI_EVENT, MS1_TO_SYSTEM_TIME(60) );  // OLED UI
+  #endif
+  #if ((defined HAL_HW_I2C) && (HAL_HW_I2C == TRUE)) && ((defined HAL_TPM) && (HAL_TPM == TRUE))
+    tmos_start_task( halTaskID, TPM_EVENT, MS1_TO_SYSTEM_TIME(30) );  // 扩展模块
+  #endif
+  #if 0
+    tmos_start_task( halTaskID, HAL_TEST_EVENT, 10 );
+  #endif
+}
+
+/*******************************************************************************
+ * Function Name  : TP78_TMOS_Stop
+ * Description    : 停止所有线程
+ * Input          : 无
+ * Return         : 无
+ *******************************************************************************/
+void TP78_TMOS_Stop(void)   //停止所有线程
+{
+  tmos_stop_task( halTaskID, MAIN_CIRCULATION_EVENT ); // 主循环
+  #if (defined HAL_KEYBOARD) && (HAL_KEYBOARD == TRUE)
+    tmos_stop_task( halTaskID, HAL_KEYBOARD_EVENT ); // 键盘事件
+  #endif
+  #if ((defined HAL_MPR121_CAPMOUSE) && (HAL_MPR121_CAPMOUSE == TRUE)) || ((defined HAL_MPR121_TOUCHBAR) && (HAL_MPR121_TOUCHBAR == TRUE))
+    tmos_stop_task( halTaskID, MPR121_EVENT );  // MPR121
+  #endif
+  #if ((defined HAL_PS2) && (HAL_PS2 == TRUE)) || ((defined HAL_I2C_TP) && (HAL_I2C_TP == TRUE)) || ((defined HAL_MPR121_CAPMOUSE) && (HAL_MPR121_CAPMOUSE == TRUE))
+    tmos_stop_task( halTaskID, HAL_MOUSE_EVENT ); // 鼠标事件
+  #endif
+  #if (defined HAL_WS2812_PWM) && (HAL_WS2812_PWM == TRUE)
+    tmos_stop_task( halTaskID, WS2812_EVENT );  // 背光控制
+  #endif
+  #if (defined HAL_OLED) && (HAL_OLED == TRUE)
+    tmos_stop_task( halTaskID, OLED_UI_EVENT );  // OLED UI
+  #endif
+  #if ((defined HAL_HW_I2C) && (HAL_HW_I2C == TRUE)) && ((defined HAL_TPM) && (HAL_TPM == TRUE))
+    tmos_stop_task( halTaskID, TPM_EVENT );  // 扩展模块
+  #endif
+  #if 0
+    tmos_stop_task( halTaskID, HAL_TEST_EVENT );
+  #endif
+}
+
+/*******************************************************************************
  * Function Name  : TP78Reinit
  * Description    : TP78键盘睡眠唤醒
  * Input          : mode - 0为进入sleep流程; 1为进入wakeup流程
@@ -77,7 +141,10 @@ void SoftReset(void)   //软件复位
  *******************************************************************************/
 void TP78Reinit(uint8_t mode, enum LP_Type lp_type)
 {
+  uint32_t irq_status;
+
   if (mode == 0) {  // 进入睡眠
+    SYS_DisableAllIrq( &irq_status );
 #if (defined HAL_WDG) && (HAL_WDG == TRUE)
     WWDG_ResetCfg(DISABLE); // 关看门狗
 #endif
@@ -91,7 +158,7 @@ void TP78Reinit(uint8_t mode, enum LP_Type lp_type)
 #if (defined HAL_I2C_TP) && (HAL_I2C_TP == TRUE)
     I2C_TP_SendCommand_Sleep();   // 小红点sleep
 #endif
-#if ((defined HAL_MPR121_CAPMOUSE) && (HAL_MPR121_CAPMOUSE == TRUE)) || ((defined HAL_MPR121_TOUCHBAR) && (HAL_MPR121_TOUCHBAR == TRUE))  // MPR121需要上电延迟
+#if ((defined HAL_MPR121_CAPMOUSE) && (HAL_MPR121_CAPMOUSE == TRUE)) || ((defined HAL_MPR121_TOUCHBAR) && (HAL_MPR121_TOUCHBAR == TRUE))
     MPR121_WriteReg(MPR121_REG_FG_CDT, 0x7);
 #endif
 #ifdef HAL_BATTADC
@@ -103,19 +170,25 @@ void TP78Reinit(uint8_t mode, enum LP_Type lp_type)
     Row_GPIO_(SetBits)( Row_Pin_ALL );
     DelayMs(25);
     Colum_GPIO_(ModeCfg)( Colum_Pin_ALL, GPIO_ModeIN_PD );
-    Colum_GPIO_(ITModeCfg)( Colum_Pin_ALL, GPIO_ITMode_HighLevel ); // 高电平触发唤醒
-    PFIC_EnableIRQ(GPIO_A_IRQn);  // colum GPIO is GPIOA
 #else
     Colum_GPIO_(ModeCfg)( Colum_Pin_ALL, GPIO_ModeOut_PP_20mA );
     Colum_GPIO_(ResetBits)( Colum_Pin_ALL );
     DelayMs(25);
     Row_GPIO_(ModeCfg)( Row_Pin_ALL, GPIO_ModeIN_PU );
-    Row_GPIO_(ITModeCfg)( Row_Pin_ALL, GPIO_ITMode_LowLevel ); // 低电平触发唤醒
+#endif
+#if (ROW_SCAN_MODE)
+    GPIOA_ClearITFlagBit( Colum_Pin_ALL );
+    Colum_GPIO_(ITModeCfg)( Colum_Pin_ALL, GPIO_ITMode_RiseEdge ); // 上升沿触发唤醒
+    PFIC_EnableIRQ(GPIO_A_IRQn);  // colum GPIO is GPIOA
+#else
+    GPIOA_ClearITFlagBit( Row_Pin_ALL );  // 用于唤醒
+    Row_GPIO_(ITModeCfg)( Row_Pin_ALL, GPIO_ITMode_FallEdge ); // 下降沿触发唤醒
     PFIC_EnableIRQ(GPIO_B_IRQn);  // row GPIO is GPIOB
 #endif
-    if (lp_type != lp_sw_mode) PWR_PeriphWakeUpCfg(ENABLE, RB_SLP_GPIO_WAKE, Short_Delay);
+    SYS_RecoverIrq( irq_status );
+    g_Enable_Status.sleep = TRUE;
   } else {  // 唤醒键盘
-    if (lp_type == lp_idle_mode || lp_type == lp_sw_mode) { // 恢复现场
+    if (lp_type != lp_shutdown_mode) { // 恢复现场
 #if (defined HAL_WS2812_PWM)
       DATAFLASH_Read_LEDStyle();  // WS2812
 #endif
@@ -127,7 +200,7 @@ void TP78Reinit(uint8_t mode, enum LP_Type lp_type)
 #if (defined HAL_OLED) && (HAL_OLED == TRUE)
       OLED_WR_Byte(0xAF, OLED_CMD);  // OLED display on
 #endif
-#if ((defined HAL_MPR121_CAPMOUSE) && (HAL_MPR121_CAPMOUSE == TRUE)) || ((defined HAL_MPR121_TOUCHBAR) && (HAL_MPR121_TOUCHBAR == TRUE))  // MPR121需要上电延迟
+#if ((defined HAL_MPR121_CAPMOUSE) && (HAL_MPR121_CAPMOUSE == TRUE)) || ((defined HAL_MPR121_TOUCHBAR) && (HAL_MPR121_TOUCHBAR == TRUE))
       MPR121_WriteReg(MPR121_REG_FG_CDT, 0x24);
 #endif
 #if (defined HAL_WDG) && (HAL_WDG == TRUE)
@@ -139,7 +212,12 @@ void TP78Reinit(uint8_t mode, enum LP_Type lp_type)
       Colum_GPIO_(SetBits)( Colum_Pin_ALL );
 #endif
     } else SoftReset();
+#if (ROW_SCAN_MODE)
     PFIC_DisableIRQ(GPIO_A_IRQn);  // colum GPIO is GPIOA
+#else
+    PFIC_DisableIRQ(GPIO_B_IRQn);  // row GPIO is GPIOB
+#endif
+    g_Enable_Status.sleep = FALSE;
   }
 }
 
@@ -162,7 +240,6 @@ void GotoLowpower(enum LP_Type type)
       TP78Reinit(0, type);
       LowPower_Idle();
       break;
-#ifndef LOW_MEM
     case lp_sw_mode: // 软件低功耗处理
       TP78Reinit(0, type);
       break;
@@ -170,18 +247,20 @@ void GotoLowpower(enum LP_Type type)
       TP78Reinit(0, type);
       LowPower_Halt();
       break;
+#ifndef LOW_MEM
     case lp_sleep_mode:  // 睡眠模式 - 0.7uA~2.8uA
       TP78Reinit(0, type);
-      LowPower_Sleep(RB_PWR_RAM30K | RB_PWR_RAM2K | RB_PWR_EXTEND | RB_PWR_XROM);
+      LowPower_Sleep(RB_PWR_RAM30K | RB_PWR_RAM2K | RB_PWR_EXTEND);
       break;
-#endif
     case lp_shutdown_mode: // 下电模式 - 0.2uA~2.3uA
       TP78Reinit(0, type);
       LowPower_Shutdown(0);
       break;
+#endif
     default:  // do not run here
       return;
   }
+  g_Enable_Status.sleep = TRUE;
 #else
   return;
 #endif

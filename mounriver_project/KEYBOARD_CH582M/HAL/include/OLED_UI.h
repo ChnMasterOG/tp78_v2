@@ -178,6 +178,7 @@
   extern const oled_ui_menu_structure cfg_menu_2;
   extern const oled_ui_menu_structure cfg_menu_3;
   extern const oled_ui_menu_structure cfg_menu_4;
+  extern const oled_ui_menu_structure cfg_menu_5;
   extern const oled_ui_menu_structure key_status_menu_1;
   extern const oled_ui_menu_structure key_status_menu_2;
   extern const oled_ui_menu_structure key_status_menu_3;
@@ -206,6 +207,8 @@
   extern const oled_ui_enter_num_structure led_brightness_en;
   extern const oled_ui_enter_num_structure rf_freq_level_en;
   extern const oled_ui_enter_num_structure touchbar_button_ctl_ena_en;
+  extern const oled_ui_enter_num_structure idle_max_cnt_en;
+  extern const oled_ui_enter_num_structure lp_max_cnt_en;
   extern const oled_ui_execute_structure scan_tpm;
 
   void OLED_UI_ShowOK(uint8_t x, uint8_t y, uint8_t s);

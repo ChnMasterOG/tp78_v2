@@ -145,8 +145,8 @@ typedef union {
 #endif
 
 #define SYS_PERIOD                          50            // 单位1ms
-#define IDLE_MAX_PERIOD                     (180 * (1000 / SYS_PERIOD)) // idle_cnt大于该值则进入屏保
-#define LP_MAX_PERIOD                       (240 * (1000 / SYS_PERIOD)) // idle_cnt大于该值则进入低功耗模式
+#define DEFAULT_IDLE_MAX_PERIOD             (180 * (1000 / SYS_PERIOD)) // idle_cnt大于该值则进入屏保
+#define DEFAULT_LP_MAX_PERIOD               (240 * (1000 / SYS_PERIOD)) // idle_cnt大于该值则进入低功耗模式
 
 #define MOTOR_PIN                           GPIO_Pin_19
 #define MOTOR_RUN()                         { GPIOB_SetBits( MOTOR_PIN ); }
@@ -214,7 +214,7 @@ typedef struct _Enable_Status_t
     uint8_t tp : 1;
     uint8_t paintedegg : 1;
     uint8_t touchbar_button : 1;
-    uint8_t reserved : 1;
+    uint8_t sleep : 1;
 }Enable_Status_t;
 
 /*********************************************************************

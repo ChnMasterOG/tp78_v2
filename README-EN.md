@@ -198,3 +198,9 @@ You can submit you code [here](https://github.com/ChnMasterOG/tp78_v2/issues). T
         1. Add Game Mode(Improving keyboard performance at the cost of sacrificing some features).
 
         2. Change function(RF bootloader jumping) Fn+M to Fn+ESC.
+
+- V2.0.13
+
+        1. Optimized low-power mode. Now, bluetooth will not disconnect if the OLED is turned off.
+
+        2. Add configurations "idle_cnt" and "lp_cnt".

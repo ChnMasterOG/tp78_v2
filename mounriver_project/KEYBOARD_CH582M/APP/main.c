@@ -108,9 +108,10 @@ __HIGH_CODE
 void GPIOA_IRQHandler(void)
 {
 #if (ROW_SCAN_MODE)
+  if (g_Enable_Status.sleep == TRUE) {
+    TP78Reinit(1, g_lp_type);
+  }
   GPIOA_ClearITFlagBit(Colum_Pin_ALL);  // 用于唤醒
-  TP78Reinit(1, g_lp_type);
-  g_lp_type = lp_mode_none;
 #endif
 }
 
@@ -133,11 +134,8 @@ void GPIOB_IRQHandler( void )
 #endif
 #endif
 #if (!ROW_SCAN_MODE)
-  if (Row_GPIO_(ReadITFlagBit)(Row_Pin_ALL) != 0) {
-    GPIOB_ClearITFlagBit(Row_Pin_ALL);  // 用于唤醒
-    TP78Reinit(1, g_lp_type);
-    g_lp_type = lp_mode_none;
-  }
+  TP78Reinit(1, g_lp_type);
+  GPIOB_ClearITFlagBit(Row_Pin_ALL);  // 用于唤醒
 #endif
 }
 

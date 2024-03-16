@@ -31,6 +31,10 @@ u32 CH58X_LowPower( u32 time )
 #if (defined (HAL_SLEEP)) && (HAL_SLEEP == TRUE)
   u32 tmp, irq_status;
 
+  if (g_Enable_Status.sleep == FALSE) {
+    return 2; // 不满足睡眠条件
+  }
+
   SYS_DisableAllIrq( &irq_status );
   tmp = RTC_GetCycle32k();
   if ( ( time < tmp ) || ( ( time - tmp ) < 30 ) )
@@ -38,7 +42,7 @@ u32 CH58X_LowPower( u32 time )
     SYS_RecoverIrq( irq_status );
     return 2;
   }
-  RTC_SetTignTime( time ); // 设置TRC的唤醒时间
+  RTC_SetTignTime( time ); // 设置RTC的唤醒时间
   SYS_RecoverIrq( irq_status ); // 保存当前中断状态
 #if( DEBUG == Debug_UART1 )  // 使用其他串口输出打印信息需要修改这行代码
   while( ( R8_UART1_LSR & RB_LSR_TX_ALL_EMP ) == 0 )
@@ -49,7 +53,8 @@ u32 CH58X_LowPower( u32 time )
 // LOW POWER-sleep模式
   if ( !RTCTigFlag )
   {
-    LowPower_Sleep( RB_PWR_RAM2K | RB_PWR_RAM30K | RB_PWR_EXTEND );
+//    LowPower_Sleep( RB_PWR_RAM2K | RB_PWR_RAM30K | RB_PWR_EXTEND );
+    LowPower_Halt();
     if( !RTCTigFlag )   // 注意如果使用了RTC以外的唤醒方式，需要注意此时32M晶振未稳定
     {
       time += WAKE_UP_RTC_MAX_TIME;
@@ -57,7 +62,7 @@ u32 CH58X_LowPower( u32 time )
       RTC_SetTignTime( time );
       LowPower_Idle();
     }
-    HSECFG_Current( HSE_RCur_100 );     // 降为额定电流(低功耗函数中提升了HSE偏置电流)
+    HSECFG_Current( HSE_RCur_100 ); // 降为额定电流(低功耗函数中提升了HSE偏置电流)
   }
   else
   {
@@ -88,9 +93,19 @@ void HAL_SleepInit( void )
   R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;
   R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
   SAFEOPERATE;
-  R8_SLP_WAKE_CTRL |= RB_SLP_RTC_WAKE;    // RTC唤醒
+  R8_SLP_WAKE_CTRL |= RB_SLP_RTC_WAKE | RB_SLP_GPIO_WAKE;    // RTC唤醒 + GPIO唤醒
+  R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;
+  R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
+  SAFEOPERATE;
   R8_RTC_MODE_CTRL |= RB_RTC_TRIG_EN;    // 触发模式
   R8_SAFE_ACCESS_SIG = 0;    //
-  PFIC_EnableIRQ( RTC_IRQn );
+
+  if (g_lp_type == lp_sw_mode) {
+    PFIC_EnableIRQ( RTC_IRQn );
+  }
+
+//  if (g_Enable_Status.usb == TRUE) {
+//    PWR_PeriphWakeUpCfg( ENABLE, RB_SLP_USB_WAKE, 0 );
+//  }
 #endif
 }
