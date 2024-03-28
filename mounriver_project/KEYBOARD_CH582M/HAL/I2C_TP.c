@@ -21,7 +21,6 @@ void I2C_TP_Init(char* debug_info)
   uint8_t err;
 
   /* config PB15 as TP_INT */
-  TPINT_GPIO_(SetBits)( TPINT_Pin );
   TPINT_GPIO_(ModeCfg)( TPINT_Pin, GPIO_ModeIN_PU );
 #if 0
   TPINT_GPIO_(ITModeCfg)( TPINT_Pin, GPIO_ITMode_FallEdge );
@@ -170,7 +169,10 @@ uint8_t I2C_TP_SendCommand_EnterExitIdleMode(uint8_t flag)
 uint8_t I2C_TP_ReadPacket(void)
 {
   volatile uint8_t packet_check[4] = { 0x07, 0x00, 0x01, 0x0 };
+  uint32_t irq_state;
   uint8_t err = 0;
+
+  SYS_DisableAllIrq(&irq_state);
 
   err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_BUSY, SET);
   I2C_GenerateSTART( ENABLE );
@@ -204,6 +206,8 @@ uint8_t I2C_TP_ReadPacket(void)
   packet_check[3] = I2C_ReceiveData( );
   I2C_GenerateSTOP(ENABLE);
   I2C_AcknowledgeConfig(ENABLE);
+
+  SYS_RecoverIrq(irq_state);
 
   return err;
 }

@@ -204,3 +204,9 @@ You can submit you code [here](https://github.com/ChnMasterOG/tp78_v2/issues). T
         1. Optimized low-power mode. Now, bluetooth will not disconnect if the OLED is turned off.
 
         2. Add configurations "idle_cnt" and "lp_cnt".
+
+- V2.0.14
+
+        1. SP Keys don't work. Now this bug is fixed.
+
+        2. Add "disable irq" during the trackpoint is read.

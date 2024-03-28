@@ -66,7 +66,7 @@
  * 默认配置值
  */
 #ifndef FIRMWARE_VERSION
-#define FIRMWARE_VERSION            "v2_0_13"
+#define FIRMWARE_VERSION            "v2_0_14"
 #endif
 #ifndef BLE_MAC
 #define BLE_MAC                     FALSE
