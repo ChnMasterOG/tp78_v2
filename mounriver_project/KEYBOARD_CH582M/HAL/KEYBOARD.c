@@ -739,11 +739,14 @@ void KEYBOARD_Detection( void )
                   g_capslock_status.press_Capslock_with_other = FALSE;
                 } else {
                     uint8_t p = 2;  // 双指针实现删除按键
+                    uint8_t tmp_key;
                     for (key_idx = 2; key_idx < 8; key_idx++) {
                         if (KeyboardDat->data[key_idx] != KEY_None) {
                           if ((KeyboardDat->data[key_idx] != CustomKey[current_row][current_colum] &&
                               KeyboardDat->data[key_idx] != Extra_CustomKey[current_row][current_colum])) {  // 弹起按键2层都清除
-                              KeyboardDat->data[p] = KeyboardDat->data[key_idx];
+                              tmp_key = KeyboardDat->data[key_idx];
+                              KeyboardDat->data[key_idx] = KEY_None;
+                              KeyboardDat->data[p] = tmp_key;
                               p++;
                           } else {
                               KeyboardDat->data[key_idx] = KEY_None;

@@ -433,14 +433,14 @@ void OLED_UI_show_version(uint8_t ena)
 {
 #ifdef OLED_0_66
   if (ena) {
-    OLED_ShowString(OLED_Midx(8, 0, 64), 2, "Firmware");
-    OLED_ShowString(OLED_Midx(6, 0, 64), 3, FIRMWARE_VERSION);
-    OLED_ShowString(OLED_Midx(8, 0, 64), 4, "Designers");
-    OLED_ShowString(0, 5, "Qi.C, Chengwei.L");
-    OLED_Scroll(5, 5, 16, 48, 2, 1, 0);
+    OLED_ShowString(OLED_Midx(strlen("Firmware"), 0, 64), 2, "Firmware");
+    OLED_ShowString(OLED_Midx(strlen(FIRMWARE_VERSION), 0, 64), 3, FIRMWARE_VERSION);
+    OLED_ShowString(OLED_Midx(strlen("Designers"), 0, 64), 4, "Designers");
+    OLED_ShowString(OLED_Midx(strlen("Q.C, CW.L"), 0, 64), 5, "Q.C, CW.L");
+    //-OLED_Scroll(5, 5, 16, 48, 2, 1, 0);
   } else {
     OLED_Clr(0, 2, 63, 8);
-    OLED_WR_Byte(0x2E, OLED_CMD);   // 停止滚动
+    //-OLED_WR_Byte(0x2E, OLED_CMD);   // 停止滚动
   }
 #endif
 }

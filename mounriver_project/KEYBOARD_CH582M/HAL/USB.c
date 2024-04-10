@@ -791,9 +791,10 @@ tmosEvents USB_ProcessEvent( tmosTaskID task_id, tmosEvents events )
   if ( events & USB_KEYBOARD_EVENT )
   {
     if (hid_state.keyboard_hid_state != HID_STATE_BUSY) {
+      hid_state.keyboard_hid_state = HID_STATE_BUSY;
       ret = usbd_ep_start_write(USBD_IF0_AL0_EP0_ADDR, HIDKeyboard, HID_KEYBOARD_DATA_LENGTH);
-      if (ret >= 0) {
-          hid_state.keyboard_hid_state = HID_STATE_BUSY;
+      if (ret < 0) {
+          hid_state.keyboard_hid_state = HID_STATE_IDLE;
       }
     }
     return events ^ USB_KEYBOARD_EVENT;
@@ -802,9 +803,10 @@ tmosEvents USB_ProcessEvent( tmosTaskID task_id, tmosEvents events )
   if ( events & USB_MOUSE_EVENT )
   {
     if (hid_state.mouse_hid_state != HID_STATE_BUSY) {
+      hid_state.mouse_hid_state = HID_STATE_BUSY;
       ret = usbd_ep_start_write(USBD_IF1_AL0_EP0_ADDR, HIDMouse, HID_MOUSE_DATA_LENGTH);
-      if (ret >= 0) {
-          hid_state.mouse_hid_state = HID_STATE_BUSY;
+      if (ret < 0) {
+          hid_state.mouse_hid_state = HID_STATE_IDLE;
       }
     }
     return events ^ USB_MOUSE_EVENT;
@@ -813,9 +815,10 @@ tmosEvents USB_ProcessEvent( tmosTaskID task_id, tmosEvents events )
   if ( events & USB_VOL_EVENT )
   {
     if (hid_state.vol_hid_state != HID_STATE_BUSY) {
+      hid_state.vol_hid_state = HID_STATE_BUSY;
       ret = usbd_ep_start_write(USBD_IF2_AL0_EP0_ADDR, HIDVolume, HID_VOLUME_DATA_LENGTH);
-      if (ret >= 0) {
-          hid_state.vol_hid_state = HID_STATE_BUSY;
+      if (ret < 0) {
+          hid_state.vol_hid_state = HID_STATE_IDLE;
       }
     }
     return events ^ USB_VOL_EVENT;

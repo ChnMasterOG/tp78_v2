@@ -210,3 +210,9 @@ You can submit you code [here](https://github.com/ChnMasterOG/tp78_v2/issues). T
         1. SP Keys don't work. Now this bug is fixed.
 
         2. Add "disable irq" during the trackpoint is read.
+
+- V2.0.15
+
+        1. Modify keyboard bounce codes to avoid duplicate key-codes.
+
+        2. Optimize the judgment of USB HID information transmission status.
