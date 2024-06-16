@@ -21,7 +21,9 @@ tmosTaskID RFTaskId;
 uint8_t JUMP_BOOT_DATA[1] = {0x7A}; // 规定发送0x7A接收器进BOOT
 uint8_t HEARTBEAT_DATA[1] = {0x78}; // 规定发送0x78为心跳包
 uint8_t TX_DATA[2] = {0xff, 0xff};
+static uint8_t RF_ack = FALSE;  // 从机接收到数据回应ack
 static uint8_t RF_freq_level = 0;  // 频段挡位
+static uint8_t RF_check_ack_ms = 10;  // 发送数据后检查ack的时间(单位: ms)
 
 /*********************************************************************
  * PUBLIC FUNCTIONS
@@ -51,6 +53,32 @@ void DATAFLASH_Write_RFfreqlevel(uint8_t rf_freq_level)
 {
   uint16_t freq_level = rf_freq_level;
   HAL_Fs_Write_keyboard_cfg(FS_LINE_RF_FREQ_LEVEL, 1, &freq_level);
+}
+
+/*******************************************************************************
+ * Function Name  : DATAFLASH_Read_CheckACKms
+ * Description    : 从DataFlash读取RF检查ack回复时间
+ * Input          : None
+ * Return         : None
+ *******************************************************************************/
+void DATAFLASH_Read_CheckACKms(void)
+{
+  uint16_t check_ack_ms;
+  HAL_Fs_Read_keyboard_cfg(FS_LINE_RF_CHECK_ACK_MS, 1, &check_ack_ms);
+  RF_check_ack_ms = check_ack_ms;
+  if (RF_check_ack_ms == 0) RF_check_ack_ms = 1;
+}
+
+/*******************************************************************************
+ * Function Name  : DATAFLASH_Write_CheckACKms
+ * Description    : 向DataFlash写入RF检查ack回复时间
+ * Input          : RF_check_ack_ms: RF检查ack回复时间
+ * Return         : None
+ *******************************************************************************/
+void DATAFLASH_Write_CheckACKms(uint8_t check_ack_ms)
+{
+  uint16_t _v = check_ack_ms;
+  HAL_Fs_Write_keyboard_cfg(FS_LINE_RF_CHECK_ACK_MS, 1, &_v);
 }
 
 /*********************************************************************
@@ -90,17 +118,10 @@ void RF_2G4StatusCallBack(uint8_t sta, uint8_t crc, uint8_t *rxBuf)
             else
             {
                 PRINT("tx recv,rssi:%d\n", (int8_t)rxBuf[0]);
-                if (rxBuf[1] == 2) {
-                  switch (rxBuf[2]) {
-                    case 0x3:
-                      g_CapsLock_LEDOn_Status.rf = rxBuf[3] ? TRUE : FALSE;
-                      break;
-                    case 0x4:
-                      g_NumLock_LEDOn_Status.rf = rxBuf[3] ? TRUE : FALSE;
-                      break;
-                    default:
-                      break;
-                  }
+                if (rxBuf[1] == 2) {  // LED Out, index 0 - numlock, index 1 - capslock
+                  RF_ack = TRUE;
+                  g_NumLock_LEDOn_Status.rf = rxBuf[2] ? TRUE : FALSE;
+                  g_CapsLock_LEDOn_Status.rf = rxBuf[3] ? TRUE : FALSE;
                 }
             }
             break;
@@ -122,17 +143,10 @@ void RF_2G4StatusCallBack(uint8_t sta, uint8_t crc, uint8_t *rxBuf)
             else
             {
                 PRINT("rx recv, rssi: %d\n", (int8_t)rxBuf[0]);
-                if (rxBuf[1] == 2) {
-                  switch (rxBuf[2]) {
-                    case 0x3:
-                      g_CapsLock_LEDOn_Status.rf = rxBuf[3] ? TRUE : FALSE;
-                      break;
-                    case 0x4:
-                      g_NumLock_LEDOn_Status.rf = rxBuf[3] ? TRUE : FALSE;
-                      break;
-                    default:
-                      break;
-                  }
+                if (rxBuf[1] == 2) {  // LED Out, index 0 - numlock, index 1 - capslock
+                  RF_ack = TRUE;
+                  g_NumLock_LEDOn_Status.rf = rxBuf[2] ? TRUE : FALSE;
+                  g_CapsLock_LEDOn_Status.rf = rxBuf[3] ? TRUE : FALSE;
                 }
             }
             tmos_set_event(RFTaskId, SBP_RF_RF_RX_EVT);
@@ -241,8 +255,11 @@ uint16_t RF_ProcessEvent(uint8_t task_id, uint16_t events)
     }
     if (events & SBP_RF_KEYBOARD_REPORT_EVT)
     {
+        tmos_stop_task(RFTaskId, SBP_RF_CHECK_SEND_REPORT_EVT);
+        RF_ack = FALSE;
         RF_Shut();
         RF_Tx(HIDKeyboard - 1, HID_KEYBOARD_DATA_LENGTH + 1, 0xFF, 0xFF);
+        tmos_start_task( RFTaskId, SBP_RF_CHECK_SEND_REPORT_EVT, MS1_TO_SYSTEM_TIME(RF_check_ack_ms) );
         return events ^ SBP_RF_KEYBOARD_REPORT_EVT;
     }
     if (events & SBP_RF_VOL_REPORT_EVT)
@@ -262,6 +279,15 @@ uint16_t RF_ProcessEvent(uint8_t task_id, uint16_t events)
         RF_Shut();
         RF_Tx(HEARTBEAT_DATA, 1, 0xFF, 0xFF);
         return events ^ SBP_RF_HEARTBEAT_REPORT_EVT;
+    }
+    if (events & SBP_RF_CHECK_SEND_REPORT_EVT)  // 仅检查键盘事件
+    {
+        if (RF_ack == FALSE) {
+          RF_Shut();
+          RF_Tx(HIDKeyboard - 1, HID_KEYBOARD_DATA_LENGTH + 1, 0xFF, 0xFF);
+          tmos_start_task( RFTaskId, SBP_RF_CHECK_SEND_REPORT_EVT, MS1_TO_SYSTEM_TIME(RF_check_ack_ms) );
+        }
+        return events ^ SBP_RF_CHECK_SEND_REPORT_EVT;
     }
     return 0;
 }

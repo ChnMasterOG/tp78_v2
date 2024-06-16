@@ -13,8 +13,8 @@
 
   #include "CH58x_common.h"
 
-  #define OLED_UI_TASK_MAX          4     // UI最大普通任务数
-  #define OLED_UI_DELAY_TASK_MAX    3     // UI最大延迟任务数
+  #define OLED_UI_TASK_MAX          5     // UI最大普通任务数
+  #define OLED_UI_DELAY_TASK_MAX    2     // UI最大延迟任务数
   #define OLED_UI_STR_LEN_MAX       17    // UI打印字符串最长字符数
   #define OLED_UI_MAX_SLOT          4     // UI槽的最多显示个数
   #define OLED_UI_MENU_MAX_LEN      3     // UI菜单每级最多选项个数(暂时不支持超过OLED屏幕显示范围)
@@ -73,6 +73,7 @@
     OLED_UI_ICON_TP_IDX,
     OLED_UI_ICON_LED_STYLE_IDX,
     OLED_UI_ICON_MINIFOC_IDX,
+    OLED_UI_ICON_TP78MINI_IDX,
   }oled_ui_icon_index;
 
   typedef enum {
@@ -209,6 +210,7 @@
   extern const oled_ui_enter_num_structure touchbar_button_ctl_ena_en;
   extern const oled_ui_enter_num_structure idle_max_cnt_en;
   extern const oled_ui_enter_num_structure lp_max_cnt_en;
+  extern const oled_ui_enter_num_structure rf_chk_ms_en;
   extern const oled_ui_execute_structure scan_tpm;
 
   void OLED_UI_ShowOK(uint8_t x, uint8_t y, uint8_t s);

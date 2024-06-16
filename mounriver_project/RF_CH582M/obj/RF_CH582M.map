@@ -108,39 +108,50 @@ E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(att_client.o)
                               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(gatt.o) (ATT_ParseExchangeMTURsp)
 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(att_server.o)
                               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(gattservapp.o) (ATT_ParseExchangeMTUReq)
-d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a(_lshrdi3.o)
+d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_lshrdi3.o)
                               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ll_hop.o) (__lshrdi3)
-d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a(_ashldi3.o)
+d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_ashldi3.o)
                               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ll_connect.o) (__ashldi3)
-d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a(_ashrdi3.o)
+d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_ashrdi3.o)
                               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ctl_input.o) (__ashrdi3)
-d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0/../../../../riscv-none-elf/lib\libg_nano.a(lib_a-memcpy-asm.o)
-                              ./HAL/MCU.o (memcpy)
+d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libg_nano.a(lib_a-memcpy.o)
+                              ./HAL/USB.o (memcpy)
 
 Allocating common symbols
 Common symbol       size              file
 
 nGA2440             0x1               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
+pU2EP0_RAM_Addr     0x4               ./StdPeriphDriver/CH58x_usb2dev.o
+pHOST_RX_RAM_Addr   0x4               ./StdPeriphDriver/CH58x_usbhostBase.o
 l2capPsm            0x4               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(l2cap.o)
 gapRole_AdvEnabled  0x1               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(role.o)
 gapRole_AdvChanMap  0x1               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(role.o)
+U2Com_Buffer        0x80              ./StdPeriphDriver/CH58x_usb2hostClass.o
 gapRole_AdvEventType
                     0x1               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(role.o)
 gptrBBReg           0x4               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(bb.o)
+RFtaskID            0x1               ./APP/RF_PHY.o
 gapRole_MasterAndSlave
                     0x1               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(role.o)
 gBleHostPara        0x9               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(host_input.o)
+Usb2DevEndp0Size    0x1               ./StdPeriphDriver/CH58x_usb2hostBase.o
+pHOST_TX_RAM_Addr   0x4               ./StdPeriphDriver/CH58x_usbhostBase.o
 l2capTaskID         0x1               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(l2cap.o)
+RTCTigFlag          0x4               ./HAL/RTC.o
+DevConfig           0x1               ./HAL/USB.o
 gapCentralCBs       0x14              E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(gap_central.o)
 gapCentralConnCBs   0x8               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(gap_central.o)
 gTmosPara           0x2c              E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
 gapRole_PeriodicAdvEnabled
                     0x1               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(role.o)
 gapRole_PHYTx       0x1               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(role.o)
+SetupReqLen         0x2               ./HAL/USB.o
 MemCtlEnd           0x4               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(memory.o)
 tasksArr            0x4               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
 MemCtlPartition     0x4               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(memory.o)
+FoundNewU2Dev       0x1               ./StdPeriphDriver/CH58x_usb2hostBase.o
 pfnProcessCBs       0x1c              E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
+SetupReqCode        0x1               ./HAL/USB.o
 gapRole_PHYRx       0x1               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(role.o)
 eventsClear         0x2               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
 pL2capDataBuf       0x4               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(host_input.o)
@@ -149,33 +160,51 @@ l2cap_head_length   0x2               E:\Project\tp78_v2\mounriver_project\RF_CH
 llRecvDataDisable   0x4               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ll_connect.o)
 gapRole_MinConnInterval
                     0x2               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(role.o)
+halTaskID           0x1               ./HAL/MCU.o
 fnGetClockCBs       0x4               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos_hw.o)
 l2cap_fragment_length
                     0x2               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(host_input.o)
 MemCtlStart         0x4               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(memory.o)
+pDescr              0x4               ./HAL/USB.o
+EP0_Databuf         0xc0              ./HAL/USB.o
 nGA2480             0x1               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
 gptrAESReg          0x4               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(aes.o)
 gapRole_state       0x4               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(role.o)
 msg_qHead           0x4               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(message.o)
 gPaControl          0x4               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ip.o)
+EP1_Databuf         0x80              ./HAL/USB.o
 linkCBs             0x30              E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(linkdb.o)
+pEP2_RAM_Addr       0x4               ./StdPeriphDriver/CH58x_usbdev.o
 gapParams           0x20              E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(gap.o)
 EventsArr           0x4               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
 gapRole_AdvDirectType
                     0x1               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(role.o)
+pEP3_RAM_Addr       0x4               ./StdPeriphDriver/CH58x_usbdev.o
 gptrRFENDReg        0x4               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
+HID_dat             0x9               ./HAL/USB.o
+EP2_Databuf         0x80              ./HAL/USB.o
 gBleLlPara          0x118             E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ll.o)
 gapRole_MaxConnInterval
                     0x2               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(role.o)
 gapRole_IRK         0x10              E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(role.o)
+pU2HOST_RX_RAM_Addr
+                    0x4               ./StdPeriphDriver/CH58x_usb2hostBase.o
 gapBondSignAddr     0x7               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(gapbondmgr.o)
+MEM_BUF             0x1800            ./APP/RF_main.o
 rfConfig            0x20              E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
+pEP0_RAM_Addr       0x4               ./StdPeriphDriver/CH58x_usbdev.o
 gptrLLEReg          0x4               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(lle.o)
+ThisUsb2Dev         0xe               ./StdPeriphDriver/CH58x_usb2hostBase.o
 gapBond_Invalid     0x1               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(gapbondmgr.o)
 gapRole_SRK         0x10              E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(role.o)
+pU2HOST_TX_RAM_Addr
+                    0x4               ./StdPeriphDriver/CH58x_usb2hostBase.o
 gapParameters       0x7a              E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(gap.o)
+FoundNewDev         0x1               ./StdPeriphDriver/CH58x_usbhostBase.o
+pU2EP1_RAM_Addr     0x4               ./StdPeriphDriver/CH58x_usb2dev.o
 gapBondSign_Valid   0x1               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(gapbondmgr.o)
 taskHead            0x4               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
+pU2EP3_RAM_Addr     0x4               ./StdPeriphDriver/CH58x_usb2dev.o
 gapRole_profileRole
                     0x1               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(role.o)
 ble                 0x3c              E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
@@ -183,12 +212,20 @@ gapRole_AdvFilterPolicy
                     0x1               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(role.o)
 nCO2440             0x1               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
 l2capFixedChannels  0x30              E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(l2cap.o)
+Com_Buffer          0x80              ./StdPeriphDriver/CH58x_usbhostClass.o
 gapRole_bdAddr      0x6               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(role.o)
 cbTimersHead        0x4               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
+UsbDevEndp0Size     0x1               ./StdPeriphDriver/CH58x_usbhostBase.o
 gapCentralTaskID    0x1               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(role.o)
 gBleIPPara          0x1c              E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ip.o)
+ThisUsbDev          0xe               ./StdPeriphDriver/CH58x_usbhostBase.o
+DevOnU2HubPort      0x30              ./StdPeriphDriver/CH58x_usb2hostBase.o
+EP3_Databuf         0x80              ./HAL/USB.o
 rfInfo              0x1c              E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
+pU2EP2_RAM_Addr     0x4               ./StdPeriphDriver/CH58x_usb2dev.o
+DevOnHubPort        0x30              ./StdPeriphDriver/CH58x_usbhostBase.o
 nCO2480             0x1               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
+pEP1_RAM_Addr       0x4               ./StdPeriphDriver/CH58x_usbdev.o
 l2capUserConfig     0x2               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(l2cap.o)
 pfnTimerCBs         0x4               E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
 gapRole_ConnextionlessCTEEnabled
@@ -233,9 +270,9 @@ Discarded input sections
  .text.LSECFG_Capacitance
                 0x0000000000000000       0x30 ./StdPeriphDriver/CH58x_clk.o
  .text.RTC_GetTime
-                0x0000000000000000      0x176 ./StdPeriphDriver/CH58x_clk.o
+                0x0000000000000000      0x15c ./StdPeriphDriver/CH58x_clk.o
  .text.RTC_SetCycle32k
-                0x0000000000000000       0x52 ./StdPeriphDriver/CH58x_clk.o
+                0x0000000000000000       0x56 ./StdPeriphDriver/CH58x_clk.o
  .text.RTC_GetCycle32k
                 0x0000000000000000       0x18 ./StdPeriphDriver/CH58x_clk.o
  .text.RTC_TMRFunCfg
@@ -254,38 +291,32 @@ Discarded input sections
  .text.FLASH_ROM_READ
                 0x0000000000000000       0x1c ./StdPeriphDriver/CH58x_flash.o
  .text.UserOptionByteConfig
-                0x0000000000000000       0xd8 ./StdPeriphDriver/CH58x_flash.o
+                0x0000000000000000       0xdc ./StdPeriphDriver/CH58x_flash.o
  .text.UserOptionByteClose_SWD
                 0x0000000000000000       0x7e ./StdPeriphDriver/CH58x_flash.o
  .text.UserOptionByte_Active
                 0x0000000000000000       0x44 ./StdPeriphDriver/CH58x_flash.o
- .debug_info    0x0000000000000000      0x370 ./StdPeriphDriver/CH58x_flash.o
- .debug_abbrev  0x0000000000000000      0x14f ./StdPeriphDriver/CH58x_flash.o
- .debug_loclists
-                0x0000000000000000      0x17c ./StdPeriphDriver/CH58x_flash.o
+ .debug_info    0x0000000000000000      0xf22 ./StdPeriphDriver/CH58x_flash.o
+ .debug_abbrev  0x0000000000000000      0x2b4 ./StdPeriphDriver/CH58x_flash.o
+ .debug_loc     0x0000000000000000      0x1db ./StdPeriphDriver/CH58x_flash.o
  .debug_aranges
                 0x0000000000000000       0x38 ./StdPeriphDriver/CH58x_flash.o
- .debug_rnglists
-                0x0000000000000000       0x31 ./StdPeriphDriver/CH58x_flash.o
- .debug_line    0x0000000000000000      0x40e ./StdPeriphDriver/CH58x_flash.o
- .debug_str     0x0000000000000000      0x25e ./StdPeriphDriver/CH58x_flash.o
- .debug_line_str
-                0x0000000000000000      0x221 ./StdPeriphDriver/CH58x_flash.o
- .comment       0x0000000000000000       0x32 ./StdPeriphDriver/CH58x_flash.o
+ .debug_ranges  0x0000000000000000       0x28 ./StdPeriphDriver/CH58x_flash.o
+ .debug_line    0x0000000000000000      0x638 ./StdPeriphDriver/CH58x_flash.o
+ .debug_str     0x0000000000000000      0x944 ./StdPeriphDriver/CH58x_flash.o
+ .comment       0x0000000000000000       0x34 ./StdPeriphDriver/CH58x_flash.o
  .debug_frame   0x0000000000000000       0x84 ./StdPeriphDriver/CH58x_flash.o
- .riscv.attributes
-                0x0000000000000000       0x2b ./StdPeriphDriver/CH58x_flash.o
  .text          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_gpio.o
  .data          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_gpio.o
  .bss           0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_gpio.o
  .text.GPIOA_ModeCfg
-                0x0000000000000000       0x9e ./StdPeriphDriver/CH58x_gpio.o
+                0x0000000000000000       0xa6 ./StdPeriphDriver/CH58x_gpio.o
  .rodata.GPIOA_ModeCfg
                 0x0000000000000000       0x14 ./StdPeriphDriver/CH58x_gpio.o
  .text.GPIOA_ITModeCfg
-                0x0000000000000000       0x76 ./StdPeriphDriver/CH58x_gpio.o
+                0x0000000000000000       0x82 ./StdPeriphDriver/CH58x_gpio.o
  .text.GPIOB_ITModeCfg
-                0x0000000000000000       0x7e ./StdPeriphDriver/CH58x_gpio.o
+                0x0000000000000000       0x8a ./StdPeriphDriver/CH58x_gpio.o
  .text.GPIOPinRemap
                 0x0000000000000000       0x1a ./StdPeriphDriver/CH58x_gpio.o
  .text.GPIOAGPPCfg
@@ -294,7 +325,7 @@ Discarded input sections
  .data          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_i2c.o
  .bss           0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_i2c.o
  .text.I2C_Init
-                0x0000000000000000      0x15e ./StdPeriphDriver/CH58x_i2c.o
+                0x0000000000000000      0x146 ./StdPeriphDriver/CH58x_i2c.o
  .text.I2C_Cmd  0x0000000000000000       0x20 ./StdPeriphDriver/CH58x_i2c.o
  .text.I2C_GenerateSTART
                 0x0000000000000000       0x22 ./StdPeriphDriver/CH58x_i2c.o
@@ -315,15 +346,15 @@ Discarded input sections
  .text.I2C_ReceiveData
                 0x0000000000000000        0xe ./StdPeriphDriver/CH58x_i2c.o
  .text.I2C_Send7bitAddress
-                0x0000000000000000       0x14 ./StdPeriphDriver/CH58x_i2c.o
+                0x0000000000000000       0x18 ./StdPeriphDriver/CH58x_i2c.o
  .text.I2C_SoftwareResetCmd
                 0x0000000000000000       0x1a ./StdPeriphDriver/CH58x_i2c.o
  .text.I2C_NACKPositionConfig
                 0x0000000000000000       0x2a ./StdPeriphDriver/CH58x_i2c.o
  .text.I2C_SMBusAlertConfig
-                0x0000000000000000       0x2c ./StdPeriphDriver/CH58x_i2c.o
+                0x0000000000000000       0x24 ./StdPeriphDriver/CH58x_i2c.o
  .text.I2C_TransmitPEC
-                0x0000000000000000       0x28 ./StdPeriphDriver/CH58x_i2c.o
+                0x0000000000000000       0x20 ./StdPeriphDriver/CH58x_i2c.o
  .text.I2C_PECPositionConfig
                 0x0000000000000000        0x8 ./StdPeriphDriver/CH58x_i2c.o
  .text.I2C_CalculatePEC
@@ -335,35 +366,29 @@ Discarded input sections
  .text.I2C_StretchClockCmd
                 0x0000000000000000       0x22 ./StdPeriphDriver/CH58x_i2c.o
  .text.I2C_FastModeDutyCycleConfig
-                0x0000000000000000       0x2c ./StdPeriphDriver/CH58x_i2c.o
+                0x0000000000000000       0x24 ./StdPeriphDriver/CH58x_i2c.o
  .text.I2C_CheckEvent
                 0x0000000000000000       0x20 ./StdPeriphDriver/CH58x_i2c.o
  .text.I2C_GetLastEvent
                 0x0000000000000000       0x16 ./StdPeriphDriver/CH58x_i2c.o
  .text.I2C_GetFlagStatus
-                0x0000000000000000       0x3c ./StdPeriphDriver/CH58x_i2c.o
+                0x0000000000000000       0x3a ./StdPeriphDriver/CH58x_i2c.o
  .text.I2C_ClearFlag
                 0x0000000000000000       0x12 ./StdPeriphDriver/CH58x_i2c.o
  .text.I2C_GetITStatus
                 0x0000000000000000       0x26 ./StdPeriphDriver/CH58x_i2c.o
  .text.I2C_ClearITPendingBit
                 0x0000000000000000        0x8 ./StdPeriphDriver/CH58x_i2c.o
- .debug_info    0x0000000000000000      0x74b ./StdPeriphDriver/CH58x_i2c.o
- .debug_abbrev  0x0000000000000000      0x1f6 ./StdPeriphDriver/CH58x_i2c.o
- .debug_loclists
-                0x0000000000000000      0x48b ./StdPeriphDriver/CH58x_i2c.o
+ .debug_info    0x0000000000000000     0x1357 ./StdPeriphDriver/CH58x_i2c.o
+ .debug_abbrev  0x0000000000000000      0x354 ./StdPeriphDriver/CH58x_i2c.o
+ .debug_loc     0x0000000000000000      0x591 ./StdPeriphDriver/CH58x_i2c.o
  .debug_aranges
-                0x0000000000000000       0xf8 ./StdPeriphDriver/CH58x_i2c.o
- .debug_rnglists
-                0x0000000000000000      0x109 ./StdPeriphDriver/CH58x_i2c.o
- .debug_line    0x0000000000000000      0xc7a ./StdPeriphDriver/CH58x_i2c.o
- .debug_str     0x0000000000000000      0x5f7 ./StdPeriphDriver/CH58x_i2c.o
- .debug_line_str
-                0x0000000000000000      0x22a ./StdPeriphDriver/CH58x_i2c.o
- .comment       0x0000000000000000       0x32 ./StdPeriphDriver/CH58x_i2c.o
- .debug_frame   0x0000000000000000      0x204 ./StdPeriphDriver/CH58x_i2c.o
- .riscv.attributes
-                0x0000000000000000       0x2b ./StdPeriphDriver/CH58x_i2c.o
+                0x0000000000000000       0xe8 ./StdPeriphDriver/CH58x_i2c.o
+ .debug_ranges  0x0000000000000000       0xd8 ./StdPeriphDriver/CH58x_i2c.o
+ .debug_line    0x0000000000000000      0xee0 ./StdPeriphDriver/CH58x_i2c.o
+ .debug_str     0x0000000000000000      0xcc0 ./StdPeriphDriver/CH58x_i2c.o
+ .comment       0x0000000000000000       0x34 ./StdPeriphDriver/CH58x_i2c.o
+ .debug_frame   0x0000000000000000      0x1f4 ./StdPeriphDriver/CH58x_i2c.o
  .text          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_pwm.o
  .data          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_pwm.o
  .bss           0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_pwm.o
@@ -372,55 +397,43 @@ Discarded input sections
  .rodata.PWMX_CycleCfg
                 0x0000000000000000       0x20 ./StdPeriphDriver/CH58x_pwm.o
  .text.PWMX_ACTOUT
-                0x0000000000000000       0x56 ./StdPeriphDriver/CH58x_pwm.o
+                0x0000000000000000       0x5e ./StdPeriphDriver/CH58x_pwm.o
  .text.PWMX_AlterOutCfg
                 0x0000000000000000       0x1a ./StdPeriphDriver/CH58x_pwm.o
- .debug_info    0x0000000000000000      0x1db ./StdPeriphDriver/CH58x_pwm.o
- .debug_abbrev  0x0000000000000000       0xd3 ./StdPeriphDriver/CH58x_pwm.o
- .debug_loclists
-                0x0000000000000000      0x11f ./StdPeriphDriver/CH58x_pwm.o
+ .debug_info    0x0000000000000000      0xda2 ./StdPeriphDriver/CH58x_pwm.o
+ .debug_abbrev  0x0000000000000000      0x246 ./StdPeriphDriver/CH58x_pwm.o
+ .debug_loc     0x0000000000000000      0x158 ./StdPeriphDriver/CH58x_pwm.o
  .debug_aranges
                 0x0000000000000000       0x30 ./StdPeriphDriver/CH58x_pwm.o
- .debug_rnglists
-                0x0000000000000000       0x28 ./StdPeriphDriver/CH58x_pwm.o
- .debug_line    0x0000000000000000      0x2ca ./StdPeriphDriver/CH58x_pwm.o
- .debug_str     0x0000000000000000      0x263 ./StdPeriphDriver/CH58x_pwm.o
- .debug_line_str
-                0x0000000000000000      0x21e ./StdPeriphDriver/CH58x_pwm.o
- .comment       0x0000000000000000       0x32 ./StdPeriphDriver/CH58x_pwm.o
+ .debug_ranges  0x0000000000000000       0x20 ./StdPeriphDriver/CH58x_pwm.o
+ .debug_line    0x0000000000000000      0x500 ./StdPeriphDriver/CH58x_pwm.o
+ .debug_str     0x0000000000000000      0x947 ./StdPeriphDriver/CH58x_pwm.o
+ .comment       0x0000000000000000       0x34 ./StdPeriphDriver/CH58x_pwm.o
  .debug_frame   0x0000000000000000       0x40 ./StdPeriphDriver/CH58x_pwm.o
- .riscv.attributes
-                0x0000000000000000       0x2b ./StdPeriphDriver/CH58x_pwm.o
  .text          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_pwr.o
  .data          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_pwr.o
  .bss           0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_pwr.o
  .text.PWR_DCDCCfg
                 0x0000000000000000       0xae ./StdPeriphDriver/CH58x_pwr.o
  .text.PWR_UnitModCfg
-                0x0000000000000000       0x72 ./StdPeriphDriver/CH58x_pwr.o
+                0x0000000000000000       0x7c ./StdPeriphDriver/CH58x_pwr.o
  .text.PWR_PeriphClkCfg
                 0x0000000000000000       0x4e ./StdPeriphDriver/CH58x_pwr.o
  .text.PWR_PeriphWakeUpCfg
                 0x0000000000000000       0x90 ./StdPeriphDriver/CH58x_pwr.o
  .text.PowerMonitor
                 0x0000000000000000       0xc0 ./StdPeriphDriver/CH58x_pwr.o
- .highcode      0x0000000000000000      0x306 ./StdPeriphDriver/CH58x_pwr.o
- .debug_info    0x0000000000000000      0x7a6 ./StdPeriphDriver/CH58x_pwr.o
- .debug_abbrev  0x0000000000000000      0x241 ./StdPeriphDriver/CH58x_pwr.o
- .debug_loclists
-                0x0000000000000000      0x231 ./StdPeriphDriver/CH58x_pwr.o
+ .highcode      0x0000000000000000      0x314 ./StdPeriphDriver/CH58x_pwr.o
+ .debug_info    0x0000000000000000     0x1368 ./StdPeriphDriver/CH58x_pwr.o
+ .debug_abbrev  0x0000000000000000      0x337 ./StdPeriphDriver/CH58x_pwr.o
+ .debug_loc     0x0000000000000000      0x2d7 ./StdPeriphDriver/CH58x_pwr.o
  .debug_aranges
                 0x0000000000000000       0x60 ./StdPeriphDriver/CH58x_pwr.o
- .debug_rnglists
-                0x0000000000000000       0x8d ./StdPeriphDriver/CH58x_pwr.o
- .debug_line    0x0000000000000000      0xe55 ./StdPeriphDriver/CH58x_pwr.o
- .debug_str     0x0000000000000000      0x596 ./StdPeriphDriver/CH58x_pwr.o
- .debug_line_str
-                0x0000000000000000      0x23f ./StdPeriphDriver/CH58x_pwr.o
- .comment       0x0000000000000000       0x32 ./StdPeriphDriver/CH58x_pwr.o
+ .debug_ranges  0x0000000000000000       0x88 ./StdPeriphDriver/CH58x_pwr.o
+ .debug_line    0x0000000000000000     0x10bb ./StdPeriphDriver/CH58x_pwr.o
+ .debug_str     0x0000000000000000      0xc57 ./StdPeriphDriver/CH58x_pwr.o
+ .comment       0x0000000000000000       0x34 ./StdPeriphDriver/CH58x_pwr.o
  .debug_frame   0x0000000000000000      0x124 ./StdPeriphDriver/CH58x_pwr.o
- .riscv.attributes
-                0x0000000000000000       0x2f ./StdPeriphDriver/CH58x_pwr.o
  .text          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_spi0.o
  .data          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_spi0.o
  .bss           0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_spi0.o
@@ -429,15 +442,15 @@ Discarded input sections
  .text.SPI0_CLKCfg
                 0x0000000000000000       0x2a ./StdPeriphDriver/CH58x_spi0.o
  .text.SPI0_DataMode
-                0x0000000000000000       0x68 ./StdPeriphDriver/CH58x_spi0.o
+                0x0000000000000000       0x6a ./StdPeriphDriver/CH58x_spi0.o
  .text.SPI0_MasterSendByte
                 0x0000000000000000       0x24 ./StdPeriphDriver/CH58x_spi0.o
  .text.SPI0_MasterRecvByte
                 0x0000000000000000       0x2a ./StdPeriphDriver/CH58x_spi0.o
  .text.SPI0_MasterTrans
-                0x0000000000000000       0x54 ./StdPeriphDriver/CH58x_spi0.o
+                0x0000000000000000       0x4c ./StdPeriphDriver/CH58x_spi0.o
  .text.SPI0_MasterRecv
-                0x0000000000000000       0x46 ./StdPeriphDriver/CH58x_spi0.o
+                0x0000000000000000       0x42 ./StdPeriphDriver/CH58x_spi0.o
  .text.SPI0_MasterDMATrans
                 0x0000000000000000       0x50 ./StdPeriphDriver/CH58x_spi0.o
  .text.SPI0_MasterDMARecv
@@ -447,31 +460,25 @@ Discarded input sections
  .text.SPI0_SlaveRecvByte
                 0x0000000000000000       0x20 ./StdPeriphDriver/CH58x_spi0.o
  .text.SPI0_SlaveSendByte
-                0x0000000000000000       0x20 ./StdPeriphDriver/CH58x_spi0.o
+                0x0000000000000000       0x24 ./StdPeriphDriver/CH58x_spi0.o
  .text.SPI0_SlaveRecv
-                0x0000000000000000       0x42 ./StdPeriphDriver/CH58x_spi0.o
+                0x0000000000000000       0x3e ./StdPeriphDriver/CH58x_spi0.o
  .text.SPI0_SlaveTrans
-                0x0000000000000000       0x50 ./StdPeriphDriver/CH58x_spi0.o
+                0x0000000000000000       0x48 ./StdPeriphDriver/CH58x_spi0.o
  .text.SPI0_SlaveDMARecv
                 0x0000000000000000        0x8 ./StdPeriphDriver/CH58x_spi0.o
  .text.SPI0_SlaveDMATrans
                 0x0000000000000000        0x8 ./StdPeriphDriver/CH58x_spi0.o
- .debug_info    0x0000000000000000      0x3a1 ./StdPeriphDriver/CH58x_spi0.o
- .debug_abbrev  0x0000000000000000      0x19e ./StdPeriphDriver/CH58x_spi0.o
- .debug_loclists
-                0x0000000000000000      0x180 ./StdPeriphDriver/CH58x_spi0.o
+ .debug_info    0x0000000000000000      0xf74 ./StdPeriphDriver/CH58x_spi0.o
+ .debug_abbrev  0x0000000000000000      0x304 ./StdPeriphDriver/CH58x_spi0.o
+ .debug_loc     0x0000000000000000      0x1b6 ./StdPeriphDriver/CH58x_spi0.o
  .debug_aranges
-                0x0000000000000000       0x98 ./StdPeriphDriver/CH58x_spi0.o
- .debug_rnglists
-                0x0000000000000000       0x9d ./StdPeriphDriver/CH58x_spi0.o
- .debug_line    0x0000000000000000      0xa09 ./StdPeriphDriver/CH58x_spi0.o
- .debug_str     0x0000000000000000      0x335 ./StdPeriphDriver/CH58x_spi0.o
- .debug_line_str
-                0x0000000000000000      0x1de ./StdPeriphDriver/CH58x_spi0.o
- .comment       0x0000000000000000       0x32 ./StdPeriphDriver/CH58x_spi0.o
+                0x0000000000000000       0x88 ./StdPeriphDriver/CH58x_spi0.o
+ .debug_ranges  0x0000000000000000       0x78 ./StdPeriphDriver/CH58x_spi0.o
+ .debug_line    0x0000000000000000      0xb7f ./StdPeriphDriver/CH58x_spi0.o
+ .debug_str     0x0000000000000000      0xa06 ./StdPeriphDriver/CH58x_spi0.o
+ .comment       0x0000000000000000       0x34 ./StdPeriphDriver/CH58x_spi0.o
  .debug_frame   0x0000000000000000      0x110 ./StdPeriphDriver/CH58x_spi0.o
- .riscv.attributes
-                0x0000000000000000       0x2b ./StdPeriphDriver/CH58x_spi0.o
  .text          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_spi1.o
  .data          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_spi1.o
  .bss           0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_spi1.o
@@ -480,36 +487,30 @@ Discarded input sections
  .text.SPI1_CLKCfg
                 0x0000000000000000       0x2a ./StdPeriphDriver/CH58x_spi1.o
  .text.SPI1_DataMode
-                0x0000000000000000       0x68 ./StdPeriphDriver/CH58x_spi1.o
+                0x0000000000000000       0x6a ./StdPeriphDriver/CH58x_spi1.o
  .text.SPI1_MasterSendByte
                 0x0000000000000000       0x24 ./StdPeriphDriver/CH58x_spi1.o
  .text.SPI1_MasterRecvByte
                 0x0000000000000000       0x2a ./StdPeriphDriver/CH58x_spi1.o
  .text.SPI1_MasterTrans
-                0x0000000000000000       0x54 ./StdPeriphDriver/CH58x_spi1.o
+                0x0000000000000000       0x4c ./StdPeriphDriver/CH58x_spi1.o
  .text.SPI1_MasterRecv
-                0x0000000000000000       0x46 ./StdPeriphDriver/CH58x_spi1.o
- .debug_info    0x0000000000000000      0x212 ./StdPeriphDriver/CH58x_spi1.o
- .debug_abbrev  0x0000000000000000      0x100 ./StdPeriphDriver/CH58x_spi1.o
- .debug_loclists
-                0x0000000000000000       0xba ./StdPeriphDriver/CH58x_spi1.o
+                0x0000000000000000       0x42 ./StdPeriphDriver/CH58x_spi1.o
+ .debug_info    0x0000000000000000      0xdbf ./StdPeriphDriver/CH58x_spi1.o
+ .debug_abbrev  0x0000000000000000      0x273 ./StdPeriphDriver/CH58x_spi1.o
+ .debug_loc     0x0000000000000000       0xba ./StdPeriphDriver/CH58x_spi1.o
  .debug_aranges
                 0x0000000000000000       0x50 ./StdPeriphDriver/CH58x_spi1.o
- .debug_rnglists
-                0x0000000000000000       0x4c ./StdPeriphDriver/CH58x_spi1.o
- .debug_line    0x0000000000000000      0x4ff ./StdPeriphDriver/CH58x_spi1.o
- .debug_str     0x0000000000000000      0x27a ./StdPeriphDriver/CH58x_spi1.o
- .debug_line_str
-                0x0000000000000000      0x1de ./StdPeriphDriver/CH58x_spi1.o
- .comment       0x0000000000000000       0x32 ./StdPeriphDriver/CH58x_spi1.o
+ .debug_ranges  0x0000000000000000       0x40 ./StdPeriphDriver/CH58x_spi1.o
+ .debug_line    0x0000000000000000      0x6a4 ./StdPeriphDriver/CH58x_spi1.o
+ .debug_str     0x0000000000000000      0x94b ./StdPeriphDriver/CH58x_spi1.o
+ .comment       0x0000000000000000       0x34 ./StdPeriphDriver/CH58x_spi1.o
  .debug_frame   0x0000000000000000       0x80 ./StdPeriphDriver/CH58x_spi1.o
- .riscv.attributes
-                0x0000000000000000       0x2b ./StdPeriphDriver/CH58x_spi1.o
  .text          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_sys.o
  .data          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_sys.o
  .bss           0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_sys.o
  .text.SYS_GetInfoSta
-                0x0000000000000000       0x26 ./StdPeriphDriver/CH58x_sys.o
+                0x0000000000000000       0x24 ./StdPeriphDriver/CH58x_sys.o
  .text.SYS_DisableAllIrq
                 0x0000000000000000       0x1c ./StdPeriphDriver/CH58x_sys.o
  .text.SYS_RecoverIrq
@@ -533,7 +534,7 @@ Discarded input sections
  .data          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_timer1.o
  .bss           0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_timer1.o
  .text.TMR1_TimerInit
-                0x0000000000000000       0x18 ./StdPeriphDriver/CH58x_timer1.o
+                0x0000000000000000       0x16 ./StdPeriphDriver/CH58x_timer1.o
  .text.TMR1_EXTSingleCounterInit
                 0x0000000000000000       0x1a ./StdPeriphDriver/CH58x_timer1.o
  .text.TMR1_PWMInit
@@ -542,27 +543,21 @@ Discarded input sections
                 0x0000000000000000       0x1a ./StdPeriphDriver/CH58x_timer1.o
  .text.TMR1_DMACfg
                 0x0000000000000000       0x20 ./StdPeriphDriver/CH58x_timer1.o
- .debug_info    0x0000000000000000      0x29a ./StdPeriphDriver/CH58x_timer1.o
- .debug_abbrev  0x0000000000000000       0xd5 ./StdPeriphDriver/CH58x_timer1.o
- .debug_loclists
-                0x0000000000000000       0x74 ./StdPeriphDriver/CH58x_timer1.o
+ .debug_info    0x0000000000000000      0xe58 ./StdPeriphDriver/CH58x_timer1.o
+ .debug_abbrev  0x0000000000000000      0x246 ./StdPeriphDriver/CH58x_timer1.o
+ .debug_loc     0x0000000000000000       0x84 ./StdPeriphDriver/CH58x_timer1.o
  .debug_aranges
                 0x0000000000000000       0x40 ./StdPeriphDriver/CH58x_timer1.o
- .debug_rnglists
-                0x0000000000000000       0x3a ./StdPeriphDriver/CH58x_timer1.o
- .debug_line    0x0000000000000000      0x24b ./StdPeriphDriver/CH58x_timer1.o
- .debug_str     0x0000000000000000      0x2f6 ./StdPeriphDriver/CH58x_timer1.o
- .debug_line_str
-                0x0000000000000000      0x235 ./StdPeriphDriver/CH58x_timer1.o
- .comment       0x0000000000000000       0x32 ./StdPeriphDriver/CH58x_timer1.o
+ .debug_ranges  0x0000000000000000       0x30 ./StdPeriphDriver/CH58x_timer1.o
+ .debug_line    0x0000000000000000      0x468 ./StdPeriphDriver/CH58x_timer1.o
+ .debug_str     0x0000000000000000      0x9c9 ./StdPeriphDriver/CH58x_timer1.o
+ .comment       0x0000000000000000       0x34 ./StdPeriphDriver/CH58x_timer1.o
  .debug_frame   0x0000000000000000       0x60 ./StdPeriphDriver/CH58x_timer1.o
- .riscv.attributes
-                0x0000000000000000       0x2b ./StdPeriphDriver/CH58x_timer1.o
  .text          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_timer2.o
  .data          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_timer2.o
  .bss           0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_timer2.o
  .text.TMR2_TimerInit
-                0x0000000000000000       0x18 ./StdPeriphDriver/CH58x_timer2.o
+                0x0000000000000000       0x16 ./StdPeriphDriver/CH58x_timer2.o
  .text.TMR2_EXTSingleCounterInit
                 0x0000000000000000       0x1a ./StdPeriphDriver/CH58x_timer2.o
  .text.TMR2_PWMInit
@@ -571,49 +566,37 @@ Discarded input sections
                 0x0000000000000000       0x1a ./StdPeriphDriver/CH58x_timer2.o
  .text.TMR2_DMACfg
                 0x0000000000000000       0x20 ./StdPeriphDriver/CH58x_timer2.o
- .debug_info    0x0000000000000000      0x29a ./StdPeriphDriver/CH58x_timer2.o
- .debug_abbrev  0x0000000000000000       0xd5 ./StdPeriphDriver/CH58x_timer2.o
- .debug_loclists
-                0x0000000000000000       0x74 ./StdPeriphDriver/CH58x_timer2.o
+ .debug_info    0x0000000000000000      0xe58 ./StdPeriphDriver/CH58x_timer2.o
+ .debug_abbrev  0x0000000000000000      0x246 ./StdPeriphDriver/CH58x_timer2.o
+ .debug_loc     0x0000000000000000       0x84 ./StdPeriphDriver/CH58x_timer2.o
  .debug_aranges
                 0x0000000000000000       0x40 ./StdPeriphDriver/CH58x_timer2.o
- .debug_rnglists
-                0x0000000000000000       0x3a ./StdPeriphDriver/CH58x_timer2.o
- .debug_line    0x0000000000000000      0x24b ./StdPeriphDriver/CH58x_timer2.o
- .debug_str     0x0000000000000000      0x2f6 ./StdPeriphDriver/CH58x_timer2.o
- .debug_line_str
-                0x0000000000000000      0x235 ./StdPeriphDriver/CH58x_timer2.o
- .comment       0x0000000000000000       0x32 ./StdPeriphDriver/CH58x_timer2.o
+ .debug_ranges  0x0000000000000000       0x30 ./StdPeriphDriver/CH58x_timer2.o
+ .debug_line    0x0000000000000000      0x468 ./StdPeriphDriver/CH58x_timer2.o
+ .debug_str     0x0000000000000000      0x9c9 ./StdPeriphDriver/CH58x_timer2.o
+ .comment       0x0000000000000000       0x34 ./StdPeriphDriver/CH58x_timer2.o
  .debug_frame   0x0000000000000000       0x60 ./StdPeriphDriver/CH58x_timer2.o
- .riscv.attributes
-                0x0000000000000000       0x2b ./StdPeriphDriver/CH58x_timer2.o
  .text          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_timer3.o
  .data          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_timer3.o
  .bss           0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_timer3.o
  .text.TMR3_TimerInit
-                0x0000000000000000       0x18 ./StdPeriphDriver/CH58x_timer3.o
+                0x0000000000000000       0x16 ./StdPeriphDriver/CH58x_timer3.o
  .text.TMR3_EXTSingleCounterInit
                 0x0000000000000000       0x1a ./StdPeriphDriver/CH58x_timer3.o
  .text.TMR3_PWMInit
                 0x0000000000000000       0x18 ./StdPeriphDriver/CH58x_timer3.o
  .text.TMR3_CapInit
                 0x0000000000000000       0x1a ./StdPeriphDriver/CH58x_timer3.o
- .debug_info    0x0000000000000000      0x1d4 ./StdPeriphDriver/CH58x_timer3.o
- .debug_abbrev  0x0000000000000000       0xc2 ./StdPeriphDriver/CH58x_timer3.o
- .debug_loclists
-                0x0000000000000000       0x74 ./StdPeriphDriver/CH58x_timer3.o
+ .debug_info    0x0000000000000000      0xdb4 ./StdPeriphDriver/CH58x_timer3.o
+ .debug_abbrev  0x0000000000000000      0x235 ./StdPeriphDriver/CH58x_timer3.o
+ .debug_loc     0x0000000000000000       0x84 ./StdPeriphDriver/CH58x_timer3.o
  .debug_aranges
                 0x0000000000000000       0x38 ./StdPeriphDriver/CH58x_timer3.o
- .debug_rnglists
-                0x0000000000000000       0x31 ./StdPeriphDriver/CH58x_timer3.o
- .debug_line    0x0000000000000000      0x1ac ./StdPeriphDriver/CH58x_timer3.o
- .debug_str     0x0000000000000000      0x275 ./StdPeriphDriver/CH58x_timer3.o
- .debug_line_str
-                0x0000000000000000      0x1f2 ./StdPeriphDriver/CH58x_timer3.o
- .comment       0x0000000000000000       0x32 ./StdPeriphDriver/CH58x_timer3.o
+ .debug_ranges  0x0000000000000000       0x28 ./StdPeriphDriver/CH58x_timer3.o
+ .debug_line    0x0000000000000000      0x38c ./StdPeriphDriver/CH58x_timer3.o
+ .debug_str     0x0000000000000000      0x96e ./StdPeriphDriver/CH58x_timer3.o
+ .comment       0x0000000000000000       0x34 ./StdPeriphDriver/CH58x_timer3.o
  .debug_frame   0x0000000000000000       0x50 ./StdPeriphDriver/CH58x_timer3.o
- .riscv.attributes
-                0x0000000000000000       0x2b ./StdPeriphDriver/CH58x_timer3.o
  .text          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_uart0.o
  .data          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_uart0.o
  .bss           0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_uart0.o
@@ -624,29 +607,23 @@ Discarded input sections
  .text.UART0_ByteTrigCfg
                 0x0000000000000000       0x1a ./StdPeriphDriver/CH58x_uart0.o
  .text.UART0_INTCfg
-                0x0000000000000000       0x32 ./StdPeriphDriver/CH58x_uart0.o
+                0x0000000000000000       0x2a ./StdPeriphDriver/CH58x_uart0.o
  .text.UART0_Reset
                 0x0000000000000000        0xe ./StdPeriphDriver/CH58x_uart0.o
  .text.UART0_SendString
-                0x0000000000000000       0x30 ./StdPeriphDriver/CH58x_uart0.o
+                0x0000000000000000       0x28 ./StdPeriphDriver/CH58x_uart0.o
  .text.UART0_RecvString
-                0x0000000000000000       0x24 ./StdPeriphDriver/CH58x_uart0.o
- .debug_info    0x0000000000000000      0x285 ./StdPeriphDriver/CH58x_uart0.o
- .debug_abbrev  0x0000000000000000      0x14c ./StdPeriphDriver/CH58x_uart0.o
- .debug_loclists
-                0x0000000000000000      0x174 ./StdPeriphDriver/CH58x_uart0.o
+                0x0000000000000000       0x2a ./StdPeriphDriver/CH58x_uart0.o
+ .debug_info    0x0000000000000000      0xe3a ./StdPeriphDriver/CH58x_uart0.o
+ .debug_abbrev  0x0000000000000000      0x2aa ./StdPeriphDriver/CH58x_uart0.o
+ .debug_loc     0x0000000000000000      0x1ed ./StdPeriphDriver/CH58x_uart0.o
  .debug_aranges
                 0x0000000000000000       0x50 ./StdPeriphDriver/CH58x_uart0.o
- .debug_rnglists
-                0x0000000000000000       0x4c ./StdPeriphDriver/CH58x_uart0.o
- .debug_line    0x0000000000000000      0x379 ./StdPeriphDriver/CH58x_uart0.o
- .debug_str     0x0000000000000000      0x292 ./StdPeriphDriver/CH58x_uart0.o
- .debug_line_str
-                0x0000000000000000      0x231 ./StdPeriphDriver/CH58x_uart0.o
- .comment       0x0000000000000000       0x32 ./StdPeriphDriver/CH58x_uart0.o
+ .debug_ranges  0x0000000000000000       0x40 ./StdPeriphDriver/CH58x_uart0.o
+ .debug_line    0x0000000000000000      0x59f ./StdPeriphDriver/CH58x_uart0.o
+ .debug_str     0x0000000000000000      0x964 ./StdPeriphDriver/CH58x_uart0.o
+ .comment       0x0000000000000000       0x34 ./StdPeriphDriver/CH58x_uart0.o
  .debug_frame   0x0000000000000000       0x9c ./StdPeriphDriver/CH58x_uart0.o
- .riscv.attributes
-                0x0000000000000000       0x2b ./StdPeriphDriver/CH58x_uart0.o
  .text          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_uart1.o
  .data          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_uart1.o
  .bss           0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_uart1.o
@@ -657,29 +634,23 @@ Discarded input sections
  .text.UART1_ByteTrigCfg
                 0x0000000000000000       0x1a ./StdPeriphDriver/CH58x_uart1.o
  .text.UART1_INTCfg
-                0x0000000000000000       0x32 ./StdPeriphDriver/CH58x_uart1.o
+                0x0000000000000000       0x2a ./StdPeriphDriver/CH58x_uart1.o
  .text.UART1_Reset
                 0x0000000000000000        0xe ./StdPeriphDriver/CH58x_uart1.o
  .text.UART1_SendString
-                0x0000000000000000       0x30 ./StdPeriphDriver/CH58x_uart1.o
+                0x0000000000000000       0x28 ./StdPeriphDriver/CH58x_uart1.o
  .text.UART1_RecvString
-                0x0000000000000000       0x24 ./StdPeriphDriver/CH58x_uart1.o
- .debug_info    0x0000000000000000      0x285 ./StdPeriphDriver/CH58x_uart1.o
- .debug_abbrev  0x0000000000000000      0x14c ./StdPeriphDriver/CH58x_uart1.o
- .debug_loclists
-                0x0000000000000000      0x174 ./StdPeriphDriver/CH58x_uart1.o
+                0x0000000000000000       0x2a ./StdPeriphDriver/CH58x_uart1.o
+ .debug_info    0x0000000000000000      0xe3a ./StdPeriphDriver/CH58x_uart1.o
+ .debug_abbrev  0x0000000000000000      0x2aa ./StdPeriphDriver/CH58x_uart1.o
+ .debug_loc     0x0000000000000000      0x1ed ./StdPeriphDriver/CH58x_uart1.o
  .debug_aranges
                 0x0000000000000000       0x50 ./StdPeriphDriver/CH58x_uart1.o
- .debug_rnglists
-                0x0000000000000000       0x4c ./StdPeriphDriver/CH58x_uart1.o
- .debug_line    0x0000000000000000      0x379 ./StdPeriphDriver/CH58x_uart1.o
- .debug_str     0x0000000000000000      0x292 ./StdPeriphDriver/CH58x_uart1.o
- .debug_line_str
-                0x0000000000000000      0x231 ./StdPeriphDriver/CH58x_uart1.o
- .comment       0x0000000000000000       0x32 ./StdPeriphDriver/CH58x_uart1.o
+ .debug_ranges  0x0000000000000000       0x40 ./StdPeriphDriver/CH58x_uart1.o
+ .debug_line    0x0000000000000000      0x59f ./StdPeriphDriver/CH58x_uart1.o
+ .debug_str     0x0000000000000000      0x964 ./StdPeriphDriver/CH58x_uart1.o
+ .comment       0x0000000000000000       0x34 ./StdPeriphDriver/CH58x_uart1.o
  .debug_frame   0x0000000000000000       0x9c ./StdPeriphDriver/CH58x_uart1.o
- .riscv.attributes
-                0x0000000000000000       0x2b ./StdPeriphDriver/CH58x_uart1.o
  .text          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_uart2.o
  .data          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_uart2.o
  .bss           0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_uart2.o
@@ -690,29 +661,23 @@ Discarded input sections
  .text.UART2_ByteTrigCfg
                 0x0000000000000000       0x1a ./StdPeriphDriver/CH58x_uart2.o
  .text.UART2_INTCfg
-                0x0000000000000000       0x32 ./StdPeriphDriver/CH58x_uart2.o
+                0x0000000000000000       0x2a ./StdPeriphDriver/CH58x_uart2.o
  .text.UART2_Reset
                 0x0000000000000000        0xe ./StdPeriphDriver/CH58x_uart2.o
  .text.UART2_SendString
-                0x0000000000000000       0x30 ./StdPeriphDriver/CH58x_uart2.o
+                0x0000000000000000       0x28 ./StdPeriphDriver/CH58x_uart2.o
  .text.UART2_RecvString
-                0x0000000000000000       0x24 ./StdPeriphDriver/CH58x_uart2.o
- .debug_info    0x0000000000000000      0x285 ./StdPeriphDriver/CH58x_uart2.o
- .debug_abbrev  0x0000000000000000      0x14c ./StdPeriphDriver/CH58x_uart2.o
- .debug_loclists
-                0x0000000000000000      0x174 ./StdPeriphDriver/CH58x_uart2.o
+                0x0000000000000000       0x2a ./StdPeriphDriver/CH58x_uart2.o
+ .debug_info    0x0000000000000000      0xe3a ./StdPeriphDriver/CH58x_uart2.o
+ .debug_abbrev  0x0000000000000000      0x2aa ./StdPeriphDriver/CH58x_uart2.o
+ .debug_loc     0x0000000000000000      0x1ed ./StdPeriphDriver/CH58x_uart2.o
  .debug_aranges
                 0x0000000000000000       0x50 ./StdPeriphDriver/CH58x_uart2.o
- .debug_rnglists
-                0x0000000000000000       0x4c ./StdPeriphDriver/CH58x_uart2.o
- .debug_line    0x0000000000000000      0x379 ./StdPeriphDriver/CH58x_uart2.o
- .debug_str     0x0000000000000000      0x292 ./StdPeriphDriver/CH58x_uart2.o
- .debug_line_str
-                0x0000000000000000      0x231 ./StdPeriphDriver/CH58x_uart2.o
- .comment       0x0000000000000000       0x32 ./StdPeriphDriver/CH58x_uart2.o
+ .debug_ranges  0x0000000000000000       0x40 ./StdPeriphDriver/CH58x_uart2.o
+ .debug_line    0x0000000000000000      0x59f ./StdPeriphDriver/CH58x_uart2.o
+ .debug_str     0x0000000000000000      0x964 ./StdPeriphDriver/CH58x_uart2.o
+ .comment       0x0000000000000000       0x34 ./StdPeriphDriver/CH58x_uart2.o
  .debug_frame   0x0000000000000000       0x9c ./StdPeriphDriver/CH58x_uart2.o
- .riscv.attributes
-                0x0000000000000000       0x2b ./StdPeriphDriver/CH58x_uart2.o
  .text          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_uart3.o
  .data          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_uart3.o
  .bss           0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_uart3.o
@@ -723,29 +688,23 @@ Discarded input sections
  .text.UART3_ByteTrigCfg
                 0x0000000000000000       0x1a ./StdPeriphDriver/CH58x_uart3.o
  .text.UART3_INTCfg
-                0x0000000000000000       0x32 ./StdPeriphDriver/CH58x_uart3.o
+                0x0000000000000000       0x2a ./StdPeriphDriver/CH58x_uart3.o
  .text.UART3_Reset
                 0x0000000000000000        0xe ./StdPeriphDriver/CH58x_uart3.o
  .text.UART3_SendString
-                0x0000000000000000       0x30 ./StdPeriphDriver/CH58x_uart3.o
+                0x0000000000000000       0x28 ./StdPeriphDriver/CH58x_uart3.o
  .text.UART3_RecvString
-                0x0000000000000000       0x24 ./StdPeriphDriver/CH58x_uart3.o
- .debug_info    0x0000000000000000      0x285 ./StdPeriphDriver/CH58x_uart3.o
- .debug_abbrev  0x0000000000000000      0x14c ./StdPeriphDriver/CH58x_uart3.o
- .debug_loclists
-                0x0000000000000000      0x174 ./StdPeriphDriver/CH58x_uart3.o
+                0x0000000000000000       0x2a ./StdPeriphDriver/CH58x_uart3.o
+ .debug_info    0x0000000000000000      0xe3a ./StdPeriphDriver/CH58x_uart3.o
+ .debug_abbrev  0x0000000000000000      0x2aa ./StdPeriphDriver/CH58x_uart3.o
+ .debug_loc     0x0000000000000000      0x1ed ./StdPeriphDriver/CH58x_uart3.o
  .debug_aranges
                 0x0000000000000000       0x50 ./StdPeriphDriver/CH58x_uart3.o
- .debug_rnglists
-                0x0000000000000000       0x4c ./StdPeriphDriver/CH58x_uart3.o
- .debug_line    0x0000000000000000      0x379 ./StdPeriphDriver/CH58x_uart3.o
- .debug_str     0x0000000000000000      0x292 ./StdPeriphDriver/CH58x_uart3.o
- .debug_line_str
-                0x0000000000000000      0x231 ./StdPeriphDriver/CH58x_uart3.o
- .comment       0x0000000000000000       0x32 ./StdPeriphDriver/CH58x_uart3.o
+ .debug_ranges  0x0000000000000000       0x40 ./StdPeriphDriver/CH58x_uart3.o
+ .debug_line    0x0000000000000000      0x59f ./StdPeriphDriver/CH58x_uart3.o
+ .debug_str     0x0000000000000000      0x964 ./StdPeriphDriver/CH58x_uart3.o
+ .comment       0x0000000000000000       0x34 ./StdPeriphDriver/CH58x_uart3.o
  .debug_frame   0x0000000000000000       0x9c ./StdPeriphDriver/CH58x_uart3.o
- .riscv.attributes
-                0x0000000000000000       0x2b ./StdPeriphDriver/CH58x_uart3.o
  .text          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_usb2dev.o
  .data          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_usb2dev.o
  .bss           0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_usb2dev.o
@@ -759,32 +718,20 @@ Discarded input sections
                 0x0000000000000000       0x16 ./StdPeriphDriver/CH58x_usb2dev.o
  .text.U2DevEP4_IN_Deal
                 0x0000000000000000       0x16 ./StdPeriphDriver/CH58x_usb2dev.o
- .sbss.pU2EP3_RAM_Addr
-                0x0000000000000000        0x4 ./StdPeriphDriver/CH58x_usb2dev.o
- .sbss.pU2EP2_RAM_Addr
-                0x0000000000000000        0x4 ./StdPeriphDriver/CH58x_usb2dev.o
- .sbss.pU2EP1_RAM_Addr
-                0x0000000000000000        0x4 ./StdPeriphDriver/CH58x_usb2dev.o
- .sbss.pU2EP0_RAM_Addr
-                0x0000000000000000        0x4 ./StdPeriphDriver/CH58x_usb2dev.o
- .debug_info    0x0000000000000000      0x1d3 ./StdPeriphDriver/CH58x_usb2dev.o
- .debug_abbrev  0x0000000000000000       0xb9 ./StdPeriphDriver/CH58x_usb2dev.o
+ .debug_info    0x0000000000000000      0xd5b ./StdPeriphDriver/CH58x_usb2dev.o
+ .debug_abbrev  0x0000000000000000      0x217 ./StdPeriphDriver/CH58x_usb2dev.o
  .debug_aranges
                 0x0000000000000000       0x40 ./StdPeriphDriver/CH58x_usb2dev.o
- .debug_rnglists
-                0x0000000000000000       0x3a ./StdPeriphDriver/CH58x_usb2dev.o
- .debug_line    0x0000000000000000      0x2ee ./StdPeriphDriver/CH58x_usb2dev.o
- .debug_str     0x0000000000000000      0x231 ./StdPeriphDriver/CH58x_usb2dev.o
- .debug_line_str
-                0x0000000000000000      0x1ea ./StdPeriphDriver/CH58x_usb2dev.o
- .comment       0x0000000000000000       0x32 ./StdPeriphDriver/CH58x_usb2dev.o
+ .debug_ranges  0x0000000000000000       0x30 ./StdPeriphDriver/CH58x_usb2dev.o
+ .debug_line    0x0000000000000000      0x4d4 ./StdPeriphDriver/CH58x_usb2dev.o
+ .debug_str     0x0000000000000000      0x8c5 ./StdPeriphDriver/CH58x_usb2dev.o
+ .comment       0x0000000000000000       0x34 ./StdPeriphDriver/CH58x_usb2dev.o
  .debug_frame   0x0000000000000000       0x60 ./StdPeriphDriver/CH58x_usb2dev.o
- .riscv.attributes
-                0x0000000000000000       0x2b ./StdPeriphDriver/CH58x_usb2dev.o
+ COMMON         0x0000000000000000       0x10 ./StdPeriphDriver/CH58x_usb2dev.o
  .text          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_usb2hostBase.o
  .data          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_usb2hostBase.o
  .bss           0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_usb2hostBase.o
- .text.SetUsb2Speed.part.0
+ .text.SetUsb2Speed.part.1
                 0x0000000000000000       0x1e ./StdPeriphDriver/CH58x_usb2hostBase.o
  .text.DisableRootU2HubPort
                 0x0000000000000000        0xa ./StdPeriphDriver/CH58x_usb2hostBase.o
@@ -797,131 +744,107 @@ Discarded input sections
  .text.ResetRootU2HubPort
                 0x0000000000000000       0x72 ./StdPeriphDriver/CH58x_usb2hostBase.o
  .text.EnableRootU2HubPort
-                0x0000000000000000       0x5a ./StdPeriphDriver/CH58x_usb2hostBase.o
+                0x0000000000000000       0x5e ./StdPeriphDriver/CH58x_usb2hostBase.o
  .text.SelectU2HubPort
                 0x0000000000000000       0x88 ./StdPeriphDriver/CH58x_usb2hostBase.o
  .text.WaitUSB2_Interrupt
                 0x0000000000000000       0x2c ./StdPeriphDriver/CH58x_usb2hostBase.o
  .text.USB2HostTransact
-                0x0000000000000000      0x164 ./StdPeriphDriver/CH58x_usb2hostBase.o
+                0x0000000000000000      0x160 ./StdPeriphDriver/CH58x_usb2hostBase.o
  .text.U2HostCtrlTransfer
-                0x0000000000000000      0x202 ./StdPeriphDriver/CH58x_usb2hostBase.o
+                0x0000000000000000      0x1f4 ./StdPeriphDriver/CH58x_usb2hostBase.o
  .text.CopyU2SetupReqPkg
                 0x0000000000000000       0x24 ./StdPeriphDriver/CH58x_usb2hostBase.o
  .text.CtrlGetU2DeviceDescr
-                0x0000000000000000       0x5a ./StdPeriphDriver/CH58x_usb2hostBase.o
+                0x0000000000000000       0x60 ./StdPeriphDriver/CH58x_usb2hostBase.o
  .text.CtrlGetU2ConfigDescr
-                0x0000000000000000       0x8a ./StdPeriphDriver/CH58x_usb2hostBase.o
+                0x0000000000000000       0x88 ./StdPeriphDriver/CH58x_usb2hostBase.o
  .text.CtrlSetUsb2Address
-                0x0000000000000000       0x5a ./StdPeriphDriver/CH58x_usb2hostBase.o
+                0x0000000000000000       0x5c ./StdPeriphDriver/CH58x_usb2hostBase.o
  .text.CtrlSetUsb2Config
-                0x0000000000000000       0x3a ./StdPeriphDriver/CH58x_usb2hostBase.o
+                0x0000000000000000       0x3c ./StdPeriphDriver/CH58x_usb2hostBase.o
  .text.CtrlClearU2EndpStall
-                0x0000000000000000       0x3a ./StdPeriphDriver/CH58x_usb2hostBase.o
+                0x0000000000000000       0x3c ./StdPeriphDriver/CH58x_usb2hostBase.o
  .text.CtrlSetUsb2Intercace
-                0x0000000000000000       0x3a ./StdPeriphDriver/CH58x_usb2hostBase.o
+                0x0000000000000000       0x3c ./StdPeriphDriver/CH58x_usb2hostBase.o
  .text.USB2_HostInit
                 0x0000000000000000       0x76 ./StdPeriphDriver/CH58x_usb2hostBase.o
- .srodata.SetupClrU2EndpStall
+ .sdata2.SetupClrU2EndpStall
                 0x0000000000000000        0x8 ./StdPeriphDriver/CH58x_usb2hostBase.o
- .srodata.SetupSetUsb2Interface
+ .sdata2.SetupGetU2CfgDescr
                 0x0000000000000000        0x8 ./StdPeriphDriver/CH58x_usb2hostBase.o
- .srodata.SetupSetUsb2Config
+ .sdata2.SetupGetU2DevDescr
                 0x0000000000000000        0x8 ./StdPeriphDriver/CH58x_usb2hostBase.o
- .srodata.SetupSetUsb2Addr
+ .sdata2.SetupSetUsb2Addr
                 0x0000000000000000        0x8 ./StdPeriphDriver/CH58x_usb2hostBase.o
- .srodata.SetupGetU2CfgDescr
+ .sdata2.SetupSetUsb2Config
                 0x0000000000000000        0x8 ./StdPeriphDriver/CH58x_usb2hostBase.o
- .srodata.SetupGetU2DevDescr
+ .sdata2.SetupSetUsb2Interface
                 0x0000000000000000        0x8 ./StdPeriphDriver/CH58x_usb2hostBase.o
- .sbss.pU2HOST_TX_RAM_Addr
-                0x0000000000000000        0x4 ./StdPeriphDriver/CH58x_usb2hostBase.o
- .sbss.pU2HOST_RX_RAM_Addr
-                0x0000000000000000        0x4 ./StdPeriphDriver/CH58x_usb2hostBase.o
- .bss.DevOnU2HubPort
-                0x0000000000000000       0x30 ./StdPeriphDriver/CH58x_usb2hostBase.o
- .bss.ThisUsb2Dev
-                0x0000000000000000        0xe ./StdPeriphDriver/CH58x_usb2hostBase.o
- .sbss.FoundNewU2Dev
-                0x0000000000000000        0x1 ./StdPeriphDriver/CH58x_usb2hostBase.o
- .sbss.Usb2DevEndp0Size
-                0x0000000000000000        0x1 ./StdPeriphDriver/CH58x_usb2hostBase.o
- .debug_info    0x0000000000000000      0xce0 ./StdPeriphDriver/CH58x_usb2hostBase.o
- .debug_abbrev  0x0000000000000000      0x39f ./StdPeriphDriver/CH58x_usb2hostBase.o
- .debug_loclists
-                0x0000000000000000      0x5a2 ./StdPeriphDriver/CH58x_usb2hostBase.o
+ .debug_info    0x0000000000000000     0x16c6 ./StdPeriphDriver/CH58x_usb2hostBase.o
+ .debug_abbrev  0x0000000000000000      0x466 ./StdPeriphDriver/CH58x_usb2hostBase.o
+ .debug_loc     0x0000000000000000      0x686 ./StdPeriphDriver/CH58x_usb2hostBase.o
  .debug_aranges
                 0x0000000000000000       0xb0 ./StdPeriphDriver/CH58x_usb2hostBase.o
- .debug_rnglists
-                0x0000000000000000       0xd4 ./StdPeriphDriver/CH58x_usb2hostBase.o
- .debug_line    0x0000000000000000     0x127d ./StdPeriphDriver/CH58x_usb2hostBase.o
- .debug_str     0x0000000000000000      0x665 ./StdPeriphDriver/CH58x_usb2hostBase.o
- .debug_line_str
-                0x0000000000000000      0x206 ./StdPeriphDriver/CH58x_usb2hostBase.o
- .comment       0x0000000000000000       0x32 ./StdPeriphDriver/CH58x_usb2hostBase.o
- .debug_frame   0x0000000000000000      0x270 ./StdPeriphDriver/CH58x_usb2hostBase.o
- .riscv.attributes
-                0x0000000000000000       0x2b ./StdPeriphDriver/CH58x_usb2hostBase.o
+ .debug_ranges  0x0000000000000000       0xc0 ./StdPeriphDriver/CH58x_usb2hostBase.o
+ .debug_line    0x0000000000000000     0x143b ./StdPeriphDriver/CH58x_usb2hostBase.o
+ .debug_str     0x0000000000000000      0xbdb ./StdPeriphDriver/CH58x_usb2hostBase.o
+ .comment       0x0000000000000000       0x34 ./StdPeriphDriver/CH58x_usb2hostBase.o
+ .debug_frame   0x0000000000000000      0x264 ./StdPeriphDriver/CH58x_usb2hostBase.o
+ COMMON         0x0000000000000000       0x4c ./StdPeriphDriver/CH58x_usb2hostBase.o
  .text          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_usb2hostClass.o
  .data          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_usb2hostClass.o
  .bss           0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_usb2hostClass.o
  .text.AnalyzeU2HidIntEndp
-                0x0000000000000000       0xb6 ./StdPeriphDriver/CH58x_usb2hostClass.o
+                0x0000000000000000       0xba ./StdPeriphDriver/CH58x_usb2hostClass.o
  .text.AnalyzeU2BulkEndp
-                0x0000000000000000       0xc8 ./StdPeriphDriver/CH58x_usb2hostClass.o
+                0x0000000000000000       0xc4 ./StdPeriphDriver/CH58x_usb2hostClass.o
  .text.U2SearchTypeDevice
-                0x0000000000000000       0x74 ./StdPeriphDriver/CH58x_usb2hostClass.o
+                0x0000000000000000       0x7e ./StdPeriphDriver/CH58x_usb2hostClass.o
  .text.U2SETorOFFNumLock
                 0x0000000000000000       0x84 ./StdPeriphDriver/CH58x_usb2hostClass.o
  .text.CtrlGetU2HIDDeviceReport
-                0x0000000000000000       0x88 ./StdPeriphDriver/CH58x_usb2hostClass.o
+                0x0000000000000000       0x84 ./StdPeriphDriver/CH58x_usb2hostClass.o
  .text.CtrlGetU2HubDescr
-                0x0000000000000000       0x3c ./StdPeriphDriver/CH58x_usb2hostClass.o
+                0x0000000000000000       0x42 ./StdPeriphDriver/CH58x_usb2hostClass.o
  .text.U2HubGetPortStatus
-                0x0000000000000000       0x5a ./StdPeriphDriver/CH58x_usb2hostClass.o
+                0x0000000000000000       0x5c ./StdPeriphDriver/CH58x_usb2hostClass.o
  .text.U2HubSetPortFeature
-                0x0000000000000000       0x3a ./StdPeriphDriver/CH58x_usb2hostClass.o
+                0x0000000000000000       0x3c ./StdPeriphDriver/CH58x_usb2hostClass.o
  .text.InitRootU2Device
-                0x0000000000000000      0x240 ./StdPeriphDriver/CH58x_usb2hostClass.o
+                0x0000000000000000      0x28c ./StdPeriphDriver/CH58x_usb2hostClass.o
  .text.U2HubClearPortFeature
-                0x0000000000000000       0x3a ./StdPeriphDriver/CH58x_usb2hostClass.o
+                0x0000000000000000       0x3c ./StdPeriphDriver/CH58x_usb2hostClass.o
  .text.InitU2DevOnHub
-                0x0000000000000000      0x1f4 ./StdPeriphDriver/CH58x_usb2hostClass.o
+                0x0000000000000000      0x216 ./StdPeriphDriver/CH58x_usb2hostClass.o
  .text.EnumU2HubPort
-                0x0000000000000000      0x1b6 ./StdPeriphDriver/CH58x_usb2hostClass.o
+                0x0000000000000000      0x1a8 ./StdPeriphDriver/CH58x_usb2hostClass.o
  .text.EnumAllU2HubPort
                 0x0000000000000000       0x48 ./StdPeriphDriver/CH58x_usb2hostClass.o
- .bss.U2Com_Buffer
-                0x0000000000000000       0x80 ./StdPeriphDriver/CH58x_usb2hostClass.o
- .srodata.SetupGetU2HubDescr
+ .sdata2.SetupGetU2HIDDevReport
                 0x0000000000000000        0x8 ./StdPeriphDriver/CH58x_usb2hostClass.o
- .srodata.SetupGetU2HIDDevReport
+ .sdata2.SetupGetU2HubDescr
                 0x0000000000000000        0x8 ./StdPeriphDriver/CH58x_usb2hostClass.o
- .srodata.SetupSetU2HIDIdle
+ .sdata2.SetupSetU2HIDIdle
                 0x0000000000000000        0x8 ./StdPeriphDriver/CH58x_usb2hostClass.o
- .debug_info    0x0000000000000000     0x1058 ./StdPeriphDriver/CH58x_usb2hostClass.o
- .debug_abbrev  0x0000000000000000      0x363 ./StdPeriphDriver/CH58x_usb2hostClass.o
- .debug_loclists
-                0x0000000000000000      0x706 ./StdPeriphDriver/CH58x_usb2hostClass.o
+ .debug_info    0x0000000000000000     0x1a86 ./StdPeriphDriver/CH58x_usb2hostClass.o
+ .debug_abbrev  0x0000000000000000      0x3d6 ./StdPeriphDriver/CH58x_usb2hostClass.o
+ .debug_loc     0x0000000000000000      0x8e4 ./StdPeriphDriver/CH58x_usb2hostClass.o
  .debug_aranges
                 0x0000000000000000       0x80 ./StdPeriphDriver/CH58x_usb2hostClass.o
- .debug_rnglists
-                0x0000000000000000       0x95 ./StdPeriphDriver/CH58x_usb2hostClass.o
- .debug_line    0x0000000000000000     0x184b ./StdPeriphDriver/CH58x_usb2hostClass.o
- .debug_str     0x0000000000000000      0x856 ./StdPeriphDriver/CH58x_usb2hostClass.o
- .debug_line_str
-                0x0000000000000000      0x2d4 ./StdPeriphDriver/CH58x_usb2hostClass.o
- .comment       0x0000000000000000       0x32 ./StdPeriphDriver/CH58x_usb2hostClass.o
- .debug_frame   0x0000000000000000      0x1b8 ./StdPeriphDriver/CH58x_usb2hostClass.o
- .riscv.attributes
-                0x0000000000000000       0x2b ./StdPeriphDriver/CH58x_usb2hostClass.o
+ .debug_ranges  0x0000000000000000       0x88 ./StdPeriphDriver/CH58x_usb2hostClass.o
+ .debug_line    0x0000000000000000     0x199c ./StdPeriphDriver/CH58x_usb2hostClass.o
+ .debug_str     0x0000000000000000      0xe42 ./StdPeriphDriver/CH58x_usb2hostClass.o
+ .comment       0x0000000000000000       0x34 ./StdPeriphDriver/CH58x_usb2hostClass.o
+ .debug_frame   0x0000000000000000      0x1ac ./StdPeriphDriver/CH58x_usb2hostClass.o
+ COMMON         0x0000000000000000       0x80 ./StdPeriphDriver/CH58x_usb2hostClass.o
  .text          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_usbdev.o
  .data          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_usbdev.o
  .bss           0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_usbdev.o
  .text          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_usbhostBase.o
  .data          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_usbhostBase.o
  .bss           0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_usbhostBase.o
- .text.SetUsbSpeed.part.0
+ .text.SetUsbSpeed.part.1
                 0x0000000000000000       0x1e ./StdPeriphDriver/CH58x_usbhostBase.o
  .text.DisableRootHubPort
                 0x0000000000000000        0xa ./StdPeriphDriver/CH58x_usbhostBase.o
@@ -934,124 +857,100 @@ Discarded input sections
  .text.ResetRootHubPort
                 0x0000000000000000       0x72 ./StdPeriphDriver/CH58x_usbhostBase.o
  .text.EnableRootHubPort
-                0x0000000000000000       0x5a ./StdPeriphDriver/CH58x_usbhostBase.o
+                0x0000000000000000       0x5e ./StdPeriphDriver/CH58x_usbhostBase.o
  .text.SelectHubPort
                 0x0000000000000000       0x88 ./StdPeriphDriver/CH58x_usbhostBase.o
  .text.WaitUSB_Interrupt
                 0x0000000000000000       0x2c ./StdPeriphDriver/CH58x_usbhostBase.o
  .text.USBHostTransact
-                0x0000000000000000      0x164 ./StdPeriphDriver/CH58x_usbhostBase.o
+                0x0000000000000000      0x160 ./StdPeriphDriver/CH58x_usbhostBase.o
  .text.HostCtrlTransfer
-                0x0000000000000000      0x202 ./StdPeriphDriver/CH58x_usbhostBase.o
+                0x0000000000000000      0x1f4 ./StdPeriphDriver/CH58x_usbhostBase.o
  .text.CopySetupReqPkg
                 0x0000000000000000       0x24 ./StdPeriphDriver/CH58x_usbhostBase.o
  .text.CtrlGetDeviceDescr
-                0x0000000000000000       0x5a ./StdPeriphDriver/CH58x_usbhostBase.o
+                0x0000000000000000       0x60 ./StdPeriphDriver/CH58x_usbhostBase.o
  .text.CtrlGetConfigDescr
-                0x0000000000000000       0x8a ./StdPeriphDriver/CH58x_usbhostBase.o
+                0x0000000000000000       0x88 ./StdPeriphDriver/CH58x_usbhostBase.o
  .text.CtrlSetUsbAddress
-                0x0000000000000000       0x5a ./StdPeriphDriver/CH58x_usbhostBase.o
+                0x0000000000000000       0x5c ./StdPeriphDriver/CH58x_usbhostBase.o
  .text.CtrlSetUsbConfig
-                0x0000000000000000       0x3a ./StdPeriphDriver/CH58x_usbhostBase.o
+                0x0000000000000000       0x3c ./StdPeriphDriver/CH58x_usbhostBase.o
  .text.CtrlClearEndpStall
-                0x0000000000000000       0x3a ./StdPeriphDriver/CH58x_usbhostBase.o
+                0x0000000000000000       0x3c ./StdPeriphDriver/CH58x_usbhostBase.o
  .text.CtrlSetUsbIntercace
-                0x0000000000000000       0x3a ./StdPeriphDriver/CH58x_usbhostBase.o
+                0x0000000000000000       0x3c ./StdPeriphDriver/CH58x_usbhostBase.o
  .text.USB_HostInit
                 0x0000000000000000       0x76 ./StdPeriphDriver/CH58x_usbhostBase.o
- .srodata.SetupClrEndpStall
+ .sdata2.SetupClrEndpStall
                 0x0000000000000000        0x8 ./StdPeriphDriver/CH58x_usbhostBase.o
- .srodata.SetupSetUsbInterface
+ .sdata2.SetupGetCfgDescr
                 0x0000000000000000        0x8 ./StdPeriphDriver/CH58x_usbhostBase.o
- .srodata.SetupSetUsbConfig
+ .sdata2.SetupGetDevDescr
                 0x0000000000000000        0x8 ./StdPeriphDriver/CH58x_usbhostBase.o
- .srodata.SetupSetUsbAddr
+ .sdata2.SetupSetUsbAddr
                 0x0000000000000000        0x8 ./StdPeriphDriver/CH58x_usbhostBase.o
- .srodata.SetupGetCfgDescr
+ .sdata2.SetupSetUsbConfig
                 0x0000000000000000        0x8 ./StdPeriphDriver/CH58x_usbhostBase.o
- .srodata.SetupGetDevDescr
+ .sdata2.SetupSetUsbInterface
                 0x0000000000000000        0x8 ./StdPeriphDriver/CH58x_usbhostBase.o
- .sbss.pHOST_TX_RAM_Addr
-                0x0000000000000000        0x4 ./StdPeriphDriver/CH58x_usbhostBase.o
- .sbss.pHOST_RX_RAM_Addr
-                0x0000000000000000        0x4 ./StdPeriphDriver/CH58x_usbhostBase.o
- .bss.DevOnHubPort
-                0x0000000000000000       0x30 ./StdPeriphDriver/CH58x_usbhostBase.o
- .bss.ThisUsbDev
-                0x0000000000000000        0xe ./StdPeriphDriver/CH58x_usbhostBase.o
- .sbss.FoundNewDev
-                0x0000000000000000        0x1 ./StdPeriphDriver/CH58x_usbhostBase.o
- .sbss.UsbDevEndp0Size
-                0x0000000000000000        0x1 ./StdPeriphDriver/CH58x_usbhostBase.o
- .debug_info    0x0000000000000000      0xce2 ./StdPeriphDriver/CH58x_usbhostBase.o
- .debug_abbrev  0x0000000000000000      0x38d ./StdPeriphDriver/CH58x_usbhostBase.o
- .debug_loclists
-                0x0000000000000000      0x5a2 ./StdPeriphDriver/CH58x_usbhostBase.o
+ .debug_info    0x0000000000000000     0x16c7 ./StdPeriphDriver/CH58x_usbhostBase.o
+ .debug_abbrev  0x0000000000000000      0x455 ./StdPeriphDriver/CH58x_usbhostBase.o
+ .debug_loc     0x0000000000000000      0x686 ./StdPeriphDriver/CH58x_usbhostBase.o
  .debug_aranges
                 0x0000000000000000       0xb0 ./StdPeriphDriver/CH58x_usbhostBase.o
- .debug_rnglists
-                0x0000000000000000       0xd4 ./StdPeriphDriver/CH58x_usbhostBase.o
- .debug_line    0x0000000000000000     0x1288 ./StdPeriphDriver/CH58x_usbhostBase.o
- .debug_str     0x0000000000000000      0x634 ./StdPeriphDriver/CH58x_usbhostBase.o
- .debug_line_str
-                0x0000000000000000      0x203 ./StdPeriphDriver/CH58x_usbhostBase.o
- .comment       0x0000000000000000       0x32 ./StdPeriphDriver/CH58x_usbhostBase.o
- .debug_frame   0x0000000000000000      0x270 ./StdPeriphDriver/CH58x_usbhostBase.o
- .riscv.attributes
-                0x0000000000000000       0x2b ./StdPeriphDriver/CH58x_usbhostBase.o
+ .debug_ranges  0x0000000000000000       0xc0 ./StdPeriphDriver/CH58x_usbhostBase.o
+ .debug_line    0x0000000000000000     0x143a ./StdPeriphDriver/CH58x_usbhostBase.o
+ .debug_str     0x0000000000000000      0xbbe ./StdPeriphDriver/CH58x_usbhostBase.o
+ .comment       0x0000000000000000       0x34 ./StdPeriphDriver/CH58x_usbhostBase.o
+ .debug_frame   0x0000000000000000      0x264 ./StdPeriphDriver/CH58x_usbhostBase.o
+ COMMON         0x0000000000000000       0x4c ./StdPeriphDriver/CH58x_usbhostBase.o
  .text          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_usbhostClass.o
  .data          0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_usbhostClass.o
  .bss           0x0000000000000000        0x0 ./StdPeriphDriver/CH58x_usbhostClass.o
  .text.AnalyzeHidIntEndp
-                0x0000000000000000       0xb6 ./StdPeriphDriver/CH58x_usbhostClass.o
+                0x0000000000000000       0xba ./StdPeriphDriver/CH58x_usbhostClass.o
  .text.AnalyzeBulkEndp
-                0x0000000000000000       0xc8 ./StdPeriphDriver/CH58x_usbhostClass.o
+                0x0000000000000000       0xc4 ./StdPeriphDriver/CH58x_usbhostClass.o
  .text.SearchTypeDevice
-                0x0000000000000000       0x74 ./StdPeriphDriver/CH58x_usbhostClass.o
+                0x0000000000000000       0x7e ./StdPeriphDriver/CH58x_usbhostClass.o
  .text.SETorOFFNumLock
                 0x0000000000000000       0x84 ./StdPeriphDriver/CH58x_usbhostClass.o
  .text.CtrlGetHIDDeviceReport
-                0x0000000000000000       0x88 ./StdPeriphDriver/CH58x_usbhostClass.o
+                0x0000000000000000       0x84 ./StdPeriphDriver/CH58x_usbhostClass.o
  .text.CtrlGetHubDescr
-                0x0000000000000000       0x3c ./StdPeriphDriver/CH58x_usbhostClass.o
+                0x0000000000000000       0x42 ./StdPeriphDriver/CH58x_usbhostClass.o
  .text.HubGetPortStatus
-                0x0000000000000000       0x5a ./StdPeriphDriver/CH58x_usbhostClass.o
+                0x0000000000000000       0x5c ./StdPeriphDriver/CH58x_usbhostClass.o
  .text.HubSetPortFeature
-                0x0000000000000000       0x3a ./StdPeriphDriver/CH58x_usbhostClass.o
+                0x0000000000000000       0x3c ./StdPeriphDriver/CH58x_usbhostClass.o
  .text.InitRootDevice
-                0x0000000000000000      0x240 ./StdPeriphDriver/CH58x_usbhostClass.o
+                0x0000000000000000      0x28c ./StdPeriphDriver/CH58x_usbhostClass.o
  .text.HubClearPortFeature
-                0x0000000000000000       0x3a ./StdPeriphDriver/CH58x_usbhostClass.o
+                0x0000000000000000       0x3c ./StdPeriphDriver/CH58x_usbhostClass.o
  .text.InitDevOnHub
-                0x0000000000000000      0x204 ./StdPeriphDriver/CH58x_usbhostClass.o
+                0x0000000000000000      0x21e ./StdPeriphDriver/CH58x_usbhostClass.o
  .text.EnumHubPort
-                0x0000000000000000      0x1b6 ./StdPeriphDriver/CH58x_usbhostClass.o
+                0x0000000000000000      0x1a8 ./StdPeriphDriver/CH58x_usbhostClass.o
  .text.EnumAllHubPort
                 0x0000000000000000       0x48 ./StdPeriphDriver/CH58x_usbhostClass.o
- .bss.Com_Buffer
-                0x0000000000000000       0x80 ./StdPeriphDriver/CH58x_usbhostClass.o
- .srodata.SetupGetHubDescr
+ .sdata2.SetupGetHIDDevReport
                 0x0000000000000000        0x8 ./StdPeriphDriver/CH58x_usbhostClass.o
- .srodata.SetupGetHIDDevReport
+ .sdata2.SetupGetHubDescr
                 0x0000000000000000        0x8 ./StdPeriphDriver/CH58x_usbhostClass.o
- .srodata.SetupSetHIDIdle
+ .sdata2.SetupSetHIDIdle
                 0x0000000000000000        0x8 ./StdPeriphDriver/CH58x_usbhostClass.o
- .debug_info    0x0000000000000000     0x1051 ./StdPeriphDriver/CH58x_usbhostClass.o
- .debug_abbrev  0x0000000000000000      0x335 ./StdPeriphDriver/CH58x_usbhostClass.o
- .debug_loclists
-                0x0000000000000000      0x732 ./StdPeriphDriver/CH58x_usbhostClass.o
+ .debug_info    0x0000000000000000     0x1a7b ./StdPeriphDriver/CH58x_usbhostClass.o
+ .debug_abbrev  0x0000000000000000      0x3c3 ./StdPeriphDriver/CH58x_usbhostClass.o
+ .debug_loc     0x0000000000000000      0x8e4 ./StdPeriphDriver/CH58x_usbhostClass.o
  .debug_aranges
                 0x0000000000000000       0x80 ./StdPeriphDriver/CH58x_usbhostClass.o
- .debug_rnglists
-                0x0000000000000000       0x95 ./StdPeriphDriver/CH58x_usbhostClass.o
- .debug_line    0x0000000000000000     0x183e ./StdPeriphDriver/CH58x_usbhostClass.o
- .debug_str     0x0000000000000000      0x819 ./StdPeriphDriver/CH58x_usbhostClass.o
- .debug_line_str
-                0x0000000000000000      0x2d1 ./StdPeriphDriver/CH58x_usbhostClass.o
- .comment       0x0000000000000000       0x32 ./StdPeriphDriver/CH58x_usbhostClass.o
- .debug_frame   0x0000000000000000      0x1bc ./StdPeriphDriver/CH58x_usbhostClass.o
- .riscv.attributes
-                0x0000000000000000       0x2b ./StdPeriphDriver/CH58x_usbhostClass.o
+ .debug_ranges  0x0000000000000000       0x88 ./StdPeriphDriver/CH58x_usbhostClass.o
+ .debug_line    0x0000000000000000     0x19ca ./StdPeriphDriver/CH58x_usbhostClass.o
+ .debug_str     0x0000000000000000      0xe0e ./StdPeriphDriver/CH58x_usbhostClass.o
+ .comment       0x0000000000000000       0x34 ./StdPeriphDriver/CH58x_usbhostClass.o
+ .debug_frame   0x0000000000000000      0x1ac ./StdPeriphDriver/CH58x_usbhostClass.o
+ COMMON         0x0000000000000000       0x80 ./StdPeriphDriver/CH58x_usbhostClass.o
  .text          0x0000000000000000        0x0 ./Startup/startup_CH583.o
  .data          0x0000000000000000        0x0 ./Startup/startup_CH583.o
  .bss           0x0000000000000000        0x0 ./Startup/startup_CH583.o
@@ -1130,20 +1029,15 @@ Discarded input sections
                 0x0000000000000000        0x6 ./RVMSIS/core_riscv.o
  .text.__get_MHARTID
                 0x0000000000000000        0x6 ./RVMSIS/core_riscv.o
- .debug_info    0x0000000000000000      0x5a7 ./RVMSIS/core_riscv.o
- .debug_abbrev  0x0000000000000000      0x116 ./RVMSIS/core_riscv.o
+ .debug_info    0x0000000000000000      0x624 ./RVMSIS/core_riscv.o
+ .debug_abbrev  0x0000000000000000      0x10d ./RVMSIS/core_riscv.o
  .debug_aranges
                 0x0000000000000000      0x138 ./RVMSIS/core_riscv.o
- .debug_rnglists
-                0x0000000000000000      0x151 ./RVMSIS/core_riscv.o
- .debug_line    0x0000000000000000      0x649 ./RVMSIS/core_riscv.o
- .debug_str     0x0000000000000000      0x337 ./RVMSIS/core_riscv.o
- .debug_line_str
-                0x0000000000000000      0x172 ./RVMSIS/core_riscv.o
- .comment       0x0000000000000000       0x32 ./RVMSIS/core_riscv.o
+ .debug_ranges  0x0000000000000000      0x128 ./RVMSIS/core_riscv.o
+ .debug_line    0x0000000000000000      0x70b ./RVMSIS/core_riscv.o
+ .debug_str     0x0000000000000000      0x371 ./RVMSIS/core_riscv.o
+ .comment       0x0000000000000000       0x34 ./RVMSIS/core_riscv.o
  .debug_frame   0x0000000000000000      0x250 ./RVMSIS/core_riscv.o
- .riscv.attributes
-                0x0000000000000000       0x2f ./RVMSIS/core_riscv.o
  .text          0x0000000000000000        0x0 ./HAL/ISP.o
  .data          0x0000000000000000        0x0 ./HAL/ISP.o
  .bss           0x0000000000000000        0x0 ./HAL/ISP.o
@@ -1167,22 +1061,16 @@ Discarded input sections
                 0x0000000000000000        0x4 ./HAL/SLEEP.o
  .text.HAL_SleepInit
                 0x0000000000000000        0x2 ./HAL/SLEEP.o
- .debug_info    0x0000000000000000       0xc5 ./HAL/SLEEP.o
- .debug_abbrev  0x0000000000000000       0x7e ./HAL/SLEEP.o
- .debug_loclists
-                0x0000000000000000       0x26 ./HAL/SLEEP.o
+ .debug_info    0x0000000000000000      0xf9f ./HAL/SLEEP.o
+ .debug_abbrev  0x0000000000000000      0x21a ./HAL/SLEEP.o
+ .debug_loc     0x0000000000000000       0x21 ./HAL/SLEEP.o
  .debug_aranges
                 0x0000000000000000       0x28 ./HAL/SLEEP.o
- .debug_rnglists
-                0x0000000000000000       0x1f ./HAL/SLEEP.o
- .debug_line    0x0000000000000000       0x88 ./HAL/SLEEP.o
- .debug_str     0x0000000000000000      0x188 ./HAL/SLEEP.o
- .debug_line_str
-                0x0000000000000000      0x15d ./HAL/SLEEP.o
- .comment       0x0000000000000000       0x32 ./HAL/SLEEP.o
+ .debug_ranges  0x0000000000000000       0x18 ./HAL/SLEEP.o
+ .debug_line    0x0000000000000000      0x336 ./HAL/SLEEP.o
+ .debug_str     0x0000000000000000      0xaff ./HAL/SLEEP.o
+ .comment       0x0000000000000000       0x34 ./HAL/SLEEP.o
  .debug_frame   0x0000000000000000       0x30 ./HAL/SLEEP.o
- .riscv.attributes
-                0x0000000000000000       0x2b ./HAL/SLEEP.o
  .text          0x0000000000000000        0x0 ./HAL/USB.o
  .data          0x0000000000000000        0x0 ./HAL/USB.o
  .bss           0x0000000000000000        0x0 ./HAL/USB.o
@@ -4301,32 +4189,27 @@ Discarded input sections
  .text.ATT_HandleValueInd
                 0x0000000000000000       0x3a E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(att_server.o)
  .comment       0x0000000000000000       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(att_server.o)
- .text          0x0000000000000000        0x0 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a(_lshrdi3.o)
- .data          0x0000000000000000        0x0 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a(_lshrdi3.o)
- .bss           0x0000000000000000        0x0 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a(_lshrdi3.o)
+ .text          0x0000000000000000        0x0 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_lshrdi3.o)
+ .data          0x0000000000000000        0x0 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_lshrdi3.o)
+ .bss           0x0000000000000000        0x0 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_lshrdi3.o)
  .text.__lshrdi3
-                0x0000000000000000       0x26 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a(_lshrdi3.o)
- .comment       0x0000000000000000       0x32 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a(_lshrdi3.o)
- .riscv.attributes
-                0x0000000000000000       0x2b d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a(_lshrdi3.o)
- .text          0x0000000000000000        0x0 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a(_ashldi3.o)
- .data          0x0000000000000000        0x0 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a(_ashldi3.o)
- .bss           0x0000000000000000        0x0 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a(_ashldi3.o)
+                0x0000000000000000       0x2c d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_lshrdi3.o)
+ .debug_frame   0x0000000000000000       0x20 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_lshrdi3.o)
+ .text          0x0000000000000000        0x0 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_ashldi3.o)
+ .data          0x0000000000000000        0x0 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_ashldi3.o)
+ .bss           0x0000000000000000        0x0 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_ashldi3.o)
  .text.__ashldi3
-                0x0000000000000000       0x26 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a(_ashldi3.o)
- .comment       0x0000000000000000       0x32 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a(_ashldi3.o)
- .riscv.attributes
-                0x0000000000000000       0x2b d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a(_ashldi3.o)
- .text          0x0000000000000000        0x0 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a(_ashrdi3.o)
- .data          0x0000000000000000        0x0 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a(_ashrdi3.o)
- .bss           0x0000000000000000        0x0 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a(_ashrdi3.o)
+                0x0000000000000000       0x2c d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_ashldi3.o)
+ .debug_frame   0x0000000000000000       0x20 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_ashldi3.o)
+ .text          0x0000000000000000        0x0 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_ashrdi3.o)
+ .data          0x0000000000000000        0x0 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_ashrdi3.o)
+ .bss           0x0000000000000000        0x0 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_ashrdi3.o)
  .text.__ashrdi3
-                0x0000000000000000       0x2c d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a(_ashrdi3.o)
- .comment       0x0000000000000000       0x32 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a(_ashrdi3.o)
- .riscv.attributes
-                0x0000000000000000       0x2b d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a(_ashrdi3.o)
- .data          0x0000000000000000        0x0 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0/../../../../riscv-none-elf/lib\libg_nano.a(lib_a-memcpy-asm.o)
- .bss           0x0000000000000000        0x0 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0/../../../../riscv-none-elf/lib\libg_nano.a(lib_a-memcpy-asm.o)
+                0x0000000000000000       0x2e d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_ashrdi3.o)
+ .debug_frame   0x0000000000000000       0x20 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a(_ashrdi3.o)
+ .text          0x0000000000000000        0x0 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libg_nano.a(lib_a-memcpy.o)
+ .data          0x0000000000000000        0x0 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libg_nano.a(lib_a-memcpy.o)
+ .bss           0x0000000000000000        0x0 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libg_nano.a(lib_a-memcpy.o)
 
 Memory Configuration
 
@@ -4373,19 +4256,19 @@ LOAD ./APP/RF_PHY.o
 LOAD ./APP/RF_main.o
 LOAD E:\Project\tp78_v2\mounriver_project\RF_CH582M\StdPeriphDriver\libISP583.a
 LOAD E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a
-LOAD d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a
-LOAD d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0/../../../../riscv-none-elf/lib\libg_nano.a
-LOAD d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0/../../../../riscv-none-elf/lib\libc_nano.a
-LOAD d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a
+LOAD d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a
+LOAD d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libg_nano.a
+LOAD d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a
+LOAD d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a
 START GROUP
-LOAD d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a
-LOAD d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0/../../../../riscv-none-elf/lib\libc_nano.a
-LOAD d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0/../../../../riscv-none-elf/lib\libnosys.a
+LOAD d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a
+LOAD d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a
+LOAD d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libnosys.a
 END GROUP
 START GROUP
-LOAD d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0\libgcc.a
-LOAD d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0/../../../../riscv-none-elf/lib\libc_nano.a
-LOAD d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0/../../../../riscv-none-elf/lib\libnosys.a
+LOAD d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imac/ilp32\libgcc.a
+LOAD d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libc_nano.a
+LOAD d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libnosys.a
 END GROUP
 
 .init           0x0000000000000000        0x4
@@ -4402,7 +4285,7 @@ END GROUP
                 0x0000000000000004                . = ALIGN (0x4)
                 0x0000000000000004                PROVIDE (_highcode_lma = .)
 
-.highcode       0x0000000020000000     0x1824 load address 0x0000000000000004
+.highcode       0x0000000020000000     0x1814 load address 0x0000000000000004
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                PROVIDE (_highcode_vma_start = .)
  *(.vector)
@@ -4447,499 +4330,536 @@ END GROUP
                 0x000000002000035c                RTC_IRQHandler
  .highcode      0x0000000020000372        0xc ./HAL/USB.o
                 0x0000000020000372                USB_IRQHandler
- .highcode      0x000000002000037e       0xd6 ./APP/RF_PHY.o
+ .highcode      0x000000002000037e       0xc6 ./APP/RF_PHY.o
                 0x000000002000037e                TMR0_IRQHandler
- .highcode      0x0000000020000454        0x8 ./APP/RF_main.o
-                0x0000000020000454                Main_Circulation
- .highcode      0x000000002000045c      0x426 E:\Project\tp78_v2\mounriver_project\RF_CH582M\StdPeriphDriver\libISP583.a(ISP583.o)
-                0x000000002000045c                FLASH_ROM_BEG
-                0x000000002000046e                FLASH_ROM_END
-                0x000000002000047c                FLASH_ROM_IN
-                0x000000002000048a                FLASH_ROM_OUT
-                0x0000000020000498                FLASH_ROM_ADDR
-                0x00000000200004e0                FLASH_ROM_WAIT
-                0x0000000020000518                FLASH_EEPROM_CMD
- .highcode      0x0000000020000882      0x44a E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
-                0x0000000020000882                tmos_memcpy
-                0x00000000200008a2                tmos_memcpy_word
-                0x00000000200008ba                tmos_memset
-                0x00000000200008cc                tmos_strlen
-                0x00000000200008e0                tmos_memdup
-                0x0000000020000912                tmos_memcmp
-                0x0000000020000940                tmos_revmemcpy
-                0x000000002000095c                tmos_isbufset
-                0x000000002000097e                tmos_proces_system_time
-                0x0000000020000ac8                TMOS_SystemProcess
- .highcode      0x0000000020000ccc       0x4c E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos_hw.o)
-                0x0000000020000d16                TMOS_TimerIRQHandler
- .highcode      0x0000000020000d18      0x14e E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(bb.o)
-                0x0000000020000d18                BB_IRQLibHandler
- .highcode      0x0000000020000e66      0x3ee E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ip.o)
-                0x0000000020000e66                ll_rx_wait_finish
-                0x0000000020000ea4                ble_ll_chkcrc
-                0x0000000020000f6e                ll_tx_wait_finish
-                0x0000000020001092                BLE_CheckHoppingMap
- .highcode      0x0000000020001254      0x212 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(lle.o)
-                0x0000000020001254                LLE_IRQLibHandler
- .highcode      0x0000000020001466      0x1d2 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
-                0x0000000020001466                RF_HopGetChannel
-                0x00000000200014e8                RF_FrequencyHoppingGet
-                0x000000002000159e                RF_FrequencyHoppingChange
- .highcode      0x0000000020001638       0x30 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
-                0x0000000020001638                RFEND_WaitTune
- .highcode      0x0000000020001668      0x1ba E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(memory.o)
-                0x0000000020001668                tmos_memory_allocate
-                0x000000002000173a                tmos_memory_free
+ .highcode      0x0000000020000444        0x8 ./APP/RF_main.o
+                0x0000000020000444                Main_Circulation
+ .highcode      0x000000002000044c      0x426 E:\Project\tp78_v2\mounriver_project\RF_CH582M\StdPeriphDriver\libISP583.a(ISP583.o)
+                0x000000002000044c                FLASH_ROM_BEG
+                0x000000002000045e                FLASH_ROM_END
+                0x000000002000046c                FLASH_ROM_IN
+                0x000000002000047a                FLASH_ROM_OUT
+                0x0000000020000488                FLASH_ROM_ADDR
+                0x00000000200004d0                FLASH_ROM_WAIT
+                0x0000000020000508                FLASH_EEPROM_CMD
+ .highcode      0x0000000020000872      0x44a E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
+                0x0000000020000872                tmos_memcpy
+                0x0000000020000892                tmos_memcpy_word
+                0x00000000200008aa                tmos_memset
+                0x00000000200008bc                tmos_strlen
+                0x00000000200008d0                tmos_memdup
+                0x0000000020000902                tmos_memcmp
+                0x0000000020000930                tmos_revmemcpy
+                0x000000002000094c                tmos_isbufset
+                0x000000002000096e                tmos_proces_system_time
+                0x0000000020000ab8                TMOS_SystemProcess
+ .highcode      0x0000000020000cbc       0x4c E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos_hw.o)
+                0x0000000020000d06                TMOS_TimerIRQHandler
+ .highcode      0x0000000020000d08      0x14e E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(bb.o)
+                0x0000000020000d08                BB_IRQLibHandler
+ .highcode      0x0000000020000e56      0x3ee E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ip.o)
+                0x0000000020000e56                ll_rx_wait_finish
+                0x0000000020000e94                ble_ll_chkcrc
+                0x0000000020000f5e                ll_tx_wait_finish
+                0x0000000020001082                BLE_CheckHoppingMap
+ .highcode      0x0000000020001244      0x212 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(lle.o)
+                0x0000000020001244                LLE_IRQLibHandler
+ .highcode      0x0000000020001456      0x1d2 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
+                0x0000000020001456                RF_HopGetChannel
+                0x00000000200014d8                RF_FrequencyHoppingGet
+                0x000000002000158e                RF_FrequencyHoppingChange
+ .highcode      0x0000000020001628       0x30 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
+                0x0000000020001628                RFEND_WaitTune
+ .highcode      0x0000000020001658      0x1ba E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(memory.o)
+                0x0000000020001658                tmos_memory_allocate
+                0x000000002000172a                tmos_memory_free
  *(.highcode.*)
-                0x0000000020001824                . = ALIGN (0x4)
- *fill*         0x0000000020001822        0x2 
-                0x0000000020001824                PROVIDE (_highcode_vma_end = .)
+                0x0000000020001814                . = ALIGN (0x4)
+ *fill*         0x0000000020001812        0x2 
+                0x0000000020001814                PROVIDE (_highcode_vma_end = .)
 
-.text           0x0000000000001828     0x4d70
-                0x0000000000001828                . = ALIGN (0x4)
+.text           0x0000000000001818     0x4e64
+                0x0000000000001818                . = ALIGN (0x4)
  *(SORT_NONE(.handle_reset))
- .handle_reset  0x0000000000001828       0xae ./Startup/startup_CH583.o
-                0x0000000000001828                handle_reset
+ .handle_reset  0x0000000000001818       0xae ./Startup/startup_CH583.o
+                0x0000000000001818                handle_reset
  *(.text)
- .text          0x00000000000018d6       0x16 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0/../../../../riscv-none-elf/lib\libg_nano.a(lib_a-memcpy-asm.o)
-                0x00000000000018d6                memcpy
  *(.text.*)
  .text.ADC_InterTSSampInit
-                0x00000000000018ec       0x28 ./StdPeriphDriver/CH58x_adc.o
-                0x00000000000018ec                ADC_InterTSSampInit
+                0x00000000000018c6       0x28 ./StdPeriphDriver/CH58x_adc.o
+                0x00000000000018c6                ADC_InterTSSampInit
  .text.Calibration_LSI
-                0x0000000000001914      0x29a ./StdPeriphDriver/CH58x_clk.o
-                0x0000000000001914                Calibration_LSI
+                0x00000000000018ee      0x2a6 ./StdPeriphDriver/CH58x_clk.o
+                0x00000000000018ee                Calibration_LSI
  .text.RTC_InitTime
-                0x0000000000001bae      0x1a8 ./StdPeriphDriver/CH58x_clk.o
-                0x0000000000001bae                RTC_InitTime
+                0x0000000000001b94      0x18e ./StdPeriphDriver/CH58x_clk.o
+                0x0000000000001b94                RTC_InitTime
  .text.GPIOB_ModeCfg
-                0x0000000000001d56       0x9e ./StdPeriphDriver/CH58x_gpio.o
-                0x0000000000001d56                GPIOB_ModeCfg
+                0x0000000000001d22       0xa6 ./StdPeriphDriver/CH58x_gpio.o
+                0x0000000000001d22                GPIOB_ModeCfg
  .text.GetSysClock
-                0x0000000000001df4       0x40 ./StdPeriphDriver/CH58x_sys.o
-                0x0000000000001df4                GetSysClock
+                0x0000000000001dc8       0x42 ./StdPeriphDriver/CH58x_sys.o
+                0x0000000000001dc8                GetSysClock
  .text.SYS_GetSysTickCnt
-                0x0000000000001e34        0xa ./StdPeriphDriver/CH58x_sys.o
-                0x0000000000001e34                SYS_GetSysTickCnt
+                0x0000000000001e0a        0xa ./StdPeriphDriver/CH58x_sys.o
+                0x0000000000001e0a                SYS_GetSysTickCnt
  .text.TMR0_TimerInit
-                0x0000000000001e3e       0x14 ./StdPeriphDriver/CH58x_timer0.o
-                0x0000000000001e3e                TMR0_TimerInit
+                0x0000000000001e14       0x14 ./StdPeriphDriver/CH58x_timer0.o
+                0x0000000000001e14                TMR0_TimerInit
  .text.USB_DeviceInit
-                0x0000000000001e52       0x7e ./StdPeriphDriver/CH58x_usbdev.o
-                0x0000000000001e52                USB_DeviceInit
+                0x0000000000001e28       0x7e ./StdPeriphDriver/CH58x_usbdev.o
+                0x0000000000001e28                USB_DeviceInit
  .text.DevEP1_IN_Deal
-                0x0000000000001ed0       0x16 ./StdPeriphDriver/CH58x_usbdev.o
-                0x0000000000001ed0                DevEP1_IN_Deal
+                0x0000000000001ea6       0x16 ./StdPeriphDriver/CH58x_usbdev.o
+                0x0000000000001ea6                DevEP1_IN_Deal
  .text.DevEP2_IN_Deal
-                0x0000000000001ee6       0x16 ./StdPeriphDriver/CH58x_usbdev.o
-                0x0000000000001ee6                DevEP2_IN_Deal
+                0x0000000000001ebc       0x16 ./StdPeriphDriver/CH58x_usbdev.o
+                0x0000000000001ebc                DevEP2_IN_Deal
  .text.DevEP3_IN_Deal
-                0x0000000000001efc       0x16 ./StdPeriphDriver/CH58x_usbdev.o
-                0x0000000000001efc                DevEP3_IN_Deal
+                0x0000000000001ed2       0x16 ./StdPeriphDriver/CH58x_usbdev.o
+                0x0000000000001ed2                DevEP3_IN_Deal
  .text.DevEP4_IN_Deal
-                0x0000000000001f12       0x16 ./StdPeriphDriver/CH58x_usbdev.o
-                0x0000000000001f12                DevEP4_IN_Deal
- .text.HalLedBlink.part.0
-                0x0000000000001f28       0xa0 ./HAL/LED.o
+                0x0000000000001ee8       0x16 ./StdPeriphDriver/CH58x_usbdev.o
+                0x0000000000001ee8                DevEP4_IN_Deal
+ .text.HalLedBlink.part.2
+                0x0000000000001efe       0x9c ./HAL/LED.o
  .text.HalLedOnOff
-                0x0000000000001fc8       0x44 ./HAL/LED.o
-                0x0000000000001fc8                HalLedOnOff
- .text.HalLedSet
-                0x000000000000200c       0x8e ./HAL/LED.o
-                0x000000000000200c                HalLedSet
+                0x0000000000001f9a       0x4c ./HAL/LED.o
+                0x0000000000001f9a                HalLedOnOff
+ .text.HalLedSet.part.1
+                0x0000000000001fe6       0x56 ./HAL/LED.o
  .text.HalLedBlink
-                0x000000000000209a       0x1c ./HAL/LED.o
-                0x000000000000209a                HalLedBlink
+                0x000000000000203c       0x1c ./HAL/LED.o
+                0x000000000000203c                HalLedBlink
+ .text.HalLedSet
+                0x0000000000002058       0x44 ./HAL/LED.o
+                0x0000000000002058                HalLedSet
  .text.HAL_LedInit
-                0x00000000000020b6       0x36 ./HAL/LED.o
-                0x00000000000020b6                HAL_LedInit
+                0x000000000000209c       0x36 ./HAL/LED.o
+                0x000000000000209c                HAL_LedInit
  .text.HalLedUpdate
-                0x00000000000020ec      0x150 ./HAL/LED.o
-                0x00000000000020ec                HalLedUpdate
+                0x00000000000020d2      0x16c ./HAL/LED.o
+                0x00000000000020d2                HalLedUpdate
  .text.Lib_Calibration_LSI
-                0x000000000000223c        0x6 ./HAL/MCU.o
-                0x000000000000223c                Lib_Calibration_LSI
+                0x000000000000223e        0x6 ./HAL/MCU.o
+                0x000000000000223e                Lib_Calibration_LSI
  .text.Lib_Read_Flash
-                0x0000000000002242       0x1c ./HAL/MCU.o
-                0x0000000000002242                Lib_Read_Flash
+                0x0000000000002244       0x1c ./HAL/MCU.o
+                0x0000000000002244                Lib_Read_Flash
  .text.Lib_Write_Flash
-                0x000000000000225e       0x3c ./HAL/MCU.o
-                0x000000000000225e                Lib_Write_Flash
+                0x0000000000002260       0x40 ./HAL/MCU.o
+                0x0000000000002260                Lib_Write_Flash
  .text.HAL_GetInterTempValue
-                0x000000000000229a       0x72 ./HAL/MCU.o
-                0x000000000000229a                HAL_GetInterTempValue
+                0x00000000000022a0       0x72 ./HAL/MCU.o
+                0x00000000000022a0                HAL_GetInterTempValue
  .text.HAL_ProcessEvent
-                0x000000000000230c       0x74 ./HAL/MCU.o
-                0x000000000000230c                HAL_ProcessEvent
+                0x0000000000002312       0x76 ./HAL/MCU.o
+                0x0000000000002312                HAL_ProcessEvent
  .text.CH58X_BLEInit
-                0x0000000000002380      0x106 ./HAL/MCU.o
-                0x0000000000002380                CH58X_BLEInit
+                0x0000000000002388      0x114 ./HAL/MCU.o
+                0x0000000000002388                CH58X_BLEInit
  .text.HAL_Init
-                0x0000000000002486       0x36 ./HAL/MCU.o
-                0x0000000000002486                HAL_Init
+                0x000000000000249c       0x36 ./HAL/MCU.o
+                0x000000000000249c                HAL_Init
  .text.HAL_TimeInit
-                0x00000000000024bc       0x56 ./HAL/RTC.o
-                0x00000000000024bc                HAL_TimeInit
+                0x00000000000024d2       0x56 ./HAL/RTC.o
+                0x00000000000024d2                HAL_TimeInit
  .text.USB_ProcessEvent
-                0x0000000000002512       0xcc ./HAL/USB.o
-                0x0000000000002512                USB_ProcessEvent
+                0x0000000000002528       0xd8 ./HAL/USB.o
+                0x0000000000002528                USB_ProcessEvent
  .text.HAL_USBInit
-                0x00000000000025de       0x58 ./HAL/USB.o
-                0x00000000000025de                HAL_USBInit
+                0x0000000000002600       0x58 ./HAL/USB.o
+                0x0000000000002600                HAL_USBInit
  .text.DevEP1_OUT_Deal
-                0x0000000000002636       0x26 ./HAL/USB.o
-                0x0000000000002636                DevEP1_OUT_Deal
+                0x0000000000002658       0x26 ./HAL/USB.o
+                0x0000000000002658                DevEP1_OUT_Deal
  .text.DevEP2_OUT_Deal
-                0x000000000000265c       0x26 ./HAL/USB.o
-                0x000000000000265c                DevEP2_OUT_Deal
+                0x000000000000267e       0x26 ./HAL/USB.o
+                0x000000000000267e                DevEP2_OUT_Deal
  .text.DevEP3_OUT_Deal
-                0x0000000000002682       0x26 ./HAL/USB.o
-                0x0000000000002682                DevEP3_OUT_Deal
+                0x00000000000026a4       0x26 ./HAL/USB.o
+                0x00000000000026a4                DevEP3_OUT_Deal
  .text.DevEP4_OUT_Deal
-                0x00000000000026a8       0x2c ./HAL/USB.o
-                0x00000000000026a8                DevEP4_OUT_Deal
+                0x00000000000026ca       0x26 ./HAL/USB.o
+                0x00000000000026ca                DevEP4_OUT_Deal
  .text.USB_DevTransProcess
-                0x00000000000026d4      0x4de ./HAL/USB.o
-                0x00000000000026d4                USB_DevTransProcess
+                0x00000000000026f0      0x4f2 ./HAL/USB.o
+                0x00000000000026f0                USB_DevTransProcess
  .text.RF_2G4StatusCallBack
-                0x0000000000002bb2       0xb8 ./APP/RF_PHY.o
-                0x0000000000002bb2                RF_2G4StatusCallBack
+                0x0000000000002be2       0xb8 ./APP/RF_PHY.o
+                0x0000000000002be2                RF_2G4StatusCallBack
  .text.RF_ProcessEvent
-                0x0000000000002c6a       0x70 ./APP/RF_PHY.o
-                0x0000000000002c6a                RF_ProcessEvent
- .text.RF_Init  0x0000000000002cda       0xa6 ./APP/RF_PHY.o
-                0x0000000000002cda                RF_Init
+                0x0000000000002c9a       0x6a ./APP/RF_PHY.o
+                0x0000000000002c9a                RF_ProcessEvent
+ .text.RF_Init  0x0000000000002d04       0xa2 ./APP/RF_PHY.o
+                0x0000000000002d04                RF_Init
  .text.startup.main
-                0x0000000000002d80       0x2a ./APP/RF_main.o
-                0x0000000000002d80                main
+                0x0000000000002da6       0x2a ./APP/RF_main.o
+                0x0000000000002da6                main
  .text.tmos_msg_deallocate
-                0x0000000000002daa       0x2c E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(message.o)
-                0x0000000000002daa                tmos_msg_deallocate
+                0x0000000000002dd0       0x2c E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(message.o)
+                0x0000000000002dd0                tmos_msg_deallocate
  .text.tmos_msg_receive
-                0x0000000000002dd6       0x70 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(message.o)
-                0x0000000000002dd6                tmos_msg_receive
+                0x0000000000002dfc       0x70 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(message.o)
+                0x0000000000002dfc                tmos_msg_receive
  .text.tmos_msg_init
-                0x0000000000002e46        0xa E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(message.o)
-                0x0000000000002e46                tmos_msg_init
+                0x0000000000002e6c        0xa E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(message.o)
+                0x0000000000002e6c                tmos_msg_init
  .text.tmosFindTask
-                0x0000000000002e50       0x24 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
+                0x0000000000002e76       0x24 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
  .text.TMOS_CB_PeriodicProcessEvent
-                0x0000000000002e74       0x86 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
-                0x0000000000002e74                TMOS_CB_PeriodicProcessEvent
+                0x0000000000002e9a       0x86 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
+                0x0000000000002e9a                TMOS_CB_PeriodicProcessEvent
  .text.TMOS_CB_ProcessEvent
-                0x0000000000002efa       0x80 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
-                0x0000000000002efa                TMOS_CB_ProcessEvent
+                0x0000000000002f20       0x80 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
+                0x0000000000002f20                TMOS_CB_ProcessEvent
  .text.tmos_proces_sleep
-                0x0000000000002f7a      0x132 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
-                0x0000000000002f7a                tmos_proces_sleep
+                0x0000000000002fa0      0x132 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
+                0x0000000000002fa0                tmos_proces_sleep
  .text.TMOS_GetSystemClock
-                0x00000000000030ac       0x32 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
-                0x00000000000030ac                TMOS_GetSystemClock
+                0x00000000000030d2       0x32 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
+                0x00000000000030d2                TMOS_GetSystemClock
  .text.tmos_set_event
-                0x00000000000030de       0x2e E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
-                0x00000000000030de                tmos_set_event
+                0x0000000000003104       0x2e E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
+                0x0000000000003104                tmos_set_event
  .text.tmos_clear_event
-                0x000000000000310c       0x32 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
-                0x000000000000310c                tmos_clear_event
+                0x0000000000003132       0x32 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
+                0x0000000000003132                tmos_clear_event
  .text.tmos_start_task
-                0x000000000000313e       0xe0 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
-                0x000000000000313e                tmos_start_task
+                0x0000000000003164       0xe0 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
+                0x0000000000003164                tmos_start_task
  .text.tmos_stop_task
-                0x000000000000321e       0x4e E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
-                0x000000000000321e                tmos_stop_task
+                0x0000000000003244       0x4e E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
+                0x0000000000003244                tmos_stop_task
  .text.TMOS_TimerRegister
-                0x000000000000326c       0x1e E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
-                0x000000000000326c                TMOS_TimerRegister
+                0x0000000000003292       0x1e E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
+                0x0000000000003292                TMOS_TimerRegister
  .text.TMOS_ProcessRegister
-                0x000000000000328a       0x16 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
-                0x000000000000328a                TMOS_ProcessRegister
+                0x00000000000032b0       0x16 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
+                0x00000000000032b0                TMOS_ProcessRegister
  .text.TMOS_Init
-                0x00000000000032a0       0xf6 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
-                0x00000000000032a0                TMOS_Init
+                0x00000000000032c6       0xf6 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
+                0x00000000000032c6                TMOS_Init
  .text.TMOS_ProcessEventRegister
-                0x0000000000003396       0x3c E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
-                0x0000000000003396                TMOS_ProcessEventRegister
+                0x00000000000033bc       0x3c E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
+                0x00000000000033bc                TMOS_ProcessEventRegister
  .text.BLE_LibInit
-                0x00000000000033d2      0x176 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
-                0x00000000000033d2                BLE_LibInit
+                0x00000000000033f8      0x176 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
+                0x00000000000033f8                BLE_LibInit
  .text.clockGetTickValve
-                0x0000000000003548       0x56 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos_hw.o)
+                0x000000000000356e       0x56 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos_hw.o)
  .text.TMOS_TempSample
-                0x000000000000359e       0x62 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos_hw.o)
-                0x000000000000359e                TMOS_TempSample
+                0x00000000000035c4       0x62 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos_hw.o)
+                0x00000000000035c4                TMOS_TempSample
  .text.TMOS_TimerInit
-                0x0000000000003600       0xc8 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos_hw.o)
-                0x0000000000003600                TMOS_TimerInit
+                0x0000000000003626       0xc8 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos_hw.o)
+                0x0000000000003626                TMOS_TimerInit
  .text.tmos_snv_init
-                0x00000000000036c8       0xc0 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos_snv.o)
-                0x00000000000036c8                tmos_snv_init
+                0x00000000000036ee       0xc0 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos_snv.o)
+                0x00000000000036ee                tmos_snv_init
  .text.LL_GetNextConnectEventTime
-                0x0000000000003788      0x190 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ll_connect.o)
-                0x0000000000003788                LL_GetNextConnectEventTime
+                0x00000000000037ae      0x190 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ll_connect.o)
+                0x00000000000037ae                LL_GetNextConnectEventTime
  .text.LL_ScanSetRF
-                0x0000000000003918      0x15e E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ll_scan.o)
-                0x0000000000003918                LL_ScanSetRF
+                0x000000000000393e      0x15e E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ll_scan.o)
+                0x000000000000393e                LL_ScanSetRF
  .text.BB_DevInit
-                0x0000000000003a76       0xb4 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(bb.o)
-                0x0000000000003a76                BB_DevInit
+                0x0000000000003a9c       0xb4 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(bb.o)
+                0x0000000000003a9c                BB_DevInit
  .text.BLE_SetPHYTxMode
-                0x0000000000003b2a      0x12c E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ip.o)
-                0x0000000000003b2a                BLE_SetPHYTxMode
+                0x0000000000003b50      0x12c E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ip.o)
+                0x0000000000003b50                BLE_SetPHYTxMode
  .text.BLE_SetPHYRxMode
-                0x0000000000003c56      0x100 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ip.o)
-                0x0000000000003c56                BLE_SetPHYRxMode
+                0x0000000000003c7c      0x100 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ip.o)
+                0x0000000000003c7c                BLE_SetPHYRxMode
  .text.ll_multi_states_check
-                0x0000000000003d56       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ip.o)
-                0x0000000000003d56                ll_multi_states_check
+                0x0000000000003d7c       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ip.o)
+                0x0000000000003d7c                ll_multi_states_check
  .text.ll_multi_states_process
-                0x0000000000003d8a       0xa4 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ip.o)
-                0x0000000000003d8a                ll_multi_states_process
+                0x0000000000003db0       0xa4 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ip.o)
+                0x0000000000003db0                ll_multi_states_process
  .text.ble_ll_hw_api_shut
-                0x0000000000003e2e       0x8c E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ip.o)
-                0x0000000000003e2e                ble_ll_hw_api_shut
+                0x0000000000003e54       0x8c E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ip.o)
+                0x0000000000003e54                ble_ll_hw_api_shut
  .text.BLE_RegInit
-                0x0000000000003eba       0xba E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ip.o)
-                0x0000000000003eba                BLE_RegInit
+                0x0000000000003ee0       0xba E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ip.o)
+                0x0000000000003ee0                BLE_RegInit
  .text.BLE_IPCoreInit
-                0x0000000000003f74       0x7c E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ip.o)
-                0x0000000000003f74                BLE_IPCoreInit
+                0x0000000000003f9a       0x7c E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ip.o)
+                0x0000000000003f9a                BLE_IPCoreInit
  .text.LLE_DevInit
-                0x0000000000003ff0       0x58 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(lle.o)
-                0x0000000000003ff0                LLE_DevInit
+                0x0000000000004016       0x58 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(lle.o)
+                0x0000000000004016                LLE_DevInit
  .text.RF_DevSetChannel
-                0x0000000000004048      0x138 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
-                0x0000000000004048                RF_DevSetChannel
- .text.rf_stop  0x0000000000004180       0x1e E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
-                0x0000000000004180                rf_stop
+                0x000000000000406e      0x138 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
+                0x000000000000406e                RF_DevSetChannel
+ .text.rf_stop  0x00000000000041a6       0x1e E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
+                0x00000000000041a6                rf_stop
  .text.RF_TxProcess
-                0x000000000000419e      0x198 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
-                0x000000000000419e                RF_TxProcess
+                0x00000000000041c4      0x198 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
+                0x00000000000041c4                RF_TxProcess
  .text.RF_Config
-                0x0000000000004336      0x11e E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
-                0x0000000000004336                RF_Config
- .text.RF_Tx    0x0000000000004454      0x2c6 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
-                0x0000000000004454                RF_Tx
- .text.RF_Rx    0x000000000000471a      0x204 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
-                0x000000000000471a                RF_Rx
+                0x000000000000435c      0x11e E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
+                0x000000000000435c                RF_Config
+ .text.RF_Tx    0x000000000000447a      0x2c6 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
+                0x000000000000447a                RF_Tx
+ .text.RF_Rx    0x0000000000004740      0x204 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
+                0x0000000000004740                RF_Rx
  .text.rfRxProcess
-                0x000000000000491e      0x582 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
- .text.RF_Shut  0x0000000000004ea0       0x90 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
-                0x0000000000004ea0                RF_Shut
+                0x0000000000004944      0x582 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
+ .text.RF_Shut  0x0000000000004ec6       0x90 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
+                0x0000000000004ec6                RF_Shut
  .text.RF_FrequencyHoppingShut
-                0x0000000000004f30       0x84 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
-                0x0000000000004f30                RF_FrequencyHoppingShut
+                0x0000000000004f56       0x84 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
+                0x0000000000004f56                RF_FrequencyHoppingShut
  .text.rf_hop_heart_beat
-                0x0000000000004fb4      0x14a E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
-                0x0000000000004fb4                rf_hop_heart_beat
+                0x0000000000004fda      0x14a E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
+                0x0000000000004fda                rf_hop_heart_beat
  .text.RFFH_ProcessEvent
-                0x00000000000050fe       0xf4 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
-                0x00000000000050fe                RFFH_ProcessEvent
+                0x0000000000005124       0xf4 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
+                0x0000000000005124                RFFH_ProcessEvent
  .text.RF_RoleInit
-                0x00000000000051f2       0x52 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
-                0x00000000000051f2                RF_RoleInit
+                0x0000000000005218       0x52 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
+                0x0000000000005218                RF_RoleInit
  .text.RFEND_Reset
-                0x0000000000005244       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
-                0x0000000000005244                RFEND_Reset
+                0x000000000000526a       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
+                0x000000000000526a                RFEND_Reset
  .text.RFEND_DevInit
-                0x0000000000005278      0x174 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
-                0x0000000000005278                RFEND_DevInit
+                0x000000000000529e      0x174 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
+                0x000000000000529e                RFEND_DevInit
  .text.RFEND_RXFilter
-                0x00000000000053ec       0x80 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
-                0x00000000000053ec                RFEND_RXFilter
+                0x0000000000005412       0x80 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
+                0x0000000000005412                RFEND_RXFilter
  .text.RFEND_RXAdc
-                0x000000000000546c       0x3a E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
-                0x000000000000546c                RFEND_RXAdc
+                0x0000000000005492       0x3a E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
+                0x0000000000005492                RFEND_RXAdc
  .text.RFEND_TXCtune
-                0x00000000000054a6      0xd16 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
-                0x00000000000054a6                RFEND_TXCtune
+                0x00000000000054cc      0xd16 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
+                0x00000000000054cc                RFEND_TXCtune
  .text.RFEND_TXFtune
-                0x00000000000061bc       0x14 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
-                0x00000000000061bc                RFEND_TXFtune
+                0x00000000000061e2       0x14 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
+                0x00000000000061e2                RFEND_TXFtune
  .text.tmos_memory_getlen
-                0x00000000000061d0       0x2c E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(memory.o)
-                0x00000000000061d0                tmos_memory_getlen
+                0x00000000000061f6       0x2c E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(memory.o)
+                0x00000000000061f6                tmos_memory_getlen
  .text.tmos_memory_init
-                0x00000000000061fc       0x78 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(memory.o)
-                0x00000000000061fc                tmos_memory_init
+                0x0000000000006222       0x78 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(memory.o)
+                0x0000000000006222                tmos_memory_init
  .text.LL_InitiateSetRF
-                0x0000000000006274      0x168 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ll_initiate.o)
-                0x0000000000006274                LL_InitiateSetRF
+                0x000000000000629a      0x168 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ll_initiate.o)
+                0x000000000000629a                LL_InitiateSetRF
+ .text.memcpy   0x0000000000006402       0xb6 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libg_nano.a(lib_a-memcpy.o)
+                0x0000000000006402                memcpy
  *(.rodata)
  *(.rodata*)
  .rodata.GPIOB_ModeCfg
-                0x00000000000063dc       0x14 ./StdPeriphDriver/CH58x_gpio.o
+                0x00000000000064b8       0x14 ./StdPeriphDriver/CH58x_gpio.o
+ .rodata.HalLedSet
+                0x00000000000064cc       0x24 ./HAL/LED.o
  .rodata.CH58X_BLEInit.str1.4
-                0x00000000000063f0       0x13 ./HAL/MCU.o
- *fill*         0x0000000000006403        0x1 
+                0x00000000000064f0       0x14 ./HAL/MCU.o
+                                         0x13 (size before relaxing)
  .rodata.USB_DevTransProcess
-                0x0000000000006404       0x4c ./HAL/USB.o
- .rodata.VolumeRepDesc
-                0x0000000000006450       0x21 ./HAL/USB.o
-                0x0000000000006450                VolumeRepDesc
- *fill*         0x0000000000006471        0x3 
- .rodata.MouseRepDesc
-                0x0000000000006474       0x34 ./HAL/USB.o
-                0x0000000000006474                MouseRepDesc
+                0x0000000000006504       0x2c ./HAL/USB.o
  .rodata.KeyRepDesc
-                0x00000000000064a8       0x3e ./HAL/USB.o
-                0x00000000000064a8                KeyRepDesc
- *fill*         0x00000000000064e6        0x2 
- .rodata.MyProdInfo
-                0x00000000000064e8        0xa ./HAL/USB.o
-                0x00000000000064e8                MyProdInfo
- *fill*         0x00000000000064f2        0x2 
- .rodata.MyManuInfo
-                0x00000000000064f4        0xe ./HAL/USB.o
-                0x00000000000064f4                MyManuInfo
- *fill*         0x0000000000006502        0x2 
+                0x0000000000006530       0x3e ./HAL/USB.o
+                0x0000000000006530                KeyRepDesc
+ *fill*         0x000000000000656e        0x2 
+ .rodata.MouseRepDesc
+                0x0000000000006570       0x34 ./HAL/USB.o
+                0x0000000000006570                MouseRepDesc
  .rodata.MyCfgDescr
-                0x0000000000006504       0x6b ./HAL/USB.o
-                0x0000000000006504                MyCfgDescr
- *fill*         0x000000000000656f        0x1 
+                0x00000000000065a4       0x6b ./HAL/USB.o
+                0x00000000000065a4                MyCfgDescr
+ *fill*         0x000000000000660f        0x1 
  .rodata.MyDevDescr
-                0x0000000000006570       0x12 ./HAL/USB.o
-                0x0000000000006570                MyDevDescr
- *fill*         0x0000000000006582        0x2 
+                0x0000000000006610       0x12 ./HAL/USB.o
+                0x0000000000006610                MyDevDescr
+ *fill*         0x0000000000006622        0x2 
+ .rodata.MyManuInfo
+                0x0000000000006624        0xe ./HAL/USB.o
+                0x0000000000006624                MyManuInfo
+ *fill*         0x0000000000006632        0x2 
+ .rodata.MyProdInfo
+                0x0000000000006634        0xa ./HAL/USB.o
+                0x0000000000006634                MyProdInfo
+ *fill*         0x000000000000663e        0x2 
+ .rodata.VolumeRepDesc
+                0x0000000000006640       0x21 ./HAL/USB.o
+                0x0000000000006640                VolumeRepDesc
+ *fill*         0x0000000000006661        0x3 
  .rodata.VER_LIB
-                0x0000000000006584       0x14 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ip.o)
-                0x0000000000006584                VER_LIB
+                0x0000000000006664       0x14 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ip.o)
+                0x0000000000006664                VER_LIB
  *(.sdata2.*)
+ .sdata2.MyLangDescr
+                0x0000000000006678        0x4 ./HAL/USB.o
+                0x0000000000006678                MyLangDescr
  *(.glue_7)
  *(.glue_7t)
  *(.gnu.linkonce.t.*)
-                0x0000000000006598                . = ALIGN (0x4)
+                0x000000000000667c                . = ALIGN (0x4)
 
-.rela.dyn       0x0000000000006598        0x0
- .rela.init     0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
- .rela.vector   0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+.rela.dyn       0x000000000000667c        0x0
+ .rela.text.USB_DeviceInit
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
+ .rela.init     0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
+ .rela.vector   0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.handle_reset
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
- .rela.text.tmos_msg_receive
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
- .rela.text.tmos_msg_init
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
- .rela.text.tmosFindTask
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
- .rela.text.TMOS_CB_PeriodicProcessEvent
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
- .rela.text.TMOS_CB_ProcessEvent
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
- .rela.text.tmos_proces_sleep
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
+ .rela.text.HalLedBlink.part.2
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
+ .rela.text.HalLedUpdate
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
+ .rela.text.HAL_ProcessEvent
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
+ .rela.text.CH58X_BLEInit
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
+ .rela.text.HAL_Init
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.highcode
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
+ .rela.text.USB_ProcessEvent
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
+ .rela.text.HAL_USBInit
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
+ .rela.text.DevEP1_OUT_Deal
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
+ .rela.text.DevEP2_OUT_Deal
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
+ .rela.text.DevEP3_OUT_Deal
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
+ .rela.text.DevEP4_OUT_Deal
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
+ .rela.text.USB_DevTransProcess
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
+ .rela.text.RF_2G4StatusCallBack
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
+ .rela.text.RF_Init
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
+ .rela.text.tmos_msg_receive
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
+ .rela.text.tmos_msg_init
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
+ .rela.text.tmosFindTask
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
+ .rela.text.TMOS_CB_PeriodicProcessEvent
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
+ .rela.text.TMOS_CB_ProcessEvent
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
+ .rela.text.tmos_proces_sleep
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.TMOS_GetSystemClock
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.tmos_set_event
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.tmos_clear_event
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.tmos_start_task
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.tmos_stop_task
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.TMOS_TimerRegister
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.TMOS_ProcessRegister
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.TMOS_Init
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.TMOS_ProcessEventRegister
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.BLE_LibInit
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.clockGetTickValve
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.TMOS_TempSample
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.TMOS_TimerInit
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.tmos_snv_init
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.LL_GetNextConnectEventTime
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.LL_ScanSetRF
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.BB_DevInit
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.BLE_SetPHYTxMode
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.BLE_SetPHYRxMode
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.ll_multi_states_check
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.ll_multi_states_process
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.ble_ll_hw_api_shut
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.BLE_RegInit
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.BLE_IPCoreInit
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.LLE_DevInit
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.RF_DevSetChannel
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.rf_stop
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.RF_TxProcess
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.RF_Config
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.RF_Tx
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.RF_Rx
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.rfRxProcess
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.RF_Shut
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.RF_FrequencyHoppingShut
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.rf_hop_heart_beat
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.RFFH_ProcessEvent
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.RF_RoleInit
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.RFEND_Reset
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.RFEND_DevInit
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.RFEND_RXFilter
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.RFEND_RXAdc
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.RFEND_TXCtune
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.RFEND_TXFtune
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.tmos_memory_getlen
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.tmos_memory_init
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
  .rela.text.LL_InitiateSetRF
-                0x0000000000006598        0x0 ./StdPeriphDriver/CH58x_clk.o
+                0x000000000000667c        0x0 ./StdPeriphDriver/CH58x_adc.o
 
-.fini           0x0000000000006598        0x0
+.fini           0x000000000000667c        0x0
  *(SORT_NONE(.fini))
-                0x0000000000006598                . = ALIGN (0x4)
+                0x000000000000667c                . = ALIGN (0x4)
                 [!provide]                        PROVIDE (_etext = .)
                 [!provide]                        PROVIDE (_eitcm = .)
 
-.preinit_array  0x0000000000006598        0x0
+.preinit_array  0x000000000000667c        0x0
                 [!provide]                        PROVIDE (__preinit_array_start = .)
  *(.preinit_array)
                 [!provide]                        PROVIDE (__preinit_array_end = .)
 
-.init_array     0x0000000000006598        0x0
+.init_array     0x000000000000667c        0x0
                 [!provide]                        PROVIDE (__init_array_start = .)
  *(SORT_BY_INIT_PRIORITY(.init_array.*) SORT_BY_INIT_PRIORITY(.ctors.*))
  *(.init_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .ctors)
                 [!provide]                        PROVIDE (__init_array_end = .)
 
-.fini_array     0x0000000000006598        0x0
+.fini_array     0x000000000000667c        0x0
                 [!provide]                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_INIT_PRIORITY(.fini_array.*) SORT_BY_INIT_PRIORITY(.dtors.*))
  *(.fini_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .dtors)
@@ -4959,168 +4879,139 @@ END GROUP
  *(SORT_BY_NAME(.dtors.*))
  *(.dtors)
 
-.dalign         0x0000000020001824        0x0 load address 0x0000000000006598
-                0x0000000020001824                . = (ORIGIN (RAM) + MAX (0x800, SIZEOF (.highcode)))
+.dalign         0x0000000020001814        0x0 load address 0x000000000000667c
+                0x0000000020001814                . = (ORIGIN (RAM) + MAX (0x800, SIZEOF (.highcode)))
 
-.dlalign        0x0000000000006598        0x0
-                0x0000000000006598                . = ALIGN (0x4)
-                0x0000000000006598                PROVIDE (_data_lma = .)
+.dlalign        0x000000000000667c        0x0
+                0x000000000000667c                . = ALIGN (0x4)
+                0x000000000000667c                PROVIDE (_data_lma = .)
 
-.data           0x0000000020001824       0x10 load address 0x0000000000006598
-                0x0000000020001824                . = ALIGN (0x4)
-                0x0000000020001824                PROVIDE (_data_vma = .)
+.data           0x0000000020001814        0xc load address 0x000000000000667c
+                0x0000000020001814                . = ALIGN (0x4)
+                0x0000000020001814                PROVIDE (_data_vma = .)
  *(.gnu.linkonce.r.*)
  *(.data .data.*)
  *(.gnu.linkonce.d.*)
-                0x0000000020001828                . = ALIGN (0x8)
- *fill*         0x0000000020001824        0x4 
-                0x0000000020002028                PROVIDE (__global_pointer$ = (. + 0x800))
+                0x0000000020001818                . = ALIGN (0x8)
+ *fill*         0x0000000020001814        0x4 
+                0x0000000020002018                PROVIDE (__global_pointer$ = (. + 0x800))
  *(.sdata .sdata.*)
  .sdata.usbTaskID
-                0x0000000020001828        0x1 ./HAL/USB.o
-                0x0000000020001828                usbTaskID
- *fill*         0x0000000020001829        0x3 
- .sdata.CAPSLOCK_DATA
-                0x000000002000182c        0x2 ./APP/RF_PHY.o
-                0x000000002000182c                CAPSLOCK_DATA
+                0x0000000020001818        0x1 ./HAL/USB.o
+                0x0000000020001818                usbTaskID
  *(.gnu.linkonce.s.*)
-                0x0000000020001830                . = ALIGN (0x8)
- *fill*         0x000000002000182e        0x2 
+                0x0000000020001820                . = ALIGN (0x8)
+ *fill*         0x0000000020001819        0x7 
  *(.srodata.cst16)
  *(.srodata.cst8)
  *(.srodata.cst4)
  *(.srodata.cst2)
  *(.srodata .srodata.*)
- .srodata.MyLangDescr
-                0x0000000020001830        0x4 ./HAL/USB.o
-                0x0000000020001830                MyLangDescr
-                0x0000000020001834                . = ALIGN (0x4)
-                0x0000000020001834                PROVIDE (_edata = .)
+                0x0000000020001820                . = ALIGN (0x4)
+                0x0000000020001820                PROVIDE (_edata = .)
 
-.bss            0x0000000020001838     0x1cf0 load address 0x00000000000065a8
-                0x0000000020001838                . = ALIGN (0x4)
-                0x0000000020001838                PROVIDE (_sbss = .)
+.bss            0x0000000020001820     0x1cf8 load address 0x0000000000006688
+                0x0000000020001820                . = ALIGN (0x4)
+                0x0000000020001820                PROVIDE (_sbss = .)
  *(.sbss*)
- .sbss.pEP3_RAM_Addr
-                0x0000000020001838        0x4 ./StdPeriphDriver/CH58x_usbdev.o
-                0x0000000020001838                pEP3_RAM_Addr
- .sbss.pEP2_RAM_Addr
-                0x000000002000183c        0x4 ./StdPeriphDriver/CH58x_usbdev.o
-                0x000000002000183c                pEP2_RAM_Addr
- .sbss.pEP1_RAM_Addr
-                0x0000000020001840        0x4 ./StdPeriphDriver/CH58x_usbdev.o
-                0x0000000020001840                pEP1_RAM_Addr
- .sbss.pEP0_RAM_Addr
-                0x0000000020001844        0x4 ./StdPeriphDriver/CH58x_usbdev.o
-                0x0000000020001844                pEP0_RAM_Addr
- .sbss.preBlinkState
-                0x0000000020001848        0x1 ./HAL/LED.o
  .sbss.HalLedState
-                0x0000000020001849        0x1 ./HAL/LED.o
- .sbss.halTaskID
-                0x000000002000184a        0x1 ./HAL/MCU.o
-                0x000000002000184a                halTaskID
- *fill*         0x000000002000184b        0x1 
- .sbss.RTCTigFlag
-                0x000000002000184c        0x4 ./HAL/RTC.o
-                0x000000002000184c                RTCTigFlag
+                0x0000000020001820        0x1 ./HAL/LED.o
+ .sbss.preBlinkState
+                0x0000000020001821        0x1 ./HAL/LED.o
  .sbss.USB_Ready
-                0x0000000020001850        0x1 ./HAL/USB.o
-                0x0000000020001850                USB_Ready
- *fill*         0x0000000020001851        0x3 
- .sbss.pDescr   0x0000000020001854        0x4 ./HAL/USB.o
-                0x0000000020001854                pDescr
- .sbss.SetupReqLen
-                0x0000000020001858        0x2 ./HAL/USB.o
-                0x0000000020001858                SetupReqLen
- .sbss.SetupReqCode
-                0x000000002000185a        0x1 ./HAL/USB.o
-                0x000000002000185a                SetupReqCode
- .sbss.DevConfig
-                0x000000002000185b        0x1 ./HAL/USB.o
-                0x000000002000185b                DevConfig
- .sbss.lastevent
-                0x000000002000185c        0x3 ./APP/RF_PHY.o
-                0x000000002000185c                lastevent
- *fill*         0x000000002000185f        0x1 
+                0x0000000020001822        0x1 ./HAL/USB.o
+                0x0000000020001822                USB_Ready
+ *fill*         0x0000000020001823        0x1 
+ .sbss.LEDOUT_DATA
+                0x0000000020001824        0x2 ./APP/RF_PHY.o
+                0x0000000020001824                LEDOUT_DATA
+ *fill*         0x0000000020001826        0x2 
  .sbss.heartbeat_cnt
-                0x0000000020001860        0x4 ./APP/RF_PHY.o
-                0x0000000020001860                heartbeat_cnt
- .sbss.RFtaskID
-                0x0000000020001864        0x1 ./APP/RF_PHY.o
-                0x0000000020001864                RFtaskID
- .sbss.nCO2401  0x0000000020001865        0x1 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
-                0x0000000020001865                nCO2401
- .sbss.nGA2401  0x0000000020001866        0x1 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
-                0x0000000020001866                nGA2401
+                0x0000000020001828        0x4 ./APP/RF_PHY.o
+                0x0000000020001828                heartbeat_cnt
+ .sbss.lastevent
+                0x000000002000182c        0x3 ./APP/RF_PHY.o
+                0x000000002000182c                lastevent
+ .sbss.nCO2401  0x000000002000182f        0x1 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
+                0x000000002000182f                nCO2401
+ .sbss.nGA2401  0x0000000020001830        0x1 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
+                0x0000000020001830                nGA2401
  .sbss.l2capNumRecvDataPkts
-                0x0000000020001867        0x1 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(l2cap.o)
-                0x0000000020001867                l2capNumRecvDataPkts
+                0x0000000020001831        0x1 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(l2cap.o)
+                0x0000000020001831                l2capNumRecvDataPkts
  *(.gnu.linkonce.sb.*)
  *(.bss*)
+ *fill*         0x0000000020001832        0x2 
  .bss.HalLedStatusControl
-                0x0000000020001868       0x34 ./HAL/LED.o
- .bss.EP3_Databuf
-                0x000000002000189c       0x80 ./HAL/USB.o
-                0x000000002000189c                EP3_Databuf
- .bss.EP2_Databuf
-                0x000000002000191c       0x80 ./HAL/USB.o
-                0x000000002000191c                EP2_Databuf
- .bss.EP1_Databuf
-                0x000000002000199c       0x80 ./HAL/USB.o
-                0x000000002000199c                EP1_Databuf
- .bss.EP0_Databuf
-                0x0000000020001a1c       0xc0 ./HAL/USB.o
-                0x0000000020001a1c                EP0_Databuf
- .bss.HID_dat   0x0000000020001adc        0x9 ./HAL/USB.o
-                0x0000000020001adc                HID_dat
- *fill*         0x0000000020001ae5        0x3 
- .bss.MEM_BUF   0x0000000020001ae8     0x1800 ./APP/RF_main.o
-                0x0000000020001ae8                MEM_BUF
+                0x0000000020001834       0x34 ./HAL/LED.o
  *(.gnu.linkonce.b.*)
  *(COMMON*)
- COMMON         0x00000000200032e8        0x4 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(message.o)
-                0x00000000200032e8                msg_qHead
- COMMON         0x00000000200032ec       0x9c E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
-                0x00000000200032ec                gTmosPara
-                0x0000000020003318                tasksArr
-                0x000000002000331c                pfnProcessCBs
-                0x0000000020003338                eventsClear
-                0x000000002000333c                EventsArr
-                0x0000000020003340                taskHead
-                0x0000000020003344                ble
-                0x0000000020003380                cbTimersHead
-                0x0000000020003384                pfnTimerCBs
- COMMON         0x0000000020003388        0x4 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos_hw.o)
-                0x0000000020003388                fnGetClockCBs
- COMMON         0x000000002000338c        0x4 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(aes.o)
-                0x000000002000338c                gptrAESReg
- COMMON         0x0000000020003390        0x4 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(bb.o)
-                0x0000000020003390                gptrBBReg
- COMMON         0x0000000020003394       0x20 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ip.o)
-                0x0000000020003394                gPaControl
-                0x0000000020003398                gBleIPPara
- COMMON         0x00000000200033b4        0x4 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(lle.o)
-                0x00000000200033b4                gptrLLEReg
- COMMON         0x00000000200033b8       0x3c E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
-                0x00000000200033b8                rfConfig
-                0x00000000200033d8                rfInfo
- COMMON         0x00000000200033f4        0xa E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
-                0x00000000200033f4                nGA2440
-                0x00000000200033f5                nGA2480
-                0x00000000200033f8                gptrRFENDReg
-                0x00000000200033fc                nCO2440
-                0x00000000200033fd                nCO2480
- *fill*         0x00000000200033fe        0x2 
- COMMON         0x0000000020003400        0xc E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(memory.o)
-                0x0000000020003400                MemCtlEnd
-                0x0000000020003404                MemCtlPartition
-                0x0000000020003408                MemCtlStart
- *fill*         0x000000002000340c        0x4 
- COMMON         0x0000000020003410      0x118 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ll.o)
-                0x0000000020003410                gBleLlPara
-                0x0000000020003528                . = ALIGN (0x4)
-                0x0000000020003528                PROVIDE (_ebss = .)
+ COMMON         0x0000000020001868       0x10 ./StdPeriphDriver/CH58x_usbdev.o
+                0x0000000020001868                pEP2_RAM_Addr
+                0x000000002000186c                pEP3_RAM_Addr
+                0x0000000020001870                pEP0_RAM_Addr
+                0x0000000020001874                pEP1_RAM_Addr
+ COMMON         0x0000000020001878        0x1 ./HAL/MCU.o
+                0x0000000020001878                halTaskID
+ *fill*         0x0000000020001879        0x3 
+ COMMON         0x000000002000187c        0x4 ./HAL/RTC.o
+                0x000000002000187c                RTCTigFlag
+ COMMON         0x0000000020001880      0x258 ./HAL/USB.o
+                0x0000000020001880                DevConfig
+                0x0000000020001882                SetupReqLen
+                0x0000000020001884                SetupReqCode
+                0x0000000020001888                pDescr
+                0x000000002000188c                EP0_Databuf
+                0x000000002000194c                EP1_Databuf
+                0x00000000200019cc                HID_dat
+                0x00000000200019d8                EP2_Databuf
+                0x0000000020001a58                EP3_Databuf
+ COMMON         0x0000000020001ad8        0x1 ./APP/RF_PHY.o
+                0x0000000020001ad8                RFtaskID
+ *fill*         0x0000000020001ad9        0x3 
+ COMMON         0x0000000020001adc     0x1800 ./APP/RF_main.o
+                0x0000000020001adc                MEM_BUF
+ COMMON         0x00000000200032dc        0x4 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(message.o)
+                0x00000000200032dc                msg_qHead
+ COMMON         0x00000000200032e0       0x9c E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
+                0x00000000200032e0                gTmosPara
+                0x000000002000330c                tasksArr
+                0x0000000020003310                pfnProcessCBs
+                0x000000002000332c                eventsClear
+                0x0000000020003330                EventsArr
+                0x0000000020003334                taskHead
+                0x0000000020003338                ble
+                0x0000000020003374                cbTimersHead
+                0x0000000020003378                pfnTimerCBs
+ COMMON         0x000000002000337c        0x4 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos_hw.o)
+                0x000000002000337c                fnGetClockCBs
+ COMMON         0x0000000020003380        0x4 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(aes.o)
+                0x0000000020003380                gptrAESReg
+ COMMON         0x0000000020003384        0x4 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(bb.o)
+                0x0000000020003384                gptrBBReg
+ COMMON         0x0000000020003388       0x20 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ip.o)
+                0x0000000020003388                gPaControl
+                0x000000002000338c                gBleIPPara
+ COMMON         0x00000000200033a8        0x4 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(lle.o)
+                0x00000000200033a8                gptrLLEReg
+ COMMON         0x00000000200033ac       0x3c E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
+                0x00000000200033ac                rfConfig
+                0x00000000200033cc                rfInfo
+ COMMON         0x00000000200033e8        0xa E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
+                0x00000000200033e8                nGA2440
+                0x00000000200033e9                nGA2480
+                0x00000000200033ec                gptrRFENDReg
+                0x00000000200033f0                nCO2440
+                0x00000000200033f1                nCO2480
+ *fill*         0x00000000200033f2        0x2 
+ COMMON         0x00000000200033f4        0xc E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(memory.o)
+                0x00000000200033f4                MemCtlEnd
+                0x00000000200033f8                MemCtlPartition
+                0x00000000200033fc                MemCtlStart
+ COMMON         0x0000000020003400      0x118 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ll.o)
+                0x0000000020003400                gBleLlPara
+                0x0000000020003518                . = ALIGN (0x4)
+                0x0000000020003518                PROVIDE (_ebss = .)
                 [!provide]                        PROVIDE (_end = _ebss)
                 [!provide]                        PROVIDE (end = .)
 
@@ -5129,60 +5020,50 @@ END GROUP
                 0x0000000020008000                PROVIDE (_eusrstack = .)
 OUTPUT(RF_CH582M.elf elf32-littleriscv)
 
-.debug_info     0x0000000000000000     0x4665
- .debug_info    0x0000000000000000      0x3d9 ./StdPeriphDriver/CH58x_adc.o
- .debug_info    0x00000000000003d9      0x713 ./StdPeriphDriver/CH58x_clk.o
- .debug_info    0x0000000000000aec      0x286 ./StdPeriphDriver/CH58x_gpio.o
- .debug_info    0x0000000000000d72      0x677 ./StdPeriphDriver/CH58x_sys.o
- .debug_info    0x00000000000013e9      0x1d4 ./StdPeriphDriver/CH58x_timer0.o
- .debug_info    0x00000000000015bd      0x1d3 ./StdPeriphDriver/CH58x_usbdev.o
- .debug_info    0x0000000000001790       0x23 ./Startup/startup_CH583.o
- .debug_info    0x00000000000017b3      0x15e ./HAL/ISP.o
- .debug_info    0x0000000000001911      0x5ca ./HAL/LED.o
- .debug_info    0x0000000000001edb      0xc64 ./HAL/MCU.o
- .debug_info    0x0000000000002b3f      0x203 ./HAL/RTC.o
- .debug_info    0x0000000000002d42      0xc0e ./HAL/USB.o
- .debug_info    0x0000000000003950      0xaea ./APP/RF_PHY.o
- .debug_info    0x000000000000443a      0x22b ./APP/RF_main.o
+.debug_info     0x0000000000000000     0xefa4
+ .debug_info    0x0000000000000000      0xfae ./StdPeriphDriver/CH58x_adc.o
+ .debug_info    0x0000000000000fae     0x131f ./StdPeriphDriver/CH58x_clk.o
+ .debug_info    0x00000000000022cd      0xe62 ./StdPeriphDriver/CH58x_gpio.o
+ .debug_info    0x000000000000312f     0x124a ./StdPeriphDriver/CH58x_sys.o
+ .debug_info    0x0000000000004379      0xdb4 ./StdPeriphDriver/CH58x_timer0.o
+ .debug_info    0x000000000000512d      0xd5b ./StdPeriphDriver/CH58x_usbdev.o
+ .debug_info    0x0000000000005e88       0x22 ./Startup/startup_CH583.o
+ .debug_info    0x0000000000005eaa     0x100b ./HAL/ISP.o
+ .debug_info    0x0000000000006eb5     0x153c ./HAL/LED.o
+ .debug_info    0x00000000000083f1     0x1a0f ./HAL/MCU.o
+ .debug_info    0x0000000000009e00     0x105b ./HAL/RTC.o
+ .debug_info    0x000000000000ae5b     0x1837 ./HAL/USB.o
+ .debug_info    0x000000000000c692     0x1848 ./APP/RF_PHY.o
+ .debug_info    0x000000000000deda     0x10ca ./APP/RF_main.o
 
-.debug_abbrev   0x0000000000000000     0x18c6
- .debug_abbrev  0x0000000000000000      0x163 ./StdPeriphDriver/CH58x_adc.o
- .debug_abbrev  0x0000000000000163      0x1ef ./StdPeriphDriver/CH58x_clk.o
- .debug_abbrev  0x0000000000000352       0xfa ./StdPeriphDriver/CH58x_gpio.o
- .debug_abbrev  0x000000000000044c      0x252 ./StdPeriphDriver/CH58x_sys.o
- .debug_abbrev  0x000000000000069e       0xc2 ./StdPeriphDriver/CH58x_timer0.o
- .debug_abbrev  0x0000000000000760       0xb9 ./StdPeriphDriver/CH58x_usbdev.o
- .debug_abbrev  0x0000000000000819       0x12 ./Startup/startup_CH583.o
- .debug_abbrev  0x000000000000082b       0xbe ./HAL/ISP.o
- .debug_abbrev  0x00000000000008e9      0x2ad ./HAL/LED.o
- .debug_abbrev  0x0000000000000b96      0x3b7 ./HAL/MCU.o
- .debug_abbrev  0x0000000000000f4d      0x142 ./HAL/RTC.o
- .debug_abbrev  0x000000000000108f      0x35d ./HAL/USB.o
- .debug_abbrev  0x00000000000013ec      0x3a9 ./APP/RF_PHY.o
- .debug_abbrev  0x0000000000001795      0x131 ./APP/RF_main.o
+.debug_abbrev   0x0000000000000000     0x26cc
+ .debug_abbrev  0x0000000000000000      0x2cf ./StdPeriphDriver/CH58x_adc.o
+ .debug_abbrev  0x00000000000002cf      0x32c ./StdPeriphDriver/CH58x_clk.o
+ .debug_abbrev  0x00000000000005fb      0x268 ./StdPeriphDriver/CH58x_gpio.o
+ .debug_abbrev  0x0000000000000863      0x339 ./StdPeriphDriver/CH58x_sys.o
+ .debug_abbrev  0x0000000000000b9c      0x235 ./StdPeriphDriver/CH58x_timer0.o
+ .debug_abbrev  0x0000000000000dd1      0x217 ./StdPeriphDriver/CH58x_usbdev.o
+ .debug_abbrev  0x0000000000000fe8       0x12 ./Startup/startup_CH583.o
+ .debug_abbrev  0x0000000000000ffa      0x240 ./HAL/ISP.o
+ .debug_abbrev  0x000000000000123a      0x3ce ./HAL/LED.o
+ .debug_abbrev  0x0000000000001608      0x414 ./HAL/MCU.o
+ .debug_abbrev  0x0000000000001a1c      0x281 ./HAL/RTC.o
+ .debug_abbrev  0x0000000000001c9d      0x3e4 ./HAL/USB.o
+ .debug_abbrev  0x0000000000002081      0x3cb ./APP/RF_PHY.o
+ .debug_abbrev  0x000000000000244c      0x280 ./APP/RF_main.o
 
-.debug_loclists
-                0x0000000000000000     0x1861
- .debug_loclists
-                0x0000000000000000      0x1c2 ./StdPeriphDriver/CH58x_adc.o
- .debug_loclists
-                0x00000000000001c2      0x4b0 ./StdPeriphDriver/CH58x_clk.o
- .debug_loclists
-                0x0000000000000672      0x176 ./StdPeriphDriver/CH58x_gpio.o
- .debug_loclists
-                0x00000000000007e8      0x190 ./StdPeriphDriver/CH58x_sys.o
- .debug_loclists
-                0x0000000000000978       0x74 ./StdPeriphDriver/CH58x_timer0.o
- .debug_loclists
-                0x00000000000009ec      0x525 ./HAL/LED.o
- .debug_loclists
-                0x0000000000000f11      0x26d ./HAL/MCU.o
- .debug_loclists
-                0x000000000000117e      0x453 ./HAL/USB.o
- .debug_loclists
-                0x00000000000015d1      0x290 ./APP/RF_PHY.o
+.debug_loc      0x0000000000000000     0x1ef3
+ .debug_loc     0x0000000000000000      0x211 ./StdPeriphDriver/CH58x_adc.o
+ .debug_loc     0x0000000000000211      0x710 ./StdPeriphDriver/CH58x_clk.o
+ .debug_loc     0x0000000000000921      0x361 ./StdPeriphDriver/CH58x_gpio.o
+ .debug_loc     0x0000000000000c82      0x1bc ./StdPeriphDriver/CH58x_sys.o
+ .debug_loc     0x0000000000000e3e       0x84 ./StdPeriphDriver/CH58x_timer0.o
+ .debug_loc     0x0000000000000ec2      0x610 ./HAL/LED.o
+ .debug_loc     0x00000000000014d2      0x299 ./HAL/MCU.o
+ .debug_loc     0x000000000000176b      0x4c0 ./HAL/USB.o
+ .debug_loc     0x0000000000001c2b      0x2c8 ./APP/RF_PHY.o
 
-.debug_aranges  0x0000000000000000      0x420
+.debug_aranges  0x0000000000000000      0x428
  .debug_aranges
                 0x0000000000000000       0x70 ./StdPeriphDriver/CH58x_adc.o
  .debug_aranges
@@ -5200,217 +5081,125 @@ OUTPUT(RF_CH582M.elf elf32-littleriscv)
  .debug_aranges
                 0x0000000000000270       0x28 ./HAL/ISP.o
  .debug_aranges
-                0x0000000000000298       0x50 ./HAL/LED.o
+                0x0000000000000298       0x58 ./HAL/LED.o
  .debug_aranges
-                0x00000000000002e8       0x50 ./HAL/MCU.o
+                0x00000000000002f0       0x50 ./HAL/MCU.o
  .debug_aranges
-                0x0000000000000338       0x30 ./HAL/RTC.o
+                0x0000000000000340       0x30 ./HAL/RTC.o
  .debug_aranges
-                0x0000000000000368       0x58 ./HAL/USB.o
+                0x0000000000000370       0x58 ./HAL/USB.o
  .debug_aranges
-                0x00000000000003c0       0x38 ./APP/RF_PHY.o
+                0x00000000000003c8       0x38 ./APP/RF_PHY.o
  .debug_aranges
-                0x00000000000003f8       0x28 ./APP/RF_main.o
+                0x0000000000000400       0x28 ./APP/RF_main.o
 
-.debug_rnglists
-                0x0000000000000000      0x451
- .debug_rnglists
-                0x0000000000000000       0x70 ./StdPeriphDriver/CH58x_adc.o
- .debug_rnglists
-                0x0000000000000070       0x94 ./StdPeriphDriver/CH58x_clk.o
- .debug_rnglists
-                0x0000000000000104       0x43 ./StdPeriphDriver/CH58x_gpio.o
- .debug_rnglists
-                0x0000000000000147       0x82 ./StdPeriphDriver/CH58x_sys.o
- .debug_rnglists
-                0x00000000000001c9       0x31 ./StdPeriphDriver/CH58x_timer0.o
- .debug_rnglists
-                0x00000000000001fa       0x3a ./StdPeriphDriver/CH58x_usbdev.o
- .debug_rnglists
-                0x0000000000000234       0x20 ./Startup/startup_CH583.o
- .debug_rnglists
-                0x0000000000000254       0x1f ./HAL/ISP.o
- .debug_rnglists
-                0x0000000000000273       0x5f ./HAL/LED.o
- .debug_rnglists
-                0x00000000000002d2       0x71 ./HAL/MCU.o
- .debug_rnglists
-                0x0000000000000343       0x28 ./HAL/RTC.o
- .debug_rnglists
-                0x000000000000036b       0x55 ./HAL/USB.o
- .debug_rnglists
-                0x00000000000003c0       0x72 ./APP/RF_PHY.o
- .debug_rnglists
-                0x0000000000000432       0x1f ./APP/RF_main.o
+.debug_ranges   0x0000000000000000      0x418
+ .debug_ranges  0x0000000000000000       0x60 ./StdPeriphDriver/CH58x_adc.o
+ .debug_ranges  0x0000000000000060       0x80 ./StdPeriphDriver/CH58x_clk.o
+ .debug_ranges  0x00000000000000e0       0x38 ./StdPeriphDriver/CH58x_gpio.o
+ .debug_ranges  0x0000000000000118       0x70 ./StdPeriphDriver/CH58x_sys.o
+ .debug_ranges  0x0000000000000188       0x28 ./StdPeriphDriver/CH58x_timer0.o
+ .debug_ranges  0x00000000000001b0       0x30 ./StdPeriphDriver/CH58x_usbdev.o
+ .debug_ranges  0x00000000000001e0       0x28 ./Startup/startup_CH583.o
+ .debug_ranges  0x0000000000000208       0x18 ./HAL/ISP.o
+ .debug_ranges  0x0000000000000220       0x60 ./HAL/LED.o
+ .debug_ranges  0x0000000000000280       0x80 ./HAL/MCU.o
+ .debug_ranges  0x0000000000000300       0x20 ./HAL/RTC.o
+ .debug_ranges  0x0000000000000320       0x68 ./HAL/USB.o
+ .debug_ranges  0x0000000000000388       0x78 ./APP/RF_PHY.o
+ .debug_ranges  0x0000000000000400       0x18 ./APP/RF_main.o
 
-.debug_line     0x0000000000000000     0x5bb4
- .debug_line    0x0000000000000000      0x68f ./StdPeriphDriver/CH58x_adc.o
- .debug_line    0x000000000000068f     0x1656 ./StdPeriphDriver/CH58x_clk.o
- .debug_line    0x0000000000001ce5      0x560 ./StdPeriphDriver/CH58x_gpio.o
- .debug_line    0x0000000000002245      0xa67 ./StdPeriphDriver/CH58x_sys.o
- .debug_line    0x0000000000002cac      0x1ac ./StdPeriphDriver/CH58x_timer0.o
- .debug_line    0x0000000000002e58      0x2ee ./StdPeriphDriver/CH58x_usbdev.o
- .debug_line    0x0000000000003146      0x1e6 ./Startup/startup_CH583.o
- .debug_line    0x000000000000332c      0x18e ./HAL/ISP.o
- .debug_line    0x00000000000034ba      0x862 ./HAL/LED.o
- .debug_line    0x0000000000003d1c      0x715 ./HAL/MCU.o
- .debug_line    0x0000000000004431      0x1d1 ./HAL/RTC.o
- .debug_line    0x0000000000004602      0xe49 ./HAL/USB.o
- .debug_line    0x000000000000544b      0x642 ./APP/RF_PHY.o
- .debug_line    0x0000000000005a8d      0x127 ./APP/RF_main.o
+.debug_line     0x0000000000000000     0x7b8a
+ .debug_line    0x0000000000000000      0x8e7 ./StdPeriphDriver/CH58x_adc.o
+ .debug_line    0x00000000000008e7     0x17da ./StdPeriphDriver/CH58x_clk.o
+ .debug_line    0x00000000000020c1      0x75c ./StdPeriphDriver/CH58x_gpio.o
+ .debug_line    0x000000000000281d      0xc4f ./StdPeriphDriver/CH58x_sys.o
+ .debug_line    0x000000000000346c      0x38c ./StdPeriphDriver/CH58x_timer0.o
+ .debug_line    0x00000000000037f8      0x4d3 ./StdPeriphDriver/CH58x_usbdev.o
+ .debug_line    0x0000000000003ccb      0x1e7 ./Startup/startup_CH583.o
+ .debug_line    0x0000000000003eb2      0x446 ./HAL/ISP.o
+ .debug_line    0x00000000000042f8      0xbb2 ./HAL/LED.o
+ .debug_line    0x0000000000004eaa      0xa57 ./HAL/MCU.o
+ .debug_line    0x0000000000005901      0x467 ./HAL/RTC.o
+ .debug_line    0x0000000000005d68     0x1152 ./HAL/USB.o
+ .debug_line    0x0000000000006eba      0x91a ./APP/RF_PHY.o
+ .debug_line    0x00000000000077d4      0x3b6 ./APP/RF_main.o
 
-.debug_str      0x0000000000000000     0x17c4
- .debug_str     0x0000000000000000      0x3f8 ./StdPeriphDriver/CH58x_adc.o
-                                        0x44b (size before relaxing)
- .debug_str     0x00000000000003f8      0x408 ./StdPeriphDriver/CH58x_clk.o
-                                        0x5ce (size before relaxing)
- .debug_str     0x0000000000000800      0x141 ./StdPeriphDriver/CH58x_gpio.o
-                                        0x2dc (size before relaxing)
- .debug_str     0x0000000000000941      0x36e ./StdPeriphDriver/CH58x_sys.o
-                                        0x549 (size before relaxing)
- .debug_str     0x0000000000000caf       0xfe ./StdPeriphDriver/CH58x_timer0.o
-                                        0x275 (size before relaxing)
- .debug_str     0x0000000000000dad       0x83 ./StdPeriphDriver/CH58x_usbdev.o
-                                        0x220 (size before relaxing)
- .debug_str     0x0000000000000e30       0x5a ./Startup/startup_CH583.o
- .debug_str     0x0000000000000e8a       0x16 ./HAL/ISP.o
-                                        0x1b0 (size before relaxing)
- .debug_str     0x0000000000000ea0      0x141 ./HAL/LED.o
-                                        0x355 (size before relaxing)
- .debug_str     0x0000000000000fe1      0x413 ./HAL/MCU.o
-                                        0x762 (size before relaxing)
- .debug_str     0x00000000000013f4       0x48 ./HAL/RTC.o
-                                        0x222 (size before relaxing)
- .debug_str     0x000000000000143c      0x1fe ./HAL/USB.o
-                                        0x67c (size before relaxing)
- .debug_str     0x000000000000163a      0x155 ./APP/RF_PHY.o
-                                        0x5ef (size before relaxing)
- .debug_str     0x000000000000178f       0x35 ./APP/RF_main.o
-                                        0x372 (size before relaxing)
+.debug_str      0x0000000000000000     0x2017
+ .debug_str     0x0000000000000000      0xa83 ./StdPeriphDriver/CH58x_adc.o
+                                        0xb1b (size before relaxing)
+ .debug_str     0x0000000000000a83      0x428 ./StdPeriphDriver/CH58x_clk.o
+                                        0xc98 (size before relaxing)
+ .debug_str     0x0000000000000eab      0x161 ./StdPeriphDriver/CH58x_gpio.o
+                                        0x9bf (size before relaxing)
+ .debug_str     0x000000000000100c      0x38d ./StdPeriphDriver/CH58x_sys.o
+                                        0xc19 (size before relaxing)
+ .debug_str     0x0000000000001399      0x120 ./StdPeriphDriver/CH58x_timer0.o
+                                        0x96e (size before relaxing)
+ .debug_str     0x00000000000014b9       0x6d ./StdPeriphDriver/CH58x_usbdev.o
+                                        0x8bb (size before relaxing)
+ .debug_str     0x0000000000001526       0x27 ./Startup/startup_CH583.o
+                                         0x5a (size before relaxing)
+ .debug_str     0x000000000000154d      0x2af ./HAL/ISP.o
+                                        0xb13 (size before relaxing)
+ .debug_str     0x00000000000017fc      0x11a ./HAL/LED.o
+                                        0xc65 (size before relaxing)
+ .debug_str     0x0000000000001916      0x3e4 ./HAL/MCU.o
+                                       0x101b (size before relaxing)
+ .debug_str     0x0000000000001cfa       0x3b ./HAL/RTC.o
+                                        0xb4d (size before relaxing)
+ .debug_str     0x0000000000001d35      0x13d ./HAL/USB.o
+                                        0xe7b (size before relaxing)
+ .debug_str     0x0000000000001e72      0x15f ./APP/RF_PHY.o
+                                        0xea6 (size before relaxing)
+ .debug_str     0x0000000000001fd1       0x46 ./APP/RF_main.o
+                                        0xcb8 (size before relaxing)
 
-.debug_line_str
-                0x0000000000000000      0x515
- .debug_line_str
-                0x0000000000000000      0x1d3 ./StdPeriphDriver/CH58x_adc.o
-                                        0x21e (size before relaxing)
- .debug_line_str
-                0x00000000000001d3       0x37 ./StdPeriphDriver/CH58x_clk.o
-                                        0x1e7 (size before relaxing)
- .debug_line_str
-                0x000000000000020a       0x2d ./StdPeriphDriver/CH58x_gpio.o
-                                        0x222 (size before relaxing)
- .debug_line_str
-                0x0000000000000237       0x28 ./StdPeriphDriver/CH58x_sys.o
-                                        0x233 (size before relaxing)
- .debug_line_str
-                0x000000000000025f       0x3c ./StdPeriphDriver/CH58x_timer0.o
-                                        0x1f2 (size before relaxing)
- .debug_line_str
-                0x000000000000029b       0x31 ./StdPeriphDriver/CH58x_usbdev.o
-                                        0x1e7 (size before relaxing)
- .debug_line_str
-                0x00000000000002cc       0x1b ./Startup/startup_CH583.o
-                                         0x5e (size before relaxing)
- .debug_line_str
-                0x00000000000002e7       0x14 ./HAL/ISP.o
-                                        0x1ae (size before relaxing)
- .debug_line_str
-                0x00000000000002fb       0x90 ./HAL/LED.o
-                                        0x235 (size before relaxing)
- .debug_line_str
-                0x000000000000038b       0x2d ./HAL/MCU.o
-                                        0x2b8 (size before relaxing)
- .debug_line_str
-                0x00000000000003b8        0xd ./HAL/RTC.o
-                                        0x23a (size before relaxing)
- .debug_line_str
-                0x00000000000003c5      0x122 ./HAL/USB.o
-                                        0x394 (size before relaxing)
- .debug_line_str
-                0x00000000000004e7       0x1d ./APP/RF_PHY.o
-                                        0x2d8 (size before relaxing)
- .debug_line_str
-                0x0000000000000504       0x11 ./APP/RF_main.o
-                                        0x294 (size before relaxing)
-
-.comment        0x0000000000000000       0x64
- .comment       0x0000000000000000       0x31 ./StdPeriphDriver/CH58x_adc.o
-                                         0x32 (size before relaxing)
- .comment       0x0000000000000031       0x32 ./StdPeriphDriver/CH58x_clk.o
- .comment       0x0000000000000031       0x32 ./StdPeriphDriver/CH58x_gpio.o
- .comment       0x0000000000000031       0x32 ./StdPeriphDriver/CH58x_sys.o
- .comment       0x0000000000000031       0x32 ./StdPeriphDriver/CH58x_timer0.o
- .comment       0x0000000000000031       0x32 ./StdPeriphDriver/CH58x_usbdev.o
- .comment       0x0000000000000031       0x32 ./HAL/ISP.o
- .comment       0x0000000000000031       0x32 ./HAL/LED.o
- .comment       0x0000000000000031       0x32 ./HAL/MCU.o
- .comment       0x0000000000000031       0x32 ./HAL/RTC.o
- .comment       0x0000000000000031       0x32 ./HAL/USB.o
- .comment       0x0000000000000031       0x32 ./APP/RF_PHY.o
- .comment       0x0000000000000031       0x32 ./APP/RF_main.o
- .comment       0x0000000000000031       0x33 E:\Project\tp78_v2\mounriver_project\RF_CH582M\StdPeriphDriver\libISP583.a(ISP583.o)
+.comment        0x0000000000000000       0x33
+ .comment       0x0000000000000000       0x33 ./StdPeriphDriver/CH58x_adc.o
                                          0x34 (size before relaxing)
- .comment       0x0000000000000064       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(message.o)
- .comment       0x0000000000000064       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
- .comment       0x0000000000000064       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos_hw.o)
- .comment       0x0000000000000064       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos_snv.o)
- .comment       0x0000000000000064       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ll_connect.o)
- .comment       0x0000000000000064       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ll_scan.o)
- .comment       0x0000000000000064       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(aes.o)
- .comment       0x0000000000000064       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(bb.o)
- .comment       0x0000000000000064       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ip.o)
- .comment       0x0000000000000064       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(lle.o)
- .comment       0x0000000000000064       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
- .comment       0x0000000000000064       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
- .comment       0x0000000000000064       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(memory.o)
- .comment       0x0000000000000064       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(l2cap.o)
- .comment       0x0000000000000064       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ll.o)
- .comment       0x0000000000000064       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ll_initiate.o)
+ .comment       0x0000000000000033       0x34 ./StdPeriphDriver/CH58x_clk.o
+ .comment       0x0000000000000033       0x34 ./StdPeriphDriver/CH58x_gpio.o
+ .comment       0x0000000000000033       0x34 ./StdPeriphDriver/CH58x_sys.o
+ .comment       0x0000000000000033       0x34 ./StdPeriphDriver/CH58x_timer0.o
+ .comment       0x0000000000000033       0x34 ./StdPeriphDriver/CH58x_usbdev.o
+ .comment       0x0000000000000033       0x34 ./HAL/ISP.o
+ .comment       0x0000000000000033       0x34 ./HAL/LED.o
+ .comment       0x0000000000000033       0x34 ./HAL/MCU.o
+ .comment       0x0000000000000033       0x34 ./HAL/RTC.o
+ .comment       0x0000000000000033       0x34 ./HAL/USB.o
+ .comment       0x0000000000000033       0x34 ./APP/RF_PHY.o
+ .comment       0x0000000000000033       0x34 ./APP/RF_main.o
+ .comment       0x0000000000000033       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\StdPeriphDriver\libISP583.a(ISP583.o)
+ .comment       0x0000000000000033       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(message.o)
+ .comment       0x0000000000000033       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos.o)
+ .comment       0x0000000000000033       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos_hw.o)
+ .comment       0x0000000000000033       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(tmos_snv.o)
+ .comment       0x0000000000000033       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ll_connect.o)
+ .comment       0x0000000000000033       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ll_scan.o)
+ .comment       0x0000000000000033       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(aes.o)
+ .comment       0x0000000000000033       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(bb.o)
+ .comment       0x0000000000000033       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ip.o)
+ .comment       0x0000000000000033       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(lle.o)
+ .comment       0x0000000000000033       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rf_fh.o)
+ .comment       0x0000000000000033       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(rfend.o)
+ .comment       0x0000000000000033       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(memory.o)
+ .comment       0x0000000000000033       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(l2cap.o)
+ .comment       0x0000000000000033       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ll.o)
+ .comment       0x0000000000000033       0x34 E:\Project\tp78_v2\mounriver_project\RF_CH582M\LIB\libCH58xBLE.a(ll_initiate.o)
 
-.riscv.attributes
-                0x0000000000000000       0x2f
- .riscv.attributes
-                0x0000000000000000       0x2b ./StdPeriphDriver/CH58x_adc.o
- .riscv.attributes
-                0x000000000000002b       0x2b ./StdPeriphDriver/CH58x_clk.o
- .riscv.attributes
-                0x0000000000000056       0x2b ./StdPeriphDriver/CH58x_gpio.o
- .riscv.attributes
-                0x0000000000000081       0x2b ./StdPeriphDriver/CH58x_sys.o
- .riscv.attributes
-                0x00000000000000ac       0x2b ./StdPeriphDriver/CH58x_timer0.o
- .riscv.attributes
-                0x00000000000000d7       0x2b ./StdPeriphDriver/CH58x_usbdev.o
- .riscv.attributes
-                0x0000000000000102       0x2d ./Startup/startup_CH583.o
- .riscv.attributes
-                0x000000000000012f       0x2b ./HAL/ISP.o
- .riscv.attributes
-                0x000000000000015a       0x2b ./HAL/LED.o
- .riscv.attributes
-                0x0000000000000185       0x2b ./HAL/MCU.o
- .riscv.attributes
-                0x00000000000001b0       0x2f ./HAL/RTC.o
- .riscv.attributes
-                0x00000000000001df       0x2f ./HAL/USB.o
- .riscv.attributes
-                0x000000000000020e       0x2f ./APP/RF_PHY.o
- .riscv.attributes
-                0x000000000000023d       0x2b ./APP/RF_main.o
- .riscv.attributes
-                0x0000000000000268       0x29 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc12/bin/../lib/gcc/riscv-none-elf/12.2.0/../../../../riscv-none-elf/lib\libg_nano.a(lib_a-memcpy-asm.o)
-
-.debug_frame    0x0000000000000000      0x8a8
+.debug_frame    0x0000000000000000      0x8d8
  .debug_frame   0x0000000000000000       0xc0 ./StdPeriphDriver/CH58x_adc.o
- .debug_frame   0x00000000000000c0      0x15c ./StdPeriphDriver/CH58x_clk.o
- .debug_frame   0x000000000000021c       0x70 ./StdPeriphDriver/CH58x_gpio.o
- .debug_frame   0x000000000000028c      0x104 ./StdPeriphDriver/CH58x_sys.o
- .debug_frame   0x0000000000000390       0x50 ./StdPeriphDriver/CH58x_timer0.o
- .debug_frame   0x00000000000003e0       0x60 ./StdPeriphDriver/CH58x_usbdev.o
- .debug_frame   0x0000000000000440       0x38 ./HAL/ISP.o
- .debug_frame   0x0000000000000478      0x120 ./HAL/LED.o
- .debug_frame   0x0000000000000598       0xfc ./HAL/MCU.o
- .debug_frame   0x0000000000000694       0x4c ./HAL/RTC.o
- .debug_frame   0x00000000000006e0       0xe8 ./HAL/USB.o
- .debug_frame   0x00000000000007c8       0xa0 ./APP/RF_PHY.o
- .debug_frame   0x0000000000000868       0x40 ./APP/RF_main.o
+ .debug_frame   0x00000000000000c0      0x158 ./StdPeriphDriver/CH58x_clk.o
+ .debug_frame   0x0000000000000218       0x70 ./StdPeriphDriver/CH58x_gpio.o
+ .debug_frame   0x0000000000000288      0x104 ./StdPeriphDriver/CH58x_sys.o
+ .debug_frame   0x000000000000038c       0x50 ./StdPeriphDriver/CH58x_timer0.o
+ .debug_frame   0x00000000000003dc       0x60 ./StdPeriphDriver/CH58x_usbdev.o
+ .debug_frame   0x000000000000043c       0x38 ./HAL/ISP.o
+ .debug_frame   0x0000000000000474      0x154 ./HAL/LED.o
+ .debug_frame   0x00000000000005c8       0xfc ./HAL/MCU.o
+ .debug_frame   0x00000000000006c4       0x4c ./HAL/RTC.o
+ .debug_frame   0x0000000000000710       0xe0 ./HAL/USB.o
+ .debug_frame   0x00000000000007f0       0x88 ./APP/RF_PHY.o
+ .debug_frame   0x0000000000000878       0x40 ./APP/RF_main.o
+ .debug_frame   0x00000000000008b8       0x20 d:/mounriver/mounriver_studio/toolchain/risc-v embedded gcc/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imac/ilp32\libg_nano.a(lib_a-memcpy.o)

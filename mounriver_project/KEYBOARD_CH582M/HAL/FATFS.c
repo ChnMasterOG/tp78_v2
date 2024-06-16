@@ -35,6 +35,7 @@ const BYTE WriteBuffer[] = {
     "LINE16:是否使能触摸条触发鼠标按键(0~1)\n"
     "LINE17:进入屏保时间/s(1~65536)\n"
     "LINE18:进入休眠时间/s(1~65536)\n"
+    "LINE19:RF模式下重传检查间隔/ms(1~255)\n"
     "keyboard_spkey.txt---存放sp按键映射键位(每行8byte)\n"
     "LINE1:spKEY1的HID报表数据\n"
     "LINE2:spKEY2的HID报表数据\n"

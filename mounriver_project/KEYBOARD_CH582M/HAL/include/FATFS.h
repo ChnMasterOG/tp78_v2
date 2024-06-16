@@ -32,6 +32,7 @@
   #define FS_LINE_TOUCHBAR_BUTTON_CTL_ENA 15
   #define FS_LINE_IDLE_MAX_CNT            16
   #define FS_LINE_LP_MAX_CNT              17
+  #define FS_LINE_RF_CHECK_ACK_MS         18
 
   uint8_t unsigned_dec_to_string(uint16_t num, char *buff, uint8_t type);
   uint8_t string_dec_to_u16(char *buff, uint16_t *num);

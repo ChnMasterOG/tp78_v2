@@ -11,14 +11,14 @@
 
 /******************************************************************************/
 /* 头文件包含 */
-#include "config.h"
+#include "CONFIG.h"
 #include "HAL.h"
 
 /*********************************************************************
  * GLOBAL TYPEDEFS
  */
 tmosTaskID RFtaskID;
-uint8_t CAPSLOCK_DATA[2] = {3, 0};
+uint8_t LEDOUT_DATA[2] = {0, 0};    // index 0 - numlock, index 1 - capslock
 uint32_t heartbeat_cnt = 0;
 BOOL lastevent[3] = {FALSE, FALSE, FALSE};
 
@@ -35,6 +35,7 @@ BOOL lastevent[3] = {FALSE, FALSE, FALSE};
  */
 void RF_2G4StatusCallBack(uint8_t sta, uint8_t crc, uint8_t *rxBuf)
 {
+    uint8_t err = 0;
     switch(sta)
     {
         case TX_MODE_TX_FINISH:
@@ -92,10 +93,12 @@ void RF_2G4StatusCallBack(uint8_t sta, uint8_t crc, uint8_t *rxBuf)
             if(crc == 1)
             {
                 PRINT("crc error\n");
+                err = 1;
             }
             else if(crc == 2)
             {
                 PRINT("match type error\n");
+                err = 2;
             }
             else
             {
@@ -121,9 +124,11 @@ void RF_2G4StatusCallBack(uint8_t sta, uint8_t crc, uint8_t *rxBuf)
                     }
                 } else {
                     PRINT("receive err!\n");
+                    err = 3;
                 }
             }
-            tmos_set_event(RFtaskID, SBP_RF_RF_RX_EVT);
+            if (err == 0)
+                tmos_set_event(RFtaskID, SBP_RF_RF_RX_EVT);
             break;
         }
         case RX_MODE_TX_FINISH:
@@ -179,17 +184,17 @@ uint16_t RF_ProcessEvent(uint8_t task_id, uint16_t events)
     {
         uint8_t state;
         RF_Shut();
-        state = RF_Rx(CAPSLOCK_DATA, 2, 0xFF, 0xFF);
+        state = RF_Rx(LEDOUT_DATA, 2, 0xFF, 0xFF);
         PRINT("RX mode.state = %x\n", state);
         return events ^ SBP_RF_RF_RX_EVT;
     }
-    if(events & SBP_RF_CAPSLOCK_TX_EVT)
+    if(events & SBP_RF_LEDOUT_TX_EVT)
     {
         uint8_t state;
         RF_Shut();
-        state = RF_Rx(CAPSLOCK_DATA, 2, 0xFF, 0xFF);
+        state = RF_Rx(LEDOUT_DATA, 2, 0xFF, 0xFF);
         PRINT("RX mode.state = %x\n", state);
-        return events ^ SBP_RF_CAPSLOCK_TX_EVT;
+        return events ^ SBP_RF_LEDOUT_TX_EVT;
     }
     return 0;
 }
@@ -218,7 +223,7 @@ void RF_Init(void)
     state = RF_Config(&rfConfig);
     PRINT("rf 2.4g init: %x\n", state);
     { // RX mode
-        state = RF_Rx(CAPSLOCK_DATA, 2, 0xFF, 0xFF);
+        state = RF_Rx(LEDOUT_DATA, 2, 0xFF, 0xFF);
         PRINT("RX mode.state = %x\n", state);
     }
 

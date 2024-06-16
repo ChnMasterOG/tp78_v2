@@ -9,7 +9,7 @@
 *******************************************************************************/
 
 #include "HAL.h"
-#include "config.h"
+#include "CONFIG.h"
 
 __HIGH_CODE
 void APPJumpBoot(void)   //此段代码必须运行在RAM中

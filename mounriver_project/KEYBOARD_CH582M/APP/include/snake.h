@@ -11,7 +11,7 @@
 #ifndef SNAKE_H
   #define SNAKE_H
 
-  #define MAX_SNAKE_LENGTH              30    // 最长蛇长
+  #define MAX_SNAKE_LENGTH              10    // 最长蛇长
 
   typedef enum {
     DirUp = 1,

@@ -21,6 +21,7 @@
     lp_mode_none = 0,
     lp_idle_mode,
     lp_sw_mode,
+    lp_no_sleep_mode,
     lp_halt_mode,
     lp_sleep_mode,
     lp_shutdown_mode,

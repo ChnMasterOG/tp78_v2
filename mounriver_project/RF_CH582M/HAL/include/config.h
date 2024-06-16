@@ -1,5 +1,5 @@
 /********************************** (C) COPYRIGHT *******************************
- * File Name          : config.h
+ * File Name          : CONFIG.h
  * Author             : WCH
  * Version            : V1.2
  * Date               : 2022/01/18
@@ -17,9 +17,9 @@
 #define CHIP_ID								ID_CH583
 
 #ifdef CH58xBLE_ROM
-#include "CH58xBLE_ROM.h"
+#include "CH58xBLE_ROM.H"
 #else
-#include "CH58xBLE_LIB.h"
+#include "CH58xBLE_LIB.H"
 #endif
 
 #include "CH58x_common.h"

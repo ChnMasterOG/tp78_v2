@@ -197,7 +197,6 @@
     extern uint8_t CustomKey[ROW_SIZE][COL_SIZE];
     extern uint8_t Extra_CustomKey[ROW_SIZE][COL_SIZE];
     extern uint8_t KeyMatrix[ROW_SIZE][COL_SIZE];
-    extern uint8_t KEYBOARD_data_index;
     extern Keyboard_Status_t g_keyboard_status;
 
     void DATAFLASH_Read_KeyArray( void );

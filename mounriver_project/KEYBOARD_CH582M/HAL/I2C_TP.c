@@ -42,19 +42,19 @@ uint8_t I2C_TP_SendCommand_Sleep(void)
 {
   uint8_t err = 0;
 
-  err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_BUSY, SET);
+  err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_BUSY, SET, HW_I2C_TIMOUT);
   I2C_GenerateSTART( ENABLE );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_MODE_SELECT, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_MODE_SELECT, RESET, HW_I2C_TIMOUT);
   I2C_Send7bitAddress( I2C_TP_ADDR, I2C_Direction_Transmitter );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED, RESET, HW_I2C_ACK_TIMOUT);
   I2C_SendData( 0x22 );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET, HW_I2C_ACK_TIMOUT);
   I2C_SendData( 0x00 );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET, HW_I2C_ACK_TIMOUT);
   I2C_SendData( 0x01 );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET, HW_I2C_ACK_TIMOUT);
   I2C_SendData( 0x08 );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET, HW_I2C_ACK_TIMOUT);
   I2C_GenerateSTOP( ENABLE );
 
   return err;
@@ -70,19 +70,19 @@ uint8_t I2C_TP_SendCommand_Wakeup(void)
 {
   uint8_t err = 0;
 
-  err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_BUSY, SET);
+  err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_BUSY, SET, HW_I2C_TIMOUT);
   I2C_GenerateSTART( ENABLE );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_MODE_SELECT, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_MODE_SELECT, RESET, HW_I2C_TIMOUT);
   I2C_Send7bitAddress( I2C_TP_ADDR, I2C_Direction_Transmitter );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED, RESET, HW_I2C_ACK_TIMOUT);
   I2C_SendData( 0x22 );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET, HW_I2C_ACK_TIMOUT);
   I2C_SendData( 0x00 );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET, HW_I2C_ACK_TIMOUT);
   I2C_SendData( 0x00 );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET, HW_I2C_ACK_TIMOUT);
   I2C_SendData( 0x08 );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET, HW_I2C_ACK_TIMOUT);
   I2C_GenerateSTOP( ENABLE );
 
   return err;
@@ -98,27 +98,27 @@ uint8_t I2C_TP_SendCommand_Reset(void)
 {
   uint8_t err = 0;
 
-  err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_BUSY, SET);
+  err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_BUSY, SET, HW_I2C_TIMOUT);
   I2C_GenerateSTART( ENABLE );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_MODE_SELECT, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_MODE_SELECT, RESET, HW_I2C_TIMOUT);
   I2C_Send7bitAddress( I2C_TP_ADDR, I2C_Direction_Transmitter );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED, RESET, HW_I2C_ACK_TIMOUT);
   I2C_SendData( 0x25 );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET, HW_I2C_ACK_TIMOUT);
   I2C_SendData( 0x00 );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET, HW_I2C_ACK_TIMOUT);
   I2C_SendData( 0x06 );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET, HW_I2C_ACK_TIMOUT);
   I2C_SendData( 0x00 );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET, HW_I2C_ACK_TIMOUT);
   I2C_SendData( 0x29 );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET, HW_I2C_ACK_TIMOUT);
   I2C_SendData( 0x77 );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET, HW_I2C_ACK_TIMOUT);
   I2C_SendData( 0x77 );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET, HW_I2C_ACK_TIMOUT);
   I2C_SendData( 0x77 );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET, HW_I2C_ACK_TIMOUT);
   I2C_GenerateSTOP( ENABLE );
 
   return err;
@@ -134,27 +134,27 @@ uint8_t I2C_TP_SendCommand_EnterExitIdleMode(uint8_t flag)
 {
   uint8_t err = 0;
 
-  err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_BUSY, SET);
+  err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_BUSY, SET, HW_I2C_TIMOUT);
   I2C_GenerateSTART( ENABLE );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_MODE_SELECT, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_MODE_SELECT, RESET, HW_I2C_TIMOUT);
   I2C_Send7bitAddress( I2C_TP_ADDR, I2C_Direction_Transmitter );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED, RESET, HW_I2C_ACK_TIMOUT);
   I2C_SendData( 0x25 );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET, HW_I2C_ACK_TIMOUT);
   I2C_SendData( 0x00 );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET, HW_I2C_ACK_TIMOUT);
   I2C_SendData( 0x06 );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET, HW_I2C_ACK_TIMOUT);
   I2C_SendData( 0x00 );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET, HW_I2C_ACK_TIMOUT);
   I2C_SendData( 0x29 );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET, HW_I2C_ACK_TIMOUT);
   I2C_SendData( 0x06 );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET, HW_I2C_ACK_TIMOUT);
   I2C_SendData( 0x06 );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET, HW_I2C_ACK_TIMOUT);
   I2C_SendData( flag );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_BYTE_TRANSMITTING, RESET, HW_I2C_ACK_TIMOUT);
   I2C_GenerateSTOP( ENABLE );
 
   return err;
@@ -174,35 +174,35 @@ uint8_t I2C_TP_ReadPacket(void)
 
   SYS_DisableAllIrq(&irq_state);
 
-  err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_BUSY, SET);
+  err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_BUSY, SET, HW_I2C_TIMOUT);
   I2C_GenerateSTART( ENABLE );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_MODE_SELECT, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_MODE_SELECT, RESET, HW_I2C_TIMOUT);
   I2C_Send7bitAddress( I2C_TP_ADDR, I2C_Direction_Receiver );
-  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED, RESET);
+  err += HW_I2C_WaitUntilTimeout(I2C_CheckEvent, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED, RESET, HW_I2C_ACK_TIMOUT);
   I2C_GenerateSTOP(DISABLE);
   I2C_AcknowledgeConfig(ENABLE);
   /* packet check 0 */
-  err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_RXNE, RESET);
+  err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_RXNE, RESET, HW_I2C_RD_TIMOUT);
   if (I2C_ReceiveData( ) != packet_check[0]) err = 1;
   /* packet check 1 */
-  err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_RXNE, RESET);
+  err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_RXNE, RESET, HW_I2C_RD_TIMOUT);
   if (I2C_ReceiveData( ) != packet_check[1]) err = 1;
   /* packet check 2 */
-  err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_RXNE, RESET);
+  err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_RXNE, RESET, HW_I2C_RD_TIMOUT);
   if (I2C_ReceiveData( ) != packet_check[2]) err = 1;
   /* receive packet */
   /* left/right/middle btn */
-  err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_RXNE, RESET);
+  err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_RXNE, RESET, HW_I2C_RD_TIMOUT);
   packet_check[3] = I2C_ReceiveData( );
   /* Xmovement */
-  err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_RXNE, RESET);
+  err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_RXNE, RESET, HW_I2C_RD_TIMOUT);
   HIDMouse[1] = I2C_ReceiveData( );
   /* Ymovement */
-  err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_RXNE, RESET);
+  err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_RXNE, RESET, HW_I2C_RD_TIMOUT);
   HIDMouse[2] = I2C_ReceiveData( );
   /* Reserved */
   I2C_AcknowledgeConfig(DISABLE);
-  err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_RXNE, RESET);
+  err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_RXNE, RESET, HW_I2C_RD_TIMOUT);
   packet_check[3] = I2C_ReceiveData( );
   I2C_GenerateSTOP(ENABLE);
   I2C_AcknowledgeConfig(ENABLE);

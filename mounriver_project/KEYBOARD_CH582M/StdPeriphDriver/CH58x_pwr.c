@@ -43,6 +43,7 @@ void PWR_DCDCCfg(FunctionalState s)
         sys_safe_access_enable();
         R16_AUX_POWER_ADJ = adj;
         R16_POWER_PLAN = plan;
+        sys_safe_access_disable();
         DelayUs(10);
         sys_safe_access_enable();
         R16_POWER_PLAN |= RB_PWR_DCDC_EN;
@@ -133,6 +134,7 @@ void PWR_PeriphWakeUpCfg(FunctionalState s, uint8_t perph, WakeUP_ModeypeDef mod
     {
         sys_safe_access_enable();
         R8_SLP_WAKE_CTRL &= ~perph;
+        sys_safe_access_disable();
     }
     else
     {
@@ -153,12 +155,14 @@ void PWR_PeriphWakeUpCfg(FunctionalState s, uint8_t perph, WakeUP_ModeypeDef mod
 
         sys_safe_access_enable();
         R8_SLP_WAKE_CTRL |= RB_WAKE_EV_MODE | perph;
+        sys_safe_access_disable();
         sys_safe_access_enable();
         R8_SLP_POWER_CTRL &= ~(RB_WAKE_DLY_MOD);
+        sys_safe_access_disable();
         sys_safe_access_enable();
         R8_SLP_POWER_CTRL |= m;
+        sys_safe_access_disable();
     }
-    sys_safe_access_disable();
 }
 
 /*********************************************************************
@@ -237,7 +241,6 @@ void LowPower_Idle(void)
  *
  * @return  none
  */
-//#ifndef LOW_MEM
 __HIGH_CODE
 void LowPower_Halt(void)
 {
@@ -255,9 +258,11 @@ void LowPower_Halt(void)
 
     sys_safe_access_enable();
     R8_BAT_DET_CTRL = 0; // ¹Ø±ÕµçÑ¹¼à¿Ø
+    sys_safe_access_disable();
     sys_safe_access_enable();
     R8_XT32K_TUNE = x32Kpw;
     R8_XT32M_TUNE = x32Mpw;
+    sys_safe_access_disable();
     sys_safe_access_enable();
     R8_PLL_CONFIG |= (1 << 5);
     sys_safe_access_disable();
@@ -270,7 +275,6 @@ void LowPower_Halt(void)
     R8_PLL_CONFIG &= ~(1 << 5);
     sys_safe_access_disable();
 }
-//#endif
 
 /*******************************************************************************
 * Function Name  : LowPower_Sleep
@@ -304,6 +308,7 @@ void LowPower_Sleep(uint8_t rm)
 
     sys_safe_access_enable();
     R8_BAT_DET_CTRL = 0; // ¹Ø±ÕµçÑ¹¼à¿Ø
+    sys_safe_access_disable();
     sys_safe_access_enable();
     R8_XT32K_TUNE = x32Kpw;
     R8_XT32M_TUNE = x32Mpw;
@@ -318,12 +323,12 @@ void LowPower_Sleep(uint8_t rm)
     R8_SLP_POWER_CTRL |= RB_RAM_RET_LV;
     R8_PLL_CONFIG |= (1 << 5);
     R16_POWER_PLAN = power_plan;
-
+    sys_safe_access_disable();
     do{
         __WFI();
         __nop();
         __nop();
-        DelayUs(70);
+        DelayUs(300);
 
         {
             __attribute__((aligned(4))) uint8_t mac[6] = {0};
@@ -338,6 +343,7 @@ void LowPower_Sleep(uint8_t rm)
     sys_safe_access_enable();
     R8_PLL_CONFIG &= ~(1 << 5);
     sys_safe_access_disable();
+    DelayUs(20);
 }
 #endif
 
@@ -371,6 +377,7 @@ void LowPower_Shutdown(uint8_t rm)
 
     sys_safe_access_enable();
     R8_BAT_DET_CTRL = 0; // ¹Ø±ÕµçÑ¹¼à¿Ø
+    sys_safe_access_disable();
     sys_safe_access_enable();
     R8_XT32K_TUNE = x32Kpw;
     R8_XT32M_TUNE = x32Mpw;
@@ -381,8 +388,10 @@ void LowPower_Shutdown(uint8_t rm)
 
     sys_safe_access_enable();
     R8_SLP_POWER_CTRL |= RB_RAM_RET_LV;
+    sys_safe_access_disable();
     sys_safe_access_enable();
     R16_POWER_PLAN = RB_PWR_PLAN_EN | RB_PWR_MUST_0010 | rm;
+    sys_safe_access_disable();
     __WFI();
     __nop();
     __nop();

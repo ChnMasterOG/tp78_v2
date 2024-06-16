@@ -24,6 +24,7 @@
   #define SBP_RF_VOL_REPORT_EVT        0x20
   #define SBP_RF_JUMPBOOT_REPORT_EVT   0x40
   #define SBP_RF_HEARTBEAT_REPORT_EVT  0x80
+  #define SBP_RF_CHECK_SEND_REPORT_EVT 0x100
   #define SBP_RF_CHANNEL_HOP_TX_EVT    (1 << 3)
   #define SBP_RF_CHANNEL_HOP_RX_EVT    (1 << 4)
 
@@ -33,6 +34,8 @@
 
   void DATAFLASH_Read_RFfreqlevel(void);
   void DATAFLASH_Write_RFfreqlevel(uint8_t rf_freq_level);
+  void DATAFLASH_Read_CheckACKms(void);
+  void DATAFLASH_Write_CheckACKms(uint8_t check_ack_ms);
 
   extern tmosTaskID RFTaskId;
 

@@ -109,7 +109,7 @@ void GPIOA_IRQHandler(void)
 {
 #if (ROW_SCAN_MODE)
   if (g_Enable_Status.sleep == TRUE) {
-    TP78Reinit(1, g_lp_type);
+    wakeup_flag = TRUE;
   }
   GPIOA_ClearITFlagBit(Colum_Pin_ALL);  // 用于唤醒
 #endif

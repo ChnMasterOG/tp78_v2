@@ -66,11 +66,13 @@ const oled_ui_menu_structure cfg_menu_4 = {
 const oled_ui_menu_structure cfg_menu_5 = {
   .type = OLED_UI_TYPE_MENU,
   .text[0] = "lp_cnt",
+  .text[1] = "RF_chk_ms",
   .p[0] = (uint8_t*)&lp_max_cnt_en,
+  .p[1] = (uint8_t*)&rf_chk_ms_en,
   .p[3] = (uint8_t*)&main_menu,
   .p[4] = (uint8_t*)&cfg_menu_4,
   .p[5] = (uint8_t*)&cfg_menu_1,
-  .menu_size = 1,
+  .menu_size = 2,
 };
 const oled_ui_menu_structure key_status_menu_1 = {
   .type = OLED_UI_TYPE_MENU,
@@ -336,6 +338,15 @@ const oled_ui_enter_num_structure lp_max_cnt_en = {
   .pStr_len = 4,
   .line = FS_LINE_LP_MAX_CNT,
   .limit_len = 0,
+};
+const oled_ui_enter_num_structure rf_chk_ms_en = {
+  .type = OLED_UI_TYPE_ENTER_NUM,
+  .p = (uint8_t*)&cfg_menu_5,
+  .preStr = "val:",
+  .postStr = "OK",
+  .pStr_len = 4,
+  .line = FS_LINE_RF_CHECK_ACK_MS,
+  .limit_len = 3,
 };
 
 /* 执行项 */

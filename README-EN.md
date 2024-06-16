@@ -216,3 +216,15 @@ You can submit you code [here](https://github.com/ChnMasterOG/tp78_v2/issues). T
         1. Modify keyboard bounce codes to avoid duplicate key-codes.
 
         2. Optimize the judgment of USB HID information transmission status.
+
+- V2.1.1
+
+        1. Optimize HID encoding logic when pressing buttons and update I2C driver.
+
+        2. Update WCH SDK to the January 2024 version.
+
+        3. **After updated this version, the Numlock status will be displayed on OLED in RF mode. When the signal is poor and packet loss occurs, the keyboard will automatically initiate a retransmission. The default retransmission time is 10ms, which can be modified through the RF_chk_ms parameter. This function needs to be synchronized and upgraded with the receiver firmware before it can take effect.**
+
+        4. Adapt to miniFOC and TP78mini expansion modules.
+
+        5. Update low power codes.

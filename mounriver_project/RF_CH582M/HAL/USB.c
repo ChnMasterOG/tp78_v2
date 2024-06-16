@@ -188,14 +188,17 @@ void USB_DevTransProcess( void )
           len = R8_USB_RX_LEN;
           if ( SetupReqCode == 0x09 )
           {
+            if ( (pEP0_DataBuf[0] & (1<<0)) == 0 ) {
+                LEDOUT_DATA[0] = 0;    // Light off Num Lock LED
+            } else {
+                LEDOUT_DATA[0] = 1;     // Light on Num Lock LED
+            }
             if ( (pEP0_DataBuf[0] & (1<<1)) == 0 ) {
-                CAPSLOCK_DATA[1] = 0;    // Light off Caps Lock LED
-                tmos_start_task(RFtaskID, SBP_RF_CAPSLOCK_TX_EVT, 10);
+                LEDOUT_DATA[1] = 0;    // Light off Caps Lock LED
+            } else {
+                LEDOUT_DATA[1] = 1;     // Light on Caps Lock LED
             }
-            else if ( pEP0_DataBuf[0] & (1<<1) ) {
-                CAPSLOCK_DATA[1] = 1;     // Light on Caps Lock LED
-                tmos_start_task(RFtaskID, SBP_RF_CAPSLOCK_TX_EVT, 10);
-            }
+            tmos_start_task(RFtaskID, SBP_RF_LEDOUT_TX_EVT, 10);
           }
         }
           break;

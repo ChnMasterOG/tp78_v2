@@ -33,6 +33,7 @@ Enable_Status_t g_Enable_Status = { // 使能信号
 };
 uint8_t g_TP_speed_div = 1;
 uint8_t g_Game_Mode = FALSE;  // 性能模式
+uint8_t wakeup_flag = FALSE;  // 唤醒标志位
 enum LP_Type g_lp_type = lp_sw_mode;   // 记录下电前的低功耗模式
 
 static uint32_t EP_counter = 0;   // 彩蛋计数器
@@ -51,6 +52,9 @@ static inline void TP78_Idle_Clr(void)
   if (idle_cnt >= idle_max_period) {  // 退出idle
 #if (defined HAL_OLED) && (HAL_OLED == TRUE)
     OLED_UI_idle(0);
+#endif
+#if (defined HAL_TPM) && (HAL_TPM == TRUE)
+    TPM_notify_sleep_data(0);
 #endif
   }
   idle_cnt = 0;
@@ -875,9 +879,22 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
 #endif
     ++sys_time;
     ++idle_cnt;
+    if (g_Enable_Status.sleep == TRUE) {  // 唤醒
+      if (wakeup_flag == TRUE) {
+        wakeup_flag = FALSE;
+        TP78Reinit(1, g_lp_type);
+#if (defined HAL_TPM) && (HAL_TPM == TRUE)
+        TPM_notify_sleep_data(0);
+#endif
+      }
+      goto MAIN_CIRCULATION_EVENT_out;
+    }
     if (idle_cnt == idle_max_period) {  // 进入idle
 #if (defined HAL_OLED) && (HAL_OLED == TRUE)
       OLED_UI_idle(1);
+#endif
+#if (defined HAL_TPM) && (HAL_TPM == TRUE)
+      TPM_notify_sleep_data(1);
 #endif
     } else if (idle_cnt >= lp_max_period) {  // 进入低功耗模式
 #if (defined HAL_OLED) && (HAL_OLED == TRUE)
@@ -885,6 +902,9 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
       OLED_Clr(0, 2, 64, 5);  // 立即执行 - 后续进入低功耗
 #endif
       idle_cnt = 0;
+#if (defined HAL_TPM) && (HAL_TPM == TRUE)
+      TPM_notify_sleep_data(2);
+#endif
       GotoLowpower(g_lp_type);
     }
     // OLED信息更新处理
@@ -892,6 +912,7 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
     SW_OLED_ConnectionStatus_Process();
     SW_OLED_LEDStatus_Process();
 #endif
+    MAIN_CIRCULATION_EVENT_out:
     if (g_Game_Mode == FALSE) {
       tmos_start_task( halTaskID, MAIN_CIRCULATION_EVENT, MS1_TO_SYSTEM_TIME(SYS_PERIOD) ); // SYS_PERIOD周期
     }
@@ -943,7 +964,7 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
   {
 #if (defined HAL_TPM) && (HAL_TPM == TRUE) && (defined HAL_HW_I2C) && (HAL_HW_I2C == TRUE)
     if (g_keyboard_status.enter_cfg == FALSE) {
-      if (tpm_cnt == 1) { // x2 period
+      if (tpm_cnt >= 5) { // x5 period
         TPM_scan();
         tpm_cnt = 0;
       }
@@ -1033,6 +1054,7 @@ void FLASH_Init(void)
 #endif
 #if (defined HAL_RF) && (HAL_RF == TRUE) && !(defined TEST)
   DATAFLASH_Read_RFfreqlevel();
+  DATAFLASH_Read_CheckACKms();
 #endif
 #if (defined HAL_WS2812_PWM) && (HAL_WS2812_PWM == TRUE)
   HAL_Fs_Read_keyboard_cfg(FS_LINE_LED_BRIGHTNESS, 1, &tmp);

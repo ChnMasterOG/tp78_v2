@@ -83,7 +83,8 @@ void WS2812_PWM_Init( void )
   WS2812_GPIO_(ModeCfg)( WS2812_Pin, GPIO_ModeOut_PP_5mA );
 
 #if 0 // DMA搬运前重新初始化
-  TMR1_PWMInit( High_Level, PWM_Times_1 );
+//  TMR1_PWMInit( High_Level, PWM_Times_1 );  -旧sdk
+  R8_TMR1_CTRL_MOD = RB_TMR_COUNT_EN | RB_TMR_OUT_EN | (High_Level << 4) | (PWM_Times_1 << 6);
   TMR1_PWMCycleCfg( 75 );        // 周期 1.25us
 #endif
 
@@ -185,6 +186,10 @@ void WS2812_Style_Breath( void )
   }
   if (LED_BYTE_Buffer[0][GREEN_INDEX] == g_LED_brightness || LED_BYTE_Buffer[0][GREEN_INDEX] == 0 ) {
     style_dir = !style_dir;
+#if (defined HAL_TPM) && (HAL_TPM == TRUE) && (defined HAL_HW_I2C) && (HAL_HW_I2C == TRUE)
+    if (!style_dir)
+      TPM_notify_backlight_ready();
+#endif
   }
 }
 
@@ -225,6 +230,9 @@ void WS2812_Style_Waterful( void )
   ++style_cnt;
   if (style_cnt >= LED_NUMBER * 3 * Waterful_Repeat_Times ) { // GRB轮流切换 + 120ms移动一个灯
     style_cnt = 0;
+#if (defined HAL_TPM) && (HAL_TPM == TRUE) && (defined HAL_HW_I2C) && (HAL_HW_I2C == TRUE)
+    TPM_notify_backlight_ready();
+#endif
   }
 }
 
@@ -324,7 +332,13 @@ void WS2812_Style_Rainbow( void )
   } else {  // 从右向左
     --style_cnt;
   }
-  if (style_cnt == 42 || style_cnt == 0) style_dir = !style_dir;
+  if (style_cnt == 42 || style_cnt == 0) {
+    style_dir = !style_dir;
+#if (defined HAL_TPM) && (HAL_TPM == TRUE) && (defined HAL_HW_I2C) && (HAL_HW_I2C == TRUE)
+    if (!style_dir)
+      TPM_notify_backlight_ready();
+#endif
+  }
 }
 
 /*******************************************************************************
@@ -380,7 +394,8 @@ void WS2812_Send( void )
   }
 
   { // WCH CH582M bug: 不重新初始化TMR_PWM则发送PWM+DMA偶现第一个非空Byte丢失
-    TMR1_PWMInit( High_Level, PWM_Times_1 );
+//    TMR1_PWMInit( High_Level, PWM_Times_1 );  -旧sdk
+    R8_TMR1_CTRL_MOD = RB_TMR_COUNT_EN | RB_TMR_OUT_EN | (High_Level << 4) | (PWM_Times_1 << 6);
     TMR1_PWMCycleCfg( 75 );        // 周期 1.25us
   }
   TMR1_DMACfg( ENABLE, (UINT16) (UINT32) LED_DMA_Buffer, (UINT16) (UINT32) (LED_DMA_Buffer + LED_NUMBER*24 + RESET_FRAME_SIZE), Mode_Single );  // 启用DMA转换，从内存到外设

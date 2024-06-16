@@ -90,15 +90,18 @@ u32 CH58X_LowPower( u32 time )
 void HAL_SleepInit( void )
 {
 #if (defined (HAL_SLEEP)) && (HAL_SLEEP == TRUE)
-  R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;
-  R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
-  SAFEOPERATE;
-  R8_SLP_WAKE_CTRL |= RB_SLP_RTC_WAKE | RB_SLP_GPIO_WAKE;    // RTC唤醒 + GPIO唤醒
-  R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;
-  R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
-  SAFEOPERATE;
+  if (g_lp_type == lp_no_sleep_mode)
+    return;
+  sys_safe_access_enable();
+  if (g_lp_type == lp_sw_mode) {
+    R8_SLP_WAKE_CTRL |= RB_SLP_RTC_WAKE | RB_SLP_GPIO_WAKE;    // RTC唤醒 + GPIO唤醒
+  } else {
+    R8_SLP_WAKE_CTRL |= RB_SLP_GPIO_WAKE;    // GPIO唤醒
+  }
+  sys_safe_access_disable();
+  sys_safe_access_enable();
   R8_RTC_MODE_CTRL |= RB_RTC_TRIG_EN;    // 触发模式
-  R8_SAFE_ACCESS_SIG = 0;    //
+  sys_safe_access_disable();
 
   if (g_lp_type == lp_sw_mode) {
     PFIC_EnableIRQ( RTC_IRQn );
