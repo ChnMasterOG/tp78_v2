@@ -33,7 +33,7 @@ const uint8_t Extra_KeyArrary[ROW_SIZE][COL_SIZE] = {
 /* ROW4 */{ KEY_None,   KEY_None,     KEY_None,     KEY_None,       KEY_Home,     KEY_End,      KEY_None, KEY_None, KEY_None, KEY_None, KEY_None,       KEY_None, KEY_None, KEY_None  },
 /* ROW5 */{ KEY_None,   KEY_None,     KEY_None,     KEY_MouseL,     KEY_MouseR,   KEY_None,     KEY_None, KEY_None, KEY_None, KEY_None, KEY_None,       KEY_None, KEY_None, KEY_None  },
 };  // 额外默认键盘布局 - 其它键盘布局需修改此处
-const uint8_t SP_KeyArrary[][8] = {
+const uint8_t SP_KeyArrary[SP_KEY_NUMBER][8] = {
         { 0x5,      0x0,      KEY_Delete,       0x0,      0x0,      0x0,      0x0,      0x0 }, //1 - Ctrl+Alt+Del
         { 0x3,      0x0,      KEY_Delete,       0x0,      0x0,      0x0,      0x0,      0x0 }, //2 - Ctrl+Shift+Del
         { 0x0,      0x0,      0x0,              0x0,      0x0,      0x0,      0x0,      0x0 }, //3

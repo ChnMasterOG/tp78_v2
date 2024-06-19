@@ -228,3 +228,7 @@ You can submit you code [here](https://github.com/ChnMasterOG/tp78_v2/issues). T
         4. Adapt to miniFOC and TP78mini expansion modules.
 
         5. Update low power codes.
+
+- V2.1.2
+
+        1. Support VIA keyboard macro functions. (Keep old U-disk functions)

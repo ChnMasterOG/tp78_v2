@@ -11,6 +11,200 @@
 #include "HAL.h"
 #include "tp78_via.h"
 
+#define SP_KEY_ENCODE_ST_PRESS_0      0
+#define SP_KEY_ENCODE_ST_PRESS_1      1
+#define SP_KEY_ENCODE_ST_PRESS_2      2
+#define SP_KEY_ENCODE_ST_NORMAL       3
+#define SP_KEY_ENCODE_ST_RELEASE_0    4
+#define SP_KEY_ENCODE_ST_RELEASE_1    5
+#define SP_KEY_ENCODE_ST_RELEASE_2    6
+#define SP_KEY_ENCODE_ST_END          7
+
+static uint8_t sp_key_index = 0;
+static uint8_t sp_key_normal_key_index = 0;
+static uint8_t sp_key_next_direct_keycode_flag = FALSE;
+static uint8_t sp_key_encode_st = SP_KEY_ENCODE_ST_PRESS_0;
+
+const uint8_t ascii_to_keycode[256] = {
+                                       /* 0-9 */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                       /* 10-19 */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                       /* 20-29 */ KEY_SPACEBAR, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                       /* 30-39 */ 0, 0, 0, 0, 0, 0, 0, 0, 0, KEY_Quotation,
+                                       /* 40-49 */ 0, 0, 0, 0, KEY_Comma, KEY_Subtraction, KEY_FullStop, KEY_Slash, KEY_0, KEY_1,
+                                       /* 50-59 */ KEY_2, KEY_3, KEY_4, KEY_5, KEY_6, KEY_7, KEY_8, KEY_9, 0, KEY_Semicolon,
+                                       /* 60-69 */ 0, KEY_Equal, 0, 0, 0, 0, 0, 0, 0, 0,
+                                       /* 70-79 */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                       /* 80-89 */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                       /* 90-99 */ 0, KEY_LSbrackets, KEY_NonUS_WS, KEY_RSbrackets, 0, 0, KEY_GraveAccent, KEY_A, KEY_B, KEY_C,
+                                       /* 100-109 */ KEY_D, KEY_E, KEY_F, KEY_G, KEY_H, KEY_I, KEY_J, KEY_K, KEY_L, KEY_M,
+                                       /* 110-119 */ KEY_N, KEY_O, KEY_P, KEY_Q, KEY_R, KEY_S, KEY_T, KEY_U, KEY_V, KEY_W,
+                                       /* 120-129 */ KEY_X, KEY_Y, KEY_Z, 0, 0, 0, 0, 0, 0, 0,
+                                       /* 120-129 */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+};
+const uint8_t keycode_to_ascii[256] = {
+                                       /* 0-9 */ 0, 0, 0, 0, 'a', 'b', 'c', 'd', 'e', 'f',
+                                       /* 10-19 */ 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+                                       /* 20-29 */ 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+                                       /* 30-39 */ '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+                                       /* 40-49 */ 0, 0, 0, 0, ' ', '-', '=', '[', ']', 0,
+                                       /* 50-59 */ '\\', ';', '\'', '`', ',', '.', '/', 0, 0, 0,
+                                       /* 60-69 */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                       /* 70-79 */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                       /* 80-89 */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+};
+
+
+/*******************************************************************************
+ * Function Name  : via_MACRO_buffer_encode
+ * Description    : SP_KEY格式转换为via MACRO格式
+ * Input          : *data - via MACRO格式数据
+ * Return         : None
+ *******************************************************************************/
+static void via_MACRO_buffer_encode(uint8_t *data)
+{
+  uint8_t size = *data++;
+
+  if (sp_key_index >= SP_KEY_NUMBER)
+    return;
+
+  while (size) {
+    switch (sp_key_encode_st) {
+      case SP_KEY_ENCODE_ST_PRESS_0:
+      case SP_KEY_ENCODE_ST_RELEASE_0:
+        if (sp_key_normal_key_index < 8) {
+          if (SP_Key_Map[sp_key_index][0] & (1 << sp_key_normal_key_index)) {
+            sp_key_encode_st = sp_key_encode_st == SP_KEY_ENCODE_ST_PRESS_0 ? SP_KEY_ENCODE_ST_PRESS_1 : SP_KEY_ENCODE_ST_RELEASE_1;
+            *data = 0x1;  // SS_TAP_CODE
+            data++;
+            size--;
+          } else {
+            sp_key_normal_key_index++;
+          }
+        } else {
+          if (keycode_to_ascii[SP_Key_Map[sp_key_index][sp_key_normal_key_index - 6]] == 0 && SP_Key_Map[sp_key_index][sp_key_normal_key_index - 6] != KEY_None) {
+            sp_key_encode_st = sp_key_encode_st == SP_KEY_ENCODE_ST_PRESS_0 ? SP_KEY_ENCODE_ST_PRESS_1 : SP_KEY_ENCODE_ST_RELEASE_1;
+            *data = 0x1;  // SS_TAP_CODE
+            data++;
+            size--;
+          } else {
+            sp_key_normal_key_index++;
+          }
+        }
+        break;
+      case SP_KEY_ENCODE_ST_PRESS_1:
+        sp_key_encode_st = SP_KEY_ENCODE_ST_PRESS_2;
+        *data = 0x2; // SS_DOWN_CODE
+        data++;
+        size--;
+        break;
+      case SP_KEY_ENCODE_ST_RELEASE_1:
+        sp_key_encode_st = SP_KEY_ENCODE_ST_RELEASE_2;
+        *data = 0x3; // SS_UP_CODE
+        data++;
+        size--;
+        break;
+      case SP_KEY_ENCODE_ST_PRESS_2:
+      case SP_KEY_ENCODE_ST_RELEASE_2:
+        sp_key_encode_st = sp_key_encode_st == SP_KEY_ENCODE_ST_PRESS_2 ? SP_KEY_ENCODE_ST_PRESS_0 : SP_KEY_ENCODE_ST_RELEASE_0;
+        if (sp_key_normal_key_index < 8) {
+          *data = KEY_LeftCTRL + sp_key_normal_key_index;
+        } else {
+          *data = SP_Key_Map[sp_key_index][sp_key_normal_key_index - 6];
+        }
+        sp_key_normal_key_index++;
+        data++;
+        size--;
+        break;
+      case SP_KEY_ENCODE_ST_NORMAL:
+        if (sp_key_normal_key_index < 8) {
+          sp_key_normal_key_index++;
+        } else {
+          if (keycode_to_ascii[SP_Key_Map[sp_key_index][sp_key_normal_key_index - 6]] != 0 && SP_Key_Map[sp_key_index][sp_key_normal_key_index - 6] != KEY_None) {
+            *data = keycode_to_ascii[SP_Key_Map[sp_key_index][sp_key_normal_key_index - 6]];
+            data++;
+            size--;
+            sp_key_normal_key_index++;
+          } else {
+            sp_key_normal_key_index++;
+          }
+        }
+        break;
+      case SP_KEY_ENCODE_ST_END:
+        *data = 0x0;  // SS_END_CODE
+        data++;
+        size--;
+        break;
+      default:
+        break;
+    }
+    if (sp_key_normal_key_index == 6 + 8) {
+      switch (sp_key_encode_st) {
+        case SP_KEY_ENCODE_ST_PRESS_0:
+          sp_key_encode_st = SP_KEY_ENCODE_ST_NORMAL;
+          sp_key_normal_key_index = 0;
+          break;
+        case SP_KEY_ENCODE_ST_NORMAL:
+          sp_key_encode_st = SP_KEY_ENCODE_ST_RELEASE_0;
+          sp_key_normal_key_index = 0;
+          break;
+        case SP_KEY_ENCODE_ST_RELEASE_0:
+          sp_key_encode_st = SP_KEY_ENCODE_ST_END;
+          break;
+        case SP_KEY_ENCODE_ST_END:
+          sp_key_index++;
+          sp_key_encode_st = SP_KEY_ENCODE_ST_PRESS_0;
+          sp_key_normal_key_index = 0;
+          if (sp_key_index >= SP_KEY_NUMBER)
+            return;
+          break;
+        default:
+          break;
+      }
+    }
+  }
+}
+
+/*******************************************************************************
+ * Function Name  : via_MACRO_decode
+ * Description    : via MACRO格式解析为SP_KEY报文
+ * Input          : *data - via MACRO格式数据
+ * Return         : None
+ *******************************************************************************/
+static void via_MACRO_buffer_decode(uint8_t *data)
+{
+  uint8_t size = *data++;
+
+  while (size) {
+    switch (*data) {
+      case 0x0: // END_CODE
+        sp_key_index++;
+        sp_key_normal_key_index = 0;
+        break;
+      //case 0x1: // SS_TAP_CODE
+      case 0x2: // SS_DOWN_CODE
+      //case 0x3: // SS_UP_CODE
+        sp_key_next_direct_keycode_flag = TRUE;
+        break;
+      case KEY_LeftCTRL ... KEY_RightGUI:
+        SP_Key_Map[sp_key_index][0] |= 1 << (*data - KEY_LeftCTRL);
+        sp_key_next_direct_keycode_flag = FALSE;
+        break;
+      default:
+        if (sp_key_normal_key_index < 6) {
+          if (sp_key_next_direct_keycode_flag == TRUE) {
+            SP_Key_Map[sp_key_index][sp_key_normal_key_index + 2] = *data;
+            sp_key_next_direct_keycode_flag = FALSE;
+          } else {
+            SP_Key_Map[sp_key_index][sp_key_normal_key_index + 2] = ascii_to_keycode[*data];
+          }
+          sp_key_normal_key_index++;
+        }
+    }
+    data++;
+    size--;
+  }
+}
+
 /*******************************************************************************
  * Function Name  : via_custom_value_command
  * Description    : via客制化命令
@@ -183,10 +377,21 @@ void via_data_processing(uint8_t *data, uint8_t len)
           command_data[4] = 0;
           break;
         }
-        if (command_data[0] == 0) // layer 0
-          command_data[4] = CustomKey[command_data[1]][command_data[2]];
-        else  // layer 1
-          command_data[4] = Extra_CustomKey[command_data[1]][command_data[2]];
+        if (command_data[0] == 0) { // layer 0
+          if (CustomKey[command_data[1]][command_data[2]] >= KEY_SP_1 && CustomKey[command_data[1]][command_data[2]] <= KEY_SP_7) {
+            command_data[3] = 0x77;
+            command_data[4] = CustomKey[command_data[1]][command_data[2]] - KEY_SP_1;
+          } else {
+            command_data[4] = CustomKey[command_data[1]][command_data[2]];
+          }
+        } else {  // layer 1
+          if (Extra_CustomKey[command_data[1]][command_data[2]] >= KEY_SP_1 && Extra_CustomKey[command_data[1]][command_data[2]] <= KEY_SP_7) {
+            command_data[3] = 0x77;
+            command_data[4] = Extra_CustomKey[command_data[1]][command_data[2]] - KEY_SP_1;
+          } else {
+            command_data[4] = Extra_CustomKey[command_data[1]][command_data[2]];
+          }
+        }
         break;
     }
     case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_SET_KEYCODE: {
@@ -197,10 +402,16 @@ void via_data_processing(uint8_t *data, uint8_t len)
         **************************/
         if (command_data[1] > ROW_SIZE || command_data[2] > COL_SIZE) break;
         if (command_data[0] == 0) { // layer 0
-          CustomKey[command_data[1]][command_data[2]] = command_data[4];
+          if (command_data[3] == 0x77)  // SP_KEY
+            CustomKey[command_data[1]][command_data[2]] = KEY_SP_1 + command_data[4];
+          else
+            CustomKey[command_data[1]][command_data[2]] = command_data[4];
           HAL_Fs_Write_keyboard_mat("0:keyboard_mat.txt", (const uint8_t*)CustomKey);
         } else {  // layer 1
-          Extra_CustomKey[command_data[1]][command_data[2]] = command_data[4];
+          if (command_data[3] == 0x77)  // SP_KEY
+            Extra_CustomKey[command_data[1]][command_data[2]] = KEY_SP_1 + command_data[4];
+          else
+            Extra_CustomKey[command_data[1]][command_data[2]] = command_data[4];
           HAL_Fs_Write_keyboard_mat("0:keyboard_ext_mat.txt", (const uint8_t*)Extra_CustomKey);
         }
         break;
@@ -218,11 +429,15 @@ void via_data_processing(uint8_t *data, uint8_t len)
         break;
     }
     case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MACRO_GET_COUNT: {
-        command_data[0] = 0;
+        command_data[0] = SP_KEY_NUMBER;  // SP按键个数
         break;
     }
     case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MACRO_GET_BUFFER_SIZE: {
-        command_data[0] = command_data[1] = 0;
+        command_data[0] = 0;
+        command_data[1] = SP_KEY_NUMBER * (3 * 8 + 6 + 1);  // 3 * 8(ctrl/gui/alt/shift特殊键) + 6(普通按键) + 1(结束符)
+        sp_key_index = 0;
+        sp_key_normal_key_index = 0;
+        sp_key_encode_st = SP_KEY_ENCODE_ST_PRESS_0;
         break;
     }
     case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MACRO_GET_BUFFER: {
@@ -231,8 +446,7 @@ void via_data_processing(uint8_t *data, uint8_t len)
           command_data[1] = offset LSB
           command_data[2] = size
         **********************************/
-        /* TP78 unsupport this command */
-        command_data[0] = command_data[1] = command_data[2] = 0;
+        via_MACRO_buffer_encode(&command_data[2]);
         break;
     }
     case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MACRO_SET_BUFFER: {
@@ -241,11 +455,17 @@ void via_data_processing(uint8_t *data, uint8_t len)
           command_data[1] = offset LSB
           command_data[2] = size
         **********************************/
-        /* TP78 unsupport this command */
+        if (((command_data[0] << 8) | command_data[1]) == SP_KEY_NUMBER * (3 * 8 + 6 + 1) - 1 && command_data[2] == 0x1 && command_data[3] == 0xFF) { // START flag
+          sp_key_index = 0;
+          sp_key_normal_key_index = 0;
+          sp_key_next_direct_keycode_flag = FALSE;
+        }
+        via_MACRO_buffer_decode(&command_data[2]);
+        HAL_Fs_Write_keyboard_spkey((uint8_t*)SP_Key_Map); // save configurations
         break;
     }
     case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MACRO_RESET: {
-        /* TP78 unsupport this command */
+        memset(SP_Key_Map, 0, SP_KEY_NUMBER * 8);
         break;
     }
     case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_GET_LAYER_COUNT: {
@@ -273,8 +493,16 @@ void via_data_processing(uint8_t *data, uint8_t len)
             command_data[j + 1] = 0;
           } else {
             command_data[j] = 0;  // MSB set to zero(USB为大端传输)
-            if (i % (COL_SIZE + 1) == COL_SIZE) command_data[j + 1] = 0;  // 一行末尾保留空白
-            else command_data[j + 1] = keyarr_ptr[k++];
+            if (i % (COL_SIZE + 1) == COL_SIZE) {
+              command_data[j + 1] = 0;  // 一行末尾保留空白
+            } else {
+              if (keyarr_ptr[k] >= KEY_SP_1 && keyarr_ptr[k] <= KEY_SP_7) {
+                command_data[j] = 0x77;
+                command_data[j + 1] = keyarr_ptr[k++] - KEY_SP_1;
+              } else {
+                command_data[j + 1] = keyarr_ptr[k++];
+              }
+            }
           }
         }
         break;
@@ -296,7 +524,12 @@ void via_data_processing(uint8_t *data, uint8_t len)
         keyarr_ptr += offset - offset / (COL_SIZE + 1); // 一行结束减去末尾空白键
         for (i = offset; i < offset + size; i++, j+=2) {
           if (i >= (COL_SIZE + 1) * ROW_SIZE) break;
-          else if (i % (COL_SIZE + 1) != COL_SIZE) keyarr_ptr[k++] = command_data[j + 1];
+          else if (i % (COL_SIZE + 1) != COL_SIZE) {
+            if (command_data[j] == 0x77)  // SP_KEY
+              keyarr_ptr[k++] = KEY_SP_1 + command_data[j + 1];
+            else
+              keyarr_ptr[k++] = command_data[j + 1];
+          }
         }
         DATAFLASH_Write_KeyArray(); // save configurations
         break;

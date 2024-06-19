@@ -3,7 +3,7 @@
  * Author             : ChnMasterOG
  * Version            : V1.0
  * Date               : 2023/4/28
- * Description        : TP78的VIA支持库
+ * Description        : TP78 VIA support
  * Copyright (c) 2023 ChnMasterOG
  * SPDX-License-Identifier: GNU GENERAL PUBLIC LICENSE v2.0 or later
  *******************************************************************************/

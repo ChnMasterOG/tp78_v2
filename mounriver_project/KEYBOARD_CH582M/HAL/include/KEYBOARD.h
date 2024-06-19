@@ -193,9 +193,11 @@
 
     extern const uint8_t KeyArrary[ROW_SIZE][COL_SIZE];
     extern const uint8_t Extra_KeyArrary[ROW_SIZE][COL_SIZE];
+    extern const uint8_t SP_KeyArrary[SP_KEY_NUMBER][8];
     extern uint32_t Row_Pin_ALL, Colum_Pin_ALL;
     extern uint8_t CustomKey[ROW_SIZE][COL_SIZE];
     extern uint8_t Extra_CustomKey[ROW_SIZE][COL_SIZE];
+    extern uint8_t SP_Key_Map[SP_KEY_NUMBER][8];
     extern uint8_t KeyMatrix[ROW_SIZE][COL_SIZE];
     extern Keyboard_Status_t g_keyboard_status;
 
