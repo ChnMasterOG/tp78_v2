@@ -223,7 +223,7 @@ You can submit you code [here](https://github.com/ChnMasterOG/tp78_v2/issues). T
 
         2. Update WCH SDK to the January 2024 version.
 
-        3. **After updated this version, the Numlock status will be displayed on OLED in RF mode. When the signal is poor and packet loss occurs, the keyboard will automatically initiate a retransmission. The default retransmission time is 10ms, which can be modified through the RF_chk_ms parameter. This function needs to be synchronized and upgraded with the receiver firmware before it can take effect.**
+        3. After updated this version, the Numlock status will be displayed on OLED in RF mode. When the signal is poor and packet loss occurs, the keyboard will automatically initiate a retransmission. The default retransmission time is 10ms, which can be modified through the RF_chk_ms parameter. This function needs to be synchronized and upgraded with the receiver firmware before it can take effect.
 
         4. Adapt to miniFOC and TP78mini expansion modules.
 
@@ -232,3 +232,13 @@ You can submit you code [here](https://github.com/ChnMasterOG/tp78_v2/issues). T
 - V2.1.2
 
         1. Support VIA keyboard macro functions. (Keep old U-disk functions)
+
+- V2.1.3
+
+        1. Cancel the vibration of the left/middle/right button on TP78 touchbar, in order to fix the bug where the combination of the trackpoint and touchbar causes the former to be unable to move.
+
+        2. Optimize the connection stability of the TPM module.
+
+        3. Modify the HID descriptor configuration of USB/BLE/RF and add knob configuration. **After updating the version, it is necessary to upgrade the receiver firmware.**
+
+        4. Update the document to include instructions for VIA, U-disk, and OLED icon descriptions.

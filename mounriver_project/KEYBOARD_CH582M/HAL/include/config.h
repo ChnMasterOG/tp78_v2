@@ -66,7 +66,7 @@
  * 默认配置值
  */
 #ifndef FIRMWARE_VERSION
-#define FIRMWARE_VERSION            "v2_1_2"
+#define FIRMWARE_VERSION            "v2_1_3"
 #endif
 #ifndef BLE_MAC
 #define BLE_MAC                     FALSE
@@ -76,6 +76,9 @@
 #endif
 #ifndef BLE_VOL
 #define BLE_VOL                     TRUE
+#endif
+#ifndef BLE_DIAL
+#define BLE_DIAL                    TRUE
 #endif
 #ifndef DCDC_ENABLE
 #define DCDC_ENABLE                 FALSE

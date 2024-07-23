@@ -115,6 +115,8 @@
     #define KEY_DownArrow   0x51    //↓
     #define KEY_UpArrow     0x52    //↑
 
+    #define KEYPAD_NumLock  0x53
+
     //特殊
     #define KEY_Undo        0x7A
     #define KEY_Cut         0x7B

@@ -149,11 +149,43 @@ static const uint8 hidReportMap[] =
   0xc0,
 #endif
 
+#if defined (BLE_DIAL) && (BLE_DIAL == TRUE)
+  0x05, 0x01,
+  0x09, 0x0E,
+  0xA1, 0x01,
+
+  0x85, 0x03,     // Report ID (3)
+  0x05, 0x0D,
+  0x09, 0x21,
+  0xA1, 0x00,
+
+  0x05, 0x09,     // USAGE_PAGE (Button)
+  0x09, 0x01,
+  0x95, 0x01,     // REPORT_COUNT (1)
+  0x75, 0x01,     // REPORT_SIZE (1)
+  0x15, 0x00,     // LOGICAL_MINIMUM (0)
+  0x25, 0x01,     // LOGICAL_MAXIMUM (1)
+  0x81, 0x02,
+  0x05, 0x01,
+  0x09, 0x37,
+  0x95, 0x01,
+  0x75, 0x0F,
+  0x55, 0x0F,
+  0x65, 0x14,
+  0x36, 0xF0, 0xF1,
+  0x46, 0x10, 0x0E,
+  0x16, 0xF0, 0xF1,
+  0x26, 0x10, 0x0E,
+  0x81, 0x06,
+  0xC0,
+  0xC0,
+#endif
+
  /* keyboard hid report */
   0x05, 0x01,     // Usage Pg (Generic Desktop)
   0x09, 0x06,     // Usage (Keyboard)
   0xA1, 0x01,     // Collection: (Application)
-  0x85, 0x03,     // Report Id (3)
+  0x85, 0x04,     // Report Id (4)
                   //
   0x05, 0x07,     // Usage Pg (Key Codes)
   0x19, 0xE0,     // Usage Min (224)
@@ -249,6 +281,16 @@ static gattCharCfg_t hidReportVolumeInClientCharCfg[GATT_MAX_NUM_CONN];
 // HID Report Reference characteristic descriptor, volume input
 static uint8 hidReportRefVolumeIn[HID_REPORT_REF_LEN] =
              { HID_RPT_ID_VOL_IN, HID_REPORT_TYPE_INPUT };
+#endif
+#if (defined (BLE_DIAL)) && (BLE_DIAL == TRUE)
+// HID Report characteristic, Dial input
+static uint8 hidReportDialInProps = GATT_PROP_READ | GATT_PROP_NOTIFY;
+static uint8 hidReportDialIn;
+static gattCharCfg_t hidReportDialInClientCharCfg[GATT_MAX_NUM_CONN];
+
+// HID Report Reference characteristic descriptor, volume input
+static uint8 hidReportRefDialIn[HID_REPORT_REF_LEN] =
+             { HID_RPT_ID_DIAL_IN, HID_REPORT_TYPE_INPUT };
 #endif
 // HID Report characteristic, key input
 static uint8 hidReportKeyInProps = GATT_PROP_READ | GATT_PROP_NOTIFY;
@@ -442,6 +484,39 @@ static gattAttribute_t hidAttrTbl[] =
     hidReportRefVolumeIn
   },
 #endif
+#if (defined (BLE_DIAL)) && (BLE_DIAL == TRUE)
+  // HID Report characteristic, dial input declaration
+  {
+    { ATT_BT_UUID_SIZE, characterUUID },
+    GATT_PERMIT_READ,
+    0,
+    &hidReportDialInProps
+  },
+
+  // HID Report characteristic, dial input
+  {
+    { ATT_BT_UUID_SIZE, hidReportUUID },
+    GATT_PERMIT_ENCRYPT_READ,
+    0,
+    &hidReportDialIn
+  },
+
+  // HID Dial Input Report characteristic client characteristic configuration
+  {
+    { ATT_BT_UUID_SIZE, clientCharCfgUUID },
+    GATT_PERMIT_READ | GATT_PERMIT_ENCRYPT_WRITE,
+    0,
+    (uint8 *) &hidReportDialInClientCharCfg
+  },
+
+  // HID Report Reference characteristic descriptor, dial input
+  {
+    { ATT_BT_UUID_SIZE, reportRefUUID },
+    GATT_PERMIT_READ,
+    0,
+    hidReportRefDialIn
+  },
+#endif
   // HID Report characteristic, key input declaration
   {
     { ATT_BT_UUID_SIZE, characterUUID },
@@ -587,6 +662,12 @@ enum
   HID_REPORT_VOL_IN_CCCD_IDX,     // HID Report characteristic client characteristic configuration
   HID_REPORT_REF_VOL_IN_IDX,      // HID Report Reference characteristic descriptor, volume input
 #endif
+#if (defined (BLE_DIAL)) && (BLE_DIAL == TRUE)
+  HID_REPORT_DIAL_IN_DECL_IDX,    // HID Report characteristic, dial input declaration
+  HID_REPORT_DIAL_IN_IDX,         // HID Report characteristic, dial input
+  HID_REPORT_DIAL_IN_CCCD_IDX,    // HID Report characteristic client characteristic configuration
+  HID_REPORT_REF_DIAL_IN_IDX,     // HID Report Reference characteristic descriptor, dial input
+#endif
   HID_REPORT_KEY_IN_DECL_IDX,     // HID Report characteristic, key input declaration
   HID_REPORT_KEY_IN_IDX,          // HID Report characteristic, key input
   HID_REPORT_KEY_IN_CCCD_IDX,     // HID Report characteristic client characteristic configuration
@@ -642,6 +723,9 @@ bStatus_t Hid_AddService( void )
 #if (defined (BLE_VOL)) && (BLE_VOL == TRUE)
   GATTServApp_InitCharCfg( INVALID_CONNHANDLE, hidReportVolumeInClientCharCfg );
 #endif
+#if (defined (BLE_DIAL)) && (BLE_DIAL == TRUE)
+  GATTServApp_InitCharCfg( INVALID_CONNHANDLE, hidReportDialInClientCharCfg );
+#endif
   GATTServApp_InitCharCfg( INVALID_CONNHANDLE, hidReportKeyInClientCharCfg );
   GATTServApp_InitCharCfg( INVALID_CONNHANDLE, hidReportBootKeyInClientCharCfg );
 
@@ -668,6 +752,15 @@ bStatus_t Hid_AddService( void )
   hidRptMap[idx].type = hidReportRefVolumeIn[1];
   hidRptMap[idx].handle = hidAttrTbl[HID_REPORT_VOL_IN_IDX].handle;
   hidRptMap[idx].cccdHandle = hidAttrTbl[HID_REPORT_VOL_IN_CCCD_IDX].handle;
+  hidRptMap[idx].mode = HID_PROTOCOL_MODE_REPORT;
+  idx++;
+#endif
+#if (defined (BLE_DIAL)) && (BLE_DIAL == TRUE)
+  // Dial input report
+  hidRptMap[idx].id = hidReportRefDialIn[0];
+  hidRptMap[idx].type = hidReportRefDialIn[1];
+  hidRptMap[idx].handle = hidAttrTbl[HID_REPORT_DIAL_IN_IDX].handle;
+  hidRptMap[idx].cccdHandle = hidAttrTbl[HID_REPORT_DIAL_IN_CCCD_IDX].handle;
   hidRptMap[idx].mode = HID_PROTOCOL_MODE_REPORT;
   idx++;
 #endif

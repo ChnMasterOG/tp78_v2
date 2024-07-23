@@ -201,8 +201,8 @@ uint8_t I2C_TP_ReadPacket(void)
   err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_RXNE, RESET, HW_I2C_RD_TIMOUT);
   HIDMouse[2] = I2C_ReceiveData( );
   /* Reserved */
-  I2C_AcknowledgeConfig(DISABLE);
   err += HW_I2C_WaitUntilTimeout((expression_func)I2C_GetFlagStatus, I2C_FLAG_RXNE, RESET, HW_I2C_RD_TIMOUT);
+  I2C_AcknowledgeConfig(DISABLE);
   packet_check[3] = I2C_ReceiveData( );
   I2C_GenerateSTOP(ENABLE);
   I2C_AcknowledgeConfig(ENABLE);

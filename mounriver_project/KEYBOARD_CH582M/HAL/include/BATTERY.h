@@ -13,8 +13,8 @@
 
   #define ADC_MAXBUFLEN       5
 
-  #define BAT_MINADCVAL       3706  // 3.8V/2
-  #define BAT_MAXADCVAL       3998  // 4.1V/2
+  #define BAT_MINADCVAL       3400  // 3.4V
+  #define BAT_MAXADCVAL       4050  // 4.15V
 
   #define BAT_20PERCENT_VAL   (4*BAT_MINADCVAL/5+BAT_MAXADCVAL/5)   // 20%
   #define BAT_25PERCENT_VAL   (3*BAT_MINADCVAL/4+BAT_MAXADCVAL/4)   // 25%

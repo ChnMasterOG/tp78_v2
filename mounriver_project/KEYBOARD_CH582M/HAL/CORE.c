@@ -151,6 +151,7 @@ void TP78Reinit(uint8_t mode, enum LP_Type lp_type)
     WWDG_ResetCfg(DISABLE); // 关看门狗
 #endif
 #ifdef HAL_WS2812_PWM
+    g_record_last_LED_style = led_style_func;
     led_style_func = WS2812_Style_Off; g_keyboard_status.changeBL = TRUE; WS2812_Send(); // WS2812 OFF
 #endif
 #if (defined HAL_OLED) && (HAL_OLED == TRUE)
@@ -192,7 +193,7 @@ void TP78Reinit(uint8_t mode, enum LP_Type lp_type)
   } else {  // 唤醒键盘
     if (lp_type != lp_shutdown_mode) { // 恢复现场
 #if (defined HAL_WS2812_PWM)
-      DATAFLASH_Read_LEDStyle();  // WS2812
+      led_style_func = g_record_last_LED_style; g_keyboard_status.changeBL = TRUE;
 #endif
 #if (defined HAL_HW_I2C) && (HAL_HW_I2C == TRUE)
 #if (defined HAL_I2C_TP) && (HAL_I2C_TP == TRUE)

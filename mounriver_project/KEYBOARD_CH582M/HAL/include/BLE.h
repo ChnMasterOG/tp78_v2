@@ -39,7 +39,8 @@ extern "C"
 #define BLE_MOUSE_REPORT_EVT                          0x0040
 #define BLE_KEYBOARD_REPORT_EVT                       0x0080
 #define BLE_VOL_REPORT_EVT                            0x0100
-#define BLE_RELEASE_CONNECT_LOCK_EVT                  0x0200
+#define BLE_SWITCH_REPORT_EVT                         0x0200
+#define BLE_RELEASE_CONNECT_LOCK_EVT                  0x0400
 
 typedef struct _BLE_Device_Info_t{
     uint8_t magic;

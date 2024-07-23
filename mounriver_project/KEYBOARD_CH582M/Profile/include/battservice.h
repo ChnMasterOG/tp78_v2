@@ -18,6 +18,7 @@ extern "C"
 /*********************************************************************
  * INCLUDES
  */
+#include "hidkbmservice.h"
 
 /*********************************************************************
  * CONSTANTS
@@ -34,7 +35,7 @@ extern "C"
 #define BATT_LEVEL_NOTI_DISABLED        2
 
 // HID Report IDs for the service
-#define HID_RPT_ID_BATT_LEVEL_IN        4  // Battery Level input report ID
+#define HID_RPT_ID_BATT_LEVEL_IN        (HID_RPT_ID_KEY_IN + 1)  // Battery Level input report ID
 
 /*********************************************************************
  * TYPEDEFS

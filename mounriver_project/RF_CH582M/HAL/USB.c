@@ -12,6 +12,10 @@
 #include "HAL.h"
 #include "CH58x_common.h"
 
+#define WBVAL(x)        (x & 0xFF), ((x >> 8) & 0xFF)
+
+#define USBD_CONFIG_DESCRIPTOR_SIZE (36+21)
+
 // 设备描述符
 const UINT8 MyDevDescr[] = { 0x12, 0x01, 0x10, 0x01, 0x00, 0x00, 0x00, DevEP0SIZE,
                              0x4A, 0x43,  // idVender=0x434A
@@ -19,41 +23,80 @@ const UINT8 MyDevDescr[] = { 0x12, 0x01, 0x10, 0x01, 0x00, 0x00, 0x00, DevEP0SIZ
                              0x01, 0x01,  // bcdDevice=0x0101
                              0x01, 0x02, 0x00, 0x01
                            };
-// 配置描述符
-const UINT8 MyCfgDescr[] = { 0x09, 0x02, 0x6B, 0x00, 0x04, 0x01, 0x00, 0xA0, 0x32,            //配置描述符: 4个接口
-                             0x09, 0x04, 0x00, 0x00, 0x01, 0x03, 0x01, 0x01, 0x00,            //接口描述符,键盘：接口编号0
-                             0x09, 0x21, 0x11, 0x01, 0x00, 0x01, 0x22, 0x3e, 0x00,            //HID类描述符：下级描述符KeyRepDesc
-                             0x07, 0x05, 0x81, 0x03, 0x08, 0x00, 0x0A,                        //端点描述符：端点地址0x81 即端点1
-                             0x09, 0x04, 0x01, 0x00, 0x01, 0x03, 0x01, 0x02, 0x00,            //接口描述符,鼠标：接口编号1
-                             0x09, 0x21, 0x10, 0x01, 0x00, 0x01, 0x22, 0x34, 0x00,            //HID类描述符：下级描述符MouseRepDesc
-                             0x07, 0x05, 0x82, 0x03, 0x04, 0x00, 0x0A,                        //端点描述符：端点地址0x82 即端点2
-                             0x09, 0x04, 0x02, 0x00, 0x01, 0x03, 0x01, 0x00, 0x00,            //接口描述符,音量：接口编号2
-                             0x09, 0x21, 0x10, 0x01, 0x00, 0x01, 0x22, 0x21, 0x00,            //HID类描述符：下级描述符VolumeRepDesc
-                             0x07, 0x05, 0x83, 0x03, 0x01, 0x00, 0x0A,                        //端点描述符：端点地址0x83 即端点3
-                             0x09, 0x04, 0x03, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00,            //接口描述符,自定义：接口编号3
-                             0x07, 0x05, 0x84, 0x02, 0x40, 0x00, 0x00,                        //端点描述符：端点地址0x84
-                             0x07, 0x05, 0x04, 0x02, 0x40, 0x00, 0x00,                        //端点描述符：端点地址0x04
-                             //端点地址 Bit 3…0: The endpoint number Bit 6…4: Reserved, reset to zero
-                           };
+
 // 语言描述符
 const UINT8 MyLangDescr[] = { 0x04, 0x03, 0x09, 0x04 };
 // 厂家信息
 const UINT8 MyManuInfo[] = { 0x0E, 0x03, 'l', 0, 'a', 0, 'b', 0, '4', 0, '1', 0, '8', 0 };
 // 产品信息
-const UINT8 MyProdInfo[] = { 0x0A, 0x03, 'T', 0, 'P', 0, '7', 0, '8', 0 };
+const UINT8 MyProdInfo[] = { 0x10, 0x03, 'T', 0, 'P', 0, '7', 0, '8', 0, 'R', 0, 'c', 0, 'v', 0 };
 /*HID类报表描述符*/
-const UINT8 KeyRepDesc[] = { 0x05, 0x01, 0x09, 0x06, 0xA1, 0x01, 0x05, 0x07, 0x19, 0xe0, 0x29, 0xe7, 0x15, 0x00, 0x25,
-                             0x01, 0x75, 0x01, 0x95, 0x08, 0x81, 0x02, 0x95, 0x01, 0x75, 0x08, 0x81, 0x01, 0x95, 0x03,
-                             0x75, 0x01, 0x05, 0x08, 0x19, 0x01, 0x29, 0x03, 0x91, 0x02, 0x95, 0x05, 0x75, 0x01, 0x91,
-                             0x01, 0x95, 0x06, 0x75, 0x08, 0x26, 0xff, 0x00, 0x05, 0x07, 0x19, 0x00, 0x29, 0x91, 0x81,
-                             0x00, 0xC0 };
-const UINT8 MouseRepDesc[] = { 0x05, 0x01, 0x09, 0x02, 0xA1, 0x01, 0x09, 0x01, 0xA1, 0x00, 0x05, 0x09, 0x19, 0x01, 0x29,
-                               0x03, 0x15, 0x00, 0x25, 0x01, 0x75, 0x01, 0x95, 0x03, 0x81, 0x02, 0x75, 0x05, 0x95, 0x01,
-                               0x81, 0x01, 0x05, 0x01, 0x09, 0x30, 0x09, 0x31, 0x09, 0x38, 0x15, 0x81, 0x25, 0x7f, 0x75,
-                               0x08, 0x95, 0x03, 0x81, 0x06, 0xC0, 0xC0 };
-const UINT8 VolumeRepDesc[] = { 0x05, 0x0C, 0x09, 0x01, 0xA1, 0x01, 0x09, 0xB0, 0x09, 0xB5, 0x09, 0xB6, 0x09, 0xE9, 0x09,
-                                0xEA, 0x09, 0xE2, 0x09, 0xB1, 0x09, 0xB7, 0x15, 0x00, 0x25, 0x01, 0x95, 0x08, 0x75, 0x01,
-                                0x81, 0x02, 0xC0 };
+#define KeyRepDesc(report_id)   \
+                            0x05, 0x01, 0x09, 0x06, 0xA1, 0x01, \
+                            0x85, report_id, \
+                            0x05, 0x07, 0x19, 0xe0, 0x29, 0xe7, \
+                            0x15, 0x00, 0x25, 0x01, 0x75, 0x01, \
+                            0x95, 0x08, 0x81, 0x02, 0x95, 0x01, \
+                            0x75, 0x08, 0x81, 0x01, 0x95, 0x03, \
+                            0x75, 0x01, 0x05, 0x08, 0x19, 0x01, \
+                            0x29, 0x03, 0x91, 0x02, 0x95, 0x05, \
+                            0x75, 0x01, 0x91, 0x01, 0x95, 0x06, \
+                            0x75, 0x08, 0x26, 0xff, 0x00, 0x05, \
+                            0x07, 0x19, 0x00, 0x29, 0x91, 0x81, \
+                            0x00, 0xC0
+
+#define MouseRepDesc(report_id) \
+                            0x05, 0x01, 0x09, 0x02, 0xA1, 0x01, \
+                            0x85, report_id, \
+                            0x09, 0x01, 0xA1, 0x00, 0x05, 0x09, \
+                            0x19, 0x01, 0x29, 0x03, 0x15, 0x00, \
+                            0x25, 0x01, 0x75, 0x01, 0x95, 0x03, \
+                            0x81, 0x02, 0x75, 0x05, 0x95, 0x01, \
+                            0x81, 0x01, 0x05, 0x01, 0x09, 0x30, \
+                            0x09, 0x31, 0x09, 0x38, 0x15, 0x81, \
+                            0x25, 0x7f, 0x75, 0x08, 0x95, 0x03, \
+                            0x81, 0x06, 0xC0, 0xC0
+
+#define VolumeRepDesc(report_id) \
+                            0x05, 0x0C, 0x09, 0x01, 0xA1, 0x01, \
+                            0x85, report_id, \
+                            0x09, 0xB0, 0x09, 0xB5, 0x09, 0xB6, \
+                            0x09, 0xE9, 0x09, 0xEA, 0x09, 0xE2, \
+                            0x09, 0xB1, 0x09, 0xB7, 0x15, 0x00, \
+                            0x25, 0x01, 0x95, 0x08, 0x75, 0x01, \
+                            0x81, 0x02, 0xC0
+
+#define DialRepDesc(report_id) \
+                            0x05, 0x01, 0x09, 0x0E, 0xA1, 0x01, \
+                            0x85, report_id, \
+                            0x05, 0x0D, 0x09, 0x21, 0xA1, 0x00, \
+                            0x05, 0x09, 0x09, 0x01, 0x95, 0x01, \
+                            0x75, 0x01, 0x15, 0x00, 0x25, 0x01, \
+                            0x81, 0x02, 0x05, 0x01, 0x09, 0x37, \
+                            0x95, 0x01, 0x75, 0x0F, 0x55, 0x0F, \
+                            0x65, 0x14, 0x36, 0xF0, 0xF1, 0x46, \
+                            0x10, 0x0E, 0x16, 0xF0, 0xF1, 0x26, \
+                            0x10, 0x0E, 0x81, 0x06, 0xC0, 0xC0
+
+const UINT8 HID_Rep_Desc[] = {
+        KeyRepDesc(KEYBOARD_REPORT_ID),
+        MouseRepDesc(MOUSE_REPORT_ID),
+        VolumeRepDesc(VOL_REPORT_ID),
+        DialRepDesc(DIAL_REPORT_ID),
+};
+
+// 配置描述符
+const UINT8 MyCfgDescr[] = { 0x09, 0x02, WBVAL(USBD_CONFIG_DESCRIPTOR_SIZE),
+                             0x02, 0x01, 0x00, 0xA0, 0x32,            //配置描述符: 2个接口
+                             0x09, 0x04, 0x00, 0x00, 0x01, 0x03, 0x00, 0x00, 0x00,            //接口描述符,HID复合设备：接口编号0
+                             0x09, 0x21, 0x11, 0x01, 0x00, 0x01, 0x22,
+                             WBVAL(sizeof(HID_Rep_Desc)),                                     //HID类描述符：下级描述符HIDRepDesc
+                             0x07, 0x05, 0x81, 0x03, 0x40, 0x00, 0x0A,                        //端点描述符：端点地址0x81 即端点1
+                             0x09, 0x04, 0x01, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00,            //接口描述符,自定义：接口编号1
+                             0x07, 0x05, 0x82, 0x02, 0x40, 0x00, 0x00,                        //端点描述符：端点地址0x82
+                             0x07, 0x05, 0x02, 0x02, 0x40, 0x00, 0x00,                        //端点描述符：端点地址0x02
+                             //端点地址 Bit 3…0: The endpoint number Bit 6…4: Reserved, reset to zero
+                           };
 
 /**********************************************************/
 UINT8 DevConfig;
@@ -90,31 +133,39 @@ tmosEvents USB_ProcessEvent( tmosTaskID task_id, tmosEvents events )
 
   if ( events & USB_MOUSE_EVENT )
   {
-    memcpy(pEP2_IN_DataBuf, &HID_dat.Mouse[0], 4);
-    DevEP2_IN_Deal( 4 );
+    memcpy(pEP1_IN_DataBuf, (uint8_t*)&HID_dat, 4+1);
+    DevEP1_IN_Deal( 4+1 );
     return events ^ USB_MOUSE_EVENT;
   }
 
   if ( events & USB_KEYBOARD_EVENT )
   {
-    memcpy(pEP1_IN_DataBuf, &HID_dat.Keyboard[0], 8);
-    DevEP1_IN_Deal( 8 );
+    memcpy(pEP1_IN_DataBuf, (uint8_t*)&HID_dat, 8+1);
+    DevEP1_IN_Deal( 8+1 );
     return events ^ USB_KEYBOARD_EVENT;
   }
 
   if ( events & USB_VOL_EVENT )
   {
-    memcpy(pEP3_IN_DataBuf, &HID_dat.Volume[0], 1);
-    DevEP3_IN_Deal( 1 );
+    memcpy(pEP1_IN_DataBuf, (uint8_t*)&HID_dat, 1+1);
+    DevEP1_IN_Deal( 1+1 );
     return events ^ USB_VOL_EVENT;
+  }
+
+  if ( events & USB_DIAL_EVENT )
+  {
+    memcpy(pEP1_IN_DataBuf, (uint8_t*)&HID_dat, 2+1);
+    DevEP1_IN_Deal( 2+1 );
+    return events ^ USB_DIAL_EVENT;
   }
 
   if ( events & USB_TEST_EVENT )
   {
+    HID_dat.label = MOUSE_REPORT_ID;
     HID_dat.Mouse[1] = 2;
     HID_dat.Mouse[2] = 2;
-    memcpy(pEP2_IN_DataBuf, &HID_dat.Mouse[0], 4);
-    DevEP2_IN_Deal( 4 );
+    memcpy(pEP2_IN_DataBuf, &HID_dat, 4+1);
+    DevEP2_IN_Deal( 4+1 );
     tmos_start_task(usbTaskID, USB_TEST_EVENT, MS1_TO_SYSTEM_TIME(500));
     return events ^ USB_TEST_EVENT;
   }
@@ -188,12 +239,13 @@ void USB_DevTransProcess( void )
           len = R8_USB_RX_LEN;
           if ( SetupReqCode == 0x09 )
           {
-            if ( (pEP0_DataBuf[0] & (1<<0)) == 0 ) {
+            // pEP0_DataBuf[0] is report ID
+            if ( (pEP0_DataBuf[1] & (1<<0)) == 0 ) {
                 LEDOUT_DATA[0] = 0;    // Light off Num Lock LED
             } else {
                 LEDOUT_DATA[0] = 1;     // Light on Num Lock LED
             }
-            if ( (pEP0_DataBuf[0] & (1<<1)) == 0 ) {
+            if ( (pEP0_DataBuf[1] & (1<<1)) == 0 ) {
                 LEDOUT_DATA[1] = 0;    // Light off Caps Lock LED
             } else {
                 LEDOUT_DATA[1] = 1;     // Light on Caps Lock LED
@@ -313,23 +365,12 @@ void USB_DevTransProcess( void )
               {
                 if ( ( ( pSetupReqPak->wIndex ) & 0xff ) == 0 )         //接口0报表描述符
                 {
-                  pDescr = KeyRepDesc;                                  //数据准备上传
-                  len = sizeof( KeyRepDesc );
-                }
-                else if ( ( ( pSetupReqPak->wIndex ) & 0xff ) == 1 )    //接口1报表描述符
-                {
-                  pDescr = MouseRepDesc;                                //数据准备上传
-                  len = sizeof( MouseRepDesc );
-                }
-                else if ( ( ( pSetupReqPak->wIndex ) & 0xff ) == 2 )    //接口2报表描述符
-                {
-                  pDescr = VolumeRepDesc;                               //数据准备上传
-                  len = sizeof( VolumeRepDesc );                        //如果有更多接口，该标准位应该在最后一个接口配置完成后有效
-//                  tmos_start_task(usbTaskID, USB_TEST_EVENT, MS1_TO_SYSTEM_TIME(500));
+                  pDescr = HID_Rep_Desc;                                //数据准备上传
+                  len = sizeof( HID_Rep_Desc );
                 }
                 else
                 {
-                  len = 0xff;                                           //本程序只有4个接口，这句话正常不可能执行
+                  len = 0xff;
                 }
               }
                 break;

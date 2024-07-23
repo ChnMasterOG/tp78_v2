@@ -30,11 +30,25 @@
     #define USB_MOUSE_EVENT       0x0001
     #define USB_KEYBOARD_EVENT    0x0002
     #define USB_VOL_EVENT         0x0004
+    #define USB_SWITCH_EVENT      0x0008
     #define USB_TEST_EVENT        0x1000
 
     #define USB_ERR_LENGTH        0x01
     #define USB_DAT_INVALID       0x02
     #define USB_ERR_UNKNOWN       0x10
+
+    enum Report_ID_E {
+        RID_KEYBOARD = 1,
+        RID_MOUSE,
+        RID_CONSUMER_CONTROL, // Media, volume etc ..
+        RID_DIAL,
+        RID_LIGHTING_LAMP_ARRAY_ATTRIBUTES,
+        RID_LIGHTING_LAMP_ATTRIBUTES_REQUEST,
+        RID_LIGHTING_LAMP_ATTRIBUTES_RESPONSE,
+        RID_LIGHTING_LAMP_MULTI_UPDATE,
+        RID_LIGHTING_LAMP_RANGE_UPDATE,
+        RID_LIGHTING_LAMP_ARRAY_CONTROL,
+    };
 
     extern tmosTaskID usbTaskID;
 

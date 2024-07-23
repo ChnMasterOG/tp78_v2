@@ -17,8 +17,9 @@ static int hid_class_interface_request_handler(struct usb_setup_packet *setup, u
     switch (setup->bRequest) {
         case HID_REQUEST_GET_REPORT:
             /* report id ,report type */
-            (*data)[0] = usbh_hid_get_report(intf_num, LO_BYTE(setup->wValue), HI_BYTE(setup->wValue));
-            *len = 1;
+//            (*data)[0] = usbh_hid_get_report(intf_num, LO_BYTE(setup->wValue), HI_BYTE(setup->wValue), *data, *len);
+//            *len = 1;
+            *len = usbh_hid_get_report(intf_num, LO_BYTE(setup->wValue), HI_BYTE(setup->wValue), *data, *len);
             break;
         case HID_REQUEST_GET_IDLE:
             (*data)[0] = usbh_hid_get_idle(intf_num, LO_BYTE(setup->wValue));
@@ -61,7 +62,7 @@ struct usbd_interface *usbd_hid_init_intf(struct usbd_interface *intf, const uin
     return intf;
 }
 
-__WEAK uint8_t usbh_hid_get_report(uint8_t intf, uint8_t report_id, uint8_t report_type)
+__WEAK uint8_t usbh_hid_get_report(uint8_t intf, uint8_t report_id, uint8_t report_type, uint8_t *report, uint8_t report_len)
 {
     return 0;
 }

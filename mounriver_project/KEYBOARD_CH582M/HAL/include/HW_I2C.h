@@ -18,7 +18,7 @@
   #define HW_I2C_MASTER_ADDR    0x52
   #define HW_I2C_TIMOUT         0x20
   #define HW_I2C_ACK_TIMOUT     0x20
-  #define HW_I2C_RD_TIMOUT      0x100
+  #define HW_I2C_RD_TIMOUT      0x60
   //  #define HW_I2C_GPIO_REMAP
 
   typedef uint8_t (*expression_func)( uint32_t );

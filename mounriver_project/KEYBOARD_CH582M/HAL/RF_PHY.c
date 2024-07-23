@@ -190,6 +190,11 @@ static void RF_ProcessTMOSMsg( tmos_event_hdr_t *pMsg )
         msg->hdr.status ? tmos_set_event( RFTaskId, SBP_RF_VOL_REPORT_EVT ) : 0;
         break;
     }
+    case SWITCH_MESSAGE: {
+        SendMSG_t *msg = (SendMSG_t *) pMsg;
+        msg->hdr.status ? tmos_set_event( RFTaskId, SBP_RF_SWITCH_REPORT_EVT ) : 0;
+        break;
+    }
     case HEARTBEAT_MESSAGE: {
         SendMSG_t *msg = (SendMSG_t *) pMsg;
         msg->hdr.status ? tmos_set_event( RFTaskId, SBP_RF_HEARTBEAT_REPORT_EVT ) : 0;
@@ -267,6 +272,12 @@ uint16_t RF_ProcessEvent(uint8_t task_id, uint16_t events)
         RF_Shut();
         RF_Tx(HIDVolume - 1, HID_VOLUME_DATA_LENGTH + 1, 0xFF, 0xFF);
         return events ^ SBP_RF_VOL_REPORT_EVT;
+    }
+    if (events & SBP_RF_SWITCH_REPORT_EVT)
+    {
+        RF_Shut();
+        RF_Tx(HIDSwitch - 1, HID_SWITCH_DATA_LENGTH + 1, 0xFF, 0xFF);
+        return events ^ SBP_RF_SWITCH_REPORT_EVT;
     }
     if (events & SBP_RF_JUMPBOOT_REPORT_EVT)
     {

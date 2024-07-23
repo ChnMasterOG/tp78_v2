@@ -13,15 +13,22 @@
 #include "HAL.h"
 
 /* HID data */
-UINT8 HID_DATA[HID_DATA_LENGTH] = { 0x0, 0x0, 0x0, 0x0, 0x0,
-                                    0x1, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
-                                    0x2, 0x0 }; // bit1~bit4: mouse data, bit6~bit13: key data, bit15: vol data
-/* 鼠标数据 */
-UINT8* HIDMouse = &HID_DATA[1];
+// bit1~bit8: key data
+// bit10~bit13: mouse data
+// bit15: vol data
+// bit17: switch data
+UINT8 HID_DATA[HID_DATA_LENGTH] = { 0x1, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+                                    0x2, 0x0, 0x0, 0x0, 0x0,
+                                    0x3, 0x0,
+                                    0x4, 0x0, 0x0};
 /* 键盘数据 */
-UINT8* HIDKeyboard = &HID_DATA[6];
+UINT8* HIDKeyboard = &HID_DATA[1];
+/* 鼠标数据 */
+UINT8* HIDMouse = &HID_DATA[10];
 /* 音量控制数据 */
 UINT8* HIDVolume = &HID_DATA[15];
+/* 旋钮数据 */
+UINT8* HIDSwitch = &HID_DATA[17];
 
 tmosTaskID halTaskID = INVALID_TASK_ID;
 
@@ -210,17 +217,18 @@ __attribute__((weak)) void HID_I2CTP_Process(void)
   uint8_t tmp;
   if (TPINT_GPIO_(ReadPortPin)( TPINT_Pin ) == 0 && g_Enable_Status.tp == TRUE) {    // 发送小红点鼠标数据
     TP78_Idle_Clr();
-    if (I2C_TP_ReadPacket() == 0) { // 正常接受完数据包
+    tmp = I2C_TP_ReadPacket();
+    if (tmp == 0) { // 正常接受完数据包
 #if (defined TP_Reverse) && (TP_Reverse == TRUE)
       HIDMouse[1] = -HIDMouse[1]; // 反转X轴
       HIDMouse[2] = -HIDMouse[2]; // 反转Y轴
 #endif
       /* 小红点减速 */
       tmp = (char)HIDMouse[1] / (char)g_TP_speed_div;
-      if ( tmp == 0 && HIDMouse[1]!=0) HIDMouse[1] = ( HIDMouse[1] < 128) ? 1 : -1;
+      if ( tmp == 0 && HIDMouse[1]!=0) HIDMouse[1] = ( HIDMouse[1] < 128 ) ? 1 : -1;
       else HIDMouse[1] = tmp;
       tmp = (char)HIDMouse[2] / (char)g_TP_speed_div;
-      if ( tmp == 0 && HIDMouse[2]!=0) HIDMouse[2] = ( HIDMouse[2] < 128) ? 1 : -1;
+      if ( tmp == 0 && HIDMouse[2]!=0) HIDMouse[2] = ( HIDMouse[2] < 128 ) ? 1 : -1;
       else HIDMouse[2] = tmp;
 
       /* 鼠标事件 */
@@ -232,8 +240,6 @@ __attribute__((weak)) void HID_I2CTP_Process(void)
         OnBoard_SendMsg(RFTaskId, MOUSE_MESSAGE, 1, NULL);  // RF鼠标事件
       }
     } else {
-//      OLED_UI_add_SHOWINFO_task("TPdat ER");
-//      OLED_UI_add_CANCELINFO_delay_task(3000);
     }
   }
 }
@@ -854,7 +860,7 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
 #endif
 #endif
     if (g_Game_Mode == FALSE) {
-      tmos_start_task( halTaskID, HAL_MOUSE_EVENT, MS1_TO_SYSTEM_TIME(25) ); // 处理鼠标(至少20ms保证蓝牙线程)
+      tmos_start_task( halTaskID, HAL_MOUSE_EVENT, MS1_TO_SYSTEM_TIME(25) ); // 处理鼠标(至少25ms保证蓝牙线程)
     }
     return events ^ HAL_MOUSE_EVENT;
   }
@@ -925,7 +931,7 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
 #if (defined HAL_WS2812_PWM) && (HAL_WS2812_PWM == TRUE)
     HW_WS2812_Process();
 #endif
-    tmos_start_task( halTaskID, WS2812_EVENT, MS1_TO_SYSTEM_TIME(80) ); // 80ms周期控制背光
+    tmos_start_task( halTaskID, WS2812_EVENT, MS1_TO_SYSTEM_TIME(WS2812_TASK_PERIOD_MS) ); // 80ms周期控制背光
     return events ^ WS2812_EVENT;
   }
 

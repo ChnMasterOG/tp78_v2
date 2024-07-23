@@ -14,6 +14,7 @@ __attribute__((aligned(4))) UINT32 LED_DMA_Buffer[LED_NUMBER*24 + RESET_FRAME_SI
 UINT8 LED_BYTE_Buffer[LED_NUMBER][3] = { 0 };
 WS2812_Style_Func led_style_func = WS2812_Style_Off;  // 默认背光函数
 uint8_t g_LED_brightness = LED_DEFAULT_BRIGHTNESS;
+WS2812_Style_Func g_record_last_LED_style = WS2812_Style_Off;
 static uint8_t style_dir = 0;
 static uint32_t style_cnt = 0;
 
@@ -53,6 +54,7 @@ uint8_t DATAFLASH_Read_LEDStyle( void )
       LED_Style_Number = 0;
       break;
   }
+  g_record_last_LED_style = led_style_func;
   return LED_Style_Number;
 }
 
@@ -401,3 +403,86 @@ void WS2812_Send( void )
   TMR1_DMACfg( ENABLE, (UINT16) (UINT32) LED_DMA_Buffer, (UINT16) (UINT32) (LED_DMA_Buffer + LED_NUMBER*24 + RESET_FRAME_SIZE), Mode_Single );  // 启用DMA转换，从内存到外设
 }
 
+/*************************************** Port For Lamp ***************************************/
+#define LAMPARRAY_KIND 1
+static uint16_t current_lamp_id = 0;
+
+uint16_t GetLampArrayAttributesReport(uint8_t* buffer)
+{
+    LampArrayAttributesReport report = {
+        .lampCount = LED_NUMBER,
+        .width = LIGHTMAP_WIDTH,
+        .height = LIGHTMAP_HEIGHT,
+        .depth = LIGHTMAP_DEPTH,
+        .lampArrayKind = LAMPARRAY_KIND,
+        .minUpdateInterval = LIGHTMAP_UPDATE_INTERVAL,
+    };
+
+    memcpy(buffer, &report, sizeof(LampArrayAttributesReport));
+
+    return sizeof(LampArrayAttributesReport);
+}
+
+uint16_t GetLampAttributesReport(uint8_t* buffer)
+{
+    LampAttributesResponseReport report = {
+        .lampId = current_lamp_id,                              // LampId
+        .lampPosition = LampPositions[current_lamp_id],         // Lamp position
+        .updateLatency = LIGHTMAP_UPDATE_INTERVAL,              // Lamp update interval
+        LAMP_PURPOSE_CONTROL,                                   // Lamp purpose
+        255,                                                    // Red level count
+        255,                                                    // Blue level count
+        255,                                                    // Green level count
+        1,                                                      // Intensity
+        1,                                                      // Is Programmable
+        KEYPAD_NumLock,                                         // InputBinding
+    };
+
+    memcpy(buffer, &report, sizeof(LampAttributesResponseReport));
+    current_lamp_id = current_lamp_id + 1 >= LED_NUMBER ? current_lamp_id : current_lamp_id + 1;
+
+    return sizeof(LampAttributesResponseReport);
+}
+
+void SetLampAttributesId(const uint8_t* buffer)
+{
+    LampAttributesRequestReport* report = (LampAttributesRequestReport*) buffer;
+    current_lamp_id = report->lampId;
+}
+
+void SetMultipleLamps(const uint8_t* buffer)
+{
+    int i;
+    LampMultiUpdateReport* report = (LampMultiUpdateReport*) buffer;
+
+    for (i = 0; i < report->lampCount; i++) {
+        LED_BYTE_Buffer[report->lampIds[i]][RED_INDEX] = report->colors[i].red;
+        LED_BYTE_Buffer[report->lampIds[i]][GREEN_INDEX] = report->colors[i].green;
+        LED_BYTE_Buffer[report->lampIds[i]][BLUE_INDEX] = report->colors[i].blue;
+    }
+}
+
+void SetLampRange(const uint8_t* buffer)
+{
+    int i;
+    LampRangeUpdateReport* report = (LampRangeUpdateReport*) buffer;
+
+    for (i = report->lampIdStart; i <= report->lampIdEnd && i < LED_NUMBER; i++) {
+        LED_BYTE_Buffer[i][RED_INDEX] = report->color.red;
+        LED_BYTE_Buffer[i][GREEN_INDEX] = report->color.green;
+        LED_BYTE_Buffer[i][BLUE_INDEX] = report->color.blue;
+    }
+}
+
+void SetAutonomousMode(const uint8_t* buffer)
+{
+    LampArrayControlReport* report = (LampArrayControlReport*) buffer;
+    if (report->autonomousMode) {
+        led_style_func = g_record_last_LED_style;
+        g_keyboard_status.changeBL = TRUE;
+    } else {
+        g_record_last_LED_style = led_style_func;
+        g_keyboard_status.changeBL = TRUE;
+        led_style_func = WS2812_Style_Custom;
+    }
+}

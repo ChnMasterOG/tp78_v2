@@ -40,6 +40,9 @@
 // HID VOL input report length
 #define HID_VOL_IN_RPT_LEN          2 //HID_VOLUME_DATA_LENGTH
 
+// HID SWITCH input report length
+#define HID_SWITCH_IN_RPT_LEN       HID_SWITCH_DATA_LENGTH
+
 /*********************************************************************
  * CONSTANTS
  */
@@ -404,6 +407,15 @@ uint16 HidEmu_ProcessEvent( uint8 task_id, uint16 events )
     return ( events ^ BLE_VOL_REPORT_EVT );
   }
 
+  if ( events & BLE_SWITCH_REPORT_EVT )
+  {
+#if (defined (BLE_DIAL)) && (BLE_DIAL == TRUE)
+    HidDev_Report( HID_RPT_ID_DIAL_IN, HID_REPORT_TYPE_INPUT,
+                   HID_SWITCH_IN_RPT_LEN, HIDSwitch );    // HID旋钮report
+#endif
+    return ( events ^ BLE_SWITCH_REPORT_EVT );
+  }
+
   if ( events & START_ENTER_PASSKEY_EVT )
   {
     OLED_UI_add_SHOWINFO_task("Passkey=?");
@@ -494,6 +506,13 @@ static void hidEmu_ProcessTMOSMsg( tmos_event_hdr_t *pMsg )
             break;
         SendMSG_t *msg = (SendMSG_t *) pMsg;
         msg->hdr.status ? tmos_set_event( hidEmuTaskId, BLE_VOL_REPORT_EVT ) : 0;
+        break;
+    }
+    case SWITCH_MESSAGE: {
+        if (hidEmuConnHandle == GAP_CONNHANDLE_INIT)
+            break;
+        SendMSG_t *msg = (SendMSG_t *) pMsg;
+        msg->hdr.status ? tmos_set_event( hidEmuTaskId, BLE_SWITCH_REPORT_EVT ) : 0;
         break;
     }
     case PASSKEY_MESSAGE: {

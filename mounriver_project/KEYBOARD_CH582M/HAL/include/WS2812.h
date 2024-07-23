@@ -36,6 +36,7 @@
   #define BACKLIGHT_MODE_TOUCH    3
   #define BACKLIGHT_MODE_RAINBOW  4
   #define BACKLIGHT_MODE_NORMAL   5
+  #define BACKLIGHT_MODE_CUSTOM   6
 
   #define PWM_SEND_HIGH_BIT()     TMR1_PWMActDataWidth(TIMING_ONE)    //0.85us
   #define PWM_SEND_LOW_BIT()      TMR1_PWMActDataWidth(TIMING_ZERO)   //0.4us
@@ -48,9 +49,20 @@
 
   typedef void (*WS2812_Style_Func) ( void );   // WS2812变化样式对应函数
 
+  // Get Reports
+  uint16_t GetLampArrayAttributesReport(uint8_t* buffer);
+  uint16_t GetLampAttributesReport(uint8_t* buffer);
+
+  // Set Reports
+  void SetLampAttributesId(const uint8_t* buffer);
+  void SetMultipleLamps(const uint8_t* buffer);
+  void SetLampRange(const uint8_t* buffer);
+  void SetAutonomousMode(const uint8_t* buffer);
+
   extern UINT8 LED_BYTE_Buffer[LED_NUMBER][3];
   extern WS2812_Style_Func led_style_func;
   extern uint8_t g_LED_brightness;
+  extern WS2812_Style_Func g_record_last_LED_style;
 
   uint8_t DATAFLASH_Read_LEDStyle( void );
   void DATAFLASH_Write_LEDStyle( uint16_t LED_Style_Number );
