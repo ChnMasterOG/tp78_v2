@@ -40,6 +40,7 @@ jobs:
             python replace_ld.py
             echo "build KEYBOARD_CH582M(No Kboot)..."
             cd ./KEYBOARD_CH582M/obj
+            make clean
             make
             cd ../../../
             mkdir TP78_v2_release/No_Kboot_firmware
