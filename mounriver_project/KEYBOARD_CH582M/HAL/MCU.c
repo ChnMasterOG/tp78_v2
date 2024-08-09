@@ -143,23 +143,24 @@ __attribute__((weak)) void HID_KEYBOARD_Process(void)
       }
 #endif
       if ( KEYBOARD_Custom_Function() ) { // 普通按键,带有Fn键处理信息则不产生键盘事件
-        if ( g_Ready_Status.usb == TRUE ) {
-          OnBoard_SendMsg(usbTaskID, KEY_MESSAGE, 1, NULL);  // USB键盘事件
-        } else if ( g_Ready_Status.ble == TRUE ) {
-          OnBoard_SendMsg(hidEmuTaskId, KEY_MESSAGE, 1, NULL);  // 蓝牙键盘事件
-        } else if ( g_Enable_Status.rf == TRUE ) {
-          OnBoard_SendMsg(RFTaskId, KEY_MESSAGE, 1, NULL);  // RF键盘事件
-        }
-      }
-      if ( g_Ready_Status.keyboard_mouse_data == TRUE ) { // 发送键盘鼠标数据
-        g_Ready_Status.keyboard_mouse_data = FALSE;
-        tmos_memset(&HIDMouse[1], 0, 3);   // 只按左中右键没有其他操作
-        if ( g_Ready_Status.usb == TRUE ) {
-          OnBoard_SendMsg(usbTaskID, MOUSE_MESSAGE, 1, NULL);  // USB鼠标事件
-        } else if ( g_Ready_Status.ble == TRUE ) {
-          OnBoard_SendMsg(hidEmuTaskId, MOUSE_MESSAGE, 1, NULL);  //蓝牙鼠标事件
-        } else if ( g_Enable_Status.rf == TRUE ) {
-          OnBoard_SendMsg(RFTaskId, MOUSE_MESSAGE, 1, NULL);  // RF鼠标事件
+        if ( g_Ready_Status.keyboard_mouse_data == TRUE ) { // 发送键盘鼠标数据
+          g_Ready_Status.keyboard_mouse_data = FALSE;
+          tmos_memset(&HIDMouse[1], 0, 3);   // 只按左中右键没有其他操作
+          if ( g_Enable_Status.usb == TRUE ) {
+            OnBoard_SendMsg(usbTaskID, MOUSE_MESSAGE, 1, NULL);  // USB鼠标事件
+          } else if ( g_Ready_Status.ble == TRUE ) {
+            OnBoard_SendMsg(hidEmuTaskId, MOUSE_MESSAGE, 1, NULL);  //蓝牙鼠标事件
+          } else if ( g_Enable_Status.rf == TRUE ) {
+            OnBoard_SendMsg(RFTaskId, MOUSE_MESSAGE, 1, NULL);  // RF鼠标事件
+          }
+        } else {
+          if ( g_Enable_Status.usb == TRUE ) {
+            OnBoard_SendMsg(usbTaskID, KEY_MESSAGE, 1, NULL);  // USB键盘事件
+          } else if ( g_Ready_Status.ble == TRUE ) {
+            OnBoard_SendMsg(hidEmuTaskId, KEY_MESSAGE, 1, NULL);  // 蓝牙键盘事件
+          } else if ( g_Enable_Status.rf == TRUE ) {
+            OnBoard_SendMsg(RFTaskId, KEY_MESSAGE, 1, NULL);  // RF键盘事件
+          }
         }
       }
     }
@@ -193,7 +194,7 @@ __attribute__((weak)) void HID_PS2TP_Process(void)
       else HIDMouse[2] = tmp;
       
       /* 鼠标事件 */
-      if ( g_Ready_Status.usb == TRUE ) {
+      if ( g_Enable_Status.usb == TRUE ) {
         OnBoard_SendMsg(usbTaskID, MOUSE_MESSAGE, 1, NULL);  // 蓝牙鼠标事件
       } else if ( g_Ready_Status.ble == TRUE ) {
         OnBoard_SendMsg(hidEmuTaskId, MOUSE_MESSAGE, 1, NULL);  // 蓝牙鼠标事件
@@ -232,7 +233,7 @@ __attribute__((weak)) void HID_I2CTP_Process(void)
       else HIDMouse[2] = tmp;
 
       /* 鼠标事件 */
-      if ( g_Ready_Status.usb == TRUE ) {
+      if ( g_Enable_Status.usb == TRUE ) {
         OnBoard_SendMsg(usbTaskID, MOUSE_MESSAGE, 1, NULL);  // USB鼠标事件
       } else if ( g_Ready_Status.ble == TRUE ) {
         OnBoard_SendMsg(hidEmuTaskId, MOUSE_MESSAGE, 1, NULL);  //蓝牙鼠标事件
@@ -259,7 +260,7 @@ __attribute__((weak)) void HID_CapMouse_Process(void)
     oper_dat.cap_mouse_data_change = FALSE;
     MPR121_set_result(&oper_dat);
     TP78_Idle_Clr();
-    if ( g_Ready_Status.usb == TRUE ) {
+    if ( g_Enable_Status.usb == TRUE ) {
       OnBoard_SendMsg(usbTaskID, MOUSE_MESSAGE, 1, NULL);  // USB鼠标事件
     } else if ( g_Ready_Status.ble == TRUE ) {
       OnBoard_SendMsg(hidEmuTaskId, MOUSE_MESSAGE, 1, NULL);  // 蓝牙鼠标事件
@@ -324,7 +325,7 @@ __attribute__((weak)) void SW_OLED_LEDStatus_Process(void)
 {
   uint8_t change_flag = 0;
 
-  if ( g_Ready_Status.usb == TRUE ) {
+  if ( g_Enable_Status.usb == TRUE ) {
     if ( g_CapsLock_LEDOn_Status.usb != g_CapsLock_LEDOn_Status.ui ) {
       g_CapsLock_LEDOn_Status.ui = g_CapsLock_LEDOn_Status.usb;
       change_flag |= 0x2;

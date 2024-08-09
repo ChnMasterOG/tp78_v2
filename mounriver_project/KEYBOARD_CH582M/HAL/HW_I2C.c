@@ -32,10 +32,10 @@ uint8_t HW_I2C_WaitUntilTimeout(expression_func exp_func, uint32_t event_flag, u
        timeout--;
     }
   }
-  if (exp_func == (expression_func)I2C_GetFlagStatus && event_flag == I2C_FLAG_BUSY && timeout == 0) {
-    /* 总线异常 */
-    HW_I2C_Reset();
-  }
+//  if (exp_func == (expression_func)I2C_GetFlagStatus && event_flag == I2C_FLAG_BUSY && timeout == 0) {
+//    /* 总线异常 */
+//    HW_I2C_Reset();
+//  }
   return timeout == 0;
 }
 

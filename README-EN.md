@@ -12,7 +12,7 @@ TP78 is a three mode mechanical keyboard project based on CH528M. It is designed
 
 ![TP78](resources/TP78V2.jpg)V2.0 ：Video shown in bilibili：[【软软核】为自己做一把小红点三模键盘\_哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV1Ho4y1b78t/)
 
-![TP78 3D print By A1mini](resources/TP78V2.13D_By_A1mini.jpg)
+![TP78 3D print By A1mini](resources/TP78_attribute.png)
 
 V2.1：Video shown in bilibili： [TP78指点杆三模键盘-Gasket版出炉啦 (速来拼车)_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1fA4m1V7DX/)
 
@@ -242,3 +242,7 @@ You can submit you code [here](https://github.com/ChnMasterOG/tp78_v2/issues). T
         3. Modify the HID descriptor configuration of USB/BLE/RF and add knob configuration. **After updating the version, it is necessary to upgrade the receiver firmware.**
 
         4. Update the document to include instructions for VIA, U-disk, and OLED icon descriptions.
+
+- V2.1.4
+
+        1. Fix BUG: There are some errors when using Capslock+Space alone to simulate left and right mouse buttons（[Issue #3](https://github.com/ChnMasterOG/tp78_v2/issues/3)）.
