@@ -246,3 +246,7 @@ You can submit you code [here](https://github.com/ChnMasterOG/tp78_v2/issues). T
 - V2.1.4
 
         1. Fix BUG: There are some errors when using Capslock+Space alone to simulate left and right mouse buttons（[Issue #3](https://github.com/ChnMasterOG/tp78_v2/issues/3)）.
+
+- V2.1.5
+
+        1. Add motor_en configuration: The motor vibration is controlled by this configuration.

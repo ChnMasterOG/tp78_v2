@@ -153,9 +153,9 @@ typedef union {
 #define DEFAULT_LP_MAX_PERIOD               (240 * (1000 / SYS_PERIOD)) // idle_cnt大于该值则进入低功耗模式
 
 #define MOTOR_PIN                           GPIO_Pin_19
-#define MOTOR_RUN()                         { GPIOB_SetBits( MOTOR_PIN ); }
+#define MOTOR_RUN()                         { if (g_Enable_Status.motor == TRUE) GPIOB_SetBits( MOTOR_PIN ); }
 #define MOTOR_STOP()                        { GPIOB_ResetBits( MOTOR_PIN ); }
-#define MOTOR_Init()                        { GPIOB_SetBits( MOTOR_PIN ); GPIOB_ModeCfg( MOTOR_PIN, GPIO_ModeOut_PP_5mA ); MOTOR_STOP(); }
+#define MOTOR_Init()                        { MOTOR_STOP(); GPIOB_ModeCfg( MOTOR_PIN, GPIO_ModeOut_PP_5mA ); }
 #define MOTOR_GO()                          { MOTOR_RUN(); tmos_start_task( halTaskID, MOTOR_STOP_EVENT, MS1_TO_SYSTEM_TIME(100) ); }
 
 /* CapsLock LEDOn Status */

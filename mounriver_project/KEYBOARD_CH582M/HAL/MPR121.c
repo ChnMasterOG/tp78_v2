@@ -140,17 +140,17 @@ void MPR121_Post_Operation(void)
     oper_dat.l_btn_l = TRUE;
     MPR121_set_result(&oper_dat);
     OLED_UI_add_SHOWINFO_task("L Btn");
-//    MOTOR_GO(); // 打开可能导致指点杆异常
+    MOTOR_GO();
   } else if (oper_dat.m_btn && oper_dat.m_btn_l == FALSE) {
     oper_dat.m_btn_l = TRUE;
     MPR121_set_result(&oper_dat);
     OLED_UI_add_SHOWINFO_task("M Btn");
-//    MOTOR_GO(); // 打开可能导致指点杆异常
+    MOTOR_GO();
   } else if (oper_dat.r_btn && oper_dat.r_btn_l == FALSE) {
     oper_dat.r_btn_l = TRUE;
     MPR121_set_result(&oper_dat);
     OLED_UI_add_SHOWINFO_task("R Btn");
-//    MOTOR_GO(); // 打开可能导致指点杆异常
+    MOTOR_GO();
   } else return;
   OLED_UI_add_CANCELINFO_delay_task(2000);
 }

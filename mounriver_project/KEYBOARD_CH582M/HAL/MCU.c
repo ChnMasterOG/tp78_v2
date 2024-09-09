@@ -1056,6 +1056,14 @@ void FLASH_Init(void)
     lp_max_period = tmp * (1000 / SYS_PERIOD);
   }
 
+  /* 其它配置 */
+  HAL_Fs_Read_keyboard_cfg(FS_LINE_ENABLE_MOTOR, 1, &tmp);
+  if (tmp == 0) {
+    g_Enable_Status.motor = FALSE;
+  } else {
+    g_Enable_Status.motor = TRUE;
+  }
+
 #if (defined HAL_WS2812_PWM) && (HAL_WS2812_PWM == TRUE)
   DATAFLASH_Read_LEDStyle( );
 #endif

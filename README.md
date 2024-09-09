@@ -252,3 +252,7 @@ BUG
 - V2.1.4
 
         1. 修复BUG：单独使用Capslock+空格模拟鼠标左右键异常（[Issue #3](https://github.com/ChnMasterOG/tp78_v2/issues/3)）
+
+- V2.1.5
+
+        1. 修改触摸条按键/滑动触发振动的功能为可配置（配置项：motor_en）
