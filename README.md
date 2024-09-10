@@ -47,7 +47,7 @@ bilibili：@i丶m皮皮 @阿炜阿阿炜阿
 
 2. TP78mini —— 一个三模数字小键盘模块
 
-扩展模块介绍视频：[[【开源】历时3年，打造一个模块化力反馈旋钮小键盘](https://www.bilibili.com/video/BV1jVpneNEpq/)](https://www.bilibili.com/video/BV1jVpneNEpq/)
+扩展模块介绍视频：[【开源】历时3年，打造一个模块化力反馈旋钮小键盘](https://www.bilibili.com/video/BV1jVpneNEpq/)
 
 ### 模型开源地址
 
