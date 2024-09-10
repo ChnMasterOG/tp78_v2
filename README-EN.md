@@ -37,11 +37,17 @@ bilibili：@i丶m皮皮 @阿炜阿阿炜阿
 
 Tik Tok：@i丶m皮皮
 
-### Purchase link（now only supported for China mainland）
+### Purchase link
 
-[1. 哔哩哔哩工房 (bilibili.com)](https://gf.bilibili.com/item/detail/1105095069?noTitleBar=1&from=mall-up_itemDetail&msource=items_share)
+[淘宝(taobao.com)](https://item.taobao.com/item.htm?id=765881659540)
 
-[2. 淘宝(taobao.com)](https://item.taobao.com/item.htm?id=765881659540)
+### List of Extension Modules Supported by TP78
+
+1. TP78foc —— A FOC controlled motor knob, small keyboard expansion module
+
+2. TP78mini —— A three mode examination digital keypad module
+
+intrudoction video：[【开源】历时3年，打造一个模块化力反馈旋钮小键盘](https://www.bilibili.com/video/BV1jVpneNEpq/)
 
 ### Download models
 

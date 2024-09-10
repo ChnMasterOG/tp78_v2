@@ -37,11 +37,17 @@ bilibili：@i丶m皮皮 @阿炜阿阿炜阿
 
 抖音：@i丶m皮皮
 
-### 拼车链接（目前仅支持中国大陆 - 限量）
+### 拼车链接
 
-[1. 哔哩哔哩工房 (bilibili.com)](https://gf.bilibili.com/item/detail/1105095069?noTitleBar=1&from=mall-up_itemDetail&msource=items_share)
+[淘宝(taobao.com)](https://item.taobao.com/item.htm?id=765881659540)
 
-[2. 淘宝(taobao.com)](https://item.taobao.com/item.htm?id=765881659540)
+### TP78支持的扩展模块列表
+
+1. TP78foc —— 一个FOC控制无刷电机旋钮小键盘扩展模块
+
+2. TP78mini —— 一个三模数字小键盘模块
+
+扩展模块介绍视频：[[【开源】历时3年，打造一个模块化力反馈旋钮小键盘](https://www.bilibili.com/video/BV1jVpneNEpq/)](https://www.bilibili.com/video/BV1jVpneNEpq/)
 
 ### 模型开源地址
 
