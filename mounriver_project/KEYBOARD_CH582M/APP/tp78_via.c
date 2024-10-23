@@ -480,28 +480,24 @@ void via_data_processing(uint8_t *data, uint8_t len)
         uint16_t i, j = 3, k = 0;
         offset >>= 1; // uint16 to uint8
         size >>= 1; // uint16 to uint8
-        if (offset < (COL_SIZE + 1) * ROW_SIZE) { // layer 0
+        if (offset < COL_SIZE * ROW_SIZE) { // layer 0
           keyarr_ptr = (uint8_t*)CustomKey;
         } else {  // layer 1
           keyarr_ptr = (uint8_t*)Extra_CustomKey;
-          offset -= (COL_SIZE + 1) * ROW_SIZE;
+          offset -= COL_SIZE * ROW_SIZE;
         }
-        keyarr_ptr += offset - offset / (COL_SIZE + 1); // 一行结束减去末尾空白键
+        keyarr_ptr += offset;
         for (i = offset; i < offset + size; i++, j+=2) {
-          if (i >= (COL_SIZE + 1) * ROW_SIZE) {
+          if (i >= COL_SIZE * ROW_SIZE) {
             command_data[j] = 0;
             command_data[j + 1] = 0;
           } else {
             command_data[j] = 0;  // MSB set to zero(USB为大端传输)
-            if (i % (COL_SIZE + 1) == COL_SIZE) {
-              command_data[j + 1] = 0;  // 一行末尾保留空白
+            if (keyarr_ptr[k] >= KEY_SP_1 && keyarr_ptr[k] <= KEY_SP_7) {
+              command_data[j] = 0x77;
+              command_data[j + 1] = keyarr_ptr[k++] - KEY_SP_1;
             } else {
-              if (keyarr_ptr[k] >= KEY_SP_1 && keyarr_ptr[k] <= KEY_SP_7) {
-                command_data[j] = 0x77;
-                command_data[j + 1] = keyarr_ptr[k++] - KEY_SP_1;
-              } else {
-                command_data[j + 1] = keyarr_ptr[k++];
-              }
+              command_data[j + 1] = keyarr_ptr[k++];
             }
           }
         }
@@ -515,16 +511,16 @@ void via_data_processing(uint8_t *data, uint8_t len)
         uint16_t i, j = 3, k = 0;
         offset >>= 1; // uint16 to uint8
         size >>= 1; // uint16 to uint8
-        if (offset < (COL_SIZE + 1) * ROW_SIZE) { // layer 0
+        if (offset < COL_SIZE * ROW_SIZE) { // layer 0
           keyarr_ptr = (uint8_t*)CustomKey;
         } else {  // layer 1
           keyarr_ptr = (uint8_t*)Extra_CustomKey;
-          offset -= (COL_SIZE + 1) * ROW_SIZE;
+          offset -= COL_SIZE * ROW_SIZE;
         }
-        keyarr_ptr += offset - offset / (COL_SIZE + 1); // 一行结束减去末尾空白键
+        keyarr_ptr += offset;
         for (i = offset; i < offset + size; i++, j+=2) {
-          if (i >= (COL_SIZE + 1) * ROW_SIZE) break;
-          else if (i % (COL_SIZE + 1) != COL_SIZE) {
+          if (i >= COL_SIZE * ROW_SIZE) break;
+          else {
             if (command_data[j] == 0x77)  // SP_KEY
               keyarr_ptr[k++] = KEY_SP_1 + command_data[j + 1];
             else

@@ -145,6 +145,8 @@ void TP78Reinit(uint8_t mode, enum LP_Type lp_type)
 {
   uint32_t irq_status;
 
+  if (lp_type == lp_mode_none) return;
+
   if (mode == 0) {  // 进入睡眠
     SYS_DisableAllIrq( &irq_status );
 #if (defined HAL_WDG) && (HAL_WDG == TRUE)
@@ -261,7 +263,7 @@ void GotoLowpower(enum LP_Type type)
       LowPower_Shutdown(0);
       break;
 #endif
-    default:  // do not run here
+    default:  // 不睡眠
       return;
   }
 #else

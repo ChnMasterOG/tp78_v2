@@ -25,7 +25,8 @@
                 "options": [
                   ["USB", 0],
                   ["BlueTooth", 1],
-                  ["RF 2.4G", 2]
+                  ["RF 2.4G", 2],
+                  ["USB with BLE", 3]
                 ],
                 "content": ["id_Work_mode", 0, 2]
               }, {
@@ -72,7 +73,7 @@
         ]
       }
     ],
-    "matrix": {"rows": 6, "cols": 15},
+    "matrix": {"rows": 6, "cols": 14},
     "layouts": {
       "labels": [],
       "keymap": [

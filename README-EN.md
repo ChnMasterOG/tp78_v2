@@ -37,15 +37,21 @@ bilibili：@i丶m皮皮 @阿炜阿阿炜阿
 
 Tik Tok：@i丶m皮皮
 
-### Purchase link
+### Purchase link(Global purchasable)
 
 [淘宝(taobao.com)](https://item.taobao.com/item.htm?id=765881659540)
 
-### List of Extension Modules Supported by TP78
+### List of Extension Modules Supported by TP78(Global purchasable)
+
+Video shown in bilibili：[https://www.bilibili.com/video/BV1jVpneNEpq/](https://www.bilibili.com/video/BV1jVpneNEpq/)
 
 1. TP78foc —— A FOC controlled motor knob, small keyboard expansion module
+   
+   purchase link: [淘宝(taobao.com)](https://item.taobao.com/item.htm?ft=t&id=828180761483)
 
 2. TP78mini —— A three mode examination digital keypad module
+   
+   purchase link: [淘宝(taobao.com)](https://item.taobao.com/item.htm?ft=t&id=832953135960)
 
 intrudoction video：[【开源】历时3年，打造一个模块化力反馈旋钮小键盘](https://www.bilibili.com/video/BV1jVpneNEpq/)
 
@@ -256,3 +262,9 @@ You can submit you code [here](https://github.com/ChnMasterOG/tp78_v2/issues). T
 - V2.1.5
 
         1. Add motor_en configuration: The motor vibration is controlled by this configuration.
+
+- V2.1.6
+
+        1. Add new mode: USB with BLE Coexistence Mode.
+
+        2. Modify the VIA layout file. The original keyboard layout file is 15 columns, but there are only 14 columns in reality. So we modify the firmware VIA related codes.

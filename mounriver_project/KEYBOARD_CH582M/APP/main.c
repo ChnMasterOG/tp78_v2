@@ -79,11 +79,11 @@ int main( void )
   CH58X_BLEInit( ); //蓝牙初始化
   HAL_Init( ); //硬件初始化
 #if (defined HAL_USB) && (HAL_USB == TRUE)
-  if (g_Enable_Status.usb == TRUE) {
+  if (g_Enable_Status.usb == TRUE || g_Enable_Status.usb_ble == TRUE) {
     HAL_USBInit( );
   }
 #endif
-  if (g_Enable_Status.ble == TRUE) {
+  if (g_Enable_Status.ble == TRUE || g_Enable_Status.usb_ble == TRUE) {
     GAPRole_PeripheralInit( );  // 蓝牙层级决策功能初始化，闭源
     HidDev_Init( ); // 蓝牙广播服务初始化（注册和启动），闭源
     HidEmu_Init( ); // 蓝牙广播服务初始化（参数设置），闭源

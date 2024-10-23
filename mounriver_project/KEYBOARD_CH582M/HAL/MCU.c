@@ -146,20 +146,32 @@ __attribute__((weak)) void HID_KEYBOARD_Process(void)
         if ( g_Ready_Status.keyboard_mouse_data == TRUE ) { // 发送键盘鼠标数据
           g_Ready_Status.keyboard_mouse_data = FALSE;
           tmos_memset(&HIDMouse[1], 0, 3);   // 只按左中右键没有其他操作
-          if ( g_Enable_Status.usb == TRUE ) {
+          if ( g_Enable_Status.usb == TRUE && g_Ready_Status.usb == TRUE ) {
             OnBoard_SendMsg(usbTaskID, MOUSE_MESSAGE, 1, NULL);  // USB鼠标事件
-          } else if ( g_Ready_Status.ble == TRUE ) {
-            OnBoard_SendMsg(hidEmuTaskId, MOUSE_MESSAGE, 1, NULL);  //蓝牙鼠标事件
-          } else if ( g_Enable_Status.rf == TRUE ) {
+          } else if ( g_Enable_Status.ble == TRUE && g_Ready_Status.ble == TRUE ) {
+            OnBoard_SendMsg(hidEmuTaskId, MOUSE_MESSAGE, 1, NULL);  // 蓝牙鼠标事件
+          } else if ( g_Enable_Status.rf == TRUE && g_Ready_Status.rf == TRUE ) {
             OnBoard_SendMsg(RFTaskId, MOUSE_MESSAGE, 1, NULL);  // RF鼠标事件
+          } else if ( g_Enable_Status.usb_ble == TRUE ) { // 共存模式
+            if ( g_Ready_Status.usb_ble == TRUE ) {
+              OnBoard_SendMsg(usbTaskID, MOUSE_MESSAGE, 1, NULL);  // USB鼠标事件
+            } else {
+              OnBoard_SendMsg(hidEmuTaskId, MOUSE_MESSAGE, 1, NULL);  // 蓝牙鼠标事件
+            }
           }
         } else {
-          if ( g_Enable_Status.usb == TRUE ) {
+          if ( g_Enable_Status.usb == TRUE && g_Ready_Status.usb == TRUE ) {
             OnBoard_SendMsg(usbTaskID, KEY_MESSAGE, 1, NULL);  // USB键盘事件
-          } else if ( g_Ready_Status.ble == TRUE ) {
+          } else if ( g_Enable_Status.ble == TRUE && g_Ready_Status.ble == TRUE ) {
             OnBoard_SendMsg(hidEmuTaskId, KEY_MESSAGE, 1, NULL);  // 蓝牙键盘事件
-          } else if ( g_Enable_Status.rf == TRUE ) {
+          } else if ( g_Enable_Status.rf == TRUE && g_Ready_Status.rf == TRUE ) {
             OnBoard_SendMsg(RFTaskId, KEY_MESSAGE, 1, NULL);  // RF键盘事件
+          } else if ( g_Enable_Status.usb_ble == TRUE ) { // 共存模式
+            if ( g_Ready_Status.usb_ble == TRUE ) {
+              OnBoard_SendMsg(usbTaskID, KEY_MESSAGE, 1, NULL);  // USB键盘事件
+            } else {
+              OnBoard_SendMsg(hidEmuTaskId, KEY_MESSAGE, 1, NULL);  // 蓝牙键盘事件
+            }
           }
         }
       }
@@ -194,12 +206,18 @@ __attribute__((weak)) void HID_PS2TP_Process(void)
       else HIDMouse[2] = tmp;
       
       /* 鼠标事件 */
-      if ( g_Enable_Status.usb == TRUE ) {
+      if ( g_Enable_Status.usb == TRUE && g_Ready_Status.usb == TRUE ) {
         OnBoard_SendMsg(usbTaskID, MOUSE_MESSAGE, 1, NULL);  // 蓝牙鼠标事件
-      } else if ( g_Ready_Status.ble == TRUE ) {
+      } else if ( g_Enable_Status.ble == TRUE && g_Ready_Status.ble == TRUE ) {
         OnBoard_SendMsg(hidEmuTaskId, MOUSE_MESSAGE, 1, NULL);  // 蓝牙鼠标事件
-      } else if ( g_Enable_Status.rf == TRUE ) {
+      } else if ( g_Enable_Status.rf == TRUE && g_Ready_Status.rf == TRUE ) {
         OnBoard_SendMsg(RFTaskId, MOUSE_MESSAGE, 1, NULL);  // RF鼠标事件
+      } else if ( g_Enable_Status.usb_ble == TRUE ) { // 共存模式
+        if ( g_Ready_Status.usb_ble == TRUE ) {
+          OnBoard_SendMsg(usbTaskID, MOUSE_MESSAGE, 1, NULL);  // USB鼠标事件
+        } else {
+          OnBoard_SendMsg(hidEmuTaskId, MOUSE_MESSAGE, 1, NULL);  // 蓝牙鼠标事件
+        }
       }
     }
     PS2_En_Data_Report();
@@ -233,12 +251,18 @@ __attribute__((weak)) void HID_I2CTP_Process(void)
       else HIDMouse[2] = tmp;
 
       /* 鼠标事件 */
-      if ( g_Enable_Status.usb == TRUE ) {
-        OnBoard_SendMsg(usbTaskID, MOUSE_MESSAGE, 1, NULL);  // USB鼠标事件
-      } else if ( g_Ready_Status.ble == TRUE ) {
-        OnBoard_SendMsg(hidEmuTaskId, MOUSE_MESSAGE, 1, NULL);  //蓝牙鼠标事件
-      } else if ( g_Enable_Status.rf == TRUE ) {
+      if ( g_Enable_Status.usb == TRUE && g_Ready_Status.usb == TRUE ) {
+        OnBoard_SendMsg(usbTaskID, MOUSE_MESSAGE, 1, NULL);  // 蓝牙鼠标事件
+      } else if ( g_Enable_Status.ble == TRUE && g_Ready_Status.ble == TRUE ) {
+        OnBoard_SendMsg(hidEmuTaskId, MOUSE_MESSAGE, 1, NULL);  // 蓝牙鼠标事件
+      } else if ( g_Enable_Status.rf == TRUE && g_Ready_Status.rf == TRUE ) {
         OnBoard_SendMsg(RFTaskId, MOUSE_MESSAGE, 1, NULL);  // RF鼠标事件
+      } else if ( g_Enable_Status.usb_ble == TRUE ) { // 共存模式
+        if ( g_Ready_Status.usb_ble == TRUE ) {
+          OnBoard_SendMsg(usbTaskID, MOUSE_MESSAGE, 1, NULL);  // USB鼠标事件
+        } else {
+          OnBoard_SendMsg(hidEmuTaskId, MOUSE_MESSAGE, 1, NULL);  // 蓝牙鼠标事件
+        }
       }
     } else {
     }
@@ -260,12 +284,18 @@ __attribute__((weak)) void HID_CapMouse_Process(void)
     oper_dat.cap_mouse_data_change = FALSE;
     MPR121_set_result(&oper_dat);
     TP78_Idle_Clr();
-    if ( g_Enable_Status.usb == TRUE ) {
-      OnBoard_SendMsg(usbTaskID, MOUSE_MESSAGE, 1, NULL);  // USB鼠标事件
-    } else if ( g_Ready_Status.ble == TRUE ) {
+    if ( g_Enable_Status.usb == TRUE && g_Ready_Status.usb == TRUE ) {
+      OnBoard_SendMsg(usbTaskID, MOUSE_MESSAGE, 1, NULL);  // 蓝牙鼠标事件
+    } else if ( g_Enable_Status.ble == TRUE && g_Ready_Status.ble == TRUE ) {
       OnBoard_SendMsg(hidEmuTaskId, MOUSE_MESSAGE, 1, NULL);  // 蓝牙鼠标事件
-    } else if ( g_Enable_Status.rf == TRUE ) {
+    } else if ( g_Enable_Status.rf == TRUE && g_Ready_Status.rf == TRUE ) {
       OnBoard_SendMsg(RFTaskId, MOUSE_MESSAGE, 1, NULL);  // RF鼠标事件
+    } else if ( g_Enable_Status.usb_ble == TRUE ) { // 共存模式
+      if ( g_Ready_Status.usb_ble == TRUE ) {
+        OnBoard_SendMsg(usbTaskID, MOUSE_MESSAGE, 1, NULL);  // USB鼠标事件
+      } else {
+        OnBoard_SendMsg(hidEmuTaskId, MOUSE_MESSAGE, 1, NULL);  // 蓝牙鼠标事件
+      }
     }
   }
 }
@@ -279,12 +309,18 @@ __attribute__((weak)) void HID_CapMouse_Process(void)
 __attribute__((weak)) void HID_VOL_Process(void)
 {
   TP78_Idle_Clr();
-  if ( g_Ready_Status.usb == TRUE ) {
+  if ( g_Enable_Status.usb == TRUE && g_Ready_Status.usb == TRUE ) {
     OnBoard_SendMsg(usbTaskID, VOL_MESSAGE, 1, NULL);  // USB音量事件
-  } else if ( g_Ready_Status.ble == TRUE ) {
+  } else if ( g_Enable_Status.ble == TRUE && g_Ready_Status.ble == TRUE ) {
     OnBoard_SendMsg(hidEmuTaskId, VOL_MESSAGE, 1, NULL);  //蓝牙音量事件
-  } else if ( g_Enable_Status.rf == TRUE ) {
+  } else if ( g_Enable_Status.rf == TRUE && g_Ready_Status.rf == TRUE ) {
     OnBoard_SendMsg(RFTaskId, VOL_MESSAGE, 1, NULL);  // RF音量事件
+  } else if ( g_Enable_Status.usb_ble == TRUE ) { // 共存模式
+    if ( g_Ready_Status.usb_ble == TRUE ) {
+      OnBoard_SendMsg(usbTaskID, VOL_MESSAGE, 1, NULL);  // USB音量事件
+    } else {
+      OnBoard_SendMsg(hidEmuTaskId, VOL_MESSAGE, 1, NULL);  // 蓝牙音量事件
+    }
   }
 }
 
@@ -325,7 +361,7 @@ __attribute__((weak)) void SW_OLED_LEDStatus_Process(void)
 {
   uint8_t change_flag = 0;
 
-  if ( g_Enable_Status.usb == TRUE ) {
+  if ( g_Enable_Status.usb == TRUE && g_Ready_Status.usb == TRUE ) {
     if ( g_CapsLock_LEDOn_Status.usb != g_CapsLock_LEDOn_Status.ui ) {
       g_CapsLock_LEDOn_Status.ui = g_CapsLock_LEDOn_Status.usb;
       change_flag |= 0x2;
@@ -337,7 +373,7 @@ __attribute__((weak)) void SW_OLED_LEDStatus_Process(void)
       g_NumLock_LEDOn_Status.ui = g_NumLock_LEDOn_Status.usb;
       change_flag |= 0x1;
     }
-  } else if ( g_Ready_Status.ble == TRUE ) {
+  } else if ( g_Enable_Status.ble == TRUE && g_Ready_Status.ble == TRUE ) {
     if ( g_CapsLock_LEDOn_Status.ble != g_CapsLock_LEDOn_Status.ui ) {
       g_CapsLock_LEDOn_Status.ui = g_CapsLock_LEDOn_Status.ble;
       change_flag |= 0x2;
@@ -349,7 +385,7 @@ __attribute__((weak)) void SW_OLED_LEDStatus_Process(void)
       g_NumLock_LEDOn_Status.ui = g_NumLock_LEDOn_Status.ble;
       change_flag |= 0x1;
     }
-  } else if ( g_Enable_Status.rf == TRUE ) {
+  } else if ( g_Enable_Status.rf == TRUE && g_Ready_Status.rf == TRUE ) {
     if ( g_CapsLock_LEDOn_Status.rf != g_CapsLock_LEDOn_Status.ui ) {
       g_CapsLock_LEDOn_Status.ui = g_CapsLock_LEDOn_Status.rf;
       change_flag |= 0x2;
@@ -359,6 +395,21 @@ __attribute__((weak)) void SW_OLED_LEDStatus_Process(void)
     }
     if ( g_NumLock_LEDOn_Status.rf != g_NumLock_LEDOn_Status.ui ) {
       g_NumLock_LEDOn_Status.ui = g_NumLock_LEDOn_Status.rf;
+      change_flag |= 0x1;
+    }
+  } else if ( g_Enable_Status.usb_ble == TRUE ) {
+    if ( g_Ready_Status.usb_ble == TRUE && g_CapsLock_LEDOn_Status.usb != g_CapsLock_LEDOn_Status.ui ) {
+      g_CapsLock_LEDOn_Status.ui = g_CapsLock_LEDOn_Status.usb;
+      change_flag |= 0x2;
+    } else if ( g_Ready_Status.usb_ble == FALSE && g_CapsLock_LEDOn_Status.ble != g_CapsLock_LEDOn_Status.ui ) {
+      g_CapsLock_LEDOn_Status.ui = g_CapsLock_LEDOn_Status.ble;
+      change_flag |= 0x2;
+    }
+    if ( g_Ready_Status.usb_ble == TRUE && g_NumLock_LEDOn_Status.usb != g_NumLock_LEDOn_Status.ui ) {
+      g_NumLock_LEDOn_Status.ui = g_NumLock_LEDOn_Status.usb;
+      change_flag |= 0x1;
+    } else if ( g_Ready_Status.usb_ble == FALSE && g_NumLock_LEDOn_Status.ble != g_NumLock_LEDOn_Status.ui ) {
+      g_NumLock_LEDOn_Status.ui = g_NumLock_LEDOn_Status.ble;
       change_flag |= 0x1;
     }
   } else {
@@ -391,7 +442,7 @@ __attribute__((weak)) void SW_OLED_LEDStatus_Process(void)
  *******************************************************************************/
 __attribute__((weak)) void SW_OLED_ConnectionStatus_Process(void)
 {
-  if (g_Ready_Status.usb_l != g_Ready_Status.usb) {
+  if (g_Enable_Status.usb == TRUE && g_Ready_Status.usb_l != g_Ready_Status.usb) {
     TP78_Idle_Clr();
     g_Ready_Status.usb_l = g_Ready_Status.usb;
     if ( g_Ready_Status.usb == TRUE ) {
@@ -414,7 +465,7 @@ __attribute__((weak)) void SW_OLED_ConnectionStatus_Process(void)
 #ifdef OLED_0_66
     OLED_UI_add_default_task(OLED_UI_FLAG_DRAW_SLOT);
 #endif
-  } else if (g_Ready_Status.ble_l != g_Ready_Status.ble) {
+  } else if (g_Enable_Status.ble == TRUE && g_Ready_Status.ble_l != g_Ready_Status.ble) {
     TP78_Idle_Clr();
     g_Ready_Status.ble_l = g_Ready_Status.ble;
     if ( g_Ready_Status.ble == TRUE ) {
@@ -443,7 +494,7 @@ __attribute__((weak)) void SW_OLED_ConnectionStatus_Process(void)
 #ifdef OLED_0_66
     OLED_UI_add_default_task(OLED_UI_FLAG_DRAW_SLOT);
 #endif
-  } else if (g_Ready_Status.rf_l != g_Ready_Status.rf) {
+  } else if (g_Enable_Status.rf == TRUE && g_Ready_Status.rf_l != g_Ready_Status.rf) {
     TP78_Idle_Clr();
     g_Ready_Status.rf_l = g_Ready_Status.rf;
     if ( g_Ready_Status.rf == TRUE ) {
@@ -461,6 +512,23 @@ __attribute__((weak)) void SW_OLED_ConnectionStatus_Process(void)
 #ifdef OLED_0_66
       OLED_UI_slot_active((uint8_t*)UI_Slot_Icon[OLED_UI_ICON_RF_IDX],
                           (uint8_t*)UI_Slot_Icon[OLED_UI_ICON_RF_UNCONNECT_IDX]);
+#endif
+    }
+#ifdef OLED_0_66
+    OLED_UI_add_default_task(OLED_UI_FLAG_DRAW_SLOT);
+#endif
+  } else if (g_Enable_Status.usb_ble == TRUE && g_Ready_Status.usb_ble_l != g_Ready_Status.usb_ble) {
+    TP78_Idle_Clr();
+    g_Ready_Status.usb_ble = g_Ready_Status.usb_ble_l;
+    if ( g_Ready_Status.usb_ble == TRUE ) {
+#ifdef OLED_0_66
+      OLED_UI_slot_active((uint8_t*)UI_Slot_Icon[OLED_UI_ICON_BLE_WITH_USB_MODE_IDX],
+                          (uint8_t*)UI_Slot_Icon[OLED_UI_ICON_USB_WITH_BLE_MODE_IDX]);
+#endif
+    } else {
+#ifdef OLED_0_66
+      OLED_UI_slot_active((uint8_t*)UI_Slot_Icon[OLED_UI_ICON_USB_WITH_BLE_MODE_IDX],
+                          (uint8_t*)UI_Slot_Icon[OLED_UI_ICON_BLE_WITH_USB_MODE_IDX]);
 #endif
     }
 #ifdef OLED_0_66
@@ -528,12 +596,18 @@ __attribute__((weak)) void HW_TouchBar_Process(void)
   if (oper_dat.touchbar_data_change) {
     oper_dat.touchbar_data_change = FALSE;
     MPR121_set_result(&oper_dat);
-    if ( g_Ready_Status.usb == TRUE ) {
+    if ( g_Enable_Status.usb == TRUE && g_Ready_Status.usb == TRUE ) {
       OnBoard_SendMsg(usbTaskID, MOUSE_MESSAGE, 1, NULL);  // USB鼠标事件
-    } else if ( g_Ready_Status.ble == TRUE ) {
+    } else if ( g_Enable_Status.ble == TRUE && g_Ready_Status.ble == TRUE ) {
       OnBoard_SendMsg(hidEmuTaskId, MOUSE_MESSAGE, 1, NULL);  //蓝牙鼠标事件
-    } else if ( g_Enable_Status.rf == TRUE ) {
+    } else if ( g_Enable_Status.rf == TRUE && g_Enable_Status.rf == TRUE ) {
       OnBoard_SendMsg(RFTaskId, MOUSE_MESSAGE, 1, NULL);  // RF鼠标事件
+    } else if ( g_Enable_Status.usb_ble == TRUE ) { // 共存模式
+      if ( g_Ready_Status.usb_ble == TRUE ) {
+        OnBoard_SendMsg(usbTaskID, MOUSE_MESSAGE, 1, NULL);  // USB鼠标事件
+      } else {
+        OnBoard_SendMsg(hidEmuTaskId, MOUSE_MESSAGE, 1, NULL);  //蓝牙鼠标事件
+      }
     }
   }
 }
@@ -1032,6 +1106,13 @@ void FLASH_Init(void)
       g_Ready_Status.rf_l = TRUE; // 初始化显示更新
       g_lp_type = lp_sw_mode; // RTC+GPIO唤醒
       OLED_UI_add_SHOWINFO_task("RF Mode");
+      OLED_UI_add_CANCELINFO_delay_task(2000);
+      break;
+    case USB_WITH_BLE_WORK_MODE:  // 共存模式
+      g_Enable_Status.usb_ble = TRUE;
+      g_Ready_Status.usb_ble_l = TRUE; // 默认发送USB + 初始化显示更新
+      g_lp_type = lp_mode_none; // 不睡眠
+      OLED_UI_add_SHOWINFO_task("USB + BLE");
       OLED_UI_add_CANCELINFO_delay_task(2000);
       break;
     default:

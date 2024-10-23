@@ -19,7 +19,7 @@ const BYTE WriteBuffer[] = {
     "keyboard_cfg.txt---存放键盘配置(每行一个配置)\n"
     "LINE1:默认蓝牙设备(0~3)\n"
     "LINE2:默认LED模式(0~5)\n"
-    "LINE3:工作模式(0-USB,1-BLE,2-RF)\n"
+    "LINE3:工作模式(0-USB,1-BLE,2-RF,3-USB&BLE)\n"
     "LINE4:是否启动U盘(仅下次生效)\n"
     "LINE5:MPR_alg_magic\n"
     "LINE6:MPR_capmouse_tou_thr\n"

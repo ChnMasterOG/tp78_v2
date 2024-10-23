@@ -124,6 +124,7 @@ typedef union {
 #define USB_WORK_MODE                       0
 #define BLE_WORK_MODE                       1
 #define RF_WORK_MODE                        2
+#define USB_WITH_BLE_WORK_MODE              3
 
 /* HID data length */
 #define HID_KEYBOARD_DATA_LENGTH            8
@@ -199,9 +200,11 @@ typedef struct _Ready_Status_t
     uint8_t usb : 1;
     uint8_t ble : 1;
     uint8_t rf : 1;
+    uint8_t usb_ble : 1;  // 为TRUE表示发送USB，为FALSE表示发送蓝牙
     uint8_t usb_l : 1;
     uint8_t ble_l : 1;
     uint8_t rf_l : 1;
+    uint8_t usb_ble_l : 1;
     uint8_t fatfs : 1;
     uint8_t keyboard_key_data : 1;
     uint8_t keyboard_mouse_data : 1;
@@ -214,6 +217,7 @@ typedef struct _Enable_Status_t
     uint8_t usb : 1;
     uint8_t ble : 1;
     uint8_t rf : 1;
+    uint8_t usb_ble : 1;
     uint8_t motor : 1;
     uint8_t tp : 1;
     uint8_t paintedegg : 1;

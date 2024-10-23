@@ -37,15 +37,21 @@ bilibili：@i丶m皮皮 @阿炜阿阿炜阿
 
 抖音：@i丶m皮皮
 
-### 拼车链接
+### 购买链接（支持全球可售）
 
 [淘宝(taobao.com)](https://item.taobao.com/item.htm?id=765881659540)
 
-### TP78支持的扩展模块列表
+### TP78支持的扩展模块列表（支持全球可售）
+
+视频介绍：[https://www.bilibili.com/video/BV1jVpneNEpq/](https://www.bilibili.com/video/BV1jVpneNEpq/)
 
 1. TP78foc —— 一个FOC控制无刷电机旋钮小键盘扩展模块
+   
+   购买链接：[淘宝(taobao.com)](https://item.taobao.com/item.htm?ft=t&id=828180761483)
 
 2. TP78mini —— 一个三模数字小键盘模块
+   
+   购买链接：[淘宝(taobao.com)](https://item.taobao.com/item.htm?ft=t&id=832953135960)
 
 扩展模块介绍视频：[【开源】历时3年，打造一个模块化力反馈旋钮小键盘](https://www.bilibili.com/video/BV1jVpneNEpq/)
 
@@ -262,3 +268,9 @@ BUG
 - V2.1.5
 
         1. 修改触摸条按键/滑动触发振动的功能为可配置（配置项：motor_en）
+
+- V2.1.6
+
+        1. 增加 USB 和蓝牙共存模式
+
+        2. 修改 VIA 的 layout 布局文件，原先键盘布局为 15 列，实际只有 14 列，对应固件 VIA相关内容进行修改

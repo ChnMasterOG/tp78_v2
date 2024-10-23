@@ -155,8 +155,11 @@
     #define Fn_Mode_USBMode               0x80
     #define Fn_Mode_BLEMode               0x81
     #define Fn_Mode_RFMode                0x82
+    #define Fn_Mode_USBBLEMode            0x83
     #define Fn_Mode_UDiskMode             0x84
     #define Fn_Mode_GameMode              0x85
+    #define Fn_Mode_Select_USB_Send       0x90
+    #define Fn_Mode_Select_BLE_Send       0x91
     #define Fn_Mode_Enter_Cfg             0xA0
     #define Fn_Mode_JumpBoot              0xB0
     #define Fn_Mode_SoftReset             0xB1

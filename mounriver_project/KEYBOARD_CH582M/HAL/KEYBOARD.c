@@ -156,7 +156,7 @@ UINT8 KEYBOARD_Custom_Function( void )
     } else if ( KeyboardDat->Key1 == KEY_C && Fn_Mode != Fn_Mode_ChangeKey ) { // 设置改键 - 先按Fn+C
       Fn_Mode = Fn_Mode_ChangeKey;
       Fn_cnt &= 0x0C;
-    } else if ( KeyboardDat->Key1 == KEY_O && Fn_Mode != Fn_Mode_ChangeKey ) { // 配置参数模式
+    } else if ( KeyboardDat->Key1 == KEY_O && Fn_Mode != Fn_Mode_Enter_Cfg ) { // 配置参数模式
       Fn_Mode = Fn_Mode_Enter_Cfg;
       Fn_cnt = 0;
     } else if ( KeyboardDat->Key1 == KEY_R && Fn_Mode != Fn_Mode_SoftReset ) { // 软件复位模式
@@ -193,11 +193,20 @@ UINT8 KEYBOARD_Custom_Function( void )
     } else if ( KeyboardDat->Key1 == KEY_F12 && Fn_Mode != Fn_Mode_RFMode ) { // 切换RF模式
       Fn_Mode = Fn_Mode_RFMode;
       Fn_cnt = 0;
+    } else if ( KeyboardDat->Key1 == KEY_F9 && Fn_Mode != Fn_Mode_USBBLEMode ) { // 切换USB和BLE共存模式
+      Fn_Mode = Fn_Mode_USBBLEMode;
+      Fn_cnt = 0;
     } else if ( KeyboardDat->Key1 == KEY_U && Fn_Mode != Fn_Mode_UDiskMode ) { // 开启U盘模式
       Fn_Mode = Fn_Mode_UDiskMode;
       Fn_cnt = 0;
     } else if ( KeyboardDat->Key1 == KEY_G && Fn_Mode != Fn_Mode_GameMode ) { // 开启性能模式
       Fn_Mode = Fn_Mode_GameMode;
+      Fn_cnt = 0;
+    } else if ( KeyboardDat->Key1 == KEY_PageUp && Fn_Mode != Fn_Mode_Select_USB_Send ) { // 共存模式下选择USB发送
+      Fn_Mode = Fn_Mode_Select_USB_Send;
+      Fn_cnt = 0;
+    } else if ( KeyboardDat->Key1 == KEY_PageDown && Fn_Mode != Fn_Mode_Select_BLE_Send ) { // 共存模式下选择BLE发送
+      Fn_Mode = Fn_Mode_Select_BLE_Send;
       Fn_cnt = 0;
     } else if ( KeyboardDat->Key1 == KEY_0 && Fn_Mode != Fn_Mode_BLE_ClearSNV ) { // 清除蓝牙SNV信息
       Fn_Mode = Fn_Mode_BLE_ClearSNV;
@@ -387,6 +396,18 @@ UINT8 KEYBOARD_Custom_Function( void )
         SoftReset();
         break;
       }
+      case Fn_Mode_USBBLEMode: { // Fn+F9切换USB和BLE共存模式
+        Fn_Mode = Fn_Mode_None;
+        if (g_Enable_Status.usb_ble == TRUE) {
+          OLED_UI_add_SHOWINFO_task("USB + BLE");
+          OLED_UI_add_CANCELINFO_delay_task(2000);
+          break;
+        }
+        uint16_t USB_with_BLE_mode = 3;
+        HAL_Fs_Write_keyboard_cfg(FS_LINE_WORK_MODE, 1, &USB_with_BLE_mode);
+        SoftReset();
+        break;
+      }
       case Fn_Mode_UDiskMode: { // Fn+U开启U盘模式
         Fn_Mode = Fn_Mode_None;
         uint16_t Usb_mode = 0;
@@ -417,6 +438,20 @@ UINT8 KEYBOARD_Custom_Function( void )
 #endif
         } else {
           OLED_PRINT("G Mode ON");
+        }
+        break;
+      }
+      case Fn_Mode_Select_USB_Send: { // Fn+PgUp选择发送USB报文
+        Fn_Mode = Fn_Mode_None;
+        if (g_Enable_Status.usb_ble == TRUE) {
+          g_Ready_Status.usb_ble_l = TRUE;
+        }
+        break;
+      }
+      case Fn_Mode_Select_BLE_Send: { // Fn+PgDn选择发送BLE报文
+        Fn_Mode = Fn_Mode_None;
+        if (g_Enable_Status.usb_ble == TRUE) {
+          g_Ready_Status.usb_ble_l = FALSE;
         }
         break;
       }
