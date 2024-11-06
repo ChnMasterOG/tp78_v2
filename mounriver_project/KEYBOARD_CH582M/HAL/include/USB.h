@@ -53,6 +53,7 @@
     extern tmosTaskID usbTaskID;
 
     void usb_device_init( void );
+    void USB_DevWakeup(void);
     void HAL_USBInit( void );
 
 #endif

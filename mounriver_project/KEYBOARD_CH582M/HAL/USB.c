@@ -742,6 +742,7 @@ struct usbd_interface intf1;
 struct usbd_interface intf2;
 
 static BOOL u_disk_mode = FALSE;
+BOOL usb_host_suspend_flag = FALSE;
 
 void usb_device_init()
 {
@@ -920,6 +921,10 @@ void hid_keyboard_test(void)
  *******************************************************************************/
 static void USB_ProcessTMOSMsg( tmos_event_hdr_t *pMsg )
 {
+  if (usb_host_suspend_flag) {
+    USB_DevWakeup();
+    usb_host_suspend_flag = FALSE;
+  }
   switch ( pMsg->event )
   {
     case KEY_MESSAGE: {
@@ -945,6 +950,21 @@ static void USB_ProcessTMOSMsg( tmos_event_hdr_t *pMsg )
     default:
       break;
   }
+}
+
+/*******************************************************************************
+ * Function Name  : USB_DevWakeup
+ * Description    : USB唤醒主机
+ * Input          : None
+ * Return         : None
+ *******************************************************************************/
+void USB_DevWakeup(void)
+{
+    R16_PIN_ANALOG_IE &= ~RB_PIN_USB_DP_PU;
+    R8_UDEV_CTRL |= RB_UD_LOW_SPEED;
+    mDelaymS(2);
+    R16_PIN_ANALOG_IE |= RB_PIN_USB_DP_PU;
+    R8_UDEV_CTRL &= ~RB_UD_LOW_SPEED;
 }
 
 /*******************************************************************************

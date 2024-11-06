@@ -268,3 +268,7 @@ You can submit you code [here](https://github.com/ChnMasterOG/tp78_v2/issues). T
         1. Add new mode: USB with BLE Coexistence Mode.
 
         2. Modify the VIA layout file. The original keyboard layout file is 15 columns, but there are only 14 columns in reality. So we modify the firmware VIA related codes.
+
+- V2.1.7
+
+        1. Fix BUG: Unable to remotely wake up host at USB mode.

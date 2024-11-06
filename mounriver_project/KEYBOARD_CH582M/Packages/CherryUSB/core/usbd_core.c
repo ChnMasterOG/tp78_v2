@@ -487,6 +487,9 @@ static bool usbd_set_interface(uint8_t iface, uint8_t alt_setting)
     return ret;
 }
 
+// add by ChnMasterOG
+extern uint8_t usb_host_suspend_flag;
+
 /**
  * @brief handle a standard device request
  *
@@ -513,6 +516,7 @@ static bool usbd_std_device_req_handler(struct usb_setup_packet *setup, uint8_t 
         case USB_REQUEST_CLEAR_FEATURE:
         case USB_REQUEST_SET_FEATURE:
             if (value == USB_FEATURE_REMOTE_WAKEUP) {
+                usb_host_suspend_flag = setup->bRequest == USB_REQUEST_SET_FEATURE;
             } else if (value == USB_FEATURE_TEST_MODE) {
 #ifdef CONFIG_USBDEV_TEST_MODE
                 usbd_core_cfg.test_mode = true;
