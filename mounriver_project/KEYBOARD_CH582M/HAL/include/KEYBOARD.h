@@ -167,6 +167,7 @@
     #define Fn_Mode_VolumeUp              0xC0
     #define Fn_Mode_VolumeDown            0xC1
     #define Fn_Mode_DisEnableTP           0xD0
+    #define Fn_Mode_DisEnableTouchbar     0xD1
     #define Fn_Mode_PriorityUSBorBLE      0xE0
     #define Fn_Mode_SelectDevice1         0xE1
     #define Fn_Mode_SelectDevice2         0xE2

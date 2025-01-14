@@ -12,7 +12,7 @@
 #define __TP78_TPM_LIB_H
 
 #define MODULE_I2C_ADDR_MIN         0xC0
-#define MODULE_I2C_ADDR_MAX         0xC4
+#define MODULE_I2C_ADDR_MAX         0xC6
 
 /* 错误代码 */
 #define MODULE_ERR_I2C_NO_READY     0x01

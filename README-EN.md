@@ -272,3 +272,11 @@ You can submit you code [here](https://github.com/ChnMasterOG/tp78_v2/issues). T
 - V2.1.7
 
         1. Fix BUG: Unable to remotely wake up host at USB mode.
+
+- V2.1.8
+
+        1. Fix the BUG where the RF function cannot be used in V2.1.6 and V2.1.7 versions.
+
+        2. Add Fn+Y to control the touchbar slide enable function, Fn+T only controls the trackpoint enable function.
+
+        3. Optimize the latency in Game Mode.

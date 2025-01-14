@@ -37,6 +37,7 @@ NumLock_LEDOn_Status_t g_NumLock_LEDOn_Status;  // 大小写信号
 Ready_Status_t g_Ready_Status;  // 就绪信号
 Enable_Status_t g_Enable_Status = { // 使能信号
    .tp = TRUE,
+   .touchbar = TRUE,
 };
 uint8_t g_TP_speed_div = 1;
 uint8_t g_Game_Mode = FALSE;  // 性能模式
@@ -875,7 +876,7 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
 #endif
     }
     if (g_Game_Mode == TRUE) {
-      tmos_start_task( halTaskID, HAL_KEYBOARD_EVENT, 2 ); // 处理键盘加速 - 1.25ms
+      tmos_start_task( halTaskID, HAL_KEYBOARD_EVENT, 1 ); // 处理键盘加速 - 0.625ms
     } else {
       tmos_start_task( halTaskID, HAL_KEYBOARD_EVENT, MS1_TO_SYSTEM_TIME(5) ); // 处理键盘
     }
@@ -900,10 +901,12 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
 #if (defined HAL_MPR121_TOUCHBAR) && (HAL_MPR121_TOUCHBAR == TRUE)
     if (collect_cnt == 0) {
       if (g_keyboard_status.enter_cfg == FALSE) {  // 配置参数模式不进行touchbar判断
-        if (g_Enable_Status.tp && g_Enable_Status.touchbar_button) {  // 通过小红点使能和触摸条配置联合控制
-          MPR121_alg_judge_touchbar(ALG_ENABLE_TOUCHBAR_SLIDE | ALG_ENABLE_TOUCHBAR_TOUCH);
-        } else {
-          MPR121_alg_judge_touchbar(ALG_ENABLE_TOUCHBAR_SLIDE);
+        if (g_Enable_Status.touchbar) {
+          if (g_Enable_Status.touchbar_button) {
+            MPR121_alg_judge_touchbar(ALG_ENABLE_TOUCHBAR_SLIDE | ALG_ENABLE_TOUCHBAR_TOUCH);  // 通过触摸条使能和触摸条按键使能配置联合控制
+          } else {
+            MPR121_alg_judge_touchbar(ALG_ENABLE_TOUCHBAR_SLIDE);
+          }
         }
         MPR121_Post_Operation();
       }
@@ -1103,7 +1106,7 @@ void FLASH_Init(void)
       break;
     case RF_WORK_MODE:
       g_Enable_Status.rf = TRUE;
-      g_Ready_Status.rf_l = TRUE; // 初始化显示更新
+      g_Ready_Status.rf = TRUE; // 初始化显示更新 - RF显示
       g_lp_type = lp_sw_mode; // RTC+GPIO唤醒
       OLED_UI_add_SHOWINFO_task("RF Mode");
       OLED_UI_add_CANCELINFO_delay_task(2000);
@@ -1117,7 +1120,7 @@ void FLASH_Init(void)
       break;
     default:
       g_Enable_Status.usb = TRUE;
-      g_Ready_Status.usb_l = TRUE;  // 初始化显示更新
+      g_Ready_Status.usb_l = TRUE;  // 初始化显示更新 - USB不开启
       g_lp_type = lp_idle_mode;
       OLED_UI_add_SHOWINFO_task("USB Mode");
       OLED_UI_add_CANCELINFO_delay_task(2000);

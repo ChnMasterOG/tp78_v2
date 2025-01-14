@@ -184,6 +184,9 @@ UINT8 KEYBOARD_Custom_Function( void )
     } else if ( KeyboardDat->Key1 == KEY_T && Fn_Mode != Fn_Mode_DisEnableTP ) { // 使能/失能小红点
       Fn_Mode = Fn_Mode_DisEnableTP;
       Fn_cnt = 0;
+    } else if ( KeyboardDat->Key1 == KEY_Y && Fn_Mode != Fn_Mode_DisEnableTouchbar ) { // 使能/失能触摸条
+      Fn_Mode = Fn_Mode_DisEnableTouchbar;
+      Fn_cnt = 0;
     } else if ( KeyboardDat->Key1 == KEY_F10 && Fn_Mode != Fn_Mode_USBMode ) { // 切换USB模式
       Fn_Mode = Fn_Mode_USBMode;
       Fn_cnt = 0;
@@ -357,6 +360,14 @@ UINT8 KEYBOARD_Custom_Function( void )
         g_Enable_Status.tp = !g_Enable_Status.tp;
         if ( g_Enable_Status.tp == TRUE ) OLED_UI_add_SHOW_ICONINFO_task(OLED_UI_ICON_TP_IDX, " ON");
         else OLED_UI_add_SHOW_ICONINFO_task(OLED_UI_ICON_TP_IDX, " OFF");
+        OLED_UI_add_CANCELINFO_delay_task(2000);
+        break;
+      }
+      case Fn_Mode_DisEnableTouchbar: { // Fn+Y关闭/开启触摸条
+        Fn_Mode = Fn_Mode_None;
+        g_Enable_Status.touchbar = !g_Enable_Status.touchbar;
+        if ( g_Enable_Status.touchbar == TRUE ) OLED_UI_add_SHOW_ICONINFO_task(OLED_UI_ICON_TOUCHBAR_IDX, " ON");
+        else OLED_UI_add_SHOW_ICONINFO_task(OLED_UI_ICON_TOUCHBAR_IDX, " OFF");
         OLED_UI_add_CANCELINFO_delay_task(2000);
         break;
       }

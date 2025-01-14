@@ -435,8 +435,10 @@ void OLED_UI_show_version(uint8_t ena)
   if (ena) {
     OLED_ShowString(OLED_Midx(strlen("Firmware"), 0, 64), 2, "Firmware");
     OLED_ShowString(OLED_Midx(strlen(FIRMWARE_VERSION), 0, 64), 3, FIRMWARE_VERSION);
-    OLED_ShowString(OLED_Midx(strlen("Designers"), 0, 64), 4, "Designers");
-    OLED_ShowString(OLED_Midx(strlen("Q.C, CW.L"), 0, 64), 5, "Q.C, CW.L");
+//    OLED_ShowString(OLED_Midx(strlen("Designers"), 0, 64), 4, "Designers");
+//    OLED_ShowString(OLED_Midx(strlen("Q.C, CW.L"), 0, 64), 5, "Q.C, CW.L");
+    OLED_ShowString(OLED_Midx(strlen("TP78 group"), 0, 64), 4, "TP78 group");
+    OLED_ShowString(OLED_Midx(strlen("Hello 2025"), 0, 64), 5, "Hello 2025");
     //-OLED_Scroll(5, 5, 16, 48, 2, 1, 0);
   } else {
     OLED_Clr(0, 2, 63, 8);
