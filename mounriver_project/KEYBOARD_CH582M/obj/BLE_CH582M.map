@@ -1108,7 +1108,7 @@ Discarded input sections
                 0x0000000000000000       0x24 E:\Project\tp78_v2\mounriver_project\KEYBOARD_CH582M\LIB\libTP78_TPM.a(TPM_LIB.o)
  .rodata.TPM_Debug.str1.4
                 0x0000000000000000        0x9 E:\Project\tp78_v2\mounriver_project\KEYBOARD_CH582M\LIB\libTP78_TPM.a(TPM_LIB.o)
- .sdata.p_tpm_info_node.6215
+ .sdata.p_tpm_info_node.6217
                 0x0000000000000000        0x4 E:\Project\tp78_v2\mounriver_project\KEYBOARD_CH582M\LIB\libTP78_TPM.a(TPM_LIB.o)
  .data          0x0000000000000000        0x0 E:\Project\tp78_v2\mounriver_project\KEYBOARD_CH582M\LIB\libTP78_MPR121.a(TP78_MPR121_LIB.o)
  .text          0x0000000000000000        0x0 E:\Project\tp78_v2\mounriver_project\KEYBOARD_CH582M\LIB\libCH58xBLE.a(message.o)
@@ -8585,7 +8585,7 @@ END GROUP
                 0x0000000020007ffc                PROVIDE (_eusrstack = .)
 OUTPUT(BLE_CH582M.elf elf32-littleriscv)
 
-.debug_info     0x0000000000000000    0x2c6f2
+.debug_info     0x0000000000000000    0x2c708
  .debug_info    0x0000000000000000      0x3db ./StdPeriphDriver/CH58x_adc.o
  .debug_info    0x00000000000003db     0x1570 ./StdPeriphDriver/CH58x_clk.o
  .debug_info    0x000000000000194b      0x286 ./StdPeriphDriver/CH58x_gpio.o
@@ -8628,7 +8628,7 @@ OUTPUT(BLE_CH582M.elf elf32-littleriscv)
  .debug_info    0x00000000000281a1      0x82c ./APP/main.o
  .debug_info    0x00000000000289cd      0x8d1 ./APP/snake.o
  .debug_info    0x000000000002929e      0xc1b ./APP/tp78_via.o
- .debug_info    0x0000000000029eb9     0x2839 E:\Project\tp78_v2\mounriver_project\KEYBOARD_CH582M\LIB\libTP78_TPM.a(TPM_LIB.o)
+ .debug_info    0x0000000000029eb9     0x284f E:\Project\tp78_v2\mounriver_project\KEYBOARD_CH582M\LIB\libTP78_TPM.a(TPM_LIB.o)
 
 .debug_abbrev   0x0000000000000000     0x7bbb
  .debug_abbrev  0x0000000000000000      0x161 ./StdPeriphDriver/CH58x_adc.o
@@ -9052,7 +9052,7 @@ OUTPUT(BLE_CH582M.elf elf32-littleriscv)
  .debug_str     0x0000000000007c7a      0x421 ./APP/tp78_via.o
                                         0x799 (size before relaxing)
  .debug_str     0x000000000000809b      0x9fa E:\Project\tp78_v2\mounriver_project\KEYBOARD_CH582M\LIB\libTP78_TPM.a(TPM_LIB.o)
-                                       0x1a95 (size before relaxing)
+                                       0x1ab8 (size before relaxing)
 
 .debug_line_str
                 0x0000000000000000      0xc24
