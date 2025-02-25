@@ -152,6 +152,7 @@
     #define Fn_Mode_None                  0x00
     #define Fn_Mode_Reset                 0x01
     #define Fn_Mode_ChangeKey             0x02
+    #define Fn_Mode_Test                  0x5A
     #define Fn_Mode_USBMode               0x80
     #define Fn_Mode_BLEMode               0x81
     #define Fn_Mode_RFMode                0x82

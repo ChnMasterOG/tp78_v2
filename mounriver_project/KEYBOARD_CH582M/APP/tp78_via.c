@@ -53,6 +53,8 @@ const uint8_t keycode_to_ascii[256] = {
                                        /* 80-89 */ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 };
 
+/* for test mode */
+static uint16_t test_value1 = 50, test_value2 = 30;
 
 /*******************************************************************************
  * Function Name  : via_MACRO_buffer_encode
@@ -534,6 +536,92 @@ void via_data_processing(uint8_t *data, uint8_t len)
         break;
     }
     case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_SET_ENCODER: {
+        break;
+    }
+    case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_GET_RANGE: { // unsupport magnet
+        if (g_Test_Mode) {  // visual magnet range
+          /************* format *************
+            command_data[0] = minRange offset HSB
+            command_data[1] = minRange offset LSB
+            command_data[2] = maxRange offset HSB
+            command_data[3] = maxRange offset LSB
+          **********************************/
+          command_data[0] = 0;
+          command_data[1] = 0;
+          command_data[2] = 0;
+          command_data[3] = 100;
+        }
+        break;
+    }
+    case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_SET_RANGE: { // unsupport magnet
+        break;
+    }
+    case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_GET_BUFFER: { // unsupport magnet
+        if (g_Test_Mode) {  // visual magnet buffer
+          uint16_t offset = (command_data[0] << 8) | command_data[1];
+          uint16_t size = command_data[2];
+          uint16_t i, j = 3;
+          for (i = offset; i < offset + size; i++, j+=2) {
+            if (offset == 0 && i == 0) {
+              command_data[j] = (test_value1 >> 8) & 0xFF;
+              command_data[j + 1] = test_value1 & 0xFF;
+            } else {
+              command_data[j] = (test_value2 >> 8) & 0xFF;
+              command_data[j + 1] = test_value2 & 0xFF;
+            }
+          }
+        }
+        break;
+    }
+    case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_SET_BUFFER: { // unsupport magnet
+        if (g_Test_Mode) {  // visual magnet buffer
+          uint16_t offset = (command_data[0] << 8) | command_data[1];
+          uint16_t size = command_data[2];
+          uint16_t i, j = 3;
+          for (i = offset; i < offset + size; i++, j+=2) {
+            if (offset == 0 && i == 0) {
+              test_value1 = ((uint16_t)command_data[j] << 8) | command_data[j + 1];
+            } else {
+              test_value2 = ((uint16_t)command_data[j] << 8) | command_data[j + 1];
+            }
+          }
+        }
+        break;
+    }
+    case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_GET_VALUE: { // unsupport magnet
+        if (g_Test_Mode) {  // visual magnet value
+          /************* format *************
+            command_data[0] = layer
+            command_data[1] = row
+            command_data[2] = col
+            command_data[3] = offset HSB
+            command_data[4] = offset LSB
+          **********************************/
+          if (command_data[0] == 0 && command_data[1] == 0 && command_data[2] == 0) {
+            command_data[3] = (test_value1 >> 8) & 0xFF;
+            command_data[4] = test_value1 & 0xFF;
+          } else {
+            command_data[3] = (test_value2 >> 8) & 0xFF;
+            command_data[4] = test_value2 & 0xFF;
+          }
+        }
+        break;
+    }
+    case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_SET_VALUE: { // unsupport magnet
+        if (g_Test_Mode) {  // visual magnet value
+          /************* format *************
+            command_data[0] = layer
+            command_data[1] = row
+            command_data[2] = col
+            command_data[3] = offset HSB
+            command_data[4] = offset LSB
+          **********************************/
+          if (command_data[0] == 0 && command_data[1] == 0 && command_data[2] == 0) {
+            test_value1 = ((uint16_t)command_data[3] << 8) | command_data[4];
+          } else {
+            test_value2 = ((uint16_t)command_data[3] << 8) | command_data[4];
+          }
+        }
         break;
     }
     default: {

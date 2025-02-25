@@ -41,6 +41,7 @@ Enable_Status_t g_Enable_Status = { // 使能信号
 };
 uint8_t g_TP_speed_div = 1;
 uint8_t g_Game_Mode = FALSE;  // 性能模式
+uint8_t g_Test_Mode = FALSE;  // 测试模式 - 主要做新功能测试使用
 uint8_t wakeup_flag = FALSE;  // 唤醒标志位
 enum LP_Type g_lp_type = lp_sw_mode;   // 记录下电前的低功耗模式
 

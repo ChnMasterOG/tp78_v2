@@ -280,3 +280,9 @@ You can submit you code [here](https://github.com/ChnMasterOG/tp78_v2/issues). T
         2. Add Fn+Y to control the touchbar slide enable function, Fn+T only controls the trackpoint enable function.
 
         3. Optimize the latency in Game Mode.
+
+- V2.1.9
+
+        1. Add VIA magnet commands.
+
+        2. Add Test Mode (Fn+Z). This mode is only used for testing new features.

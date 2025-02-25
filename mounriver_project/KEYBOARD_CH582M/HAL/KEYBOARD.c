@@ -162,6 +162,9 @@ UINT8 KEYBOARD_Custom_Function( void )
     } else if ( KeyboardDat->Key1 == KEY_R && Fn_Mode != Fn_Mode_SoftReset ) { // 软件复位模式
       Fn_Mode = Fn_Mode_SoftReset;
       Fn_cnt = 0;
+    } else if ( KeyboardDat->Key1 == KEY_Z && Fn_Mode != Fn_Mode_Test ) { // 测试模式
+      Fn_Mode = Fn_Mode_Test;
+      Fn_cnt = 0;
     } else if ( KeyboardDat->Key1 == KEY_ESCAPE && Fn_Mode != Fn_Mode_RFJumptoBoot ) { // RF发送0x7A让接收器进BOOT
       Fn_Mode = Fn_Mode_RFJumptoBoot;
       Fn_cnt = 0;
@@ -307,6 +310,16 @@ UINT8 KEYBOARD_Custom_Function( void )
 #endif
           g_keyboard_status.enter_cfg = 1;
         }
+        break;
+      }
+      case Fn_Mode_Test: {  // Fn+Z测试
+        Fn_Mode = Fn_Mode_None;
+        g_Test_Mode = !g_Test_Mode;
+        if (g_Test_Mode)
+          OLED_UI_add_SHOWINFO_task("Test ON!");
+        else
+          OLED_UI_add_SHOWINFO_task("Test OFF!");
+        OLED_UI_add_CANCELINFO_delay_task(3000);
         break;
       }
       case Fn_Mode_SoftReset: { // Fn+R软件复位
