@@ -79,24 +79,24 @@ const oled_ui_menu_structure cfg_menu_5 = {
 const oled_ui_menu_structure key_status_menu_1 = {
   .type = OLED_UI_TYPE_MENU,
   .text[0] = "bat_adc",
-  .text[1] = "capmouseU",
-  .text[2] = "capmouseD",
+  .text[1] = "last_ver",
+  .text[2] = "capmouseU",
   .p[0] = (uint8_t*)&adc_val_status,
-  .p[1] = (uint8_t*)&key_status_mousecap_U,
-  .p[2] = (uint8_t*)&key_status_mousecap_D,
+  .p[1] = (uint8_t*)&version_val_status,
+  .p[2] = (uint8_t*)&key_status_mousecap_U,
   .p[3] = (uint8_t*)&main_menu,
-  .p[4] = (uint8_t*)&key_status_menu_4,
+  .p[4] = (uint8_t*)&key_status_menu_5,
   .p[5] = (uint8_t*)&key_status_menu_2,
   .menu_size = 3,
 };
 const oled_ui_menu_structure key_status_menu_2 = {
   .type = OLED_UI_TYPE_MENU,
-  .text[0] = "capmouseL",
-  .text[1] = "capmouseR",
-  .text[2] = "touchbarL1",
-  .p[0] = (uint8_t*)&key_status_mousecap_L,
-  .p[1] = (uint8_t*)&key_status_mousecap_R,
-  .p[2] = (uint8_t*)&key_status_touchbar_1,
+  .text[0] = "capmouseD",
+  .text[1] = "capmouseL",
+  .text[2] = "capmouseR",
+  .p[0] = (uint8_t*)&key_status_mousecap_D,
+  .p[1] = (uint8_t*)&key_status_mousecap_L,
+  .p[2] = (uint8_t*)&key_status_mousecap_R,
   .p[3] = (uint8_t*)&main_menu,
   .p[4] = (uint8_t*)&key_status_menu_1,
   .p[5] = (uint8_t*)&key_status_menu_3,
@@ -104,12 +104,12 @@ const oled_ui_menu_structure key_status_menu_2 = {
 };
 const oled_ui_menu_structure key_status_menu_3 = {
   .type = OLED_UI_TYPE_MENU,
-  .text[0] = "touchbarL2",
-  .text[1] = "touchbarL3",
-  .text[2] = "touchbarM",
-  .p[0] = (uint8_t*)&key_status_touchbar_2,
-  .p[1] = (uint8_t*)&key_status_touchbar_3,
-  .p[2] = (uint8_t*)&key_status_touchbar_4,
+  .text[0] = "touchbarL1",
+  .text[1] = "touchbarL2",
+  .text[2] = "touchbarL3",
+  .p[0] = (uint8_t*)&key_status_touchbar_1,
+  .p[1] = (uint8_t*)&key_status_touchbar_2,
+  .p[2] = (uint8_t*)&key_status_touchbar_3,
   .p[3] = (uint8_t*)&main_menu,
   .p[4] = (uint8_t*)&key_status_menu_2,
   .p[5] = (uint8_t*)&key_status_menu_4,
@@ -117,16 +117,25 @@ const oled_ui_menu_structure key_status_menu_3 = {
 };
 const oled_ui_menu_structure key_status_menu_4 = {
   .type = OLED_UI_TYPE_MENU,
-  .text[0] = "touchbarR1",
-  .text[1] = "touchbarR2",
-  .text[2] = "touchbarR3",
-  .p[0] = (uint8_t*)&key_status_touchbar_5,
-  .p[1] = (uint8_t*)&key_status_touchbar_6,
-  .p[2] = (uint8_t*)&key_status_touchbar_7,
+  .text[0] = "touchbarM",
+  .text[1] = "touchbarR1",
+  .text[2] = "touchbarR2",
+  .p[0] = (uint8_t*)&key_status_touchbar_4,
+  .p[1] = (uint8_t*)&key_status_touchbar_5,
+  .p[2] = (uint8_t*)&key_status_touchbar_6,
   .p[3] = (uint8_t*)&main_menu,
   .p[4] = (uint8_t*)&key_status_menu_3,
-  .p[5] = (uint8_t*)&key_status_menu_1,
+  .p[5] = (uint8_t*)&key_status_menu_5,
   .menu_size = 3,
+};
+const oled_ui_menu_structure key_status_menu_5 = {
+  .type = OLED_UI_TYPE_MENU,
+  .text[0] = "touchbarR3",
+  .p[0] = (uint8_t*)&key_status_touchbar_7,
+  .p[3] = (uint8_t*)&main_menu,
+  .p[4] = (uint8_t*)&key_status_menu_4,
+  .p[5] = (uint8_t*)&key_status_menu_1,
+  .menu_size = 1,
 };
 const oled_ui_menu_structure debug_menu_1 = {
   .type = OLED_UI_TYPE_MENU,
@@ -155,6 +164,13 @@ const oled_ui_val_status_structure adc_val_status = {
   .p_val = (uint32_t*)&BAT_adcVal,
 };
 
+/* 版本状态项 */
+const oled_ui_val_status_structure version_val_status = {
+  .type = OLED_UI_TYPE_STRING_STATUS,
+  .p = (uint8_t*)&key_status_menu_1,
+  .p_val = (uint32_t*)g_last_version,
+};
+
 /* MPR121状态项 */
 const oled_ui_mpr121_status_structure key_status_mousecap_U = {
   .type = OLED_UI_TYPE_MPR121_STATUS,
@@ -164,7 +180,7 @@ const oled_ui_mpr121_status_structure key_status_mousecap_U = {
 };
 const oled_ui_mpr121_status_structure key_status_mousecap_D = {
   .type = OLED_UI_TYPE_MPR121_STATUS,
-  .p = (uint8_t*)&key_status_menu_1,
+  .p = (uint8_t*)&key_status_menu_2,
   .reg = MPR121_PINMUX_TO_ELE(MPR121_PINMUX_CapMouseD),
   .is_half_word = TRUE,
 };
@@ -182,7 +198,7 @@ const oled_ui_mpr121_status_structure key_status_mousecap_R = {
 };
 const oled_ui_mpr121_status_structure key_status_touchbar_1 = {
   .type = OLED_UI_TYPE_MPR121_STATUS,
-  .p = (uint8_t*)&key_status_menu_2,
+  .p = (uint8_t*)&key_status_menu_3,
   .reg = MPR121_PINMUX_TO_ELE(MPR121_PINMUX_L1),
   .is_half_word = TRUE,
 };
@@ -200,7 +216,7 @@ const oled_ui_mpr121_status_structure key_status_touchbar_3 = {
 };
 const oled_ui_mpr121_status_structure key_status_touchbar_4 = {
   .type = OLED_UI_TYPE_MPR121_STATUS,
-  .p = (uint8_t*)&key_status_menu_3,
+  .p = (uint8_t*)&key_status_menu_4,
   .reg = MPR121_PINMUX_TO_ELE(MPR121_PINMUX_M),
   .is_half_word = TRUE,
 };

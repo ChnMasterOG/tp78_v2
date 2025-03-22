@@ -246,6 +246,7 @@ extern uint8_t g_Game_Mode;
 extern uint8_t g_Test_Mode;
 extern uint8_t wakeup_flag;
 extern enum LP_Type g_lp_type;
+extern uint8_t g_last_version[16];
 extern uint32_t sys_time;
 
 /*********************************************************************

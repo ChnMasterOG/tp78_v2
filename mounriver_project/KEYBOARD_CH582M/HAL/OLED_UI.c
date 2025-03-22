@@ -506,9 +506,11 @@ void OLED_UI_draw_menu(oled_ui_swipe fresh_type)
       } else if (*(oled_ui_menu_type*)cur_menu_p == OLED_UI_TYPE_VAL_STATUS) { // 变量数值通用项目
         OLED_PRINT("%d", *P_VAL_STS_T(cur_menu_p)->p_val);
         OLED_UI_add_default_delay_task(OELD_UI_FLAG_REFRESH_MENU, 20);
+      } else if (*(oled_ui_menu_type*)cur_menu_p == OLED_UI_TYPE_STRING_STATUS) { // 字符串显示通用项目
+        OLED_PRINT("%s", P_VAL_STS_T(cur_menu_p)->p_val);
       } else if (*(oled_ui_menu_type*)cur_menu_p == OLED_UI_TYPE_MPR121_STATUS) { // MPR121状态项目
         val = 0;
-        if (P_MPR_STS_T(cur_menu_p)->type == TRUE) MPR121_ReadHalfWord(P_MPR_STS_T(cur_menu_p)->reg, (uint16_t*)&val);
+        if (P_MPR_STS_T(cur_menu_p)->is_half_word == TRUE) MPR121_ReadHalfWord(P_MPR_STS_T(cur_menu_p)->reg, (uint16_t*)&val);
         else MPR121_ReadReg(P_MPR_STS_T(cur_menu_p)->reg, (uint8_t*)&val);
         OLED_PRINT("%d", val);
         OLED_UI_add_default_delay_task(OELD_UI_FLAG_REFRESH_MENU, 20);
@@ -563,7 +565,8 @@ void OLED_UI_draw_menu(oled_ui_swipe fresh_type)
         menu_cur_idx = 0;
         fresh_type = OLED_UI_MENU_REFRESH;
         goto menu_fresh_start;
-      } else if (*(oled_ui_menu_type*)cur_menu_p == OLED_UI_TYPE_VAL_STATUS) {  // 变量数值通用项目
+      } else if (*(oled_ui_menu_type*)cur_menu_p == OLED_UI_TYPE_VAL_STATUS ||
+                 *(oled_ui_menu_type*)cur_menu_p == OLED_UI_TYPE_STRING_STATUS) {  // 变量数值通用项目
         if (P_VAL_STS_T(cur_menu_p)->p == NULL) break; // 错误的配置
         cur_menu_p = P_VAL_STS_T(cur_menu_p)->p;
         menu_cur_idx = 0;
@@ -594,7 +597,8 @@ void OLED_UI_draw_menu(oled_ui_swipe fresh_type)
           unsigned_dec_to_string(val, &preStr[P_EN_T(cur_menu_p)->pStr_len], 0);
           OLED_Clr(0, 2, OLED_WIDTH, 5);
           OLED_PRINT("%s", preStr);
-        } else if (*(oled_ui_menu_type*)cur_menu_p == OLED_UI_TYPE_VAL_STATUS) {  // 右滑后为变量数值通用项目
+        } else if (*(oled_ui_menu_type*)cur_menu_p == OLED_UI_TYPE_VAL_STATUS ||
+                   *(oled_ui_menu_type*)cur_menu_p == OLED_UI_TYPE_STRING_STATUS) {  // 右滑后为变量数值通用项目
           OLED_Clr(0, 2, OLED_WIDTH, 5);
         } else if (*(oled_ui_menu_type*)cur_menu_p == OLED_UI_TYPE_MPR121_STATUS) {  // 右滑后为MPR121状态项目
           OLED_Clr(0, 2, OLED_WIDTH, 5);

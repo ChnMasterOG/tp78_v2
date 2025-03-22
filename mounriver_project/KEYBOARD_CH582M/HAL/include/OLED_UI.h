@@ -93,6 +93,7 @@
     OLED_UI_TYPE_ENTER_NUM,
     OLED_UI_TYPE_MPR121_STATUS,
     OLED_UI_TYPE_VAL_STATUS,
+    OLED_UI_TYPE_STRING_STATUS,
     OLED_UI_TYPE_EXECUTE,
   }oled_ui_menu_type;
 
@@ -188,8 +189,10 @@
   extern const oled_ui_menu_structure key_status_menu_2;
   extern const oled_ui_menu_structure key_status_menu_3;
   extern const oled_ui_menu_structure key_status_menu_4;
+  extern const oled_ui_menu_structure key_status_menu_5;
   extern const oled_ui_menu_structure main_menu;
   extern const oled_ui_val_status_structure adc_val_status;
+  extern const oled_ui_val_status_structure version_val_status;
   extern const oled_ui_mpr121_status_structure key_status_mousecap_U;
   extern const oled_ui_mpr121_status_structure key_status_mousecap_D;
   extern const oled_ui_mpr121_status_structure key_status_mousecap_L;

@@ -286,3 +286,7 @@ You can submit you code [here](https://github.com/ChnMasterOG/tp78_v2/issues). T
         1. Add VIA magnet commands.
 
         2. Add Test Mode (Fn+Z). This mode is only used for testing new features.
+
+- V2.1.10
+
+        1. Add the function of recording the last firmware version.

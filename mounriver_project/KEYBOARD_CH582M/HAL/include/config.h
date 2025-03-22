@@ -66,7 +66,7 @@
  * 默认配置值
  */
 #ifndef FIRMWARE_VERSION
-#define FIRMWARE_VERSION            "v2_1_9"
+#define FIRMWARE_VERSION            "v2_1_10"
 #endif
 #ifndef BLE_MAC
 #define BLE_MAC                     FALSE
@@ -158,12 +158,18 @@
 #ifndef BLE_SNV_NUM
 #define BLE_SNV_NUM                 1
 #endif
+#ifndef CUR_VERSION_ADDR
+#define CUR_VERSION_ADDR            0x7B00
+#endif
+#ifndef LAST_VERSION_ADDR
+#define LAST_VERSION_ADDR           0x7B80
+#endif
 #ifndef BLE_SNV_ADDR
 #define BLE_SNV_ADDR                (0x77C00-FLASH_ROM_MAX_SIZE)
-#define BLE_SNV_ADDR_D1              0x7C00
-#define BLE_SNV_ADDR_D2              0x7D00
-#define BLE_SNV_ADDR_D3              0x7E00
-#define BLE_SNV_ADDR_D4              0x7F00
+#define BLE_SNV_ADDR_D1             0x7C00
+#define BLE_SNV_ADDR_D2             0x7D00
+#define BLE_SNV_ADDR_D3             0x7E00
+#define BLE_SNV_ADDR_D4             0x7F00
 #endif
 #ifndef CLK_OSC32K
 #define CLK_OSC32K                  2               // 该项请勿在此修改，必须在工程配置里的预处理中修改，如包含主机角色必须使用外部32K

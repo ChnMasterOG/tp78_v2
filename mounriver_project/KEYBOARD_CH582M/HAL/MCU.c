@@ -44,6 +44,7 @@ uint8_t g_Game_Mode = FALSE;  // 性能模式
 uint8_t g_Test_Mode = FALSE;  // 测试模式 - 主要做新功能测试使用
 uint8_t wakeup_flag = FALSE;  // 唤醒标志位
 enum LP_Type g_lp_type = lp_sw_mode;   // 记录下电前的低功耗模式
+uint8_t g_last_version[16];
 
 static uint32_t EP_counter = 0;   // 彩蛋计数器
 static uint32_t idle_cnt = 0;     // 无有效操作计数值，idle_cnt大于阈值则进入休眠
@@ -67,6 +68,37 @@ static inline void TP78_Idle_Clr(void)
 #endif
   }
   idle_cnt = 0;
+}
+
+/*******************************************************************************
+ * Function Name  : TP78_version_check
+ * Description    : TP78检查版本信息
+ * Input          : 无
+ * Return         : 无
+ *******************************************************************************/
+static void TP78_version_check(void)
+{
+  uint8_t buf[16];
+
+  EEPROM_READ(CUR_VERSION_ADDR, buf, 16);
+  if (memcmp(buf, FIRMWARE_VERSION, sizeof(FIRMWARE_VERSION)) != 0) {
+    EEPROM_ERASE(CUR_VERSION_ADDR, 2 * EEPROM_PAGE_SIZE);
+    EEPROM_WRITE(LAST_VERSION_ADDR, buf, 16);
+    memcpy(buf, FIRMWARE_VERSION, sizeof(FIRMWARE_VERSION));
+    EEPROM_WRITE(CUR_VERSION_ADDR, buf, sizeof(FIRMWARE_VERSION));
+  }
+  EEPROM_READ(LAST_VERSION_ADDR, buf, 16);
+
+  strncpy(g_last_version, buf, sizeof(g_last_version));
+  if (g_last_version[0] != 'v') { // valid check
+    g_last_version[0] = 'E';
+    g_last_version[1] = 'm';
+    g_last_version[2] = 'p';
+    g_last_version[3] = 't';
+    g_last_version[4] = 'y';
+    g_last_version[5] = '\0';
+  }
+  g_last_version[sizeof(g_last_version) - 1] = '\0'; // limit
 }
 
 /*******************************************************************************
@@ -1095,6 +1127,7 @@ void FLASH_Init(void)
 
   HAL_Fs_Init();  // Fs先初始化
 
+  TP78_version_check(); // 检查TP78版本
   HAL_Fs_Read_keyboard_cfg(FS_LINE_WORK_MODE, 1, &tmp); // 模式读取
   DATAFLASH_Read_DeviceID();
   switch (tmp) {

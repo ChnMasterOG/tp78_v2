@@ -3,7 +3,7 @@
 #include "CH58x_common.h"
 
 #define BLOCK_SIZE  512
-#define BLOCK_COUNT 60  // reserved 2k
+#define BLOCK_COUNT 58  // reserved 3k
 
 int USB_disk_status(void)
 {

@@ -591,18 +591,17 @@ void via_data_processing(uint8_t *data, uint8_t len)
     case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_GET_VALUE: { // unsupport magnet
         if (g_Test_Mode) {  // visual magnet value
           /************* format *************
-            command_data[0] = layer
-            command_data[1] = row
-            command_data[2] = col
-            command_data[3] = offset HSB
-            command_data[4] = offset LSB
+            command_data[0] = row
+            command_data[1] = col
+            command_data[2] = offset HSB
+            command_data[3] = offset LSB
           **********************************/
-          if (command_data[0] == 0 && command_data[1] == 0 && command_data[2] == 0) {
-            command_data[3] = (test_value1 >> 8) & 0xFF;
-            command_data[4] = test_value1 & 0xFF;
+          if (command_data[0] == 0 && command_data[1] == 0) {
+            command_data[2] = (test_value1 >> 8) & 0xFF;
+            command_data[3] = test_value1 & 0xFF;
           } else {
-            command_data[3] = (test_value2 >> 8) & 0xFF;
-            command_data[4] = test_value2 & 0xFF;
+            command_data[2] = (test_value2 >> 8) & 0xFF;
+            command_data[3] = test_value2 & 0xFF;
           }
         }
         break;
@@ -610,16 +609,15 @@ void via_data_processing(uint8_t *data, uint8_t len)
     case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_SET_VALUE: { // unsupport magnet
         if (g_Test_Mode) {  // visual magnet value
           /************* format *************
-            command_data[0] = layer
-            command_data[1] = row
-            command_data[2] = col
-            command_data[3] = offset HSB
-            command_data[4] = offset LSB
+            command_data[0] = row
+            command_data[1] = col
+            command_data[2] = offset HSB
+            command_data[3] = offset LSB
           **********************************/
-          if (command_data[0] == 0 && command_data[1] == 0 && command_data[2] == 0) {
-            test_value1 = ((uint16_t)command_data[3] << 8) | command_data[4];
+          if (command_data[0] == 0 && command_data[1] == 0) {
+            test_value1 = ((uint16_t)command_data[2] << 8) | command_data[3];
           } else {
-            test_value2 = ((uint16_t)command_data[3] << 8) | command_data[4];
+            test_value2 = ((uint16_t)command_data[2] << 8) | command_data[3];
           }
         }
         break;
