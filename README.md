@@ -2,13 +2,19 @@
 
 <h1 align="center">TrackPoint78 </h1>
 
-<h5 align="center">基于CH582M的小红点三模机械键盘方案</h5>
+<h5 align="center">小红点三模机械键盘方案</h5>
 
 <div align="center">
 <a href="./README.md">简体中文</a> <a href="./README-EN.md">English</a>
 </div>
 
-TP78是基于CH582M的三模机械键盘方案。以满足带有小红点 便携 无线 自定义快捷键四大根本需求为出发点设计的退烧键盘。基于CH582M三模75%配列，带有小红点(指点杆)，并使用TouchBar实现鼠标左中右键。OLED、Hub和磁吸接口。外壳可使用拓竹A1mini打印拼装。**（注意开源协议，GPL3.0，请尊重开源，欢迎交流，交流①群：678606780已满，交流②群：904775488）**
+TP78是一套三模机械键盘方案。以满足带有小红点 便携 无线 自定义快捷键四大根本需求为出发点设计的退烧键盘。三模75%配列，带有小红点(指点杆)，并使用TouchBar实现鼠标左中右键。OLED、Hub和磁吸接口。外壳可使用拓竹A1mini打印拼装。
+
+TP78v2使用CH582M作为主控核心，支持USB/BLE/RF三模，有线无线均1K回报率（当前仓库）
+
+TP78v3使用Hi2821作为主控核心，支持USB/BLE/SLE三模，有线8K回报率，星闪2K回报率（[直达TP78v3仓库](https://github.com/ChnMasterOG/tp78_v3_open)）
+
+**（注意开源协议，GPL3.0，请尊重开源，欢迎交流，交流①群：678606780已满，交流②群：904775488）**
 
 ![TP78](resources/TP78V2.jpg)V2.0 ：视频展示：[【软软核】为自己做一把小红点三模键盘\_哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV1Ho4y1b78t/)
 

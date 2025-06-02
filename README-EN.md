@@ -2,13 +2,19 @@
 
 <h1 align="center">TrackPoint78 </h1>
 
-<h5 align="center">Three mode trackpoint mechanical keyboard based on CH582M</h5>
+<h5 align="center">Three mode trackpoint mechanical keyboard
 
 <div align="center">
 <a href="./README.md">简体中文</a> <a href="./README-EN.md">English</a>
 </div>
 
-TP78 is a three mode mechanical keyboard project based on CH528M. It is designed to meet the four fundamental needs of portable wireless, custom, shortcut keys and trackpoint. TP78 is based on the 75% keyboard configuration and uses a touchbar to achieve the left, middle and right buttons. OLED, USB HUB and magnetic interface are also integrated. TP78 shell can be printed and assembled by bambulab A1mini or other 3D printers. **(Join QQ group: ①678606780(full), ②904775488 for learning more and communications)**
+TP78 is a three mode mechanical keyboard project. It is designed to meet the four fundamental needs of portable wireless, custom, shortcut keys and trackpoint. TP78 is based on the 75% keyboard configuration and uses a touchbar to achieve the left, middle and right buttons. OLED, USB HUB and magnetic interface are also integrated. TP78 shell can be printed and assembled by bambulab A1mini or other 3D printers.
+
+TP78v2 uses CH582M as the main control MCU, supports USB/BLE/RF three-mode, and the coupled wireless has a 1K return rate. (current repository)
+
+TP78v3 uses Hi2821 as the main control core, supports USB/BLE/SLE three modes, wired 8K report rate, nearlink 2K report rate. ([direct to TP78v3 repository](https://github.com/ChnMasterOG/tp78_v3_open))
+
+ **(Join QQ group: ①678606780(full), ②904775488 for learning more and communications)**
 
 ![TP78](resources/TP78V2.jpg)V2.0 ：Video shown in bilibili：[【软软核】为自己做一把小红点三模键盘\_哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV1Ho4y1b78t/)
 
