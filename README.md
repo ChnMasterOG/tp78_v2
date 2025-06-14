@@ -22,7 +22,7 @@ TP78v3使用Hi2821作为主控核心，支持USB/BLE/SLE三模，有线8K回报�
 
 V2.1：视频展示： [TP78指点杆三模键盘-Gasket版出炉啦 (速来拼车)_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1fA4m1V7DX/)
 
-![TP78 3D print By A1mini](resources/video_introduction.png)
+![TP78 video introduction](resources/video_introduction.png)
 
 1. 【V2.1】更新BootLoader，支持拖拽式更新固件（仅拼车发货的板子带）
 2. 【V2.1】新版Gasket结构，小尺寸3D打印/CNC优化（已使用拓竹A1mini打印验证）

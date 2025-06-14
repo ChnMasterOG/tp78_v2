@@ -2,7 +2,7 @@
 
 <h1 align="center">TrackPoint78 </h1>
 
-<h5 align="center">Three mode trackpoint mechanical keyboard
+<h5 align="center">Three mode trackpoint mechanical keyboard</h5>
 
 <div align="center">
 <a href="./README.md">简体中文</a> <a href="./README-EN.md">English</a>
@@ -22,7 +22,7 @@ TP78v3 uses Hi2821 as the main control core, supports USB/BLE/SLE three modes, w
 
 V2.1：Video shown in bilibili： [TP78指点杆三模键盘-Gasket版出炉啦 (速来拼车)_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1fA4m1V7DX/)
 
-![TP78 3D print By A1mini](resources/video_introduction.png)
+![TP78 video introduction](resources/video_introduction.png)
 
 1. 【V2.1】Update bootloader(kboot) to support firmwares draging upgrade which is available for purchased board.
 2. 【V2.1】Optimize the Gasket shell structure for easier 3Dprint or CNC.
