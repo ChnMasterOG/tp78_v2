@@ -13,6 +13,26 @@ for i in range(len(fp_list)):
                     data = fi.read()
                     start_pos = 0
                     while True:
+                        p = data.find(folder_name[i] + '"', start_pos)
+                        if p == -1:
+                            break
+                        start_pos = p + len(folder_name[i])
+                        c_pos = data.rfind('"', 0, p)
+                        s_pos = data.find(' ', start_pos)
+                        data = data[:c_pos] + "\"../" + data[start_pos:]
+                        start_pos = c_pos
+                    start_pos = 0
+                    while True:
+                        p = data.find(folder_name[i] + '/', start_pos)
+                        if p == -1:
+                            break
+                        start_pos = p + len(folder_name[i])
+                        c_pos = data.rfind('"', 0, p)
+                        s_pos = data.find(' ', start_pos)
+                        data = data[:c_pos] + "\".." + data[start_pos:]
+                        start_pos = c_pos
+                    start_pos = 0
+                    while True:
                         p = data.find(folder_name[i] + '\\', start_pos)
                         if p == -1:
                             break
