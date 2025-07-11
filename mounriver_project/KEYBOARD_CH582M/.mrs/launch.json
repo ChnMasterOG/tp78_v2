@@ -1,0 +1,67 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "mrs-debugger",
+			"request": "launch",
+			"name": "BLE_CH582M",
+			"cwd": "e:\\Project\\tp78_v2\\mounriver_project\\KEYBOARD_CH582M",
+			"openOCDCfg": {
+				"useLocalOpenOCD": true,
+				"executable": "d:/MounRiver/MounRiverStudio2/MounRiver_Studio2/resources/app/resources/win32/components/WCH/OpenOCD/OpenOCD/bin/openocd.exe",
+				"configOptions": [
+					"-f \"d:/MounRiver/MounRiverStudio2/MounRiver_Studio2/resources/app/resources/win32/components/WCH/OpenOCD/OpenOCD/bin/wch-riscv.cfg\" -c \"chip_id CH58x\""
+				],
+				"gdbport": 3333,
+				"telnetport": 4444,
+				"tclport": 6666,
+				"host": "localhost",
+				"port": 3333,
+				"skipDownloadBeforeDebug": false,
+				"enablePageEraser": false,
+				"enableNoZeroWaitingAreaFlash": false
+			},
+			"gdbCfg": {
+				"executable": "d:/MounRiver/MounRiverStudio2/MounRiver_Studio2/resources/app/resources/win32/components/WCH/Toolchain/RISC-V Embedded GCC12/bin/riscv-wch-elf-gdb.exe",
+				"commands": [
+					"set mem inaccessible-by-default off",
+					"set architecture riscv:rv32",
+					"set remotetimeout unlimited"
+				],
+				"options": []
+			},
+			"startup": {
+				"initCommands": {
+					"initReset": true,
+					"initResetType": "init",
+					"armSemihosting": false,
+					"additionalCommands": []
+				},
+				"loadedFiles": {
+					"executableFile": "e:\\Project\\tp78_v2\\mounriver_project\\KEYBOARD_CH582M\\obj\\BLE_CH582M.elf",
+					"symbolFile": "e:\\Project\\tp78_v2\\mounriver_project\\KEYBOARD_CH582M\\obj\\BLE_CH582M.elf",
+					"executableFileOffset": 0,
+					"symbolFileOffset": 0
+				},
+				"runCommands": {
+					"runReset": true,
+					"runResetType": "halt",
+					"additionalCommands": [],
+					"setBreakAt": "handle_reset",
+					"continue": true,
+					"setProgramCounterAt": 0
+				},
+				"debugInRAM": false
+			},
+			"svdpath": "",
+			"output": {
+				"showDebugGDBTrace": true,
+				"saveDebugOutputToFile": false,
+				"showDebugOutputTimestamps": true
+			},
+			"isDualCoreDebug": false,
+			"dualCoreDebugRole": null,
+			"architecture": "RISC-V"
+		}
+	]
+}

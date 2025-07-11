@@ -556,7 +556,8 @@ void via_data_processing(uint8_t *data, uint8_t len)
     case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_SET_RANGE: { // unsupport magnet
         break;
     }
-    case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_GET_BUFFER: { // unsupport magnet
+    case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_GET_PRESS_BUFFER:
+    case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_GET_RELEASE_BUFFER: { // unsupport magnet
         if (g_Test_Mode) {  // visual magnet buffer
           uint16_t offset = (command_data[0] << 8) | command_data[1];
           uint16_t size = command_data[2];
@@ -573,7 +574,8 @@ void via_data_processing(uint8_t *data, uint8_t len)
         }
         break;
     }
-    case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_SET_BUFFER: { // unsupport magnet
+    case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_SET_PRESS_BUFFER:
+    case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_SET_RELEASE_BUFFER: { // unsupport magnet
         if (g_Test_Mode) {  // visual magnet buffer
           uint16_t offset = (command_data[0] << 8) | command_data[1];
           uint16_t size = command_data[2];
@@ -588,7 +590,8 @@ void via_data_processing(uint8_t *data, uint8_t len)
         }
         break;
     }
-    case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_GET_VALUE: { // unsupport magnet
+    case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_GET_PRESS_VALUE:
+    case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_GET_RELEASE_VALUE: { // unsupport magnet
         if (g_Test_Mode) {  // visual magnet value
           /************* format *************
             command_data[0] = row
@@ -606,7 +609,8 @@ void via_data_processing(uint8_t *data, uint8_t len)
         }
         break;
     }
-    case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_SET_VALUE: { // unsupport magnet
+    case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_SET_PRESS_VALUE:
+    case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_SET_RELEASE_VALUE: { // unsupport magnet
         if (g_Test_Mode) {  // visual magnet value
           /************* format *************
             command_data[0] = row
