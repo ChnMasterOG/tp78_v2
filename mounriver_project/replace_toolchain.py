@@ -12,5 +12,6 @@ for i in range(len(fp_list)):
                 with open(fname, "r") as fi:
                     data = fi.read()
                     data = data.replace("riscv-wch-elf", "riscv-none-elf")
+                    data = data.replace("riscv-none-embed-objcopy", "riscv-none-elf-objcopy")
                     with open(fname, 'w') as fo:
                         fo.write(data)
