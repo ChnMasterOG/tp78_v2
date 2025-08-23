@@ -302,6 +302,9 @@ You can submit you code [here](https://github.com/ChnMasterOG/tp78_v2/issues). T
 - V2.1.11
 
         1. Add auto-click function for the mouse, with configuration item: auto_mouse. When the auto-click function is turned on, pressing the space bar during the movement of the trackpoint will automatically switch TP78 to the second layout button (default is the left and right mouse buttons).
+
         2. Fix the BUG where pressing Shift, Ctrl ... after CapsLock switching TP78 layer causes the second layer of keys to be unable to be released by first releasing Capslock.
+
         3. Modify the BLE parameters to update latency, and reduce power consumption by 1~2mW at BLE mode.
+
         4. Fix some errors message generated when using the modtrack via tool.
