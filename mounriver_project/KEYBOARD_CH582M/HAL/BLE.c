@@ -66,7 +66,7 @@
 #define DEFAULT_DESIRED_MAX_CONN_INTERVAL     8
 
 // Slave latency to use if parameter update request
-#define DEFAULT_DESIRED_SLAVE_LATENCY         0
+#define DEFAULT_DESIRED_SLAVE_LATENCY         5   // 5 - for consumption save
 
 // Supervision timeout value (units of 10ms)
 #define DEFAULT_DESIRED_CONN_TIMEOUT          500  // 5s

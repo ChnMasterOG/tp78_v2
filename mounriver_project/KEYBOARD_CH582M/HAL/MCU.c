@@ -45,6 +45,8 @@ uint8_t g_Test_Mode = FALSE;  // 测试模式 - 主要做新功能测试使用
 uint8_t wakeup_flag = FALSE;  // 唤醒标志位
 enum LP_Type g_lp_type = lp_sw_mode;   // 记录下电前的低功耗模式
 uint8_t g_last_version[16];
+static uint8_t config_auto_mouse_control_time;
+uint8_t g_auto_mouse_control_time = 0;  // 自动鼠标键功能
 
 static uint32_t EP_counter = 0;   // 彩蛋计数器
 static uint32_t idle_cnt = 0;     // 无有效操作计数值，idle_cnt大于阈值则进入休眠
@@ -298,8 +300,15 @@ __attribute__((weak)) void HID_I2CTP_Process(void)
           OnBoard_SendMsg(hidEmuTaskId, MOUSE_MESSAGE, 1, NULL);  // 蓝牙鼠标事件
         }
       }
+
+      /* 自动鼠标键功能 */
+      if ( g_Enable_Status.auto_mouse_click == TRUE ) {
+        g_auto_mouse_control_time = config_auto_mouse_control_time;
+      }
     } else {
     }
+  } else if (g_auto_mouse_control_time > 0) {
+    g_auto_mouse_control_time--;
   }
 }
 
@@ -1180,6 +1189,13 @@ void FLASH_Init(void)
     g_Enable_Status.motor = FALSE;
   } else {
     g_Enable_Status.motor = TRUE;
+  }
+  HAL_Fs_Read_keyboard_cfg(FS_LINE_AUTO_MOUSE_CLICK, 1, &tmp);
+  if (tmp == 0) {
+    g_Enable_Status.auto_mouse_click = FALSE;
+  } else {
+    g_Enable_Status.auto_mouse_click = TRUE;
+    config_auto_mouse_control_time = tmp;
   }
 
 #if (defined HAL_WS2812_PWM) && (HAL_WS2812_PWM == TRUE)

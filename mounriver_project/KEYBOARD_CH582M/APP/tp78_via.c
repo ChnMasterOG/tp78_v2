@@ -626,6 +626,9 @@ void via_data_processing(uint8_t *data, uint8_t len)
         }
         break;
     }
+    case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_GET_DIR: // unsupport magnet
+    case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_SET_DIR: // unsupport magnet
+        break;
     default: {
         *command_id = VIA_ID_UNHANDLED;
         break;

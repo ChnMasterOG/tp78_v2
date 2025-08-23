@@ -223,6 +223,7 @@ typedef struct _Enable_Status_t
     uint8_t touchbar : 1;
     uint8_t paintedegg : 1;
     uint8_t touchbar_button : 1;
+    uint8_t auto_mouse_click : 1;
     uint8_t sleep : 1;
 }Enable_Status_t;
 
@@ -248,6 +249,7 @@ extern uint8_t wakeup_flag;
 extern enum LP_Type g_lp_type;
 extern uint8_t g_last_version[16];
 extern uint32_t sys_time;
+extern uint8_t g_auto_mouse_control_time;
 
 /*********************************************************************
  * GLOBAL FUNCTIONS

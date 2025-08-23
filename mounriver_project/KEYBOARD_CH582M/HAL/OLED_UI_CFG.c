@@ -20,7 +20,7 @@ const oled_ui_menu_structure cfg_menu_1 = {
   .p[1] = (uint8_t*)&ledstyle_en,
   .p[2] = (uint8_t*)&workmode_en,
   .p[3] = (uint8_t*)&main_menu,
-  .p[4] = (uint8_t*)&cfg_menu_5,
+  .p[4] = (uint8_t*)&cfg_menu_6,
   .p[5] = (uint8_t*)&cfg_menu_2,
   .menu_size = 3,
 };
@@ -73,8 +73,17 @@ const oled_ui_menu_structure cfg_menu_5 = {
   .p[2] = (uint8_t*)&enable_motor_en,
   .p[3] = (uint8_t*)&main_menu,
   .p[4] = (uint8_t*)&cfg_menu_4,
-  .p[5] = (uint8_t*)&cfg_menu_1,
+  .p[5] = (uint8_t*)&cfg_menu_6,
   .menu_size = 3,
+};
+const oled_ui_menu_structure cfg_menu_6 = {
+  .type = OLED_UI_TYPE_MENU,
+  .text[0] = "auto_mouse",
+  .p[0] = (uint8_t*)&auto_mouse_click_en,
+  .p[3] = (uint8_t*)&main_menu,
+  .p[4] = (uint8_t*)&cfg_menu_5,
+  .p[5] = (uint8_t*)&cfg_menu_1,
+  .menu_size = 1,
 };
 const oled_ui_menu_structure key_status_menu_1 = {
   .type = OLED_UI_TYPE_MENU,
@@ -364,7 +373,7 @@ const oled_ui_enter_num_structure rf_chk_ms_en = {
   .postStr = "OK",
   .pStr_len = 4,
   .line = FS_LINE_RF_CHECK_ACK_MS,
-  .limit_len = 3,
+  .limit_len = 0,
 };
 const oled_ui_enter_num_structure enable_motor_en = {
   .type = OLED_UI_TYPE_ENTER_NUM,
@@ -375,6 +384,16 @@ const oled_ui_enter_num_structure enable_motor_en = {
   .line = FS_LINE_ENABLE_MOTOR,
   .limit_len = 1,
 };
+const oled_ui_enter_num_structure auto_mouse_click_en = {
+  .type = OLED_UI_TYPE_ENTER_NUM,
+  .p = (uint8_t*)&cfg_menu_6,
+  .preStr = "val:",
+  .postStr = "OK",
+  .pStr_len = 4,
+  .line = FS_LINE_AUTO_MOUSE_CLICK,
+  .limit_len = 0,
+};
+
 
 /* 执行项 */
 const oled_ui_execute_structure scan_tpm = {

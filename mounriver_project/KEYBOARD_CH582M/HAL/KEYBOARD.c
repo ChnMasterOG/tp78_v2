@@ -99,7 +99,7 @@ void KEYBOARD_Reset( void )
                        TOUCHBAR_TOU_THRESH, TOUCHBAR_REL_THRESH,
                        DOUBLE_TOUCH_CNT, LONG_TOUCH_CNT,
                        1, LED_DEFAULT_BRIGHTNESS, 2,  // RF频率默认2.405G
-                       0, 180, 240, 10, 0
+                       0, 180, 240, 10, 0, 0
   };
 
   memcpy(CustomKey, KeyArrary, COL_SIZE*ROW_SIZE);
@@ -667,6 +667,25 @@ void KEYBOARD_Init( void )
 }
 
 /*******************************************************************************
+ * Function Name  : KEYBOARD_Del_Key
+ * Description    : 键盘删除按键
+ * Input          : None
+ * Return         : None
+ *******************************************************************************/
+void KEYBOARD_Del_Key(uint8_t key)
+{
+  if (key >= KEY_LeftCTRL && key <= KEY_RightGUI) {
+    KeyboardDat->data[0] &= ~(1 << (key - KEY_LeftCTRL));
+  } else {
+    for (uint8_t i = 2; i < HID_KEYBOARD_DATA_LENGTH; i++) {
+      if (KeyboardDat->data[i] != KEY_None && KeyboardDat->data[i] == key) {
+        KeyboardDat->data[i] = KEY_None;
+      }
+    }
+  }
+}
+
+/*******************************************************************************
  * Function Name  : KEYBOARD_Detection
  * Description    : 键盘检测按键信息函数
  * Input          : None
@@ -684,7 +703,7 @@ void KEYBOARD_Detection( void )
     static uint8_t Touchbar_SP_Key = 0;  // 大于0表示触摸条被按下
     static uint8_t CapsLock_cnt = 0;  // 按下capslock后延迟弹起计数
     static BOOL press_Normal_Key = FALSE;
-    uint8_t key_idx, i, j;
+    uint8_t key_idx;
     mpr121_operation_data_t oper_dat;
 
     if (g_Game_Mode == FALSE) {
@@ -741,26 +760,32 @@ void KEYBOARD_Detection( void )
             }
             g_Ready_Status.keyboard_key_data = TRUE; // 产生事件
 
-            if(g_capslock_status.press_Capslock && CustomKey[current_row][current_colum] != KEY_CapsLock){
+            if (g_capslock_status.press_Capslock && CustomKey[current_row][current_colum] != KEY_CapsLock) {
                 g_capslock_status.press_Capslock_NormalKey = FALSE;
                 g_capslock_status.press_Capslock_with_other = TRUE;
-            }//按下capslock的同时 是否按下其他键
+            } //按下capslock的同时 是否按下其他键
 
-            if (KeyArr_Ptr[current_row][current_colum] == KEY_None) {  // 不做处理
+            uint8_t (*press_keyarr_ptr)[COL_SIZE] = KeyArr_Ptr;
+            /* 自动鼠标键功能 */
+            if (g_auto_mouse_control_time > 0 && current_row == 5 && (current_colum == 3 || current_colum == 4)) {
+                press_keyarr_ptr = Extra_CustomKey;
+            }
+
+            if (press_keyarr_ptr[current_row][current_colum] == KEY_None) {  // 不做处理
                 continue;
-            } else if (KeyArr_Ptr[current_row][current_colum] == KEY_Fn) {  // 功能键
+            } else if (press_keyarr_ptr[current_row][current_colum] == KEY_Fn) {  // 功能键
                 g_keyboard_status.Fn = TRUE;
-            } else if (KeyArr_Ptr[current_row][current_colum] >= KEY_SP_1) {  // SP键(单键复合)
-                g_keyboard_status.SP_Key = KeyArr_Ptr[current_row][current_colum] - KEY_SP_1 + 1;
+            } else if (press_keyarr_ptr[current_row][current_colum] >= KEY_SP_1) {  // SP键(单键复合)
+                g_keyboard_status.SP_Key = press_keyarr_ptr[current_row][current_colum] - KEY_SP_1 + 1;
                 press_Normal_Key = TRUE;
                 memcpy(KeyboardDat->data, SP_Key_Map[g_keyboard_status.SP_Key - 1], 8);
-            } else if (KeyArr_Ptr[current_row][current_colum] >= KEY_MouseL) {    // 鼠标操作
-                MouseDat->data[0] |= 1 << KeyArr_Ptr[current_row][current_colum] - KEY_MouseL;
+            } else if (press_keyarr_ptr[current_row][current_colum] >= KEY_MouseL) {    // 鼠标操作
+                MouseDat->data[0] |= 1 << press_keyarr_ptr[current_row][current_colum] - KEY_MouseL;
                 press_Normal_Key = TRUE;
                 g_Ready_Status.keyboard_mouse_data = TRUE;  // 产生鼠标事件
-            } else if (KeyArr_Ptr[current_row][current_colum] >= KEY_LeftCTRL) {    // Ctrl等特殊键
+            } else if (press_keyarr_ptr[current_row][current_colum] >= KEY_LeftCTRL) {    // Ctrl等特殊键
                 press_Normal_Key = TRUE;
-                KeyboardDat->data[0] |= 1 << (KeyArr_Ptr[current_row][current_colum] - KEY_LeftCTRL);
+                KeyboardDat->data[0] |= 1 << (press_keyarr_ptr[current_row][current_colum] - KEY_LeftCTRL);
             } else {
                 press_Normal_Key = TRUE;
                 if (CustomKey[current_row][current_colum] == KEY_CapsLock ) {  // CapsLock处理
@@ -769,7 +794,7 @@ void KEYBOARD_Detection( void )
                 } else {
                     for (key_idx = 2; key_idx < HID_KEYBOARD_DATA_LENGTH; key_idx++) {
                         if (KeyboardDat->data[key_idx] == KEY_None) {
-                          KeyboardDat->data[key_idx] = KeyArr_Ptr[current_row][current_colum];
+                          KeyboardDat->data[key_idx] = press_keyarr_ptr[current_row][current_colum];
                           break;
                         }
                     }
@@ -782,49 +807,46 @@ void KEYBOARD_Detection( void )
 #endif
             KeyMatrix[current_row][current_colum] = 0;
             g_Ready_Status.keyboard_key_data = TRUE; // 产生事件
-            if (KeyArr_Ptr[current_row][current_colum] == KEY_Fn) {  // 功能键
+            uint8_t cur_key;
+            /* 自动鼠标键功能 */
+            if (g_auto_mouse_control_time > 0 && current_row == 5 && (current_colum == 3 || current_colum == 4)) {
+                cur_key = Extra_CustomKey[current_row][current_colum];
+            } else {
+                cur_key = KeyArr_Ptr[current_row][current_colum];
+            }
+
+            if (cur_key == KEY_Fn) {  // 功能键
                 g_keyboard_status.Fn = FALSE;
-            } else if (KeyArr_Ptr[current_row][current_colum] >= KEY_SP_1) {  // SP键(单键复合)
+            } else if (cur_key >= KEY_SP_1) {  // SP键(单键复合)
                 g_keyboard_status.SP_Key = 0;
                 memset(KeyboardDat->data, 0, HID_KEYBOARD_DATA_LENGTH);
-            } else if (KeyArr_Ptr[current_row][current_colum] >= KEY_MouseL) {    // 鼠标操作
-                MouseDat->data[0] &= ~(1 << KeyArr_Ptr[current_row][current_colum] - KEY_MouseL);
+            } else if (cur_key >= KEY_MouseL) {    // 鼠标操作
+                MouseDat->data[0] &= ~(1 << cur_key - KEY_MouseL);
                 g_Ready_Status.keyboard_mouse_data = TRUE;  // 产生鼠标事件
-            } else if (KeyArr_Ptr[current_row][current_colum] >= KEY_LeftCTRL) {    // Ctrl等特殊键
-                KeyboardDat->data[0] &= ~(1 << (KeyArr_Ptr[current_row][current_colum] - KEY_LeftCTRL));
-            } else {
-                if (CustomKey[current_row][current_colum] == KEY_CapsLock) {  // 弹起大小写键离开Extra_CustomKey层
-                  KeyArr_Ptr = CustomKey;
-                  g_capslock_status.press_Capslock = FALSE;
-                  if (g_capslock_status.press_Capslock_with_other) { // 有使用其他层
+            } else if (CustomKey[current_row][current_colum] == KEY_CapsLock) {  // 弹起大小写键离开Extra_CustomKey层
+                KeyArr_Ptr = CustomKey;
+                g_capslock_status.press_Capslock = FALSE;
+                if (g_capslock_status.press_Capslock_with_other) { // 有使用其他层
                     g_capslock_status.press_Capslock_NormalKey = FALSE;
                     if (g_keyboard_status.SP_Key) { // 有使用SP键
-                      g_keyboard_status.SP_Key = 0;
-                      memset(KeyboardDat->data, 0, HID_KEYBOARD_DATA_LENGTH);
-                      break;
+                        g_keyboard_status.SP_Key = 0;
+                        memset(KeyboardDat->data, 0, HID_KEYBOARD_DATA_LENGTH);
+                        break;
                     }
-                  } else { // 单纯按下capslock键
-                      for (key_idx = 2; key_idx < HID_KEYBOARD_DATA_LENGTH; key_idx++) {
-                          if (KeyboardDat->data[key_idx] == KEY_None) {
-                            KeyboardDat->data[key_idx] = KEY_CapsLock;
-                            break;
-                          }
-                      }
-                      CapsLock_cnt = 3; // capslock会被按下直到该计数值为0后释放
-                      g_capslock_status.press_Capslock_NormalKey = TRUE;
-                  }
-                  g_capslock_status.press_Capslock_with_other = FALSE;
-                } else {
-                    uint8_t tmp_key;
+                    g_capslock_status.press_Capslock_with_other = FALSE;
+                } else { // 单纯按下capslock键
                     for (key_idx = 2; key_idx < HID_KEYBOARD_DATA_LENGTH; key_idx++) {
-                        if (KeyboardDat->data[key_idx] != KEY_None) {
-                          if ((KeyboardDat->data[key_idx] == CustomKey[current_row][current_colum] ||
-                              KeyboardDat->data[key_idx] == Extra_CustomKey[current_row][current_colum])) {  // 弹起按键2层都清除
-                              KeyboardDat->data[key_idx] = KEY_None;
-                          }
+                        if (KeyboardDat->data[key_idx] == KEY_None) {
+                          KeyboardDat->data[key_idx] = KEY_CapsLock;
+                          break;
                         }
                     }
+                    CapsLock_cnt = 3; // capslock会被按下直到该计数值为0后释放
+                    g_capslock_status.press_Capslock_NormalKey = TRUE;
                 }
+            } else {  // Ctrl等特殊键 + 普通按键
+                KEYBOARD_Del_Key(CustomKey[current_row][current_colum]);
+                KEYBOARD_Del_Key(Extra_CustomKey[current_row][current_colum]);
             }
         }
     }
