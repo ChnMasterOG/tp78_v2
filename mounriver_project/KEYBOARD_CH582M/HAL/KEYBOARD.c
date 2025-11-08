@@ -767,7 +767,7 @@ void KEYBOARD_Detection( void )
 
             uint8_t (*press_keyarr_ptr)[COL_SIZE] = KeyArr_Ptr;
             /* 自动鼠标键功能 */
-            if (g_auto_mouse_control_time > 0 && current_row == 5 && (current_colum == 3 || current_colum == 4)) {
+            if (g_auto_mouse_control_time > 0) {
                 press_keyarr_ptr = Extra_CustomKey;
             }
 
@@ -775,6 +775,14 @@ void KEYBOARD_Detection( void )
                 continue;
             } else if (press_keyarr_ptr[current_row][current_colum] == KEY_Fn) {  // 功能键
                 g_keyboard_status.Fn = TRUE;
+            } else if (press_keyarr_ptr[current_row][current_colum] == KEY_TP_MAP_SCROLL) {  // 小红点Y轴映射Z轴键
+                HIDMouse[2] = 0;
+                g_Enable_Status.tp_map_scroll = !g_Enable_Status.tp_map_scroll;
+                if (g_Enable_Status.tp_map_scroll)
+                  OLED_UI_add_SHOWINFO_task("tp y->z");
+                else
+                  OLED_UI_add_SHOWINFO_task("tp z->y");
+                OLED_UI_add_CANCELINFO_delay_task(1500);
             } else if (press_keyarr_ptr[current_row][current_colum] >= KEY_SP_1) {  // SP键(单键复合)
                 g_keyboard_status.SP_Key = press_keyarr_ptr[current_row][current_colum] - KEY_SP_1 + 1;
                 press_Normal_Key = TRUE;
@@ -809,7 +817,7 @@ void KEYBOARD_Detection( void )
             g_Ready_Status.keyboard_key_data = TRUE; // 产生事件
             uint8_t cur_key;
             /* 自动鼠标键功能 */
-            if (g_auto_mouse_control_time > 0 && current_row == 5 && (current_colum == 3 || current_colum == 4)) {
+            if (g_auto_mouse_control_time > 0) {
                 cur_key = Extra_CustomKey[current_row][current_colum];
             } else {
                 cur_key = KeyArr_Ptr[current_row][current_colum];

@@ -175,6 +175,18 @@ void OLED_Display_Off(void)
 }
 
 /*******************************************************************************
+ * Function Name  : oled_set_brightness
+ * Description    : OLED设置亮度
+ * Input          : value - 亮度/对比度
+ * Return         : None
+ *******************************************************************************/
+void OLED_Set_Brightness(uint8_t value)
+{
+	OLED_WR_Byte(0x81, OLED_CMD);
+	OLED_WR_Byte(value, OLED_CMD);	// 256级亮度调整
+}
+
+/*******************************************************************************
  * Function Name  : OLED_Clear
  * Description    : OLED清屏函数
  * Input          : None
@@ -516,7 +528,7 @@ void HAL_OLED_Init(void)
 
   //对比度
   OLED_WR_Byte(0x81,OLED_CMD);
-  OLED_WR_Byte(0x2F,OLED_CMD);
+  OLED_WR_Byte(OLED_DEFAULT_BRIGHTNESS,OLED_CMD);
 
   //Pre-Charge Period
   OLED_WR_Byte(0xD9,OLED_CMD);
@@ -570,7 +582,7 @@ void HAL_OLED_Init(void)
   OLED_WR_Byte(0x30,OLED_CMD);
 
   OLED_WR_Byte(0x81,OLED_CMD);  // set contrast control
-  OLED_WR_Byte(0x2F,OLED_CMD);
+  OLED_WR_Byte(OLED_DEFAULT_BRIGHTNESS,OLED_CMD);
 
   OLED_WR_Byte(0xD9,OLED_CMD);  // set pre-charge period
   OLED_WR_Byte(0x22,OLED_CMD);
@@ -588,7 +600,7 @@ void HAL_OLED_Init(void)
   OLED_WR_Byte(0x40,OLED_CMD); /*set display start line*/
   OLED_WR_Byte(0xB0,OLED_CMD); /*set page address*/
   OLED_WR_Byte(0x81,OLED_CMD); /*contract control*/
-  OLED_WR_Byte(0xff,OLED_CMD); /*128*/
+  OLED_WR_Byte(OLED_DEFAULT_BRIGHTNESS,OLED_CMD); /*OLED_DEFAULT_BRIGHTNESS*/
   OLED_WR_Byte(0xA1,OLED_CMD); /*set segment remap*/
   OLED_WR_Byte(0xA6,OLED_CMD); /*normal / reverse*/
   OLED_WR_Byte(0xA8,OLED_CMD); /*multiplex ratio*/
@@ -617,7 +629,7 @@ void HAL_OLED_Init(void)
   OLED_WR_Byte(0xC8,OLED_CMD);//-not offset
 
   OLED_WR_Byte(0x81,OLED_CMD);//设置对比度
-  OLED_WR_Byte(0xff,OLED_CMD);
+  OLED_WR_Byte(OLED_DEFAULT_BRIGHTNESS,OLED_CMD);
 
   OLED_WR_Byte(0xa1,OLED_CMD);//段重定向设置
 

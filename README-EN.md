@@ -308,3 +308,11 @@ You can submit you code [here](https://github.com/ChnMasterOG/tp78_v2/issues). T
         3. Modify the BLE parameters to update latency, and reduce power consumption by 1~2mW at BLE mode.
 
         4. Fix some errors message generated when using the modtrack via tool.
+
+- V2.1.12
+
+        1. Modify the auto_mouse function. When the auto_mouse function is turned on, the keyboard will switch to the second level during the movement of the trackpoint. (In the previously version, only the left and right arrow keys were switched)
+
+        2. Add the KEY_TP_MAP_SCROLL key (corresponding to via TP Map Scroll key). When pressed this key, the trackpoint moves in the Y direction and changes to move in the Z direction. Pressing it again cancels the movement.
+
+        3. Add a function to reduce the brightness of the OLED screen when in idle state.

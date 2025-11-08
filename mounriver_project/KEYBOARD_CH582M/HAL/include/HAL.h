@@ -225,6 +225,7 @@ typedef struct _Enable_Status_t
     uint8_t touchbar_button : 1;
     uint8_t auto_mouse_click : 1;
     uint8_t sleep : 1;
+    uint8_t tp_map_scroll : 1;
 }Enable_Status_t;
 
 /*********************************************************************

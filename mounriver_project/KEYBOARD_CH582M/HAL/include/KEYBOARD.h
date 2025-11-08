@@ -148,6 +148,9 @@
     #define KEY_SP_6            0xF8  // 用于触摸条左滑
     #define KEY_SP_7            0xF9  // 用于触摸条右滑
 
+    //特殊功能键
+    #define KEY_TP_MAP_SCROLL   0xFC  // 打开小红点上下映射滚轮功能
+
     //Fn功能
     #define Fn_Mode_None                  0x00
     #define Fn_Mode_Reset                 0x01

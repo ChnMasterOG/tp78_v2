@@ -64,6 +64,7 @@ static inline void TP78_Idle_Clr(void)
   if (idle_cnt >= idle_max_period) {  // 退出idle
 #if (defined HAL_OLED) && (HAL_OLED == TRUE)
     OLED_UI_idle(0);
+    OLED_Set_Brightness(OLED_DEFAULT_BRIGHTNESS);
 #endif
 #if (defined HAL_TPM) && (HAL_TPM == TRUE)
     TPM_notify_sleep_data(0);
@@ -278,6 +279,10 @@ __attribute__((weak)) void HID_I2CTP_Process(void)
       HIDMouse[1] = -HIDMouse[1]; // 反转X轴
       HIDMouse[2] = -HIDMouse[2]; // 反转Y轴
 #endif
+      if (g_Enable_Status.tp_map_scroll) {
+          HIDMouse[3] = -HIDMouse[2];  // y切换成滚轮
+          HIDMouse[2] = 0;
+      }
       /* 小红点减速 */
       tmp = (char)HIDMouse[1] / (char)g_TP_speed_div;
       if ( tmp == 0 && HIDMouse[1]!=0) HIDMouse[1] = ( HIDMouse[1] < 128 ) ? 1 : -1;
@@ -1018,6 +1023,7 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
     if (idle_cnt == idle_max_period) {  // 进入idle
 #if (defined HAL_OLED) && (HAL_OLED == TRUE)
       OLED_UI_idle(1);
+      OLED_Set_Brightness(OLED_LOWPOWER_BRIGHTNESS);
 #endif
 #if (defined HAL_TPM) && (HAL_TPM == TRUE)
       TPM_notify_sleep_data(1);
@@ -1026,6 +1032,7 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
 #if (defined HAL_OLED) && (HAL_OLED == TRUE)
       OLED_UI_idle(0);
       OLED_Clr(0, 2, 64, 5);  // 立即执行 - 后续进入低功耗
+      OLED_Set_Brightness(OLED_DEFAULT_BRIGHTNESS);
 #endif
       idle_cnt = 0;
 #if (defined HAL_TPM) && (HAL_TPM == TRUE)

@@ -36,6 +36,9 @@
   #define Brightness          0xFF
   #define OLED_ADDR           0x78
 
+  #define OLED_LOWPOWER_BRIGHTNESS        0x1F
+  #define OLED_DEFAULT_BRIGHTNESS         0xFF
+
   #define OLED_CLK_Pin        GPIO_Pin_13
   #define OLED_SDA_Pin        GPIO_Pin_12
   #define OLED_CLK_GPIO_(x)   GPIOB_ ## x
@@ -78,6 +81,7 @@
   void OLED_Set_Pos(uint8_t x, uint8_t y);
   void OLED_Display_On(void);
   void OLED_Display_Off(void);
+  void OLED_Set_Brightness(uint8_t value);
   void OLED_Clear(void);
   void OLED_ShowChar(uint8_t x, uint8_t y, uint8_t chr);
   void OLED_ShowNum(uint8_t x, uint8_t y, uint32_t num, uint8_t len);
