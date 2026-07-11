@@ -15,6 +15,7 @@
 #include <string.h>
 #include "snake.h"
 #include "tp78_via.h"
+#include "debug_log.h"
 
 #endif
 

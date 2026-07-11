@@ -326,3 +326,11 @@ You can submit you code [here](https://github.com/ChnMasterOG/tp78_v2/issues). T
         1. Add extension module(TPM) Salieri.
 
         2. Add explanations for buttons and layer switching in the "TP78v2 user guide" documentation.
+
+- V2.1.15
+
+        1. Add debug log function.
+
+        2. Add lighting affect sync function.
+
+        3. Modify some key maps.

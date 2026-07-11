@@ -10,7 +10,7 @@
 				"useLocalOpenOCD": true,
 				"executable": "d:/MounRiver/MounRiverStudio2/MounRiver_Studio2/resources/app/resources/win32/components/WCH/OpenOCD/OpenOCD/bin/openocd.exe",
 				"configOptions": [
-					"-f \"d:/MounRiver/MounRiverStudio2/MounRiver_Studio2/resources/app/resources/win32/components/WCH/OpenOCD/OpenOCD/bin/wch-riscv.cfg\" -c \"chip_id CH58x\""
+					"-f \"d:/MounRiver/MounRiverStudio2/MounRiver_Studio2/resources/app/resources/win32/components/WCH/OpenOCD/OpenOCD/bin/wch-dual-core.cfg\" -c \"chip_id CH32H417\" -c page_erase"
 				],
 				"gdbport": 3333,
 				"telnetport": 4444,
@@ -18,7 +18,7 @@
 				"host": "localhost",
 				"port": 3333,
 				"skipDownloadBeforeDebug": false,
-				"enablePageEraser": false,
+				"enablePageEraser": true,
 				"enableNoZeroWaitingAreaFlash": false
 			},
 			"gdbCfg": {

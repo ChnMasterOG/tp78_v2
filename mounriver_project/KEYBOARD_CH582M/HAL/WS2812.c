@@ -102,32 +102,17 @@ void WS2812_PWM_Init( void )
 }
 
 /*******************************************************************************
- * Function Name  : WS2812_Style_Off
- * Description    : 关闭WS2812
+ * Function Name  : LED_BYTE_To_DMA
+ * Description    : 将LED_BYTE_Buffer转换为LED_DMA_Buffer(GRB顺序)
  * Input          : None
  * Return         : None
  *******************************************************************************/
-void WS2812_Style_Off( void )
-{
-  uint16_t i;
-
-  for (i = 0; i < LED_NUMBER*24; i++) LED_DMA_Buffer[i] = TIMING_ZERO;
-}
-
-/*******************************************************************************
- * Function Name  : WS2812_Style_Normal
- * Description    : 固定WS2812亮度
- * Input          : None
- * Return         : None
- *******************************************************************************/
-void WS2812_Style_Normal( void )
+static void LED_BYTE_To_DMA( void )
 {
   uint16_t i, j, memaddr = 0;
 
   for (i = 0; i < LED_NUMBER; i++)
   {
-    LED_BYTE_Buffer[i][GREEN_INDEX] = LED_BYTE_Buffer[i][RED_INDEX] = LED_BYTE_Buffer[i][BLUE_INDEX] = g_LED_brightness;
-    /* transfer data */
     for (j = 0; j < 8; j++) // GREEN data
     {
       LED_DMA_Buffer[memaddr] = ((LED_BYTE_Buffer[i][GREEN_INDEX]<<j) & 0x0080) ? TIMING_ONE:TIMING_ZERO;
@@ -147,6 +132,44 @@ void WS2812_Style_Normal( void )
 }
 
 /*******************************************************************************
+ * Function Name  : WS2812_Style_Off
+ * Description    : 关闭WS2812
+ * Input          : None
+ * Return         : None
+ *******************************************************************************/
+void WS2812_Style_Off( void )
+{
+  uint16_t i;
+
+  for (i = 0; i < LED_NUMBER; i++)
+  {
+    LED_BYTE_Buffer[i][GREEN_INDEX] = 0;
+    LED_BYTE_Buffer[i][RED_INDEX] = 0;
+    LED_BYTE_Buffer[i][BLUE_INDEX] = 0;
+  }
+  LED_BYTE_To_DMA();
+}
+
+/*******************************************************************************
+ * Function Name  : WS2812_Style_Normal
+ * Description    : 固定WS2812亮度
+ * Input          : None
+ * Return         : None
+ *******************************************************************************/
+void WS2812_Style_Normal( void )
+{
+  uint16_t i;
+
+  for (i = 0; i < LED_NUMBER; i++)
+  {
+    LED_BYTE_Buffer[i][GREEN_INDEX] = g_LED_brightness;
+    LED_BYTE_Buffer[i][RED_INDEX] = g_LED_brightness;
+    LED_BYTE_Buffer[i][BLUE_INDEX] = g_LED_brightness;
+  }
+  LED_BYTE_To_DMA();
+}
+
+/*******************************************************************************
  * Function Name  : WS2812_Style_Breath
  * Description    : PWM驱动WS2812呼吸灯变化函数
  * Input          : None
@@ -154,27 +177,10 @@ void WS2812_Style_Normal( void )
  *******************************************************************************/
 void WS2812_Style_Breath( void )
 {
-  uint16_t i, j, memaddr = 0;
+  uint16_t i;
 
   for (i = 0; i < LED_NUMBER; i++)
   {
-    /* transfer data */
-    for (j = 0; j < 8; j++) // GREEN data
-    {
-      LED_DMA_Buffer[memaddr] = ((LED_BYTE_Buffer[i][GREEN_INDEX]<<j) & 0x0080) ? TIMING_ONE:TIMING_ZERO;
-      memaddr++;
-    }
-    for (j = 0; j < 8; j++) // RED data
-    {
-      LED_DMA_Buffer[memaddr] = ((LED_BYTE_Buffer[i][RED_INDEX]<<j) & 0x0080) ? TIMING_ONE:TIMING_ZERO;
-      memaddr++;
-    }
-    for (j = 0; j < 8; j++) // BLUE data
-    {
-      LED_DMA_Buffer[memaddr] = ((LED_BYTE_Buffer[i][BLUE_INDEX]<<j) & 0x0080) ? TIMING_ONE:TIMING_ZERO;
-      memaddr++;
-    }
-    /* change LED state */
     if (style_dir == 0) {  // 逐渐变亮 - GRB分量递增
       ++LED_BYTE_Buffer[i][GREEN_INDEX];
       ++LED_BYTE_Buffer[i][RED_INDEX];
@@ -186,6 +192,8 @@ void WS2812_Style_Breath( void )
       --LED_BYTE_Buffer[i][BLUE_INDEX];
     }
   }
+  LED_BYTE_To_DMA();
+
   if (LED_BYTE_Buffer[0][GREEN_INDEX] == g_LED_brightness || LED_BYTE_Buffer[0][GREEN_INDEX] == 0 ) {
     style_dir = !style_dir;
 #if (defined HAL_TPM) && (HAL_TPM == TRUE) && (defined HAL_HW_I2C) && (HAL_HW_I2C == TRUE)
@@ -203,7 +211,7 @@ void WS2812_Style_Breath( void )
  *******************************************************************************/
 void WS2812_Style_Waterful( void )
 {
-  uint16_t j;
+  uint16_t i;
   uint32_t slow_cnt;
 
   if (style_cnt % Waterful_Repeat_Times != 0) {  // 控制周期*Waterful_Repeat_Times = 流水灯周期
@@ -216,19 +224,24 @@ void WS2812_Style_Waterful( void )
     slow_cnt = style_cnt / Waterful_Repeat_Times;
   }
 
-  // 关闭上一个灯
-  uint32_t last_cnt = slow_cnt == 0 ? LED_NUMBER-1 : slow_cnt-1;
-  for (j = 0; j < 24; j++) {
-    LED_DMA_Buffer[(last_cnt % LED_NUMBER) * 24 + j] = TIMING_ZERO;
+  // 先关闭所有灯
+  for (i = 0; i < LED_NUMBER; i++)
+  {
+    LED_BYTE_Buffer[i][GREEN_INDEX] = 0;
+    LED_BYTE_Buffer[i][RED_INDEX] = 0;
+    LED_BYTE_Buffer[i][BLUE_INDEX] = 0;
   }
-  // 开启下一个灯
-  for (j = 0; j < 24; j++) {
-    if ( j >= slow_cnt / LED_NUMBER * 8 + 4 && j < slow_cnt / LED_NUMBER * 8 + 8 ) {
-      LED_DMA_Buffer[(slow_cnt % LED_NUMBER) * 24 + j] = TIMING_ONE;
-    } else {
-      LED_DMA_Buffer[(slow_cnt % LED_NUMBER) * 24 + j] = TIMING_ZERO;
-    }
+
+  // 开启下一个灯 - GRB轮流点亮某一分量
+  {
+    uint32_t led_idx = slow_cnt % LED_NUMBER;
+    uint32_t color_phase = slow_cnt / LED_NUMBER;
+    if (color_phase == 0) LED_BYTE_Buffer[led_idx][GREEN_INDEX] = g_LED_brightness;
+    else if (color_phase == 1) LED_BYTE_Buffer[led_idx][RED_INDEX] = g_LED_brightness;
+    else LED_BYTE_Buffer[led_idx][BLUE_INDEX] = g_LED_brightness;
   }
+  LED_BYTE_To_DMA();
+
   ++style_cnt;
   if (style_cnt >= LED_NUMBER * 3 * Waterful_Repeat_Times ) { // GRB轮流切换 + 120ms移动一个灯
     style_cnt = 0;
@@ -246,31 +259,15 @@ void WS2812_Style_Waterful( void )
  *******************************************************************************/
 void WS2812_Style_Touch( void )
 {
-  uint16_t i, j, memaddr = 0;
+  uint16_t i;
 
   for (i = 0; i < LED_NUMBER; i++)
   {
-    /* transfer data */
-    for (j = 0; j < 8; j++) // GREEN data
-    {
-      LED_DMA_Buffer[memaddr] = ((LED_BYTE_Buffer[i][GREEN_INDEX]<<j) & 0x0080) ? TIMING_ONE:TIMING_ZERO;
-      memaddr++;
-    }
-    for (j = 0; j < 8; j++) // RED data
-    {
-      LED_DMA_Buffer[memaddr] = ((LED_BYTE_Buffer[i][RED_INDEX]<<j) & 0x0080) ? TIMING_ONE:TIMING_ZERO;
-      memaddr++;
-    }
-    for (j = 0; j < 8; j++) // BLUE data
-    {
-      LED_DMA_Buffer[memaddr] = ((LED_BYTE_Buffer[i][BLUE_INDEX]<<j) & 0x0080) ? TIMING_ONE:TIMING_ZERO;
-      memaddr++;
-    }
-    /* change LED state */
     if (LED_BYTE_Buffer[i][GREEN_INDEX] > 0) --LED_BYTE_Buffer[i][GREEN_INDEX];
     if (LED_BYTE_Buffer[i][RED_INDEX] > 0) --LED_BYTE_Buffer[i][RED_INDEX];
     if (LED_BYTE_Buffer[i][BLUE_INDEX] > 0) --LED_BYTE_Buffer[i][BLUE_INDEX];
   }
+  LED_BYTE_To_DMA();
 }
 
 /*******************************************************************************
@@ -282,26 +279,9 @@ void WS2812_Style_Touch( void )
 void WS2812_Style_Rainbow( void )
 {
   signed int i;
-  uint16_t j, memaddr = 0;
 
   for (i = 0; i < LED_NUMBER; i++)
   {
-    /* transfer data */
-    for (j = 0; j < 8; j++) // GREEN data
-    {
-      LED_DMA_Buffer[memaddr] = ((LED_BYTE_Buffer[i][GREEN_INDEX]<<j) & 0x0080) ? TIMING_ONE:TIMING_ZERO;
-      memaddr++;
-    }
-    for (j = 0; j < 8; j++) // RED data
-    {
-      LED_DMA_Buffer[memaddr] = ((LED_BYTE_Buffer[i][RED_INDEX]<<j) & 0x0080) ? TIMING_ONE:TIMING_ZERO;
-      memaddr++;
-    }
-    for (j = 0; j < 8; j++) // BLUE data
-    {
-      LED_DMA_Buffer[memaddr] = ((LED_BYTE_Buffer[i][BLUE_INDEX]<<j) & 0x0080) ? TIMING_ONE:TIMING_ZERO;
-      memaddr++;
-    }
     /* 其他键盘布局需修改此处 */
     if (i >= 0 && i <= 13) { // first row - RED - 14 LED
       LED_BYTE_Buffer[i][GREEN_INDEX] = 0;
@@ -329,6 +309,8 @@ void WS2812_Style_Rainbow( void )
       LED_BYTE_Buffer[i][BLUE_INDEX] = 0;
     }
   }
+  LED_BYTE_To_DMA();
+
   if (style_dir == 0) { // 从左向右
     ++style_cnt;
   } else {  // 从右向左
@@ -351,27 +333,7 @@ void WS2812_Style_Rainbow( void )
  *******************************************************************************/
 void WS2812_Style_Custom( void )
 {
-  uint16_t i, j, memaddr = 0;
-
-  /* transfer data */
-  for (i = 0; i < LED_NUMBER; i++)
-  {
-    for (j = 0; j < 8; j++) // GREEN data
-     {
-       LED_DMA_Buffer[memaddr] = ((LED_BYTE_Buffer[i][GREEN_INDEX]<<j) & 0x0080) ? TIMING_ONE:TIMING_ZERO;
-       memaddr++;
-     }
-     for (j = 0; j < 8; j++) // RED data
-     {
-       LED_DMA_Buffer[memaddr] = ((LED_BYTE_Buffer[i][RED_INDEX]<<j) & 0x0080) ? TIMING_ONE:TIMING_ZERO;
-       memaddr++;
-     }
-     for (j = 0; j < 8; j++) // BLUE data
-     {
-       LED_DMA_Buffer[memaddr] = ((LED_BYTE_Buffer[i][BLUE_INDEX]<<j) & 0x0080) ? TIMING_ONE:TIMING_ZERO;
-       memaddr++;
-     }
-  }
+  LED_BYTE_To_DMA();
 }
 
 /*******************************************************************************

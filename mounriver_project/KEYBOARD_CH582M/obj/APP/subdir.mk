@@ -5,22 +5,26 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../APP/debug_log.c \
 ../APP/main.c \
 ../APP/snake.c \
 ../APP/tp78_via.c 
 
 C_DEPS += \
+./APP/debug_log.d \
 ./APP/main.d \
 ./APP/snake.d \
 ./APP/tp78_via.d 
 
 OBJS += \
+./APP/debug_log.o \
 ./APP/main.o \
 ./APP/snake.o \
 ./APP/tp78_via.o 
 
 
 EXPANDS += \
+./APP/debug_log.c.253r.expand \
 ./APP/main.c.253r.expand \
 ./APP/snake.c.253r.expand \
 ./APP/tp78_via.c.253r.expand 

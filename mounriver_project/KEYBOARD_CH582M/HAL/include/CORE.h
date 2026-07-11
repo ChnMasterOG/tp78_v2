@@ -29,7 +29,6 @@
   };
 
   void APPJumpKBoot(void);
-  void APPJumpBoot(void);
   void SoftReset(void);
   void TP78_TMOS_Start(void);
   void TP78_TMOS_Stop(void);

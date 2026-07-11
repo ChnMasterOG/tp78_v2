@@ -599,6 +599,7 @@ __attribute__((weak)) void HW_Battery_Process(void)
 #ifdef OLED_0_91
   if ( EnterPasskey_flag == FALSE ) {
 #endif
+    verbose_log("bat adc: %d", BAT_adcVal);
     BATTERY_DrawBMP( ); // 绘制电池
 #ifdef OLED_0_91
   }

@@ -777,7 +777,7 @@ void KEYBOARD_Detection( void )
             } else if (press_keyarr_ptr[current_row][current_colum] == KEY_Fn) {  // 功能键
                 g_keyboard_status.Fn = TRUE;
             } else if (press_keyarr_ptr[current_row][current_colum] == KEY_TP_MAP_SCROLL) {  // 小红点Y轴映射Z轴键
-                HIDMouse[2] = 0;
+                HIDMouse[2] = HIDMouse[3]= 0;
                 g_Enable_Status.tp_map_scroll = !g_Enable_Status.tp_map_scroll;
                 if (g_Enable_Status.tp_map_scroll)
                   OLED_UI_add_SHOWINFO_task("tp y->z");
@@ -788,13 +788,14 @@ void KEYBOARD_Detection( void )
                 g_keyboard_status.SP_Key = press_keyarr_ptr[current_row][current_colum] - KEY_SP_1 + 1;
                 press_Normal_Key = TRUE;
                 memcpy(KeyboardDat->data, SP_Key_Map[g_keyboard_status.SP_Key - 1], 8);
-            } else if (press_keyarr_ptr[current_row][current_colum] >= KEY_MouseL) {    // 鼠标操作
-                MouseDat->data[0] |= 1 << press_keyarr_ptr[current_row][current_colum] - KEY_MouseL;
-                press_Normal_Key = TRUE;
-                g_Ready_Status.keyboard_mouse_data = TRUE;  // 产生鼠标事件
             } else if (press_keyarr_ptr[current_row][current_colum] >= KEY_LeftCTRL) {    // Ctrl等特殊键
                 press_Normal_Key = TRUE;
                 KeyboardDat->data[0] |= 1 << (press_keyarr_ptr[current_row][current_colum] - KEY_LeftCTRL);
+            } else if (press_keyarr_ptr[current_row][current_colum] >= KEY_MouseL &&
+                       press_keyarr_ptr[current_row][current_colum] <= KEY_MouseM) {    // 鼠标操作
+                MouseDat->data[0] |= 1 << press_keyarr_ptr[current_row][current_colum] - KEY_MouseL;
+                press_Normal_Key = TRUE;
+                g_Ready_Status.keyboard_mouse_data = TRUE;  // 产生鼠标事件
             } else {
                 press_Normal_Key = TRUE;
                 if (CustomKey[current_row][current_colum] == KEY_CapsLock ) {  // CapsLock处理
@@ -829,7 +830,7 @@ void KEYBOARD_Detection( void )
             } else if (cur_key >= KEY_SP_1) {  // SP键(单键复合)
                 g_keyboard_status.SP_Key = 0;
                 memset(KeyboardDat->data, 0, HID_KEYBOARD_DATA_LENGTH);
-            } else if (cur_key >= KEY_MouseL) {    // 鼠标操作
+            } else if (cur_key >= KEY_MouseL && cur_key <= KEY_MouseM) {    // 鼠标操作
                 MouseDat->data[0] &= ~(1 << cur_key - KEY_MouseL);
                 g_Ready_Status.keyboard_mouse_data = TRUE;  // 产生鼠标事件
             } else if (CustomKey[current_row][current_colum] == KEY_CapsLock) {  // 弹起大小写键离开Extra_CustomKey层

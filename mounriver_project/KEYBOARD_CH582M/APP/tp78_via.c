@@ -10,6 +10,7 @@
 
 #include "HAL.h"
 #include "tp78_via.h"
+#include "debug_log.h"
 
 #define SP_KEY_ENCODE_ST_PRESS_0      0
 #define SP_KEY_ENCODE_ST_PRESS_1      1
@@ -264,6 +265,32 @@ static void via_custom_value_command(uint8_t *data, uint8_t len) {
           uint16_t ledstyle;
           if (*command_id == VIA_ID_CUSTOM_SET_VALUE) {
             ledstyle = data[3];
+            g_keyboard_status.changeBL = TRUE;
+            switch (ledstyle) {
+              case 0:
+                led_style_func = WS2812_Style_Custom;
+                break;
+              case 1:
+                led_style_func = WS2812_Style_Breath;
+                break;
+              case 2:
+                led_style_func = WS2812_Style_Waterful;
+                break;
+              case 3:
+                led_style_func = WS2812_Style_Touch;
+                break;
+              case 4:
+                led_style_func = WS2812_Style_Rainbow;
+                break;
+              case 5:
+                led_style_func = WS2812_Style_Normal;
+                break;
+              default:
+                break;
+            }
+#if (defined HAL_TPM) && (HAL_TPM == TRUE) && (defined HAL_HW_I2C) && (HAL_HW_I2C == TRUE)
+            TPM_notify_backlight_data(BACKLIGHT_MODE_OFF + ledstyle);
+#endif
             HAL_Fs_Write_keyboard_cfg(FS_LINE_LED_STYLE, 1, &ledstyle);
           } else {
             HAL_Fs_Read_keyboard_cfg(FS_LINE_LED_STYLE, 1, &ledstyle);
@@ -310,6 +337,11 @@ void via_data_processing(uint8_t *data, uint8_t len)
     case (uint8_t)VIA_ID_GET_PROTOCOL_VERSION:
         command_data[0] = VIA_PROTOCOL_VERSION >> 8;
         command_data[1] = VIA_PROTOCOL_VERSION & 0xFF;
+        /* reset macro key state */
+        sp_key_index = 0;
+        sp_key_normal_key_index = 0;
+        sp_key_next_direct_keycode_flag = FALSE;
+        sp_key_encode_st = SP_KEY_ENCODE_ST_PRESS_0;
         break;
     case (uint8_t)VIA_ID_GET_KEYBOARD_VALUE:
         switch (command_data[0]) {
@@ -383,6 +415,9 @@ void via_data_processing(uint8_t *data, uint8_t len)
           if (CustomKey[command_data[1]][command_data[2]] >= KEY_SP_1 && CustomKey[command_data[1]][command_data[2]] <= KEY_SP_7) {
             command_data[3] = 0x77;
             command_data[4] = CustomKey[command_data[1]][command_data[2]] - KEY_SP_1;
+          } else if (CustomKey[command_data[1]][command_data[2]] >= KEY_CUSTOM_START && CustomKey[command_data[1]][command_data[2]] <= KEY_CUSTOM_END) {
+            command_data[3] = 0x7E;
+            command_data[4] = CustomKey[command_data[1]][command_data[2]] - KEY_CUSTOM_START;
           } else {
             command_data[4] = CustomKey[command_data[1]][command_data[2]];
           }
@@ -390,6 +425,9 @@ void via_data_processing(uint8_t *data, uint8_t len)
           if (Extra_CustomKey[command_data[1]][command_data[2]] >= KEY_SP_1 && Extra_CustomKey[command_data[1]][command_data[2]] <= KEY_SP_7) {
             command_data[3] = 0x77;
             command_data[4] = Extra_CustomKey[command_data[1]][command_data[2]] - KEY_SP_1;
+          } else if (Extra_CustomKey[command_data[1]][command_data[2]] >= KEY_CUSTOM_START && Extra_CustomKey[command_data[1]][command_data[2]] <= KEY_CUSTOM_END) {
+            command_data[3] = 0x7E;
+            command_data[4] = Extra_CustomKey[command_data[1]][command_data[2]] - KEY_CUSTOM_START;
           } else {
             command_data[4] = Extra_CustomKey[command_data[1]][command_data[2]];
           }
@@ -404,14 +442,18 @@ void via_data_processing(uint8_t *data, uint8_t len)
         **************************/
         if (command_data[1] > ROW_SIZE || command_data[2] > COL_SIZE) break;
         if (command_data[0] == 0) { // layer 0
-          if (command_data[3] == 0x77)  // SP_KEY
+          if (command_data[3] == 0x77)  // MACRO KEY
             CustomKey[command_data[1]][command_data[2]] = KEY_SP_1 + command_data[4];
+          else if (command_data[3] == 0x7E)  // SPECIAL KEY
+            CustomKey[command_data[1]][command_data[2]] = KEY_CUSTOM_START + command_data[4];
           else
             CustomKey[command_data[1]][command_data[2]] = command_data[4];
           HAL_Fs_Write_keyboard_mat("0:keyboard_mat.txt", (const uint8_t*)CustomKey);
         } else {  // layer 1
           if (command_data[3] == 0x77)  // SP_KEY
             Extra_CustomKey[command_data[1]][command_data[2]] = KEY_SP_1 + command_data[4];
+          else if (command_data[3] == 0x7E)  // SPECIAL KEY
+            Extra_CustomKey[command_data[1]][command_data[2]] = KEY_CUSTOM_START + command_data[4];
           else
             Extra_CustomKey[command_data[1]][command_data[2]] = command_data[4];
           HAL_Fs_Write_keyboard_mat("0:keyboard_ext_mat.txt", (const uint8_t*)Extra_CustomKey);
@@ -425,9 +467,19 @@ void via_data_processing(uint8_t *data, uint8_t len)
         break;
     }
     case (uint8_t)VIA_ID_CUSTOM_SET_VALUE:
-    case (uint8_t)VIA_ID_CUSTOM_GET_VALUE:
-    case (uint8_t)VIA_ID_CUSTOM_SAVE: {
+    case (uint8_t)VIA_ID_CUSTOM_GET_VALUE: {
         via_custom_value_command(data, len);
+        break;
+    }
+    case (uint8_t)VIA_ID_CUSTOM_SAVE: {
+        break;
+    }
+    case (uint8_t)VIA_ID_EEPROM_RESET: {
+        KEYBOARD_Reset();
+        break;
+    }
+    case (uint8_t)VIA_ID_BOOTLOADER_JUMP: {
+        APPJumpKBoot();
         break;
     }
     case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MACRO_GET_COUNT: {
@@ -498,6 +550,9 @@ void via_data_processing(uint8_t *data, uint8_t len)
             if (keyarr_ptr[k] >= KEY_SP_1 && keyarr_ptr[k] <= KEY_SP_7) {
               command_data[j] = 0x77;
               command_data[j + 1] = keyarr_ptr[k++] - KEY_SP_1;
+            } else if (keyarr_ptr[k] >= KEY_CUSTOM_START && keyarr_ptr[k] <= KEY_CUSTOM_END) {
+              command_data[j] = 0x7E;
+              command_data[j + 1] = keyarr_ptr[k++] - KEY_CUSTOM_START;
             } else {
               command_data[j + 1] = keyarr_ptr[k++];
             }
@@ -523,8 +578,10 @@ void via_data_processing(uint8_t *data, uint8_t len)
         for (i = offset; i < offset + size; i++, j+=2) {
           if (i >= COL_SIZE * ROW_SIZE) break;
           else {
-            if (command_data[j] == 0x77)  // SP_KEY
+            if (command_data[j] == 0x77)  // MACRO KEY
               keyarr_ptr[k++] = KEY_SP_1 + command_data[j + 1];
+            else if (command_data[j] == 0x7E)  // SPECIAL KEY
+              keyarr_ptr[k++] = KEY_CUSTOM_START + command_data[j + 1];
             else
               keyarr_ptr[k++] = command_data[j + 1];
           }
@@ -629,6 +686,34 @@ void via_data_processing(uint8_t *data, uint8_t len)
     case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_GET_DIR: // unsupport magnet
     case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_MAGNET_SET_DIR: // unsupport magnet
         break;
+    case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_GET_LED_COLORS: {
+        uint8_t start_idx = command_data[0];
+        uint8_t count = command_data[1];
+        uint8_t total_leds = LED_NUMBER;
+        uint8_t i;
+        uint8_t resp_idx = 2;
+
+        if (count > 9) count = 9;
+        if (start_idx >= total_leds)
+          count = 0;
+        else if (start_idx + count > total_leds)
+          count = total_leds - start_idx;
+
+        for (i = 0; i < count; i++) {
+          uint8_t led_idx = start_idx + i;
+          if (led_idx < total_leds) {
+            command_data[resp_idx] = LED_BYTE_Buffer[led_idx][RED_INDEX];
+            command_data[resp_idx + 1] = LED_BYTE_Buffer[led_idx][GREEN_INDEX];
+            command_data[resp_idx + 2] = LED_BYTE_Buffer[led_idx][BLUE_INDEX];
+            resp_idx += 3;
+          }
+        }
+        break;
+    }
+    case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_DEBUG_GET_LOG: {
+        command_data[0] = debug_log_read_buffer(&command_data[1], len - 2);
+        break;
+    }
     default: {
         *command_id = VIA_ID_UNHANDLED;
         break;

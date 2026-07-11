@@ -122,6 +122,26 @@
     #define KEY_Cut         0x7B
     #define KEY_Copy        0x7C
     #define KEY_Paste       0x7D
+    
+    //键盘发送鼠标键
+    #define KEY_MouseStart      0xCD
+    #define KEY_MouseUp         0xCD
+    #define KEY_MouseDown       0xCE
+    #define KEY_MouseLeft       0xCF
+    #define KEY_MouseRight      0xD0
+    #define KEY_MouseL          0xD1
+    #define KEY_MouseR          0xD2
+    #define KEY_MouseM          0xD3
+    #define KEY_MouseBtn4       0xD4
+    #define KEY_MouseBtn5       0xD5
+    #define KEY_MouseBtn6       0xD6
+    #define KEY_MouseBtn7       0xD7
+    #define KEY_MouseBtn8       0xD8
+    #define KEY_MouseWhUp       0xD9
+    #define KEY_MouseWhDown     0xDA
+    #define KEY_MouseWhLeft     0xDB
+    #define KEY_MouseWhRight    0xDC
+    #define KEY_MouseEnd        0xDC
 
     //功能键
     #define KEY_LeftCTRL    0xE0
@@ -132,11 +152,6 @@
     #define KEY_RightShift  0xE5
     #define KEY_RightAlt    0xE6
     #define KEY_RightGUI    0xE7
-
-    //键盘发送鼠标键
-    #define KEY_MouseL      0xF0
-    #define KEY_MouseR      0xF1
-    #define KEY_MouseM      0xF2
 
     //复合键
     #define SP_KEY_NUMBER       7     // 复合键个数
@@ -149,7 +164,9 @@
     #define KEY_SP_7            0xF9  // 用于触摸条右滑
 
     //特殊功能键
-    #define KEY_TP_MAP_SCROLL   0xFC  // 打开小红点上下映射滚轮功能
+    #define KEY_CUSTOM_START    0xFA
+    #define KEY_TP_MAP_SCROLL   0xFA  // 打开小红点上下映射滚轮功能
+    #define KEY_CUSTOM_END      0xFE
 
     //Fn功能
     #define Fn_Mode_None                  0x00
