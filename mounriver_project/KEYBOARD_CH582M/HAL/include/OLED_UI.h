@@ -222,6 +222,7 @@
   extern const oled_ui_enter_num_structure enable_motor_en;
   extern const oled_ui_enter_num_structure auto_mouse_click_en;
   extern const oled_ui_enter_num_structure mac_mode_en;
+  extern const oled_ui_enter_num_structure tp_reverse_en;
   extern const oled_ui_execute_structure scan_tpm;
 
   void OLED_UI_ShowOK(uint8_t x, uint8_t y, uint8_t s);

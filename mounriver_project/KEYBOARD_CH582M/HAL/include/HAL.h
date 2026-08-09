@@ -231,6 +231,7 @@ typedef struct _Enable_Status_t
     uint8_t sleep : 1;
     uint8_t tp_map_scroll : 1;
     uint8_t mac_mode : 1;
+    uint8_t tp_reverse : 1;
 }Enable_Status_t;
 
 /*********************************************************************

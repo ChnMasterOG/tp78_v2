@@ -230,10 +230,10 @@ __attribute__((weak)) void HID_PS2TP_Process(void)
     TP78_Idle_Clr();
     if ( PS2_byte_cnt == 3 ) {  // 接收完数据报
       PS2_byte_cnt = 0;
-#if (defined TP_Reverse) && (TP_Reverse == TRUE)
-      HIDMouse[1] = -HIDMouse[1]; // 反转X轴
-      HIDMouse[2] = -HIDMouse[2]; // 反转Y轴
-#endif
+      if (g_Enable_Status.tp_reverse) {
+        HIDMouse[1] = -HIDMouse[1]; // 反转X轴
+        HIDMouse[2] = -HIDMouse[2]; // 反转Y轴
+      }
       /* 小红点减速 */
       tmp = (char)HIDMouse[1] / (char)g_TP_speed_div;
       if ( tmp == 0 && HIDMouse[1]!=0) HIDMouse[1] = ( HIDMouse[1] < 128) ? 1 : -1;
@@ -275,10 +275,10 @@ __attribute__((weak)) void HID_I2CTP_Process(void)
     TP78_Idle_Clr();
     tmp = I2C_TP_ReadPacket();
     if (tmp == 0) { // 正常接受完数据包
-#if (defined TP_Reverse) && (TP_Reverse == TRUE)
-      HIDMouse[1] = -HIDMouse[1]; // 反转X轴
-      HIDMouse[2] = -HIDMouse[2]; // 反转Y轴
-#endif
+      if (g_Enable_Status.tp_reverse) {
+        HIDMouse[1] = -HIDMouse[1]; // 反转X轴
+        HIDMouse[2] = -HIDMouse[2]; // 反转Y轴
+      }
       if (g_Enable_Status.tp_map_scroll) {
           HIDMouse[3] = -HIDMouse[2];  // y切换成滚轮
           HIDMouse[2] = 0;
@@ -1226,6 +1226,13 @@ void FLASH_Init(void)
 #if ((defined HAL_PS2) && (HAL_PS2 == TRUE)) || ((defined HAL_I2C_TP) && (HAL_I2C_TP == TRUE))
   HAL_Fs_Read_keyboard_cfg(FS_LINE_TP_SPEED_DIV, 1, &tmp);
   g_TP_speed_div = (tmp == 0 ? 1 : tmp);
+#if (defined TP_Reverse) && (TP_Reverse == TRUE)
+  g_Enable_Status.tp_reverse = TRUE;  // 编译期默认，兼容无此项配置的旧文件
+#else
+  g_Enable_Status.tp_reverse = FALSE;
+#endif
+  HAL_Fs_Read_keyboard_cfg(FS_LINE_TP_REVERSE, 1, &tmp);
+  if (tmp <= 1) g_Enable_Status.tp_reverse = (tmp == 1);
 #endif
 }
 

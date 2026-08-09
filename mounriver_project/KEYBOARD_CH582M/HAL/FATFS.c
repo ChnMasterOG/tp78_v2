@@ -39,6 +39,7 @@ const BYTE WriteBuffer[] = {
     "LINE20:是否使能振动(0~1)\n"
     "LINE21:自动鼠标键周期(单位25ms)\n"
     "LINE22:当前系统选择(0-Win/Linux~1/Mac)\n"
+    "LINE23:小红点翻转(0-不翻转/1-翻转)\n"
     "keyboard_spkey.txt---存放sp按键映射键位(每行8byte)\n"
     "LINE1:spKEY1的HID报表数据\n"
     "LINE2:spKEY2的HID报表数据\n"

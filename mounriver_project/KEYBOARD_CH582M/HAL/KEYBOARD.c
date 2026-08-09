@@ -101,6 +101,11 @@ void KEYBOARD_Reset( void )
                        1, LED_DEFAULT_BRIGHTNESS, 2,  // RF频率默认2.405G
                        0, 180, 240, 10, 0, 0,
                        HOST_SYS_WINDOWS_LINUX,
+#if (defined TP_Reverse) && (TP_Reverse == TRUE)
+                       TRUE,
+#else
+                       FALSE,
+#endif
   };
 
   memcpy(CustomKey, KeyArrary, COL_SIZE*ROW_SIZE);

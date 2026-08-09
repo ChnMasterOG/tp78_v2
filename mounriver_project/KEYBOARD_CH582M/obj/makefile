@@ -66,7 +66,7 @@ post-build:
 
 # Tool invocations
 BLE_CH582M.elf: $(OBJS) $(USER_OBJS)
-	@	riscv-wch-elf-gcc -mabi=ilp32 -mcmodel=medany -msmall-data-limit=8 -mno-save-restore -fmax-errors=20 -march=rv32imac_zicsr -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -g -T "e:/Project/tp78_v2/mounriver_project/KEYBOARD_CH582M/Ld/Link.ld" -nostartfiles -Xlinker --gc-sections -L"e:\Project\tp78_v2\mounriver_project\KEYBOARD_CH582M" -L"e:/Project/tp78_v2/mounriver_project/KEYBOARD_CH582M/LIB" -L"e:/Project/tp78_v2/mounriver_project/KEYBOARD_CH582M/StdPeriphDriver" -Xlinker --print-memory-usage -Xlinker --print-memory-usage -Wl,-Map,"BLE_CH582M.map" --specs=nano.specs --specs=nosys.specs -o "BLE_CH582M.elf" $(OBJS)  $(LIBS)
+	@	riscv-wch-elf-gcc -mabi=ilp32 -mcmodel=medany -msmall-data-limit=8 -mno-save-restore -fmax-errors=20 -march=rv32imac_zicsr -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -g -T "f:/keyboard/tp78_v2/mounriver_project/KEYBOARD_CH582M/Ld/Link.ld" -nostartfiles -Xlinker --gc-sections -L"f:\keyboard\tp78_v2\mounriver_project\KEYBOARD_CH582M" -L"f:/keyboard/tp78_v2/mounriver_project/KEYBOARD_CH582M/LIB" -L"f:/keyboard/tp78_v2/mounriver_project/KEYBOARD_CH582M/StdPeriphDriver" -Xlinker --print-memory-usage -Xlinker --print-memory-usage -Wl,-Map,"BLE_CH582M.map" --specs=nano.specs --specs=nosys.specs -o "BLE_CH582M.elf" $(OBJS)  $(LIBS)
 BLE_CH582M.hex: BLE_CH582M.elf
 	@	riscv-wch-elf-objcopy -O ihex "BLE_CH582M.elf" "BLE_CH582M.hex"
 BLE_CH582M.lst: BLE_CH582M.elf

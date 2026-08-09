@@ -334,3 +334,7 @@ You can submit you code [here](https://github.com/ChnMasterOG/tp78_v2/issues). T
         2. Add lighting affect sync function.
 
         3. Modify some key maps.
+
+- V2.1.16
+
+        1. Add the tp_reverse configuration.

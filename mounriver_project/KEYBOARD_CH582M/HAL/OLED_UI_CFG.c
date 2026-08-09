@@ -80,12 +80,14 @@ const oled_ui_menu_structure cfg_menu_6 = {
   .type = OLED_UI_TYPE_MENU,
   .text[0] = "auto_mouse",
   .text[1] = "mac_mode",
+  .text[2] = "tp_reverse",
   .p[0] = (uint8_t*)&auto_mouse_click_en,
   .p[1] = (uint8_t*)&mac_mode_en,
+  .p[2] = (uint8_t*)&tp_reverse_en,
   .p[3] = (uint8_t*)&main_menu,
   .p[4] = (uint8_t*)&cfg_menu_5,
   .p[5] = (uint8_t*)&cfg_menu_1,
-  .menu_size = 2,
+  .menu_size = 3,
 };
 const oled_ui_menu_structure key_status_menu_1 = {
   .type = OLED_UI_TYPE_MENU,
@@ -402,6 +404,15 @@ const oled_ui_enter_num_structure mac_mode_en = {
   .postStr = "OK",
   .pStr_len = 4,
   .line = FS_LINE_CURRENT_SYS,
+  .limit_len = 1,
+};
+const oled_ui_enter_num_structure tp_reverse_en = {
+  .type = OLED_UI_TYPE_ENTER_NUM,
+  .p = (uint8_t*)&cfg_menu_6,
+  .preStr = "val:",
+  .postStr = "OK",
+  .pStr_len = 4,
+  .line = FS_LINE_TP_REVERSE,
   .limit_len = 1,
 };
 

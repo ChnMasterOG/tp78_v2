@@ -66,7 +66,7 @@
  * 默认配置值
  */
 #ifndef FIRMWARE_VERSION
-#define FIRMWARE_VERSION            "v2_1_15"
+#define FIRMWARE_VERSION            "v2_1_16"
 #endif
 #ifndef BLE_MAC
 #define BLE_MAC                     FALSE
@@ -102,7 +102,7 @@
 #define HAL_USB                     TRUE            // USB
 #endif
 #ifndef TP_Reverse
-#define TP_Reverse                  TRUE            // 小红点是否反转
+#define TP_Reverse                  TRUE            // 小红点默认方向(出厂默认值, 可通过VIA实时切换)
 #endif
 #ifndef HAL_PS2
 #define HAL_PS2                     FALSE           // PS/2小红点

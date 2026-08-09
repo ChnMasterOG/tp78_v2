@@ -5,7 +5,7 @@
 			"type": "mrs-debugger",
 			"request": "launch",
 			"name": "BLE_CH582M",
-			"cwd": "e:\\Project\\tp78_v2\\mounriver_project\\KEYBOARD_CH582M",
+			"cwd": "f:\\keyboard\\tp78_v2\\mounriver_project\\KEYBOARD_CH582M",
 			"openOCDCfg": {
 				"useLocalOpenOCD": true,
 				"executable": "d:/MounRiver/MounRiverStudio2/MounRiver_Studio2/resources/app/resources/win32/components/WCH/OpenOCD/OpenOCD/bin/openocd.exe",
@@ -38,8 +38,8 @@
 					"additionalCommands": []
 				},
 				"loadedFiles": {
-					"executableFile": "e:\\Project\\tp78_v2\\mounriver_project\\KEYBOARD_CH582M\\obj\\BLE_CH582M.elf",
-					"symbolFile": "e:\\Project\\tp78_v2\\mounriver_project\\KEYBOARD_CH582M\\obj\\BLE_CH582M.elf",
+					"executableFile": "f:\\keyboard\\tp78_v2\\mounriver_project\\KEYBOARD_CH582M\\obj\\BLE_CH582M.elf",
+					"symbolFile": "f:\\keyboard\\tp78_v2\\mounriver_project\\KEYBOARD_CH582M\\obj\\BLE_CH582M.elf",
 					"executableFileOffset": 0,
 					"symbolFileOffset": 0
 				},
