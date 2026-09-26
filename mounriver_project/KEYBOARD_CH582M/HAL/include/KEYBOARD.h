@@ -166,6 +166,8 @@
     //特殊功能键
     #define KEY_CUSTOM_START    0xFA
     #define KEY_TP_MAP_SCROLL   0xFA  // 打开小红点上下映射滚轮功能
+    #define KEY_VolumeUp        0xFB  // 音量加(单键触发)
+    #define KEY_VolumeDown      0xFC  // 音量减(单键触发)
     #define KEY_CUSTOM_END      0xFE
 
     //Fn功能

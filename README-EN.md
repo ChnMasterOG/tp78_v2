@@ -338,3 +338,9 @@ You can submit you code [here](https://github.com/ChnMasterOG/tp78_v2/issues). T
 - V2.1.16
 
         1. Add the tp_reverse configuration.
+
+- V2.1.17
+
+        1. Add VIA scheduling keyboard HID interface.
+
+        2. Add compatibility with VIA volume up and volume down buttons.

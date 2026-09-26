@@ -100,6 +100,7 @@ typedef union {
 #define MPR121_EVENT                        0x0080
 #define MOTOR_STOP_EVENT                    0x0200
 #define TPM_EVENT                           0x0400
+#define HAL_VIA_HID_EVENT                   0x0800
 //#define LED_BLINK_EVENT                     0x1000
 //#define KEY_EVENT                           0x2000
 #define HAL_REG_INIT_EVENT                  0x1000

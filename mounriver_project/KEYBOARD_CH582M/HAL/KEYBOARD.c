@@ -789,6 +789,12 @@ void KEYBOARD_Detection( void )
                 else
                   OLED_UI_add_SHOWINFO_task("tp z->y");
                 OLED_UI_add_CANCELINFO_delay_task(1500);
+            } else if (press_keyarr_ptr[current_row][current_colum] == KEY_VolumeUp) {  // 音量加
+                HIDVolume[0] |= Volume_Incr;
+                HID_VOL_Process();
+            } else if (press_keyarr_ptr[current_row][current_colum] == KEY_VolumeDown) {  // 音量减
+                HIDVolume[0] |= Volume_Decr;
+                HID_VOL_Process();
             } else if (press_keyarr_ptr[current_row][current_colum] >= KEY_SP_1) {  // SP键(单键复合)
                 g_keyboard_status.SP_Key = press_keyarr_ptr[current_row][current_colum] - KEY_SP_1 + 1;
                 press_Normal_Key = TRUE;
@@ -832,6 +838,12 @@ void KEYBOARD_Detection( void )
 
             if (cur_key == KEY_Fn) {  // 功能键
                 g_keyboard_status.Fn = FALSE;
+            } else if (cur_key == KEY_VolumeUp) {  // 音量加松开
+                HIDVolume[0] &= ~Volume_Incr;
+                HID_VOL_Process();
+            } else if (cur_key == KEY_VolumeDown) {  // 音量减松开
+                HIDVolume[0] &= ~Volume_Decr;
+                HID_VOL_Process();
             } else if (cur_key >= KEY_SP_1) {  // SP键(单键复合)
                 g_keyboard_status.SP_Key = 0;
                 memset(KeyboardDat->data, 0, HID_KEYBOARD_DATA_LENGTH);

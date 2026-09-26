@@ -53,6 +53,7 @@ typedef enum {
   VIA_ID_DYNAMIC_KEYMAP_GET_LED_COLORS = 0x31,
   VIA_ID_DYNAMIC_KEYMAP_DEBUG_GET_LOG = 0x34,
   VIA_ID_DYNAMIC_KEYMAP_GET_ENCODER_ANGLE = 0x51,
+  VIA_ID_DYNAMIC_KEYMAP_SEND_HID = 0x81,
   VIA_ID_UNHANDLED = 0xFF,
 }via_command_id;
 
@@ -97,5 +98,6 @@ typedef enum {
 }via_audio_value;
 
 void via_data_processing(uint8_t *data, uint8_t len);
+void via_hid_event_process(void);
 
 #endif

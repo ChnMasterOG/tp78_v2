@@ -145,6 +145,7 @@ uint8_t OnBoard_SendMsg(uint8_t registeredTaskID, uint8 event, uint8 state, void
 __attribute__((weak)) void HID_KEYBOARD_Process(void)
 {
   uint8_t res;
+
   KEYBOARD_Detection();
   if ( g_Enable_Status.rf == TRUE ) {  // RF心跳包
     OnBoard_SendMsg(RFTaskId, HEARTBEAT_MESSAGE, 1, NULL);  // RF心跳包事件
@@ -914,6 +915,7 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
   // 键盘处理事件
   if ( events & HAL_KEYBOARD_EVENT )
   {
+#ifndef TEST_EVB
     if ( g_Enable_Status.paintedegg == FALSE ) {
 #if (defined HAL_KEYBOARD) && (HAL_KEYBOARD == TRUE)
       HID_KEYBOARD_Process();
@@ -923,12 +925,20 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
       SW_PaintedEgg_Process();
 #endif
     }
+#endif
     if (g_Game_Mode == TRUE) {
       tmos_start_task( halTaskID, HAL_KEYBOARD_EVENT, 1 ); // 处理键盘加速 - 0.625ms
     } else {
       tmos_start_task( halTaskID, HAL_KEYBOARD_EVENT, MS1_TO_SYSTEM_TIME(5) ); // 处理键盘
     }
     return events ^ HAL_KEYBOARD_EVENT;
+  }
+
+  // VIA HID转发事件
+  if ( events & HAL_VIA_HID_EVENT )
+  {
+    via_hid_event_process();
+    return events ^ HAL_VIA_HID_EVENT;
   }
 
   // MPR121事件
@@ -946,6 +956,7 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
       MPR121_update_data();
     }
 #endif
+#ifndef TEST_EVB
 #if (defined HAL_MPR121_TOUCHBAR) && (HAL_MPR121_TOUCHBAR == TRUE)
     if (collect_cnt == 0) {
       if (g_keyboard_status.enter_cfg == FALSE) {  // 配置参数模式不进行touchbar判断
@@ -967,6 +978,7 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
 #if ((defined HAL_MPR121_CAPMOUSE) && (HAL_MPR121_CAPMOUSE == TRUE)) || ((defined HAL_MPR121_TOUCHBAR) && (HAL_MPR121_TOUCHBAR == TRUE))
     HW_TouchBar_Process();
 #endif
+#endif
     if (g_Game_Mode == FALSE) {
       tmos_start_task( halTaskID, MPR121_EVENT, MS1_TO_SYSTEM_TIME(MPR121_TASK_PERIOD) ); // (MPR121_TASK_PERIOD)ms控制周期
     }
@@ -976,6 +988,7 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
   // 鼠标处理事件
   if ( events & HAL_MOUSE_EVENT )
   {
+#ifndef TEST_EVB
 #if ((defined HAL_PS2) && (HAL_PS2 == TRUE)) || ((defined HAL_I2C_TP) && (HAL_I2C_TP == TRUE)) || ((defined HAL_MPR121_CAPMOUSE) && (HAL_MPR121_CAPMOUSE == TRUE))
 #if (defined HAL_PS2) && (HAL_PS2 == TRUE)
     HID_PS2TP_Process();
@@ -983,6 +996,7 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
     HID_I2CTP_Process();
 #else  // default MPR121 cap mouse
     HID_CapMouse_Process();
+#endif
 #endif
 #endif
     if (g_Game_Mode == FALSE) {
@@ -1021,6 +1035,7 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
       }
       goto MAIN_CIRCULATION_EVENT_out;
     }
+#ifndef TEST_EVB
     if (idle_cnt == idle_max_period) {  // 进入idle
 #if (defined HAL_OLED) && (HAL_OLED == TRUE)
       OLED_UI_idle(1);
@@ -1041,6 +1056,7 @@ tmosEvents HAL_ProcessEvent( tmosTaskID task_id, tmosEvents events )
 #endif
       GotoLowpower(g_lp_type);
     }
+#endif
     // OLED信息更新处理
 #if (defined HAL_OLED) && (HAL_OLED == TRUE)
     SW_OLED_ConnectionStatus_Process();

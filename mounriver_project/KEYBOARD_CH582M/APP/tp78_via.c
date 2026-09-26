@@ -57,6 +57,9 @@ const uint8_t keycode_to_ascii[256] = {
 /* for test mode */
 static uint16_t test_value1 = 50, test_value2 = 30;
 
+/* SEND_HID待转发的报文类型(0表示无)，在USB中断中写入，由HAL任务发送 */
+static volatile uint8_t via_hid_message = 0;
+
 /*******************************************************************************
  * Function Name  : via_MACRO_buffer_encode
  * Description    : SP_KEY格式转换为via MACRO格式
@@ -315,9 +318,67 @@ static void via_custom_value_command(uint8_t *data, uint8_t len) {
       }
       break;
     }
+    case 2: { // TrackPoint
+      switch (*command_value) {
+        case 1: { // id_TP_Reverse
+          uint16_t tp_reverse;
+          if (*command_id == VIA_ID_CUSTOM_SET_VALUE) {
+            tp_reverse = data[3];
+            g_Enable_Status.tp_reverse = (tp_reverse == 0 ? FALSE : TRUE);
+            HAL_Fs_Write_keyboard_cfg(FS_LINE_TP_REVERSE, 1, &tp_reverse);
+          } else {
+            HAL_Fs_Read_keyboard_cfg(FS_LINE_TP_REVERSE, 1, &tp_reverse);
+            data[3] = (uint8_t)tp_reverse;
+          }
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+      break;
+    }
     default: {
       break;
     }
+  }
+}
+
+/*******************************************************************************
+ * Function Name  : via_forward_hid
+ * Description    : 按当前工作模式将待转发报文投递到对应的HID任务
+ * Input          : message - KEY_MESSAGE/MOUSE_MESSAGE/VOL_MESSAGE/SWITCH_MESSAGE
+ * Return         : None
+ *******************************************************************************/
+static void via_forward_hid(uint8_t message)
+{
+  if ( g_Enable_Status.usb == TRUE ) {
+    OnBoard_SendMsg(usbTaskID, message, 1, NULL);  // USB事件
+  } else if ( g_Enable_Status.ble == TRUE && g_Ready_Status.ble == TRUE ) {
+    OnBoard_SendMsg(hidEmuTaskId, message, 1, NULL);  // 蓝牙事件
+  } else if ( g_Enable_Status.rf == TRUE && g_Ready_Status.rf == TRUE ) {
+    OnBoard_SendMsg(RFTaskId, message, 1, NULL);  // RF事件
+  } else if ( g_Enable_Status.usb_ble == TRUE ) { // 共存模式
+    if ( g_Ready_Status.usb_ble == TRUE ) {
+      OnBoard_SendMsg(usbTaskID, message, 1, NULL);  // USB事件
+    } else {
+      OnBoard_SendMsg(hidEmuTaskId, message, 1, NULL);  // 蓝牙事件
+    }
+  }
+}
+
+/*******************************************************************************
+ * Function Name  : via_hid_event_process
+ * Description    : 在HAL任务中转发SEND_HID收到的报文
+ * Input          : 无
+ * Return         : 无
+ *******************************************************************************/
+void via_hid_event_process(void)
+{
+  uint8_t message = via_hid_message;
+  via_hid_message = 0;
+  if ( message != 0 ) {
+    via_forward_hid(message);
   }
 }
 
@@ -712,6 +773,51 @@ void via_data_processing(uint8_t *data, uint8_t len)
     }
     case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_DEBUG_GET_LOG: {
         command_data[0] = debug_log_read_buffer(&command_data[1], len - 2);
+        break;
+    }
+    case (uint8_t)VIA_ID_DYNAMIC_KEYMAP_SEND_HID: {
+        /********* format *********
+          command_data[0] = report id (RID_KEYBOARD/RID_MOUSE/RID_CONSUMER_CONTROL/RID_DIAL)
+          keyboard: command_data[1] = special_key, command_data[2] = reserved,
+                    command_data[3..8] = key[0..5]
+          mouse:    command_data[1] = button, command_data[2..4] = x, y, z
+          consumer: command_data[1] = mode
+          dial:     command_data[1..2] = angle_data
+        **************************/
+        switch (command_data[0]) {
+          case RID_KEYBOARD: {
+              HIDKeyboard[0] = command_data[1];
+              HIDKeyboard[1] = command_data[2];
+              memcpy(&HIDKeyboard[2], &command_data[3], 6);
+              via_hid_message = KEY_MESSAGE;
+              break;
+          }
+          case RID_MOUSE: {
+              HIDMouse[0] = command_data[1];
+              HIDMouse[1] = command_data[2];
+              HIDMouse[2] = command_data[3];
+              HIDMouse[3] = command_data[4];
+              via_hid_message = MOUSE_MESSAGE;
+              break;
+          }
+          case RID_CONSUMER_CONTROL: {
+              HIDVolume[0] = command_data[1];
+              via_hid_message = VOL_MESSAGE;
+              break;
+          }
+          case RID_DIAL: {
+              HIDSwitch[0] = command_data[1];
+              HIDSwitch[1] = command_data[2];
+              via_hid_message = SWITCH_MESSAGE;
+              break;
+          }
+          default: {
+              break;
+          }
+        }
+        if ( via_hid_message != 0 ) {
+          tmos_set_event(halTaskID, HAL_VIA_HID_EVENT);  // 交由HAL任务发送
+        }
         break;
     }
     default: {
